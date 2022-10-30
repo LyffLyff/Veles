@@ -77,7 +77,6 @@ func MoveArtistFrom(var OldArtistIdx : int, var NewIdx : int) -> void:
 		SongLists.Artists.insert(NewIdx,Artists)
 	else:
 		SongLists.Artists.push_back(Artists)
-	print("NEW ORDER: ",SongLists.Artists)
 
 
 func CombineArtists(var OldArtistIdx : int, var NewIdx : int) -> void:

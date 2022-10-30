@@ -245,7 +245,6 @@ func ExportToLRC() -> void:
 func _on_PasteFromClipboard_pressed():
 	#pastes a text from the clipboard and puts each line (divided by newline) in a new verse
 	var clipboard_text : PoolStringArray = OS.get_clipboard().split("\n")
-	print(clipboard_text)
 	for i in clipboard_text.size():
 		OnAddVersePressed()
 		VerseVBox.get_child( VerseVBox.get_child_count() - 1 ).VerseText.text = clipboard_text[i]

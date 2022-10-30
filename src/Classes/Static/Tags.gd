@@ -104,8 +104,6 @@ static func SetCoverDescription(var SrcPath : String, var NewCoverDescription : 
 
 #Lyrics
 static func SetLyrics(var SrcPaths : PoolStringArray,var IsSynchronized : bool, var Verses : PoolStringArray, var TimeStampsInSeconds : PoolRealArray) -> void:
-	print(Verses)
-	print(SrcPaths)
 	#Timestamps MUST be in absolute milliseconds -> specification of the Frame
 	#Timestamps get converted to Milliseconds since Veles works with seconds
 	var TimestampInAbsoluteMilliSeconds : PoolIntArray = []

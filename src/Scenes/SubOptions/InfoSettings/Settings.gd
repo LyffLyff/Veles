@@ -95,7 +95,6 @@ func OnColorChangerFreed() -> void:
 	if ChangingStyleBox:
 		SettingsData.SetSetting(SettingsData.DESIGN_SETTINGS, SettingsKey, ChangingStyleBox.get(StyleBoxProperty) )
 	else:
-		print(SettingsKey)
 		SettingsData.SetSetting(SettingsData.DESIGN_SETTINGS, SettingsKey, PickerColor)
 	PickerColor = null
 	DesignSetter = null
