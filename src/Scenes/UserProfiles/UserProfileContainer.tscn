@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/UserProfiles/UserProfileContainer.gd" type="Script" id=2]
+
+[node name="UserProfileContainer" type="Button"]
+anchor_right = 0.134
+anchor_bottom = 0.375
+margin_right = -110.08
+margin_bottom = -185.0
+rect_min_size = Vector2( 150, 225 )
+mouse_default_cursor_shape = 2
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 150.0
+margin_bottom = 225.0
+
+[node name="ProfileImage" type="TextureRect" parent="VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 0, 140 )
+size_flags_horizontal = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 7
+
+[node name="Username" type="Label" parent="VBoxContainer"]
+margin_top = 178.0
+margin_right = 150.0
+margin_bottom = 194.0
+size_flags_vertical = 6
+text = "Username"
+align = 1
+valign = 1
+
+[connection signal="gui_input" from="." to="." method="OnUserProfileContainerGUIInput"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://src/Assets/RotaryButtons/RotaryButton256x256.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/RotaryButtonTexture.gd" type="Script" id=2]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/RotaryButton.gd" type="Script" id=3]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/RotaryEdit.gd" type="Script" id=4]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/RotaryButtonSprite.gd" type="Script" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.180392, 0.180392, 0.180392, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[node name="RotaryButton" type="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 82.0
+mouse_filter = 2
+size_flags_horizontal = 7
+size_flags_vertical = 7
+script = ExtResource( 3 )
+
+[node name="Title" type="Label" parent="."]
+margin_right = 72.0
+margin_bottom = 16.0
+text = "Text"
+align = 1
+autowrap = true
+
+[node name="RotaryButton" type="Button" parent="."]
+margin_top = 24.0
+margin_right = 72.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 40, 40 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 7
+size_flags_vertical = 7
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/disabled = SubResource( 7 )
+custom_styles/normal = SubResource( 8 )
+script = ExtResource( 2 )
+
+[node name="RotaryButtonSprite" type="Sprite" parent="RotaryButton"]
+texture = ExtResource( 1 )
+script = ExtResource( 5 )
+
+[node name="RotaryEdit" type="LineEdit" parent="."]
+margin_top = 72.0
+margin_right = 72.0
+margin_bottom = 88.0
+size_flags_horizontal = 4
+size_flags_vertical = 5
+custom_styles/read_only = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
+align = 1
+script = ExtResource( 4 )
+
+[connection signal="button_down" from="RotaryButton" to="RotaryButton" method="OnRotaryButtonButtonDown"]
+[connection signal="button_up" from="RotaryButton" to="RotaryButton" method="OnRotaryButtonButtonUp"]
+[connection signal="item_rect_changed" from="RotaryButton" to="RotaryButton" method="OnRotaryButtonItemRectChanged"]
+[connection signal="text_entered" from="RotaryEdit" to="." method="OnRotaryEditTextEntered"]

@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://src/Ressources/Shaders/TileShader.gdshader" type="Shader" id=1]
+[ext_resource path="res://src/Assets/Icons/White/Audio/OuputDevice/cassette tape_72px.png" type="Texture" id=2]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/tile_factor = 2.693
+shader_param/tile_offset = Vector2( 0, 0 )
+shader_param/transparency = 1.0
+shader_param/pattern = ExtResource( 2 )

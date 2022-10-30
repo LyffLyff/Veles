@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/OptionTypes/GeneralSettings.gd" type="Script" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/SingleSetting.tscn" type="PackedScene" id=2]
+
+[node name="GeneralSettings" type="HBoxContainer"]
+margin_top = 48.0
+margin_right = 1120.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1102.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+SettingTypeIdx = 0
+
+[node name="BackgroundTransparency" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1102.0
+margin_bottom = 16.0
+SettingType = "Options"
+SettingLabel = "Transparent Background"
+NormalSettingKey = "TransparentBackground"
+Items = PoolStringArray( "Off", "On" )
+
+[node name="BorderlessWindow" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 24.0
+margin_right = 1102.0
+margin_bottom = 40.0
+SettingType = "ProjectSettings"
+SettingLabel = "Custom Windowbar"
+NormalSettingKey = "TransparentBackground"
+Items = PoolStringArray( "Off", "On" )
+ProjectSettingOptions = [ false, true ]
+PropertySection = "display"
+PropertyKey = "window/size/borderless"
+
+[node name="RightEmpty" type="Control" parent="."]
+margin_left = 1110.0
+margin_right = 1120.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
+size_flags_vertical = 3

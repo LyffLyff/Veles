@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/Tagging/GenreSelection.gd" type="Script" id=1]
+
+[node name="GenreSelection" type="HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 27 )
+
+[node name="Label" type="Label" parent="."]
+margin_top = 11.0
+margin_right = 139.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 139, 0 )
+text = "Genre:"
+align = 1
+valign = 1
+
+[node name="GenreSelection" type="MenuButton" parent="."]
+margin_left = 143.0
+margin_right = 143.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )

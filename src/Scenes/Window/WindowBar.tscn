@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/Assets/Icons/White/WindowBar/zom in_72px.png" type="Texture" id=1]
+[ext_resource path="res://src/Assets/Icons/White/WindowBar/cross.png" type="Texture" id=2]
+[ext_resource path="res://src/Assets/Icons/White/WindowBar/remove_72px.png" type="Texture" id=3]
+[ext_resource path="res://src/Scenes/Window/WindowBar.gd" type="Script" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="WindowBar" type="PanelContainer"]
+margin_right = 1120.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 0, 21 )
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 4 )
+
+[node name="Title" type="HBoxContainer" parent="."]
+margin_right = 1120.0
+margin_bottom = 21.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftEmpty" type="Control" parent="Title"]
+margin_right = 498.0
+margin_bottom = 21.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Creator" type="Label" parent="Title"]
+margin_left = 506.0
+margin_top = 2.0
+margin_right = 613.0
+margin_bottom = 18.0
+text = "Veles  Beta v1.0.0"
+align = 1
+valign = 1
+
+[node name="RightBuffer" type="Control" parent="Title"]
+margin_left = 621.0
+margin_right = 1120.0
+margin_bottom = 21.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Options" type="HBoxContainer" parent="."]
+margin_right = 1120.0
+margin_bottom = 21.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="LeftEmpty" type="Control" parent="Options"]
+margin_right = 1015.0
+margin_bottom = 21.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Minimize" type="TextureButton" parent="Options"]
+margin_left = 1015.0
+margin_right = 1050.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 35, 0 )
+size_flags_vertical = 3
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="Maximise" type="TextureButton" parent="Options"]
+margin_left = 1050.0
+margin_right = 1085.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 35, 0 )
+size_flags_vertical = 3
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="Quit" type="TextureButton" parent="Options"]
+margin_left = 1085.0
+margin_right = 1120.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 35, 0 )
+size_flags_vertical = 3
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[connection signal="gui_input" from="." to="." method="_on_WindowBar_gui_input"]
+[connection signal="pressed" from="Options/Minimize" to="." method="_on_Minimize_pressed"]
+[connection signal="pressed" from="Options/Maximise" to="." method="_on_Maximise_pressed"]
+[connection signal="pressed" from="Options/Quit" to="." method="_on_Quit_pressed"]

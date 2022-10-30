@@ -1,0 +1,107 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/SingleEffects/Reverb.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/AudioEffects.gd" type="Script" id=2]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/SingleEffects/StereoEnhance.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/SingleEffects/PitchShift.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/EffectsMainHeader.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/EffectBackground.gd" type="Script" id=6]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/SingleEffects/Pan.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/SingleEffects/EQ6.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/SingleEffects/EQ21.tscn" type="PackedScene" id=9]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.156863, 0.156863, 0.156863, 0.596078 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 2.0
+expand_margin_bottom = 2.0
+
+[node name="NewAudioEffects" type="PanelContainer"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 11
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 2 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_right = 1120.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EffectBackground" type="PanelContainer" parent="ScrollContainer"]
+margin_top = 600.0
+margin_right = 1120.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 10
+custom_styles/panel = SubResource( 3 )
+script = ExtResource( 6 )
+
+[node name="Effects" type="VBoxContainer" parent="ScrollContainer/EffectBackground"]
+margin_right = 1120.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+alignment = 2
+
+[node name="EffectsMainHeader" parent="ScrollContainer/EffectBackground/Effects" instance=ExtResource( 5 )]
+visible = false
+margin_bottom = 52.0
+
+[node name="Reverb" parent="ScrollContainer/EffectBackground/Effects" instance=ExtResource( 1 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1120.0
+margin_bottom = 42.0
+
+[node name="StereoEnhance" parent="ScrollContainer/EffectBackground/Effects" instance=ExtResource( 3 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 87.0
+margin_right = 1120.0
+margin_bottom = 129.0
+
+[node name="PitchShift" parent="ScrollContainer/EffectBackground/Effects" instance=ExtResource( 4 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 129.0
+margin_right = 1120.0
+margin_bottom = 171.0
+
+[node name="Pan" parent="ScrollContainer/EffectBackground/Effects" instance=ExtResource( 7 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 171.0
+margin_right = 1120.0
+margin_bottom = 213.0
+
+[node name="EQ6" parent="ScrollContainer/EffectBackground/Effects" instance=ExtResource( 8 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 213.0
+margin_right = 1120.0
+margin_bottom = 255.0
+
+[node name="EQ21" parent="ScrollContainer/EffectBackground/Effects" instance=ExtResource( 9 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 255.0
+margin_right = 1120.0
+margin_bottom = 297.0

@@ -1,0 +1,172 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/Themes/Buttons/ClearButtons.tres" type="Theme" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/NewSettings.gd" type="Script" id=2]
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/OptionSelect.gd" type="Script" id=3]
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/Settings.gd" type="Script" id=4]
+[ext_resource path="res://src/Themes/VSeparators/StdVSeparator.tres" type="StyleBox" id=5]
+[ext_resource path="res://src/Themes/HSeparators/StdHSeparator.tres" type="StyleBox" id=6]
+[ext_resource path="res://src/Ressources/Fonts/MidSizedHeader.tres" type="DynamicFont" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="Animation" id=2]
+resource_name = "InfoInOut"
+length = 0.25
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/Settings/VBoxContainer:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="NewSettings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+margin_right = 1120.0
+margin_bottom = 5.0
+custom_constants/separation = 5
+custom_styles/separator = SubResource( 4 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 13.0
+margin_right = 1120.0
+margin_bottom = 53.0
+
+[node name="LeftEmpty" type="Control" parent="VBoxContainer/HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+
+[node name="OptionSelect" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+margin_left = 18.0
+margin_right = 1102.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+custom_constants/separation = 0
+alignment = 1
+script = ExtResource( 3 )
+
+[node name="General" type="Button" parent="VBoxContainer/HBoxContainer/OptionSelect"]
+margin_right = 216.0
+margin_bottom = 40.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "General"
+
+[node name="Songs" type="Button" parent="VBoxContainer/HBoxContainer/OptionSelect"]
+margin_left = 216.0
+margin_right = 433.0
+margin_bottom = 40.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Songs"
+
+[node name="Playlists_Album" type="Button" parent="VBoxContainer/HBoxContainer/OptionSelect"]
+margin_left = 433.0
+margin_right = 650.0
+margin_bottom = 40.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Playlist/Albums"
+
+[node name="Design" type="Button" parent="VBoxContainer/HBoxContainer/OptionSelect"]
+margin_left = 650.0
+margin_right = 867.0
+margin_bottom = 40.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Design"
+
+[node name="Statistics" type="Button" parent="VBoxContainer/HBoxContainer/OptionSelect"]
+margin_left = 867.0
+margin_right = 1084.0
+margin_bottom = 40.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Statistics"
+
+[node name="RightEmpty" type="Control" parent="VBoxContainer/HBoxContainer"]
+margin_left = 1110.0
+margin_right = 1120.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 61.0
+margin_right = 1120.0
+margin_bottom = 71.0
+custom_constants/separation = 10
+custom_styles/separator = ExtResource( 6 )
+
+[node name="Settings" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 79.0
+margin_right = 1120.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 4 )
+
+[node name="Select" type="ScrollContainer" parent="VBoxContainer/Settings"]
+margin_right = 548.0
+margin_bottom = 521.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Settings"]
+margin_left = 556.0
+margin_right = 564.0
+margin_bottom = 521.0
+custom_styles/separator = ExtResource( 5 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Settings"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 572.0
+margin_right = 1120.0
+margin_bottom = 521.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InfoTitle" type="Label" parent="VBoxContainer/Settings/VBoxContainer"]
+margin_right = 548.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 7 )
+text = "Setting Title"
+valign = 1
+autowrap = true
+
+[node name="Info" type="RichTextLabel" parent="VBoxContainer/Settings/VBoxContainer"]
+margin_top = 39.0
+margin_right = 548.0
+margin_bottom = 521.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[node name="SettingAnimations" type="AnimationPlayer" parent="VBoxContainer/Settings"]
+root_node = NodePath("../../..")
+anims/InfoInOut = SubResource( 2 )

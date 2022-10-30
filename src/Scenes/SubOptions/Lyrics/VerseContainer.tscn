@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Ressources/Fonts/Lyrics.tres" type="DynamicFont" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float divide = 0.5;
+uniform float blur = 0.1;
+
+void fragment(){
+    COLOR.w = smoothstep(divide, divide+blur, UV.y);
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/divide = 0.1
+shader_param/blur = 0.1
+
+[node name="VBoxContainer" type="HBoxContainer"]
+material = SubResource( 2 )
+margin_right = 1134.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+
+[node name="Verse" type="Label" parent="."]
+margin_top = 292.0
+margin_right = 1026.0
+margin_bottom = 308.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+autowrap = true
+
+[node name="Timestamp" type="Label" parent="."]
+margin_left = 1034.0
+margin_right = 1134.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 1 )
+align = 1

@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Assets/Icons/White/General/Pointers/down pointer_72px.png" type="Texture" id=1]
+[ext_resource path="res://src/Assets/Icons/White/General/Pointers/up pointer_72px.png" type="Texture" id=2]
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsEditor/VerseContainer.gd" type="Script" id=3]
+
+[node name="VerseContainer" type="MarginContainer"]
+margin_right = 1120.0
+margin_bottom = 34.0
+script = ExtResource( 3 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 1120.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="VerseText" type="TextEdit" parent="HBoxContainer"]
+margin_right = 1062.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 0, 25 )
+size_flags_horizontal = 3
+virtual_keyboard_enabled = false
+wrap_enabled = true
+
+[node name="MovingUpDown" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 1070.0
+margin_right = 1120.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 20, 0 )
+size_flags_vertical = 3
+
+[node name="Up" type="TextureButton" parent="HBoxContainer/MovingUpDown"]
+margin_right = 50.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 50, 15 )
+size_flags_horizontal = 3
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Down" type="TextureButton" parent="HBoxContainer/MovingUpDown"]
+margin_top = 23.0
+margin_right = 50.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 50, 15 )
+size_flags_horizontal = 3
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[connection signal="item_rect_changed" from="." to="." method="_on_VerseContainer_item_rect_changed"]
+[connection signal="text_changed" from="HBoxContainer/VerseText" to="." method="OnVerseTextChanged"]
+[connection signal="pressed" from="HBoxContainer/MovingUpDown/Up" to="." method="OnUpPressed"]
+[connection signal="pressed" from="HBoxContainer/MovingUpDown/Down" to="." method="onDownPressed"]

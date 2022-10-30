@@ -1,0 +1,25 @@
+extends "res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/GeneralPlaylistOptions.gd"
+
+
+#NODES
+onready var PlaylistCover : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/SetPlaylistCover
+onready var QueuePlaylist : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/QueuePlaylist
+onready var DeletePlaylist : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/DeletePlaylist
+onready var ExportPlaylist : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Export
+onready var Rename : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Rename
+onready var Return : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Return
+onready var Close : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Close
+
+
+func ConnectOptionSignals() -> void:
+	var _err = Return.connect("pressed",self.get_owner(),"UnloadPlaylist")
+	_err = PlaylistCover.connect("pressed",self.get_owner(),"OnSetCoverPressed")
+	
+	#Queueing Playlist
+	_err = QueuePlaylist.connect("pressed",self.get_owner(),"OnQueuePlaylistPressed")
+	_err = QueuePlaylist.connect("pressed",self.get_owner(),"UnloadPlaylistOptions")
+	
+	_err = ExportPlaylist.connect("pressed",self.get_owner(),"ExportPlaylist")
+	_err = Rename.connect("pressed", self.get_owner(), "RenamePlaylist")
+	_err = DeletePlaylist.connect("pressed",self.get_owner(),"OnDeletePressed")
+	_err = Close.connect("pressed",self,"UnloadPlaylistOptions")

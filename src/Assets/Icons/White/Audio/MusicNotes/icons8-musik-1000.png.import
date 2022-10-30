@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/icons8-musik-1000.png-cefc009ad68e43f07576e24e36946784.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png"
+dest_files=[ "res://.import/icons8-musik-1000.png-cefc009ad68e43f07576e24e36946784.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=true
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=true
+svg/scale=1.0

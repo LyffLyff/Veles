@@ -1,0 +1,136 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Scenes/Song/SongOptions/Main/SongOptionsMain.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+shadow_size = 1
+
+[node name="MainSongOptions" type="VBoxContainer"]
+margin_right = 200.0
+margin_bottom = 250.0
+custom_constants/separation = 0
+script = ExtResource( 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_right = 200.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 200, 250 )
+mouse_filter = 2
+custom_styles/panel = SubResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+margin_right = 200.0
+margin_bottom = 250.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftEmpty" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_right = 5.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+margin_left = 13.0
+margin_right = 187.0
+margin_bottom = 250.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 2
+
+[node name="TopEmpty" type="Control" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_right = 174.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+mouse_filter = 2
+
+[node name="AddToPlaylist" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 12.0
+margin_right = 174.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 0, 25 )
+mouse_default_cursor_shape = 2
+text = "Add To Playlist"
+
+[node name="ChangeTag" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 39.0
+margin_right = 174.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 25 )
+mouse_default_cursor_shape = 2
+text = "Change Tag"
+
+[node name="ShowInFilesystem" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 66.0
+margin_right = 174.0
+margin_bottom = 91.0
+rect_min_size = Vector2( 0, 25 )
+mouse_default_cursor_shape = 2
+text = "Show in Filesystem"
+
+[node name="ShowCoverInFilesystem" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 93.0
+margin_right = 174.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 0, 25 )
+mouse_default_cursor_shape = 2
+text = "Show Song Cover"
+
+[node name="QueueSong" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 120.0
+margin_right = 174.0
+margin_bottom = 145.0
+rect_min_size = Vector2( 0, 25 )
+mouse_default_cursor_shape = 2
+text = "Queue Song"
+
+[node name="ExtractCurrentCover" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 147.0
+margin_right = 174.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 0, 25 )
+mouse_default_cursor_shape = 2
+text = "Extract Cover"
+
+[node name="Close" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 174.0
+margin_right = 174.0
+margin_bottom = 199.0
+rect_min_size = Vector2( 0, 25 )
+mouse_default_cursor_shape = 2
+text = "Close"
+
+[node name="RemoveFromPlaylist" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 201.0
+margin_right = 174.0
+margin_bottom = 226.0
+rect_min_size = Vector2( 0, 25 )
+mouse_default_cursor_shape = 2
+text = "Remove From Playlist"
+
+[node name="RightEmpty" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 195.0
+margin_right = 200.0
+margin_bottom = 250.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 2
+
+[node name="BottomEmpty" type="Control" parent="."]
+margin_top = 250.0
+margin_right = 200.0
+margin_bottom = 372.0
+rect_min_size = Vector2( 0, 122 )
+
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/AddToPlaylist" to="." method="_on_AddToPlaylistMain_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/ChangeTag" to="." method="_on_ChangeTagMain_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/ShowInFilesystem" to="." method="_on_ShowInFilesystemMain_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/ShowCoverInFilesystem" to="." method="_on_ShowCoverInFilesystem_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/QueueSong" to="." method="_on_QueueSongMain_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/ExtractCurrentCover" to="." method="_on_ExtractCurrentCover_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/Close" to="." method="FreeSongOptions"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/RemoveFromPlaylist" to="." method="_on_RemoveFromPlaylist_pressed"]

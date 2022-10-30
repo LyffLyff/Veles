@@ -1,0 +1,95 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/SingleSetting.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/OptionTypes/SongSettings.gd" type="Script" id=2]
+
+[node name="SongSettings" type="HBoxContainer"]
+margin_top = 144.0
+margin_right = 220.0
+margin_bottom = 144.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 220.0
+margin_bottom = 136.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+SettingTypeIdx = 1
+
+[node name="DisplayName" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 220.0
+margin_bottom = 16.0
+SettingType = "Options"
+SettingLabel = "Display Name"
+NormalSettingKey = "DisplayNameMode"
+Items = PoolStringArray( "Filename + Extension", "Filename", "Tag Title" )
+
+[node name="StdSongCover" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 24.0
+margin_right = 220.0
+margin_bottom = 40.0
+SettingType = "File"
+SettingLabel = "Standard Song Cover"
+FileSettingKey = "StandardSongCover"
+
+[node name="ShowSongspaceCover" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 48.0
+margin_right = 220.0
+margin_bottom = 64.0
+SettingType = "Options"
+SettingLabel = "Show Songspace Cover"
+NormalSettingKey = "ShowSongspaceCover"
+Items = PoolStringArray( "Off", "On" )
+FileSettingKey = "StandardSongCover"
+
+[node name="ImageViewBackground" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 72.0
+margin_right = 220.0
+margin_bottom = 88.0
+SettingType = "Options"
+SettingLabel = "Image View Bg"
+ColorNodePath = "MarginContainer/VBoxContainer/MiddlePart/Background"
+NormalSettingKey = "ImageViewBackground"
+Items = PoolStringArray( "Stars", "Standard Color", "Auto Color" )
+
+[node name="LyricsTextAlignment" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 96.0
+margin_right = 220.0
+margin_bottom = 112.0
+SettingType = "Options"
+SettingLabel = "Lyrics Text Alignment"
+ColorChangeRealtime = false
+NormalSettingKey = "LyricsTextAlignment"
+Items = PoolStringArray( "Left", "Center", "Right" )
+
+[node name="LyricsVisibleTimestamps" parent="VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 120.0
+margin_right = 220.0
+margin_bottom = 136.0
+SettingType = "Options"
+SettingLabel = "Lyrics Visible Timestamps"
+ColorChangeRealtime = false
+NormalSettingKey = "LyricsVisibleTimestamps"
+Items = PoolStringArray( "No", "Yes" )
+
+[node name="RightEmpty" type="Control" parent="."]
+margin_left = 228.0
+margin_right = 238.0
+margin_bottom = 136.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
+size_flags_vertical = 3

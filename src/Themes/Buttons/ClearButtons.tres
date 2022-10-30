@@ -1,0 +1,23 @@
+[gd_resource type="Theme" load_steps=6 format=2]
+
+[ext_resource path="res://src/Themes/Buttons/ClearButtonPressed.tres" type="StyleBox" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.12549, 0.12549, 0.12549, 0.862745 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[resource]
+Button/styles/disabled = SubResource( 1 )
+Button/styles/focus = SubResource( 6 )
+Button/styles/hover = SubResource( 5 )
+Button/styles/normal = SubResource( 4 )
+Button/styles/pressed = ExtResource( 1 )

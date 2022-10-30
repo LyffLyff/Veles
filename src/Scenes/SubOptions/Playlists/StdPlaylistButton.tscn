@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Themes/General/NewDefault.tres" type="Theme" id=1]
+[ext_resource path="res://src/Ressources/Fonts/main_font.tres" type="DynamicFont" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Button
+
+signal CustomPress
+
+func _on_StdSelectionButton_pressed():
+	emit_signal(\"CustomPress\")
+	print(\"pressed btich\")
+"
+
+[node name="StdSelectionButton" type="Button"]
+anchor_right = 0.134
+anchor_bottom = 0.05
+margin_right = -110.08
+margin_bottom = -13.0
+rect_min_size = Vector2( 150, 30 )
+mouse_filter = 1
+theme = ExtResource( 1 )
+script = SubResource( 1 )
+
+[node name="StdPlaylistLabel" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 130, 30 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 2 )
+text = "Playlist"
+align = 1
+valign = 1
+
+[connection signal="pressed" from="." to="." method="_on_StdSelectionButton_pressed"]

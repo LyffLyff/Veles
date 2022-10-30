@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Ressources/Themes/PopupBackground.tres" type="StyleBox" id=1]
+[ext_resource path="res://src/Scenes/General/GeneralFileDialogue.gd" type="Script" id=2]
+
+[node name="GeneralFileDialogue" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="FileDialog" type="FileDialog" parent="."]
+visible = true
+margin_left = 210.0
+margin_top = 112.0
+margin_right = 910.0
+margin_bottom = 487.0
+rect_min_size = Vector2( 700, 375 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+dialog_autowrap = true
+show_hidden_files = true
+
+[connection signal="dir_selected" from="FileDialog" to="." method="SelectionMade"]
+[connection signal="file_selected" from="FileDialog" to="." method="SelectionMade"]
+[connection signal="files_selected" from="FileDialog" to="." method="SelectionMade"]
+[connection signal="popup_hide" from="FileDialog" to="." method="OnFileDialogHidden"]

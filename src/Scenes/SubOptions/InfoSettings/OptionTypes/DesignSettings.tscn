@@ -1,0 +1,178 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/OptionTypes/DesignSettings.gd" type="Script" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/SingleSetting.tscn" type="PackedScene" id=2]
+
+[node name="DesignSettings" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1102.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 15
+script = ExtResource( 1 )
+SettingTypeIdx = 3
+
+[node name="MainBackgroundColor" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1102.0
+margin_bottom = 16.0
+SettingType = "Color"
+SettingLabel = "Main Background Color"
+ColorNodePath = "Background"
+StyleboxTitle = "panel"
+StyleboxColorProperty = "bg_color"
+ColorSettingKey = "MainBackgroundColor"
+
+[node name="WindowBarColor" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 31.0
+margin_right = 1102.0
+margin_bottom = 47.0
+SettingType = "Color"
+SettingLabel = "Window Bar Color"
+ColorNodePath = "MarginContainer/VBoxContainer/WindowBar"
+StyleboxTitle = "panel"
+StyleboxColorProperty = "bg_color"
+ColorSettingKey = "WindowBarColor"
+
+[node name="ImageViewStandardBackgroundColor" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 62.0
+margin_right = 1102.0
+margin_bottom = 78.0
+SettingType = "Color"
+SettingLabel = "Image View Std Background Color"
+ColorSettingKey = "ImageViewStandardBackgroundColor"
+ColorChangeRealtime = false
+
+[node name="PlayerBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 93.0
+margin_right = 1102.0
+margin_bottom = 109.0
+SettingType = "Color"
+SettingLabel = "Player Background"
+ColorNodePath = "MarginContainer/VBoxContainer/Player"
+StyleboxTitle = "panel"
+StyleboxColorProperty = "bg_color"
+ColorSettingKey = "PlayerBackground"
+
+[node name="SidebarBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 124.0
+margin_right = 1102.0
+margin_bottom = 140.0
+SettingType = "Color"
+SettingLabel = "Sidebar Background"
+ColorNodePath = "MarginContainer/VBoxContainer/MiddlePart/VBoxContainer/HBoxContainer/SideBar"
+StyleboxTitle = "bg"
+StyleboxColorProperty = "bg_color"
+ColorSettingKey = "MainOptionsBackground"
+
+[node name="SongHighlighterColor" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 155.0
+margin_right = 1102.0
+margin_bottom = 171.0
+SettingType = "Color"
+SettingLabel = "Main Option Background"
+ColorNodePath = "Song Highlighter Color"
+ColorSettingKey = "SongHighlighterColor"
+ColorChangeRealtime = false
+
+[node name="MainSongOptionsBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 186.0
+margin_right = 1102.0
+margin_bottom = 202.0
+SettingType = "Color"
+SettingLabel = "Portable Song Options Background"
+ColorSettingKey = "MainSongOptionsBackground"
+ColorChangeRealtime = false
+
+[node name="PortableSongOptionsBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 217.0
+margin_right = 1102.0
+margin_bottom = 233.0
+SettingType = "Color"
+SettingLabel = "Portable Song Options Background"
+ColorSettingKey = "PortableSongOptionsBackground"
+ColorChangeRealtime = false
+
+[node name="ImageViewOption" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 248.0
+margin_right = 1102.0
+margin_bottom = 264.0
+SettingType = "Color"
+SettingLabel = "Image View Option"
+ColorSettingKey = "ImageViewOption"
+ColorChangeRealtime = false
+
+[node name="SidebarMode" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 279.0
+margin_right = 1102.0
+margin_bottom = 295.0
+SettingType = "Options"
+SettingLabel = "Sidebar Mode"
+NormalSettingKey = "SidebarMode"
+Items = PoolStringArray( "Automatic", "Expanded", "Contracted" )
+
+[node name="AudioEffectsBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 310.0
+margin_right = 1102.0
+margin_bottom = 326.0
+SettingType = "Color"
+SettingLabel = "Audio Effects Background"
+ColorSettingKey = "AudioEffectsBackground"
+ColorChangeRealtime = false
+
+[node name="AudioEffectsHeaderBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 341.0
+margin_right = 1102.0
+margin_bottom = 357.0
+SettingType = "Color"
+SettingLabel = "Audio Effects Header Background"
+ColorSettingKey = "AudioEffectsHeaderBackground"
+ColorChangeRealtime = false
+
+[node name="PlaylistHeader" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 372.0
+margin_right = 1102.0
+margin_bottom = 388.0
+SettingType = "Color"
+SettingLabel = "Playlist Header"
+ColorSettingKey = "PlaylistHeader"
+ColorChangeRealtime = false
+
+[node name="RightEmpty" type="Control" parent="."]
+margin_left = 1110.0
+margin_right = 1120.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
+size_flags_vertical = 3

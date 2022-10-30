@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/ColorContainer.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.568627, 0, 0, 1 )
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color( 0, 0, 0, 1 )
+
+[node name="ColorContainer" type="Panel"]
+anchor_right = 0.875
+anchor_bottom = 0.042
+margin_right = -6.10352e-05
+margin_bottom = -0.200003
+rect_min_size = Vector2( 0, 25 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )

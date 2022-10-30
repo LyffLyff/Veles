@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Ressources/Fonts/song_info.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Scenes/General/InputWithDialog.gd" type="Script" id=2]
+[ext_resource path="res://src/Assets/Icons/White/Folder/add folder_72px.png" type="Texture" id=3]
+
+[node name="InputWithDialog" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -472.0
+margin_bottom = -583.0
+rect_min_size = Vector2( 0, 25 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
+script = ExtResource( 2 )
+
+[node name="InputLabel" type="Label" parent="."]
+margin_right = 60.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 60, 0 )
+size_flags_vertical = 3
+text = "Input:"
+align = 1
+valign = 1
+
+[node name="InputEdit" type="LineEdit" parent="."]
+margin_left = 68.0
+margin_right = 605.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Dialogue" type="TextureButton" parent="."]
+margin_left = 613.0
+margin_right = 648.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 35, 25 )
+size_flags_horizontal = 5
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 3 )
+texture_disabled = ExtResource( 3 )
+texture_focused = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[connection signal="pressed" from="Dialogue" to="." method="OnDialoguePressed"]

@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/Assets/Icons/White/Folder/add folder_72px.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/Folders/FolderSpace.gd" type="Script" id=2]
+[ext_resource path="res://src/Ressources/Fonts/12pxMonserrat.tres" type="DynamicFont" id=3]
+
+[sub_resource type="StyleBoxFlat" id=4]
+resource_local_to_scene = true
+bg_color = Color( 0.113725, 0.113725, 0.113725, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[node name="PanelContainer" type="PanelContainer"]
+margin_right = 14.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 300, 40 )
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 4 )
+script = ExtResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 300.0
+margin_bottom = 66.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftSeparator" type="VSeparator" parent="HBoxContainer"]
+margin_right = 5.0
+margin_bottom = 66.0
+custom_constants/separation = 5
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+margin_left = 13.0
+margin_right = 73.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 60, 0 )
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 81.0
+margin_right = 287.0
+margin_bottom = 66.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+margin_right = 206.0
+margin_bottom = 5.0
+custom_constants/separation = 5
+custom_styles/separator = SubResource( 2 )
+
+[node name="FolderSpace" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_top = 13.0
+margin_right = 206.0
+margin_bottom = 29.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 3 )
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SongAmount" type="Label" parent="HBoxContainer/VBoxContainer"]
+margin_top = 37.0
+margin_right = 206.0
+margin_bottom = 53.0
+custom_fonts/font = ExtResource( 3 )
+text = "Songs: "
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+margin_top = 61.0
+margin_right = 206.0
+margin_bottom = 66.0
+custom_constants/separation = 5
+custom_styles/separator = SubResource( 2 )
+
+[node name="RightSeparator" type="VSeparator" parent="HBoxContainer"]
+margin_left = 295.0
+margin_right = 300.0
+margin_bottom = 66.0
+custom_constants/separation = 5
+
+[connection signal="mouse_entered" from="." to="." method="_on_FolderSpace_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_FolderSpace_mouse_exited"]

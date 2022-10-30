@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/Assets/Icons/White/General/add_1_72px.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/SingleEffects/EffectSwitch.gd" type="Script" id=2]
+[ext_resource path="res://src/Ressources/Fonts/AudioEffects.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/Ressources/Themes/Checkbuttons.tres" type="Theme" id=4]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/EffectsHeader.gd" type="Script" id=5]
+
+[node name="EffectsHeader" type="HBoxContainer"]
+margin_right = 1123.0
+margin_bottom = 31.0
+script = ExtResource( 5 )
+
+[node name="Expand" type="TextureButton" parent="."]
+margin_right = 60.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 60, 28 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+margin_left = 68.0
+margin_top = 6.0
+margin_right = 288.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 220, 0 )
+custom_fonts/font = ExtResource( 3 )
+text = "Stereo Enhance:"
+
+[node name="EffectSwitch" type="CheckButton" parent="."]
+margin_left = 296.0
+margin_right = 332.0
+margin_bottom = 31.0
+mouse_default_cursor_shape = 2
+size_flags_vertical = 7
+theme = ExtResource( 4 )
+align = 1
+script = ExtResource( 2 )
+
+[connection signal="toggled" from="EffectSwitch" to="EffectSwitch" method="OnEffectToggled"]

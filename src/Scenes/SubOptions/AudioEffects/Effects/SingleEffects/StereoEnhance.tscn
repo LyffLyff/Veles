@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/EffectsHeader.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/RotaryButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/SingleEffects/StereoEnhance.gd" type="Script" id=5]
+[ext_resource path="res://src/Ressources/Themes/AudioEffect.tres" type="StyleBox" id=6]
+
+[node name="StereoEnhance" type="PanelContainer"]
+anchor_right = 1.003
+anchor_bottom = 0.07
+margin_right = -0.359985
+rect_min_size = Vector2( 0, 42 )
+size_flags_horizontal = 3
+custom_styles/panel = ExtResource( 6 )
+script = ExtResource( 5 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1123.0
+margin_bottom = 42.0
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="EffectsHeader" parent="VBoxContainer" instance=ExtResource( 1 )]
+margin_bottom = 28.0
+EffectTitle = "Stereo Enhance"
+EffectIdx = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 28.0
+margin_right = 1123.0
+margin_bottom = 38.0
+custom_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+visible = false
+margin_top = 29.0
+margin_right = 1123.0
+margin_bottom = 109.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+
+[node name="StereoEnhance" type="GridContainer" parent="VBoxContainer/VBoxContainer"]
+margin_right = 1123.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 10
+columns = 5
+
+[node name="PanPullout" parent="VBoxContainer/VBoxContainer/StereoEnhance" instance=ExtResource( 3 )]
+margin_bottom = 80.0
+size_flags_horizontal = 0
+Title = "pullout"
+MaxValue = 4.0
+
+[node name="TimePulloutMs" parent="VBoxContainer/VBoxContainer/StereoEnhance" instance=ExtResource( 3 )]
+margin_left = 50.0
+margin_right = 90.0
+margin_bottom = 80.0
+size_flags_horizontal = 0
+Title = "pullout t/ms"
+MaxValue = 50.0
+PropertyIdx = 1
+
+[node name="Surround" parent="VBoxContainer/VBoxContainer/StereoEnhance" instance=ExtResource( 3 )]
+margin_left = 100.0
+margin_right = 140.0
+margin_bottom = 80.0
+size_flags_horizontal = 0
+Title = "surround"
+MaxValue = 1.0
+PropertyIdx = 2

@@ -1,0 +1,172 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/Themes/Buttons/ClearButtons.tres" type="Theme" id=1]
+[ext_resource path="res://src/Assets/Icons/White/General/Pointers/down pointer_72px.png" type="Texture" id=2]
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsEditor/LRCTags.gd" type="Script" id=3]
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/LanguageSelectionISO6391.tscn" type="PackedScene" id=4]
+
+[node name="LRCTags" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 0.262
+margin_bottom = -132.2
+rect_min_size = Vector2( 0, 25 )
+mouse_filter = 2
+custom_constants/separation = 10
+script = ExtResource( 3 )
+
+[node name="LRCTags" type="Button" parent="."]
+margin_right = 1120.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+flat = true
+icon_align = 2
+expand_icon = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LRCTags"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="LRCTags/HBoxContainer"]
+margin_left = 497.0
+margin_top = 4.0
+margin_right = 553.0
+margin_bottom = 20.0
+text = "LRC Tags"
+
+[node name="Pointer" type="TextureRect" parent="LRCTags/HBoxContainer"]
+margin_left = 573.0
+margin_top = 2.0
+margin_right = 623.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 50, 20 )
+rect_pivot_offset = Vector2( 25, 10 )
+mouse_filter = 2
+size_flags_horizontal = 9
+size_flags_vertical = 4
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+visible = false
+margin_top = 35.0
+margin_right = 1120.0
+margin_bottom = 172.0
+custom_constants/separation = 7
+
+[node name="Artist" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1120.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Artist"]
+margin_right = 100.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 100, 0 )
+text = "Artist:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Artist"]
+margin_left = 104.0
+margin_right = 1120.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="Album" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 24.0
+margin_right = 1120.0
+margin_bottom = 41.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Album"]
+margin_right = 100.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 100, 0 )
+text = "Album:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Album"]
+margin_left = 104.0
+margin_right = 1120.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="Title" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 48.0
+margin_right = 1120.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Title"]
+margin_right = 100.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 100, 0 )
+text = "Title:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Title"]
+margin_left = 104.0
+margin_right = 1120.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="Author" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 1120.0
+margin_bottom = 89.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Author"]
+margin_right = 100.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 100, 0 )
+text = "Author:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Author"]
+margin_left = 104.0
+margin_right = 1120.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="SongLength" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 96.0
+margin_right = 1120.0
+margin_bottom = 113.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/SongLength"]
+margin_right = 100.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 100, 0 )
+text = "Length/s:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/SongLength"]
+margin_left = 104.0
+margin_right = 1120.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[node name="ISO6391LanguageSelection" parent="VBoxContainer" instance=ExtResource( 4 )]
+
+[node name="CreatorOfFile" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 120.0
+margin_right = 1120.0
+margin_bottom = 137.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/CreatorOfFile"]
+margin_right = 100.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 100, 0 )
+text = "File Creator:"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/CreatorOfFile"]
+margin_left = 104.0
+margin_right = 1120.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="LRCTags" to="." method="OnLRCTagsPressed"]

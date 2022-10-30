@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/Artists/ArtistSpace.gd" type="Script" id=3]
+[ext_resource path="res://src/Ressources/Fonts/options_font.tres" type="DynamicFont" id=4]
+
+[sub_resource type="StyleBoxFlat" id=6]
+resource_local_to_scene = true
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[node name="ArtistSpace" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 0.133
+margin_bottom = 0.199997
+rect_min_size = Vector2( 0, 80 )
+mouse_filter = 1
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 6 )
+script = ExtResource( 3 )
+
+[node name="ArtistButton" type="Button" parent="."]
+margin_right = 1120.0
+margin_bottom = 80.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 1120.0
+margin_bottom = 80.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+margin_right = 7.0
+margin_bottom = 80.0
+mouse_filter = 2
+custom_constants/separation = 7
+
+[node name="Artist" type="TextureRect" parent="HBoxContainer"]
+margin_left = 7.0
+margin_top = 5.0
+margin_right = 87.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 80, 70 )
+mouse_filter = 2
+size_flags_vertical = 4
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="Info" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 87.0
+margin_right = 598.0
+margin_bottom = 80.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Name" type="Label" parent="HBoxContainer/Info"]
+margin_right = 511.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 4 )
+text = "Artist Name"
+clip_text = true
+
+[node name="Profession" type="Label" parent="HBoxContainer/Info"]
+margin_top = 40.0
+margin_right = 511.0
+margin_bottom = 56.0
+text = "Producer/Singer/Band"
+autowrap = true
+
+[node name="RightEmpty" type="Control" parent="HBoxContainer"]
+margin_left = 598.0
+margin_right = 1110.0
+margin_bottom = 80.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VSeparator2" type="VSeparator" parent="HBoxContainer"]
+margin_left = 1110.0
+margin_right = 1120.0
+margin_bottom = 80.0
+mouse_filter = 2
+custom_constants/separation = 10
+
+[node name="HoldThresholdTimer" type="Timer" parent="."]
+
+[connection signal="button_down" from="ArtistButton" to="." method="OnArtistButtonButtonDown"]
+[connection signal="button_up" from="ArtistButton" to="." method="OnArtistButtonButtonUp"]
+[connection signal="mouse_entered" from="ArtistButton" to="." method="_on_ArtistSpace_mouse_entered"]
+[connection signal="mouse_exited" from="ArtistButton" to="." method="_on_ArtistSpace_mouse_exited"]

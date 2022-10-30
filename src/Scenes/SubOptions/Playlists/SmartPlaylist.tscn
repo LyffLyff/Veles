@@ -1,0 +1,280 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://src/Assets/Fonts/Montserrat/static/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/Playlists/SmartPlaylist.gd" type="Script" id=2]
+[ext_resource path="res://src/Scenes/SubOptions/Playlists/SongVBox/SongVbox.gd" type="Script" id=3]
+[ext_resource path="res://src/Scenes/Song/SongHighlighter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Scenes/Song/SongDescriptionHeader.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Description.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-96.png" type="Texture" id=7]
+[ext_resource path="res://src/Scenes/SubOptions/Playlists/Header.gd" type="Script" id=8]
+[ext_resource path="res://src/Assets/Icons/White/Settings/full orientation_72px.png" type="Texture" id=9]
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+
+
+uniform vec4 color : hint_color;
+uniform vec2 direction = vec2(0,1);
+uniform float strength : hint_range(0.0,3.0) = 1.0;
+
+void fragment(){
+	vec4 pixelcolor = texture(TEXTURE,UV);
+	COLOR = color;
+	vec2 NewUV = ((UV / 2.0) + 0.2) * direction;
+	COLOR.a *= (NewUV.x + NewUV.y) * strength;
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+resource_local_to_scene = true
+shader = SubResource( 5 )
+shader_param/color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
+shader_param/direction = Vector2( 0, 1 )
+shader_param/strength = 3.0
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+expand_margin_left = 5.0
+
+[sub_resource type="DynamicFont" id=4]
+size = 35
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="SmartPlaylist" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="SongHighlighter" parent="." instance=ExtResource( 4 )]
+visible = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 0
+
+[node name="LeftEmpty" type="Control" parent="HBoxContainer"]
+margin_right = 5.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 5, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 5.0
+margin_right = 1120.0
+margin_bottom = 600.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Header" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+material = SubResource( 6 )
+margin_right = 1115.0
+margin_bottom = 159.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 8 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Header"]
+margin_right = 1115.0
+margin_bottom = 159.0
+
+[node name="LeftEmpty" type="Control" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 159.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+
+[node name="HeaderCover" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer"]
+margin_left = 18.0
+margin_right = 152.0
+margin_bottom = 159.0
+
+[node name="TopEmpty" type="Control" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/HeaderCover"]
+margin_right = 134.0
+margin_bottom = 5.0
+rect_min_size = Vector2( 0, 5 )
+
+[node name="Cover" type="TextureRect" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/HeaderCover"]
+margin_top = 13.0
+margin_right = 134.0
+margin_bottom = 141.0
+rect_min_size = Vector2( 134, 128 )
+size_flags_horizontal = 9
+texture = ExtResource( 7 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomEmpty" type="Control" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/HeaderCover"]
+margin_top = 149.0
+margin_right = 134.0
+margin_bottom = 154.0
+rect_min_size = Vector2( 0, 5 )
+
+[node name="Buffer" type="Control" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer"]
+margin_left = 160.0
+margin_right = 165.0
+margin_bottom = 159.0
+rect_min_size = Vector2( 5, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer"]
+margin_left = 173.0
+margin_right = 1009.0
+margin_bottom = 159.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 2
+alignment = 1
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer"]
+margin_right = 836.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 0, 45 )
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = SubResource( 4 )
+text = "Smart Playlist"
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Creation" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer"]
+margin_top = 47.0
+margin_right = 836.0
+margin_bottom = 63.0
+size_flags_horizontal = 3
+
+[node name="CreatedOn" type="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Creation"]
+margin_right = 78.0
+margin_bottom = 16.0
+text = "Created on:  "
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Date" type="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Creation"]
+margin_left = 86.0
+margin_right = 836.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Songs" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer"]
+margin_top = 65.0
+margin_right = 836.0
+margin_bottom = 81.0
+size_flags_horizontal = 3
+custom_constants/separation = 7
+
+[node name="Amount" type="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Songs"]
+margin_right = 13.0
+margin_bottom = 16.0
+text = "16"
+
+[node name="Tracks" type="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Songs"]
+margin_left = 20.0
+margin_right = 60.0
+margin_bottom = 16.0
+text = "Tracks"
+
+[node name="Length" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer"]
+margin_top = 83.0
+margin_right = 836.0
+margin_bottom = 99.0
+size_flags_horizontal = 3
+custom_constants/separation = 7
+
+[node name="Time" type="Label" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Length"]
+margin_right = 27.0
+margin_bottom = 16.0
+text = "0:00"
+
+[node name="Description" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 101.0
+margin_right = 836.0
+margin_bottom = 159.0
+
+[node name="PlaylistOptions" type="TextureButton" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer"]
+margin_left = 1017.0
+margin_right = 1057.0
+margin_bottom = 159.0
+rect_min_size = Vector2( 40, 0 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 7
+texture_normal = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="RightSeparator" type="VSeparator" parent="HBoxContainer/VBoxContainer/Header/HBoxContainer"]
+margin_left = 1065.0
+margin_right = 1115.0
+margin_bottom = 159.0
+custom_constants/separation = 50
+
+[node name="SongDescriptionHeader" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+margin_top = 167.0
+margin_right = 1115.0
+margin_bottom = 187.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 195.0
+margin_right = 1115.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="LeftEmpty" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_bottom = 405.0
+size_flags_vertical = 3
+
+[node name="SongScroller" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_right = 1110.0
+margin_bottom = 405.0
+focus_mode = 1
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Songs" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/SongScroller"]
+margin_right = 1110.0
+mouse_filter = 2
+size_flags_horizontal = 3
+custom_constants/separation = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RightEmpty" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 1110.0
+margin_right = 1115.0
+margin_bottom = 405.0
+rect_min_size = Vector2( 5, 0 )
+size_flags_vertical = 3
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Header/HBoxContainer/PlaylistOptions" to="." method="PlaylistOptionspressed" binds= [ true ]]
+[connection signal="resized" from="HBoxContainer/VBoxContainer/HBoxContainer/SongScroller" to="." method="_on_SongScroller_resized"]

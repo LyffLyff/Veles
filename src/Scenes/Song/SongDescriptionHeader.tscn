@@ -1,0 +1,62 @@
+[gd_scene format=2]
+
+[node name="SongDescriptionHeader" type="HBoxContainer"]
+anchor_right = 1.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 20 )
+mouse_filter = 2
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="EmptyCover" type="Control" parent="."]
+margin_right = 55.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 55, 0 )
+mouse_filter = 2
+
+[node name="1" type="Label" parent="."]
+margin_left = 55.0
+margin_top = 2.0
+margin_right = 522.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Title:"
+valign = 1
+
+[node name="Buffer1" type="Control" parent="."]
+margin_left = 522.0
+margin_right = 532.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
+
+[node name="2" type="Label" parent="."]
+margin_left = 532.0
+margin_top = 2.0
+margin_right = 1000.0
+margin_bottom = 18.0
+size_flags_horizontal = 3
+text = "Artist:"
+valign = 1
+
+[node name="Buffer2" type="Control" parent="."]
+margin_left = 1000.0
+margin_right = 1010.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
+
+[node name="3" type="Label" parent="."]
+margin_left = 1010.0
+margin_top = 2.0
+margin_right = 1110.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 100, 0 )
+text = "Length:"
+valign = 1
+
+[node name="RightEmpty" type="Control" parent="."]
+margin_left = 1110.0
+margin_right = 1120.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 10, 0 )
