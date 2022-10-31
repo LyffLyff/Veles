@@ -1,4 +1,4 @@
-extends Control
+extends "res://src/Scenes/General/PlayerOption.gd"
 
 
 #NODES
@@ -45,4 +45,5 @@ func _ready():
 
 func _process(_delta):
 	if !self.get_global_rect().has_point( get_global_mouse_position() ):
-		self.queue_free()
+		ExitPlayerOption()
+		set_process(false)

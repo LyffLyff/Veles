@@ -45,9 +45,9 @@ func _ready():
 		screen_sides.push_back(x)
 	
 	for n in buttons.size():
-		if buttons[n].connect("mouse_entered",self,"button_entered",[n]):
+		if buttons[n].connect("mouse_entered",Modulator,"modulate_hover",[buttons[n]]):
 			Global.root.Message("CONNECTING MOUSE ENTERED SIGNAL TO PLAYER BUTTONS", SaveData.MESSAGE_ERROR)
-		if buttons[n].connect("mouse_exited",self,"button_exited",[n]):
+		if buttons[n].connect("mouse_exited",Modulator,"modulate_normal",[buttons[n]]):
 			Global.root.Message("CONNECTING MOUSE EXITED SIGNAL TO PLAYER BUTTONS", SaveData.MESSAGE_ERROR)
 
 
@@ -166,14 +166,6 @@ func unmaximize()-> void:
 	OS.set_window_size(last_size)
 	OS.set_window_position(last_position)
 	Global.WindowChanged(false)
-
-
-func button_entered(var index : int) -> void:
-	Modulator.modulate_hover(buttons[index])
-
-
-func button_exited(var index : int) -> void:
-	Modulator.modulate_normal(buttons[index])
 
 
 func _on_Quit_pressed():

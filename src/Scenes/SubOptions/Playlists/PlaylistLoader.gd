@@ -242,7 +242,7 @@ func OnScrollValueChanged(var val : float) -> void:
 					#else it's 0, since x * 0 = 0 
 					int(HEADER_LABEL_HEIGHT - val >= 0.0) * (HEADER_LABEL_HEIGHT - val)
 				)
-			create_tween().tween_property(
+			var _ptw : PropertyTweener = create_tween().tween_property(
 				HeaderCover,
 				"rect_min_size:y",
 				NewHeight,

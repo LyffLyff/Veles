@@ -360,6 +360,7 @@ HSlider/styles/slider = SubResource( 21 )
 LineEdit/styles/focus = SubResource( 16 )
 LineEdit/styles/normal = SubResource( 17 )
 LineEdit/styles/read_only = SubResource( 18 )
+LinkButton/constants/underline_spacing = 1
 MenuButton/styles/disabled = SubResource( 68 )
 MenuButton/styles/focus = SubResource( 69 )
 MenuButton/styles/hover = SubResource( 70 )

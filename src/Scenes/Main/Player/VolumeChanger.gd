@@ -1,14 +1,17 @@
-extends Control
+extends "res://src/Scenes/General/PlayerOption.gd"
 
 #NODES
 onready var VolumeSlider : VSlider = $MarginContainer/Volume/VBoxContainer/Volume
 
 
 #CONSTANTS
-
 #The higher these values the more the user can get outside of the volume slider before getting freed
-const MAX_X_DIFF : int = 100
-const MAX_Y_DIFF : int = 140
+const MAX_X_DIFF : int = 80
+const MAX_Y_DIFF_TOP : int = -30
+const MAX_Y_DIFF_BOTTOM : int = 180
+
+#VARIABLES
+var temp : float
 
 
 func _enter_tree():
@@ -34,7 +37,8 @@ func OnVolumeChanged(var NewVolume : float):
 
 
 func OnVolumeChangerExited():
-	self.queue_free()
+	ExitPlayerOption()
+	set_process(false)
 
 
 func _process(_delta):
@@ -42,5 +46,6 @@ func _process(_delta):
 	#Signals -> not fast enough
 	if abs(self.rect_global_position.x - get_global_mouse_position().x) > MAX_X_DIFF:
 		OnVolumeChangerExited()
-	if self.rect_global_position.y - get_global_mouse_position().y > MAX_Y_DIFF:
+	temp = get_global_mouse_position().y - VolumeSlider.rect_global_position.y
+	if temp < MAX_Y_DIFF_TOP or temp > MAX_Y_DIFF_BOTTOM:
 		OnVolumeChangerExited()

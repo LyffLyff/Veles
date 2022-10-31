@@ -27,11 +27,14 @@ onready var SongPlaylist : LinkButton = $Main/SongInfo/Info/Infos/Playlist
 onready var AudioEffects : TextureButton = $Main/Additional/Effects
 onready var SongOptions : TextureButton = $Main/Additional/SongOptions
 
-#PRELOADS
+# PRELOADS
 const VolumeChanger : PackedScene = preload("res://src/Scenes/Main/Player/VolumeChanger.tscn")
 const image_view : PackedScene = preload("res://src/scenes/views/ImageView.tscn")
 
-#VARIABLES
+# CONSTANTS
+const tw_duration : float = 0.1
+
+# VARIABLES
 var view : int = 0
 var EffectsRef = null
 var EffectsShown : bool = false
@@ -165,36 +168,36 @@ func PriorNextSongPressed(var direction : int) -> void:
 
 func _on_RepeatMode_pressed():
 	if !SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Repeat"):
-		repeat_button.modulate.a = 1.0
+		var _tw : PropertyTweener = create_tween().tween_property(repeat_button, "modulate:a", 1.0, tw_duration )
 		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Repeat",true)
 	else:
-		repeat_button.modulate.a = 0.5
+		var _tw : PropertyTweener = create_tween().tween_property(repeat_button, "modulate:a", 0.5, tw_duration )
 		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Repeat",false)
 
 
 func set_repeat(var x : bool) ->void:
 	if !x:
-		repeat_button.modulate.a = 0.5
+		var _tw : PropertyTweener = create_tween().tween_property(repeat_button, "modulate:a", 0.5, tw_duration )
 	else:
-		repeat_button.modulate.a = 1.0
+		var _tw : PropertyTweener = create_tween().tween_property(repeat_button, "modulate:a", 1.0, tw_duration )
 	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Repeat",x)
 
 
 func set_shuffle(var x : bool) -> void:
 	if !x:
-		shuffle_button.modulate.a = 0.5
+		var _tw : PropertyTweener = create_tween().tween_property(shuffle_button, "modulate:a", 0.5, tw_duration )
 	else:
-		shuffle_button.modulate.a = 1.0
+		var _tw : PropertyTweener = create_tween().tween_property(shuffle_button, "modulate:a", 1.0, tw_duration )
 	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Shuffle",x)
 
 
 func _on_Shuffle_pressed():
 	if shuffle_button.modulate.a == 0.5:
-		shuffle_button.modulate.a = 1.0
+		var _tw : PropertyTweener = create_tween().tween_property(shuffle_button, "modulate:a", 1.0, tw_duration )
 		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Shuffle",true)
 	else:
 		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Shuffle",false)
-		shuffle_button.modulate.a = 0.5
+		var _tw : PropertyTweener = create_tween().tween_property(shuffle_button, "modulate:a", 0.5, tw_duration )
 
 
 func _on_Cover_pressed():
@@ -251,18 +254,14 @@ func OnVolumePressed():
 	if VolChangerRef == null:
 		var Volume = VolumeChanger.instance()
 		
-		if Volume.connect("tree_exited",self,"SetVolumeReference",[null]):
+		if Volume.connect("tree_exited",self,"set",["VolChangerRef",null]):
 			Global.root.Message("CONNECTING VOLUME CHANGER IN PLAYER TO TREE EXITED SIGNAL", SaveData.MESSAGE_ERROR)
 		root.TopUI.add_child(Volume)
 		VolChangerRef = Volume
 		Volume.rect_global_position = Vector2(VolumeButton.rect_global_position.x,self.get_global_position().y - (self.rect_size.y / 1.2))
 	else:
-		VolChangerRef.queue_free()
+		VolChangerRef.ExitPlayerOption()
 		VolChangerRef = null
-
-
-func SetVolumeReference(var newValue):
-	VolChangerRef = newValue
 
 
 var OutputDeviceShown : bool = false
@@ -281,7 +280,7 @@ func _on_OutputDevice_pressed():
 		OutputDeviceRef.rect_global_position.x = OutputDevice.rect_global_position.x - (OutputDeviceRef.rect_size.x / 2) + (OutputDevice.rect_size.x / 2)
 	else:
 		OutputDeviceShown = false
-		OutputDeviceRef.queue_free()
+		OutputDeviceRef.ExitPlayerOption()
 
 
 func SetPlayback() -> void:

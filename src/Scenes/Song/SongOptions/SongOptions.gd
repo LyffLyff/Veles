@@ -1,4 +1,4 @@
-extends Control
+extends "res://src/Scenes/General/PlayerOption.gd"
 
 
 #VARIABLES
@@ -36,7 +36,8 @@ func _process(_delta):
 	if !is_ready:
 		return
 	if !self.get_global_rect().has_point( get_global_mouse_position() ):
-		FreeSongOptions()
+		ExitPlayerOption()
+		set_process(false)	# if not will be called during tween
 
 
 func GetClickedSongPath() -> String:
@@ -61,7 +62,7 @@ func _on_ChangeTag_pressed(var main_idx : int = -1):
 	
 	#Since this changes the option the Input Toggler is called manually 
 	Global.root.LoadOptions(4,true)
-	FreeSongOptions()
+	ExitPlayerOption()
 
 
 func _on_AddToPlaylist_pressed(var main_idx : int = -1):
@@ -78,11 +79,11 @@ func _on_AddToPlaylist_pressed(var main_idx : int = -1):
 	else:
 		#Adding a Specific Song need the Main Index
 		LoadPlaylistSelector([main_idx])
-	FreeSongOptions()
+	ExitPlayerOption()
 
 
 func _on_Close_pressed():
-	FreeSongOptions()
+	ExitPlayerOption()
 
 
 func _on_ShowInFilesystem_pressed(var main_idx : int = -1):
@@ -111,11 +112,11 @@ func _on_ShowInFilesystem_pressed(var main_idx : int = -1):
 		
 		#Automatically detects duplicates and doesn't open them
 		FileChecker.OpenDirectory(dir)
-	FreeSongOptions()
+	ExitPlayerOption()
 
 
 func _on_ShowCoverInFilesystem_pressed():
-	FreeSongOptions()
+	ExitPlayerOption()
 	FileChecker.OpenDirectory(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/")
 
 
@@ -128,20 +129,12 @@ func _on_QueueSong_pressed(var main_idx : int = -1):
 			SongLists.QueueSong( GetClickedSongPath() )
 	else:
 		SongLists.QueueSong()
-	FreeSongOptions()
-
-
-func FreeSongOptions() -> void:
-	yield(
-		create_tween().set_trans(Tween.TRANS_LINEAR).tween_property(self,"modulate:a",0.0,0.3),
-		"finished"
-	)
-	self.queue_free()
+	ExitPlayerOption()
 
 
 func _on_Clear_Queue_pressed():
 	SongLists.ClearQueue()
-	FreeSongOptions()
+	ExitPlayerOption()
 
 
 func LoadPlaylistSelector(var main_idxs : PoolIntArray) -> void:
@@ -191,5 +184,5 @@ func RemoveFromPlaylist(var main_idx : int = -1) -> void:
 		SongLists.Playlists.values()[Global.PlaylistPressed].erase(keys[i])
 	
 	Global.root.ReloadCurrentOption()
-	FreeSongOptions()
+	ExitPlayerOption()
 

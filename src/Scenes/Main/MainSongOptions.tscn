@@ -11,6 +11,7 @@ shadow_size = 1
 [node name="MainSongOptions" type="VBoxContainer"]
 margin_right = 200.0
 margin_bottom = 250.0
+mouse_filter = 2
 custom_constants/separation = 0
 script = ExtResource( 1 )
 
@@ -125,6 +126,7 @@ margin_top = 250.0
 margin_right = 200.0
 margin_bottom = 372.0
 rect_min_size = Vector2( 0, 122 )
+mouse_filter = 2
 
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/AddToPlaylist" to="." method="_on_AddToPlaylistMain_pressed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/ChangeTag" to="." method="_on_ChangeTagMain_pressed"]
@@ -132,5 +134,5 @@ rect_min_size = Vector2( 0, 122 )
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/ShowCoverInFilesystem" to="." method="_on_ShowCoverInFilesystem_pressed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/QueueSong" to="." method="_on_QueueSongMain_pressed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/ExtractCurrentCover" to="." method="_on_ExtractCurrentCover_pressed"]
-[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/Close" to="." method="FreeSongOptions"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/Close" to="." method="ExitPlayerOption"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/RemoveFromPlaylist" to="." method="_on_RemoveFromPlaylist_pressed"]

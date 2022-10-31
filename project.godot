@@ -27,12 +27,12 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "CoverLoader",
 "language": "GDScript",
-"path": "res://src/Scenes/Song/ImageThread.gd"
+"path": "res://src/scenes/Song/ImageThread.gd"
 }, {
 "base": "Reference",
 "class": "DesignPaths",
 "language": "GDScript",
-"path": "res://src/Scenes/Design/DesignSetter.gd"
+"path": "res://src/scenes/Design/DesignSetter.gd"
 }, {
 "base": "Object",
 "class": "Exporter",
@@ -70,11 +70,6 @@ _global_script_classes=[ {
 "path": "res://src/Classes/Normal/LRC.gd"
 }, {
 "base": "Reference",
-"class": "Modulator",
-"language": "GDScript",
-"path": "res://src/Classes/Static/Modulator.gd"
-}, {
-"base": "Reference",
 "class": "Playlist",
 "language": "GDScript",
 "path": "res://src/Classes/Static/Playlists.gd"
@@ -92,7 +87,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "SongLoader",
 "language": "GDScript",
-"path": "res://src/Scenes/Song/SongLoader.gd"
+"path": "res://src/scenes/Song/SongLoader.gd"
 }, {
 "base": "Reference",
 "class": "Streams",
@@ -142,7 +137,6 @@ _global_script_class_icons={
 "HexaDecimal": "",
 "ImageLoader": "",
 "LRC": "",
-"Modulator": "",
 "Playlist": "",
 "SaveData": "",
 "SmartPlaylistConditions": "",
@@ -175,6 +169,7 @@ channel_disable_threshold_db=-30.0
 
 [autoload]
 
+Modulator="*res://src/Classes/Static/Modulator.gd"
 Global="*res://src/Scenes/Singletons/Global.gd"
 SettingsData="*res://src/Scenes/Singletons/SettingsData.gd"
 SongLists="*res://src/Scenes/Singletons/SongLists.gd"

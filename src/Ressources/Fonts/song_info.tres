@@ -3,5 +3,7 @@
 [ext_resource path="res://src/Assets/Fonts/Montserrat/static/Montserrat-Medium.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 13
+size = 11
+use_mipmaps = true
+use_filter = true
 font_data = ExtResource( 1 )

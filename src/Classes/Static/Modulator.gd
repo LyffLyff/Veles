@@ -1,16 +1,28 @@
-extends Reference
-
-class_name Modulator
+extends Node
 
 
-static func modulate_hover(var object : CanvasItem) -> void:
-	object.self_modulate = Color("cccccc")
+func modulate_hover(var object : CanvasItem) -> void:
+	var _ptw : PropertyTweener = get_tree().create_tween().tween_property(
+		object,
+		"self_modulate",
+		Color("cccccc"),
+		0.1
+	)
+
+func modulate_pressed(var object : CanvasItem):
+	var _ptw : PropertyTweener = get_tree().create_tween().tween_property(
+		object,
+		"self_modulate",
+		Color("bbbbbb"),
+		0.1
+	)
 
 
-static func modulate_pressed(var object : CanvasItem):
-	object.self_modulate = Color("bbbbbb")
-
-
-static func modulate_normal(var object : CanvasItem):
-	object.self_modulate = Color("ffffff")
+func modulate_normal(var object : CanvasItem):
+	var _ptw : PropertyTweener = get_tree().create_tween().tween_property(
+		object,
+		"self_modulate",
+		Color("ffffff"),
+		0.1
+	)
 

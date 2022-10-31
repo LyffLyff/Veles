@@ -22,7 +22,7 @@ func _ready():
 	
 	#Start Tween
 	var tw : SceneTreeTween = get_tree().create_tween()
-	tw = tw.set_trans(Tween.TRANS_LINEAR)
+	tw = tw.set_trans(Tween.TRANS_CUBIC)
 	var ptw : PropertyTweener = tw.tween_property(
 		Effects,
 		"rect_min_size:y",
