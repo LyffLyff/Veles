@@ -51,7 +51,6 @@ static func GetCover(var path : String,var PlaylistName : String = "",var ImageS
 		img = SquarifyImage(img)
 		texture.create_from_image(img,Texture.FLAGS_DEFAULT)
 	else:
-		
 		#if the given path to an image doesn't exist
 		if PlaylistName == "AllSongs" or PlaylistName == "":
 			#if no playlist was specifed on function call
@@ -63,6 +62,7 @@ static func GetCover(var path : String,var PlaylistName : String = "",var ImageS
 				#Loads the true std cover -> when no std cover was selected
 				texture = load("res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png")
 		else:
+			print("get playlist coiver")
 			var playlist_cover_path : String = Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + PlaylistName + ".png"
 			texture = GetCover(playlist_cover_path)
 	return texture

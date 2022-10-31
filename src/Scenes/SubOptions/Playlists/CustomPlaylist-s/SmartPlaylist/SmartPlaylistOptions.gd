@@ -3,7 +3,7 @@ extends "res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/GeneralPlaylistO
 
 #NODES
 onready var OptionVBox : VBoxContainer = $PanelContainer/HBoxContainer/OptionVBox
-onready var Return : Button = $PanelContainer/HBoxContainer/OptionVBox/Return
+onready var Return : Button = $PanelContainer/HBoxContainer/OptionVBox/ToPlaylists
 onready var PlaylistCover : Button = $PanelContainer/HBoxContainer/OptionVBox/SetPlaylistCover
 onready var Rename : Button = $PanelContainer/HBoxContainer/OptionVBox/Rename
 onready var Export : Button = $PanelContainer/HBoxContainer/OptionVBox/Export

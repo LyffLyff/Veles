@@ -97,11 +97,21 @@ static func EraseKeyFromFile(var filename : String,var Key : String) -> void:
 
 
 static func GetDictKeyFromFile(var filename : String,var Key : String,var ArrIdx : int):
-	var data = Load(filename);
+	var data = Load(filename)
 	if !data or !data.has(Key):
 		return null
 	if data[Key].size() > ArrIdx:
 		return data[Key][ArrIdx]
+
+
+static func ReplaceKeyFromFile(var filename : String, var old_key : String, var new_key : String) -> void:
+	var data = Load(filename)
+	if !data or !data.has(old_key):
+		return
+	var value = data.get(old_key)
+	data.erase(old_key)
+	data[new_key] = value
+	Save(filename, data)
 
 
 static func LogMessage(var message : String, var message_type : int) -> void:

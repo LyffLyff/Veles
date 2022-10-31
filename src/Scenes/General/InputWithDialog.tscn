@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/Ressources/Fonts/song_info.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/Scenes/General/InputWithDialog.gd" type="Script" id=2]
 [ext_resource path="res://src/Assets/Icons/White/Folder/add folder_72px.png" type="Texture" id=3]
 
@@ -28,7 +27,6 @@ margin_left = 68.0
 margin_right = 605.0
 margin_bottom = 25.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 1 )
 caret_blink = true
 caret_blink_speed = 0.5
 

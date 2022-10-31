@@ -21,8 +21,6 @@ const SmartPlaylistCreator : PackedScene = preload("res://src/Scenes/SubOptions/
 #NODES
 onready var main : Control = get_tree().get_root().get_child(get_tree().get_root().get_child_count()-1)
 onready var playlists : GridContainer = $VBoxContainer/HBoxContainer/ScrollContainer/Playlists
-onready var PopupBackground : ColorRect = $PlaylistPopups/PopupBackground
-onready var PopupPlace : Control = $PlaylistPopups
 onready var CreatePlaylistFromScratch : Button =  $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CreatePlaylist
 onready var CreatePlaylistFromFolder : Button = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CreateFromFolder
 onready var CreateSmartPlaylistFromScratch : Button = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CreateSmartPlaylist
@@ -78,13 +76,13 @@ func CreateNewPlaylistPressed(var NewPlaylistType : int) -> void:
 		
 		PlaylistType.NORMAL_FROM_SCRATCH:
 			PlaylistCreator = PlaylistFromScratch.instance()
-			PopupPlace.add_child(PlaylistCreator)
+			Global.root.TopUI.add_child(PlaylistCreator)
 			if PlaylistCreator.Cover.connect("DialoguePressed",main,"OpenGeneralFileDialogue",[PlaylistCreator.Cover.InputEdit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",Global.SupportedImgFormats,true]):
 				Global.root.Message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
 		
 		PlaylistType.NORMAL_FROM_FOLDER:
 			PlaylistCreator = PlaylistFromFolder.instance()
-			PopupPlace.add_child(PlaylistCreator)
+			Global.root.TopUI.add_child(PlaylistCreator)
 			if PlaylistCreator.Cover.connect("DialoguePressed",main,"OpenGeneralFileDialogue",[PlaylistCreator.Cover.InputEdit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",Global.SupportedImgFormats,true]):
 				Global.root.Message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
 			if PlaylistCreator.Folder.connect("DialoguePressed",main,"OpenGeneralFileDialogue",[PlaylistCreator.Folder.InputEdit,FileDialog.MODE_OPEN_DIR,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Song",[],true]):
@@ -92,10 +90,9 @@ func CreateNewPlaylistPressed(var NewPlaylistType : int) -> void:
 		
 		PlaylistType.SMART_FROM_SCRATCH:
 			PlaylistCreator = SmartPlaylistCreator.instance()
-			PopupPlace.add_child(PlaylistCreator)
+			Global.root.TopUI.add_child(PlaylistCreator)
 	
 	var _err = PlaylistCreator.connect("Save",self,"SaveNewPlaylist",[NewPlaylistType])
-	_err = PlaylistCreator.connect("Close",self,"PlaylistCreatorPopup",[false])
 
 
 func SaveNewPlaylist(var PlaylistTitle : String, var PlaylistCoverPath : String, var Folder : String, var Conditions : Dictionary ,var NewPlaylistType : int) -> void:
@@ -109,34 +106,35 @@ func SaveNewPlaylist(var PlaylistTitle : String, var PlaylistCoverPath : String,
 		
 		PlaylistType.NORMAL_FROM_FOLDER:
 			var dir : Directory = Directory.new()
-			if dir.open(Folder) == OK:
+			if dir.open(Folder) != OK:
+				Global.root.Message("Selected Folder Could not be opened", SaveData.MESSAGE_ERROR, true)
+			var InFolders : bool = false
+			if Folder in SongLists.Folders:
 				#Checking if New Folder has already been added
-				var InFolders : bool = false
-				if  Folder in SongLists.Folders:
-					InFolders = true
-				else:
-					SongLists.AddFolder(Folder)
-				SongLists.NewPlaylist(PlaylistTitle)
-				
-				#Adding the Songs from folder to Playlist
-				var counter : int = AllSongs.GetSongAmount()
-				if dir.list_dir_begin(true,true) == OK:
-					while true:
-						var song : String = dir.get_next()
-						if song != "":
-							if FormatChecker.FileNameFormat(song) != -1:
-								var song_path : String = dir.get_current_dir() + "/" + song
-								#Adding to AllSongs if not already in there
-								var main_idx : int = 0
-								if InFolders:
-									main_idx = AllSongs.GetMainIdx(song_path)
-								else:
-									main_idx = counter
-									counter += 1
-								#Adding to Playlist
-								SongLists.Playlists.values()[SongLists.Playlists.size() - 1][song_path] = [main_idx]
-						else:
-							break;
+				InFolders = true
+			else:
+				SongLists.AddFolder(Folder)
+			SongLists.NewPlaylist(PlaylistTitle)
+			
+			#Adding the Songs from folder to Playlist
+			var counter : int = AllSongs.GetSongAmount()
+			if dir.list_dir_begin(true,true) == OK:
+				while true:
+					var song : String = dir.get_next()
+					if song != "":
+						if FormatChecker.FileNameFormat(song) != -1:
+							var song_path : String = dir.get_current_dir() + "/" + song
+							#Adding to AllSongs if not already in there
+							var main_idx : int = 0
+							if InFolders:
+								main_idx = AllSongs.GetMainIdx(song_path)
+							else:
+								main_idx = counter
+								counter += 1
+							#Adding to Playlist
+							SongLists.Playlists.values()[SongLists.Playlists.size() - 1][song_path] = [main_idx]
+					else:
+						break;
 		
 		PlaylistType.SMART_FROM_SCRATCH:
 			SongLists.NewSmartPlaylist(PlaylistTitle,Conditions)
@@ -163,8 +161,3 @@ func AddNewPlaylistToGrid(var IsSmart : bool, var PlaylistCoverPath : String) ->
 	NewPlaylistContainer.Title.set_text(PlaylistTitle)
 	NewPlaylistContainer.Cover.set_texture( ImageLoader.GetCover(PlaylistCoverPath) )
 	NewPlaylistContainer.idx = PlaylistIdx
-	PlaylistCreatorPopup(false)
-
-
-func PlaylistCreatorPopup(var x : bool) -> void:
-	PopupBackground.set_deferred("visible",x)

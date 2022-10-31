@@ -372,7 +372,9 @@ func InitialisingCoverCache() -> void:
 	#Loads already filtered and sorted Covers into a Cache
 	#Saving Loading time and Memory
 # warning-ignore:unused_variable
+	var invalid : PoolIntArray = []
 	var counter = 0
+	var temp 
 	for x in CoverCache.keys():
 		counter += 1
 		CoverCache[x] = ImageLoader.GetCover(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + x + ".png","",Vector2(70,70))

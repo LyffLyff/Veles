@@ -207,7 +207,6 @@ func RenamePlaylist() -> void:
 	_err = x.connect("tree_exited",Global.root,"ToggleSongScrollerInput",[true])
 
 
-
 func ExportPlaylist() -> void:
 	var PlaylistExportMenu : Node = load("res://src/Scenes/Export/PlaylistExportMenu.tscn").instance()
 	Global.root.TopUI.add_child(PlaylistExportMenu)
@@ -216,7 +215,7 @@ func ExportPlaylist() -> void:
 
 #Header Expanding/Contracting
 func OnScrollValueChanged(var val : float) -> void:
-	val /= 4.0
+	val /= 2.0
 	var NewHeight : float
 	
 	if val > 0.0 and HeaderExpanded:
@@ -243,7 +242,13 @@ func OnScrollValueChanged(var val : float) -> void:
 					#else it's 0, since x * 0 = 0 
 					int(HEADER_LABEL_HEIGHT - val >= 0.0) * (HEADER_LABEL_HEIGHT - val)
 				)
-			HeaderCover.rect_min_size.y = NewHeight
+			create_tween().tween_property(
+				HeaderCover,
+				"rect_min_size:y",
+				NewHeight,
+				0.1
+			)
+			#HeaderCover.rect_min_size.y = NewHeight
 		else:
 			HeaderCover.rect_min_size.y = MIN_HEADER_SIZE
 	

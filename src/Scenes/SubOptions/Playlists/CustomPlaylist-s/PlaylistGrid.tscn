@@ -122,17 +122,3 @@ margin_left = 1110.0
 margin_right = 1120.0
 margin_bottom = 572.0
 rect_min_size = Vector2( 10, 0 )
-
-[node name="PlaylistPopups" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="PopupBackground" type="ColorRect" parent="PlaylistPopups"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.129412, 0.129412, 0.129412, 0.686275 )
