@@ -7,7 +7,6 @@ onready var InfoTextSpace : RichTextLabel = $HBoxContainer/VBoxContainer/PanelCo
 
 
 func _ready():
-	
 	InitInfos()
 
 

@@ -1,7 +1,7 @@
 extends PanelContainer
 
 #NODES
-onready var ProfileHBox : HBoxContainer = $VBoxContainer/ScrollContainer/ProfileHBox
+onready var ProfileHBox : HBoxContainer = $VBoxContainer/ScrollContainer/VBoxContainer/ProfileHBox
 
 
 func _enter_tree():
@@ -83,6 +83,7 @@ func OnChangeCover(var UserIdx : int) -> void:
 	var _err = x.connect("TextSave",Global,"ChangeUserCover",[UserIdx])
 	_err = x.connect("tree_exited",self,"LoadUserProfiles")
 	Global.root.add_child(x)
+	x.SetTopic("Change User Profile Image")
 	x.InitDialogueButton(FileDialog.MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, "Cover", Global.SupportedImgFormats)
 
 
@@ -91,20 +92,30 @@ func OnRenameUser(var UserIdx : int) -> void:
 	var _err = x.connect("TextSave",Global,"RenameUser",[UserIdx])
 	_err = x.connect("tree_exited",self,"LoadUserProfiles")
 	Global.root.add_child(x)
+	x.SetTopic("Rename User Profile")
 
 
 func OnDeleteUser(var UserIdx : int) -> void:
 	var Username : String = Global.UserProfiles[UserIdx]
+	
+	#Removing Folders Containing the Users specific data
 	Global.RemoveUser(UserIdx)
 	FileChecker.RemoveFolderRecursive( Global.GetCurrentUserDataFolder() )
+	
+	#Removing the users profile image
+	var dir : Directory = Directory.new()
+	var user_img : String = "user://GlobalSettings/UserImages/" + Username + ".png"
+	if dir.file_exists( user_img ):
+		var _err = dir.remove(user_img)
 	
 	#If the Deleted is the Current User
 	if Username == Global.PriorUser:
 		Global.PriorUser = ""
 		Global.CurrentProfileIdx = -1
 		Global.root.player.InitPlayer()
-		MainStream.set_stream_paused(true)
-		MainStream.set_stream(null)
+		if MainStream.stream:
+			MainStream.set_stream(null)
+			MainStream.set_stream_paused(true)
 	
 	#Reloading Profiles
 	LoadUserProfiles()

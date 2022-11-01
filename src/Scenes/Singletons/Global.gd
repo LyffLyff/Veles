@@ -79,15 +79,37 @@ func NewUserProfile(var NewUsername : String) -> void:
 	VelesInit.new().CreateFolders()
 
 
-func RenameUser(var NewUsername : String, var UserIdx : int) -> void:
+func is_username_valid( var new_username : String ) -> bool:
+	#Checks if a given username is valid
+	if !new_username.is_valid_filename() or new_username == "" or UserProfiles.has(new_username) or new_username.length() > 100:
+		return false
+	return true
+
+
+func RenameUser(var new_username : String, var UserIdx : int) -> void:
+	if !is_username_valid(new_username):
+		root.Message("Invalid Username", SaveData.MESSAGE_ERROR, true)
+		return
+	
+	var dir : Directory = Directory.new()
+	var old_username : String = UserProfiles[UserIdx]
+	
+	#Renaming the Userimage
+	var user_imgs : String = "user://GlobalSettings/UserImages/"
+	if dir.file_exists( user_imgs + old_username + ".png" ):
+		var _err = dir.rename(
+			user_imgs + old_username + ".png",
+			user_imgs + new_username + ".png"
+		)
+	
 	#Renaming the Directory in the Userdata
-	var _err = Directory.new().rename(
-		"user://Users/" + UserProfiles[UserIdx],
-		"user://Users/" + NewUsername
+	var _err = dir.rename(
+		"user://Users/" + old_username,
+		"user://Users/" + new_username
 	)
 	
 	#Replacing the Old Username with new s
-	UserProfiles[UserIdx] = NewUsername
+	UserProfiles[UserIdx] = new_username
  
 
 func RemoveUser(var UserIdx : int) -> void:

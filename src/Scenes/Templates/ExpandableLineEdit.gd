@@ -5,6 +5,7 @@ extends HBoxContainer
 onready var LineEditVbox : VBoxContainer = $VBoxContainer
 onready var TitleLabel : Label = $Title/Title
 
+
 #PRELOADS
 const SingleExpandableLineEdit : PackedScene = preload("res://src/scenes/Templates/SingleExpandableLineEdit.tscn")
 

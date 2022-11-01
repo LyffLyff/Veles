@@ -1,4 +1,4 @@
-extends PanelContainer
+extends "res://src/Scenes/General/StdPopupBackground.gd"
 
 
 #SIGNALS
@@ -30,9 +30,9 @@ func InitDialogueButton(var OpenMode : int = FileDialog.MODE_OPEN_FILE, var File
 
 
 func OnClosePressed():
-	self.queue_free()
+	ExitPopup()
 
 
 func OnSavePressed():
 	emit_signal("TextSave", InputEdit.get_text() )
-	self.queue_free()
+	ExitPopup()

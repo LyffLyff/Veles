@@ -18,7 +18,7 @@ expand = true
 stretch_mode = 5
 
 [node name="LineEdit" type="LineEdit" parent="."]
-margin_left = 44.0
+margin_left = 48.0
 margin_right = 1120.0
 margin_bottom = 30.0
 size_flags_horizontal = 3

@@ -35,11 +35,12 @@ stretch_mode = 7
 
 [node name="Username" type="Label" parent="HBoxContainer"]
 margin_left = 48.0
-margin_top = 12.0
+margin_top = 7.0
 margin_right = 176.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 40, 0 )
+margin_bottom = 32.0
+rect_min_size = Vector2( 40, 25 )
 size_flags_horizontal = 3
 align = 1
 valign = 1
 autowrap = true
+clip_text = true

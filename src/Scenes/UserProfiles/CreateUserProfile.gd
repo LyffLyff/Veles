@@ -1,8 +1,8 @@
-extends PanelContainer
+extends "res://src/Scenes/General/StdPopupBackground.gd"
 
 #NODES
 onready var ProfileImgSelection : HBoxContainer = $PanelContainer/HBoxContainer/VBoxContainer/SelectProfileImg
-onready var Username : LineEdit = $PanelContainer/HBoxContainer/VBoxContainer/UsernameSelect
+onready var Username : HBoxContainer = $PanelContainer/HBoxContainer/VBoxContainer/Name
 
 
 func _ready():
@@ -23,14 +23,21 @@ func LoadDialogue() -> void:
 
 
 func OnSaveProfile() -> void:
+	var new_username : String = Username.InputEdit.get_text()
+	
+	if !Global.is_username_valid(new_username):
+		Global.root.Message("Invalid Username", SaveData.MESSAGE_ERROR, true)
+		ExitPopup()
+		return;
+	
 	var dir : Directory = Directory.new()
 	var CoverSrc : String = ProfileImgSelection.InputEdit.get_text()
 	if dir.file_exists(CoverSrc):
-		dir.copy( 
+		var _err = dir.copy( 
 			CoverSrc,
-			"user://GlobalSettings/UserImages/" + Username.get_text() + ".png"
+			"user://GlobalSettings/UserImages/" + Username.InputEdit.get_text() + ".png"
 		)
-		
-	Global.NewUserProfile(Username.get_text())
-	Global.UserProfiles.push_back(Username.get_text())
-	self.queue_free()
+	
+	Global.NewUserProfile(Username.InputEdit.get_text())
+	Global.UserProfiles.push_back(Username.InputEdit.get_text())
+	ExitPopup()

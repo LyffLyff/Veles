@@ -33,5 +33,6 @@ size_flags_vertical = 6
 text = "Username"
 align = 1
 valign = 1
+autowrap = true
 
 [connection signal="gui_input" from="." to="." method="OnUserProfileContainerGUIInput"]

@@ -1,18 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Scenes/General/InputWithDialog.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Scenes/UserProfiles/CreateUserProfile.gd" type="Script" id=2]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.0666667, 0.0666667, 0.0666667, 0.756863 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.0862745, 0.0862745, 0.0862745, 1 )
+[ext_resource path="res://src/Ressources/Fonts/MidSizedHeader.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/Themes/Panels/PlaylistCreators.tres" type="StyleBox" id=4]
+[ext_resource path="res://src/Ressources/Themes/PopupBackground.tres" type="StyleBox" id=5]
 
 [node name="CreateUserProfile" type="PanelContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = ExtResource( 5 )
 script = ExtResource( 2 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -23,86 +20,77 @@ margin_bottom = 425.0
 rect_min_size = Vector2( 450, 250 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = ExtResource( 4 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 margin_right = 450.0
 margin_bottom = 250.0
 
-[node name="LeftEmpty" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_right = 15.0
-margin_bottom = 250.0
-rect_min_size = Vector2( 15, 0 )
-
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
-margin_left = 23.0
-margin_right = 427.0
+margin_right = 450.0
 margin_bottom = 250.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 10
-
-[node name="TopEmpty" type="Control" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_right = 404.0
-margin_bottom = 15.0
-rect_min_size = Vector2( 0, 15 )
 
 [node name="Label" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_top = 25.0
-margin_right = 404.0
-margin_bottom = 41.0
+margin_right = 450.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 3 )
 text = "Create New User:"
+valign = 2
 
-[node name="UsernameSelect" type="LineEdit" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_top = 51.0
-margin_right = 404.0
-margin_bottom = 78.0
-rect_min_size = Vector2( 0, 27 )
-size_flags_horizontal = 3
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 48.0
+margin_right = 450.0
+margin_bottom = 56.0
+
+[node name="Name" parent="PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 64.0
+margin_right = 450.0
+margin_bottom = 89.0
+InputeLabelText = "Name"
 
 [node name="SelectProfileImg" parent="PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 88.0
-margin_right = 404.0
-margin_bottom = 113.0
+margin_top = 97.0
+margin_right = 450.0
+margin_bottom = 122.0
 InputeLabelText = "Image"
 FileType = "Cover"
 ShowGeneralFileDialogue = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_top = 210.0
-margin_right = 404.0
-margin_bottom = 230.0
+margin_top = 207.0
+margin_right = 450.0
+margin_bottom = 237.0
 size_flags_horizontal = 3
 size_flags_vertical = 10
+custom_constants/separation = 5
 alignment = 2
 
 [node name="Close" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = 236.0
-margin_right = 316.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 80, 20 )
+margin_left = 305.0
+margin_right = 375.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 70, 30 )
 text = "Close"
 
 [node name="Save" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-margin_left = 324.0
-margin_right = 404.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 80, 20 )
+margin_left = 380.0
+margin_right = 450.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 70, 20 )
 text = "Save"
 
 [node name="BottomEmpty" type="Control" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_top = 240.0
-margin_right = 404.0
-margin_bottom = 250.0
-rect_min_size = Vector2( 0, 10 )
-
-[node name="RightEmpty" type="Control" parent="PanelContainer/HBoxContainer"]
-margin_left = 435.0
+margin_top = 245.0
 margin_right = 450.0
 margin_bottom = 250.0
-rect_min_size = Vector2( 15, 0 )
+rect_min_size = Vector2( 0, 5 )
 
-[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Close" to="." method="queue_free"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Close" to="." method="ExitPopup"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Save" to="." method="OnSaveProfile"]

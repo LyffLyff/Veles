@@ -106,4 +106,5 @@ anims/Fade = SubResource( 8 )
 
 [connection signal="focus_entered" from="HBoxContainer/VBoxContainer/Panel/HBoxContainer/Filter" to="." method="_on_Filter_focus_entered"]
 [connection signal="focus_exited" from="HBoxContainer/VBoxContainer/Panel/HBoxContainer/Filter" to="." method="_on_Filter_focus_exited"]
+[connection signal="text_changed" from="HBoxContainer/VBoxContainer/Panel/HBoxContainer/Filter" to="." method="_on_Filter_text_changed"]
 [connection signal="text_entered" from="HBoxContainer/VBoxContainer/Panel/HBoxContainer/Filter" to="." method="_on_Filter_text_entered"]

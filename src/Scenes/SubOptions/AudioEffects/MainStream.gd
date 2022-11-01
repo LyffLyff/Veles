@@ -16,6 +16,10 @@ func _exit_tree():
 
 
 func _on_MainStream_finished() -> void: 
+	if Global.CurrentProfileIdx == -1:
+		#prevents the next song from being played when deleting a user profile
+		return
+	
 	#Repeat Has thee highest Priority
 	#before -> Queue and Shuffle
 	if !SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Repeat"):

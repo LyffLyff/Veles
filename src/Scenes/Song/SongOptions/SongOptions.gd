@@ -28,8 +28,6 @@ func _ready():
 			self.get_node("PanelContainer/HBoxContainer/VBoxContainer/RemoveFromPlaylist").show()
 		else:
 			self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/RemoveFromPlaylist").show()
-	self.modulate.a = 0.0
-	var _err = create_tween().set_trans(Tween.TRANS_LINEAR).tween_property(self,"modulate:a",1.0,0.3)
 
 
 func _process(_delta):
