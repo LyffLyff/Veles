@@ -120,6 +120,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 custom_styles/panel = SubResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="TextureRect" type="TextureRect" parent="Main/SongInfo/Info/Cover/Cover/HoverPanel"]
 anchor_left = 0.5

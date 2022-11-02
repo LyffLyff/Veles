@@ -34,7 +34,8 @@ onready var Rating : SpinBox = $ScrollContainer/VBoxContainer/MainTags/VBoxConta
 onready var LineEdits : Array = [Filename,Artist,Title,Album,Genre,Comment,ReleaseYear,Track,CoverDescription]
 
 #CONSTANTS
-const SongFormats : Array = ["*.mp3","*.ogg","*.flac","*.wav","*.opus"]
+const SongFormats : Array = ["mp3","ogg","flac","wav","opus"]
+const dialogue_song_formats : Array = ["*.mp3","*.ogg","*.flac","*.wav","*.opus"]
 
 #VARIABLES
 var LinedEditsChanged : PoolByteArray = []
@@ -57,13 +58,13 @@ func _ready():
 	#when loading this section it checks
 	#if a Global path has been set to
 	#automatically set the  path without searching
-	if Global.TagPaths.size() != 0:
-		for i in Global.TagPaths.size():
-			PathEdit.set_text(Global.TagPaths[i])
-			MultiplePaths.push_back(Global.TagPaths[i])
-			if i + 1 != Global.TagPaths.size():
-				_on_AddPath_pressed()
-		SetSongPaths(Global.TagPaths)
+	#if Global.TagPaths.size() != 0:
+	#	for i in Global.TagPaths.size():
+	#		PathEdit.set_text(Global.TagPaths[i])
+	#		MultiplePaths.push_back(Global.TagPaths[i])
+	#		if i + 1 != Global.TagPaths.size():
+	#			_on_AddPath_pressed()
+	SetSongPaths( Global.TagPaths )
 	Global.TagPaths = []
 
 
@@ -96,7 +97,7 @@ func _on_SetTag_pressed():
 		var z : File = File.new()
 		if z.open(MultiplePaths[ PathIdx ],File.READ) != OK:
 			#Skipping the Song if it couldn't be opened
-			Global.root.Message("COULD NOT OPEN FILE TO BE TAGGED: " + MultiplePaths[ PathIdx ],  SaveData.MESSAGE_ERROR )
+			Global.root.Message("File could not be tagged:\n" + MultiplePaths[ PathIdx ],  SaveData.MESSAGE_ERROR, true )
 			continue;
 		
 		if FormatChecker.GetMusicFormat( z.get_buffer(1024).hex_encode() ) == -1 and FormatChecker.FileNameFormat(MultiplePaths[ PathIdx ]) == -1:
@@ -158,7 +159,8 @@ func _on_SetTag_pressed():
 				Tags.SetCoverDescription(MultiplePaths[ PathIdx ], CoverDescription.get_text())
 			
 			#Rating
-			Tagging.new().SetSongPopularity(MultiplePaths[ PathIdx ], Rating.get_value(), -1, "")
+			if Rating.get_line_edit().text.is_valid_integer():
+				Tagging.new().SetSongPopularity(MultiplePaths[ PathIdx ], Rating.get_value(), -1, "")
 			
 			#File Explorer Name
 			if LinedEditsChanged[0]:
@@ -206,7 +208,7 @@ func _on_SelectSong_pressed():
 		"SetSongPaths",
 		[],
 		"Song",
-		SongFormats,
+		dialogue_song_formats,
 		false,
 		"Select Song"
 	)
@@ -268,19 +270,26 @@ func RenameSong(var old_path : String, var new_path : String, var new_title : St
  
 
 func InitTags(var ValidPaths : PoolStringArray) -> void:
+	if ValidPaths.size() == 0:
+		return
+	
 	#Set Covers
 	#Loaded from Scratch so also Songs not in the Covercache can be tagged properly
 	var data : PoolByteArray = Tags.ReturnCoverData( ValidPaths[0] )
 	if data.size() > 0:
 		var img : Image = ImageLoader.CreateImageFromData(data)
 		TopCovers.get_child(0).set_deferred( "texture",ImageLoader.CreateTextureFromImage(img) )
+	else:
+		TopCovers.get_child(0).set_deferred( "texture", null)
 	
 	#Retrieve Text Tags
 	var AllTags : PoolStringArray = []
 	AllTags = Tags.new().GetMultipleTags( ValidPaths[0],[0,1,2,3,4,5,6] )
 	#Set Tags
-	Filename.set_text(ValidPaths[0].get_file().get_basename())
+	if AllTags.size() == 0:
+		AllTags = ["","","","","","",""]
 	
+	Filename.set_text(ValidPaths[0].get_file().get_basename())
 	SetArtistLineEdits( AllTags[0] )
 	Title.set_text( AllTags[1] )
 	Album.set_text( AllTags[2] )
@@ -288,8 +297,13 @@ func InitTags(var ValidPaths : PoolStringArray) -> void:
 	Comment.set_text( AllTags[4] )
 	ReleaseYear.set_text( AllTags[5])
 	Track.set_text( AllTags[6])
-	Rating.get_line_edit().set_text( str(Tagging.new().GetSongPopularity(ValidPaths[0])[0]) )
-	#CoverDescription.set_text( SongTags.GetCoverDescription(ValidPaths[0]) )
+	
+	#Song Popularity -> [Rating, Counter, Email]
+	var song_rating = Tagging.new().GetSongPopularity(ValidPaths[0])
+	if song_rating[0]:
+		Rating.get_line_edit().set_text(str(song_rating[0]))
+	else:
+		Rating.get_line_edit().set_text("n.a.")
 
 
 func ResetLineEditChanged() -> void:
@@ -343,20 +357,24 @@ func OnSongPathEntered(var paths : PoolStringArray) -> void:
 
 
 func OnSongPathManuallyEntered(var ManuallyEnteredPath : String) -> void:
-	if !FileChecker.exists(ManuallyEnteredPath):
-			return;
 	InitTags([ManuallyEnteredPath])
+	if !FileChecker.exists(ManuallyEnteredPath):
+		return;
 	ResetLineEditChanged()
 
 
 func SetSongPaths(path_s : PoolStringArray):
 	FreeingPathLabels()
+	var path_counter : int = 0
 	for n in path_s.size():
-		if n == 0 and path_s[n].get_extension() in SongFormats:
+		if !(path_s[n].get_extension() in SongFormats):
+			continue
+		if path_counter == 0 :
 			PathEdit.set_text(path_s[n])
 		else:
 			_on_AddPath_pressed()
 			PathVBOX.get_child( PathVBOX.get_child_count() - 1 ).get_node("LineEdit").set_text(path_s[n])
+		path_counter += 1
 	MultiplePaths = path_s
 	OnSongPathEntered(path_s)
 
@@ -378,7 +396,6 @@ func FreeingArtistLabels() -> void:
 		var ref = ArtistVBOX.get_child(1)
 		ArtistVBOX.remove_child(ref)
 		ref.queue_free()
-
 
 
 func _on_AddPath_pressed():

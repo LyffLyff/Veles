@@ -27,12 +27,12 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "CoverLoader",
 "language": "GDScript",
-"path": "res://src/Scenes/Song/ImageThread.gd"
+"path": "res://src/scenes/Song/ImageThread.gd"
 }, {
 "base": "Reference",
 "class": "DesignPaths",
 "language": "GDScript",
-"path": "res://src/Scenes/Design/DesignSetter.gd"
+"path": "res://src/scenes/Design/DesignSetter.gd"
 }, {
 "base": "Object",
 "class": "Exporter",
@@ -87,7 +87,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "SongLoader",
 "language": "GDScript",
-"path": "res://src/Scenes/Song/SongLoader.gd"
+"path": "res://src/scenes/Song/SongLoader.gd"
 }, {
 "base": "Reference",
 "class": "Streams",

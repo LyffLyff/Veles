@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icons8-musik-1000.png-cefc009ad68e43f07576e24e36946784.stex"
+path="res://.import/icons8-musik-1000.png-33ed0a5476e327f036d31e93aff245c0.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png"
-dest_files=[ "res://.import/icons8-musik-1000.png-cefc009ad68e43f07576e24e36946784.stex" ]
+source_file="res://src/assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png"
+dest_files=[ "res://.import/icons8-musik-1000.png-33ed0a5476e327f036d31e93aff245c0.stex" ]
 
 [params]
 

@@ -184,7 +184,6 @@ func LoadUserProfileSelection() -> void:
 
 #doesn't play unless said so -> play : bool
 func PlaySong(var main_idx : int, var play : bool = false, var _PlaylistName : String = ""):
-	
 	if SongLists.CurrentPlayList == Playlist.GetPlaylistIndex(_PlaylistName) and AllSongs.GetSongPath(main_idx) == SongLists.CurrentSong:
 		#if the song that was just presed is the same that was playing
 		#the AudioPlayer justs seeks the start instead of loading the song from scratch
@@ -242,7 +241,7 @@ func PlaySong(var main_idx : int, var play : bool = false, var _PlaylistName : S
 			-1:
 				pass
 		
-		if RealFormatFlag != -1 and RealFormatFlag != 3:
+		if RealFormatFlag != -1 and RealFormatFlag != 3 and RealFormatFlag != 4 and RealFormatFlag != 5:
 			stream.data = song_data
 			
 			#Setting Stream

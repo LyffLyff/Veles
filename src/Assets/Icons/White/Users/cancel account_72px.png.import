@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cancel account_72px.png-5f9bade0c6666be00d86d7f9ece9b334.stex"
+path="res://.import/cancel account_72px.png-a73f047e1f70e2ec640e59bc854865d7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Assets/Icons/White/Users/cancel account_72px.png"
-dest_files=[ "res://.import/cancel account_72px.png-5f9bade0c6666be00d86d7f9ece9b334.stex" ]
+source_file="res://src/assets/Icons/White/Users/cancel account_72px.png"
+dest_files=[ "res://.import/cancel account_72px.png-a73f047e1f70e2ec640e59bc854865d7.stex" ]
 
 [params]
 

@@ -70,6 +70,8 @@ static func GetMusicFormat(var MaxCheckData : String) -> int:
 	#WAV [2]:
 	#			WAVE   -> 57 41 56 45
 	#			RIFF   -> 52 49 46 46
+	#Ogg OPUS [4]:
+	#			Opus   -> 4F 70 75 73
 	#Ogg Vorbis [0]:
 	#			vorbis -> 76 6f 72 62 69 73
 	#			Ogg	   -> 4f 67 67
@@ -119,5 +121,7 @@ static func FileNameFormat(var path : String) -> int:
 		return 3
 	elif path.ends_with(".opus"):
 		return 4
+	elif path.ends_with(".m4a"):
+		return 5
 	return -1
 

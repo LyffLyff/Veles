@@ -244,10 +244,11 @@ func OnEffectsPressed():
 
 
 func UpdatePlayerCovers(var PlaylistName : String = "") -> void:
-	var CoverHash : String =  AllSongs.GetSongCoverHash(AllSongs.GetMainIdx(SongLists.CurrentSong))
-	var CacheImg = ImageLoader.GetCoverCacheImageTexture(CoverHash, PlaylistName)
-	PlayerInfoCover.set_deferred("texture_normal",CacheImg)
-	SetImageViewCover( CacheImg )
+	if AllSongs.GetMainIdx(SongLists.CurrentSong) != -1:
+		var CoverHash : String =  AllSongs.GetSongCoverHash(AllSongs.GetMainIdx(SongLists.CurrentSong))
+		var CacheImg = ImageLoader.GetCoverCacheImageTexture(CoverHash, PlaylistName)
+		PlayerInfoCover.set_deferred("texture_normal",CacheImg)
+		SetImageViewCover( CacheImg )
 
 
 func OnVolumePressed():
