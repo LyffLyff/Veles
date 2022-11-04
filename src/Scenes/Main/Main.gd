@@ -256,6 +256,9 @@ func PlaySong(var main_idx : int, var play : bool = false, var _PlaylistName : S
 			song_length_label.text = TimeFormatter.FormatSeconds(song_length)
 			player.PlaybackSlider.max_value = int(song_length)
 			
+			#Valid Song -> reset first skipped song
+			Global.first_skipped_path = ""
+			
 			#Updating Current Song
 			SongLists.SetCurrentSong(AllSongs.GetSongPath(main_idx))
 			
@@ -286,8 +289,17 @@ func PlaySong(var main_idx : int, var play : bool = false, var _PlaylistName : S
 func SkipSong(var main_idx : int) -> void:
 	#skips to the next Song if the Header FileFormat is not supported or the path couldn't be opened
 	#when loading Veles checks for the Filename extension not the "REAL" format
-	SongLists.SetCurrentSong(AllSongs.GetSongPath(main_idx))
-	ChangeSong(+1)
+	var path : String = AllSongs.GetSongPath(main_idx)
+	if Global.first_skipped_path == path:
+		# only skips if the first song that was skipped does is not the one that wants to be skipped
+		#-> prevents an endless loop if EVERY song is invalid
+		SongLists.SetCurrentSong("")
+		MainStream.set_stream_paused(true)
+		return
+	if Global.first_skipped_path == "":
+		Global.first_skipped_path = path
+		SongLists.SetCurrentSong(path)
+		ChangeSong(+1)
 
 
 func LoadOptions(var index : int, var ignore_same : bool = false):

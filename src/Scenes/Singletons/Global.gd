@@ -32,6 +32,7 @@ var DisplayedMessage : String = ""
 var CurrentDownloads : Array = []
 var LowFPS : bool
 var AppOpenedTime : int = OS.get_unix_time()
+var first_skipped_path : String = ""
 
 
 #PRELOADS

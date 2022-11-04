@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/audio settings_72px.png-c37d9c14015f39be7e61ac6ef28e4e27.stex"
+path="res://.import/audio settings_72px.png-d6a9c43e68d47371a5629fe4f481f28b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/assets/Icons/White/Settings/audio settings_72px.png"
-dest_files=[ "res://.import/audio settings_72px.png-c37d9c14015f39be7e61ac6ef28e4e27.stex" ]
+source_file="res://src/Assets/Icons/White/Settings/audio settings_72px.png"
+dest_files=[ "res://.import/audio settings_72px.png-d6a9c43e68d47371a5629fe4f481f28b.stex" ]
 
 [params]
 

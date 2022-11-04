@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cassette tape_72px.png-3c3d8ea738b150e6319488d6b9decfbc.stex"
+path="res://.import/cassette tape_72px.png-16f6741dd71e8576dd76faaf0a5f0145.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/assets/Icons/White/Audio/OuputDevice/cassette tape_72px.png"
-dest_files=[ "res://.import/cassette tape_72px.png-3c3d8ea738b150e6319488d6b9decfbc.stex" ]
+source_file="res://src/Assets/Icons/White/Audio/OuputDevice/cassette tape_72px.png"
+dest_files=[ "res://.import/cassette tape_72px.png-16f6741dd71e8576dd76faaf0a5f0145.stex" ]
 
 [params]
 

@@ -105,6 +105,7 @@ func _on_Remove_pressed():
 		SongLists.RemoveFolder(ToRemove)
 		FolderControl.get_child(FolderSelection).queue_free()
 		FolderSelection = -1
+		CurrentFolder = -1
 		Global.InitializeSongs = true
 		root.Message("Removed selected folder", SaveData.MESSAGE_NOTICE, true)
 	else:

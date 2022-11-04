@@ -313,7 +313,7 @@ func GetLyricsProjectPath(var Title : String) -> String:
 func GetAllVerses() -> PoolStringArray:
 	var Verses : PoolStringArray = []
 	for VerseContainer in VerseVBox.get_children():
-		Verses.push_back( VerseContainer.VerseText.get_text() )
+		Verses.push_back( VerseContainer.VerseText.get_text())
 	return Verses
 
 
