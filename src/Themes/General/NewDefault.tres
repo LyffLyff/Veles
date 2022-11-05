@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=67 format=2]
+[gd_resource type="Theme" load_steps=68 format=2]
 
 [ext_resource path="res://src/Assets/Checkbuttons/on_72px.png" type="Texture" id=1]
 [ext_resource path="res://src/Assets/Sliders/RoundedRect6x12Horizontal.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://src/Assets/Checkbox/CheckBox_unchecked_12px.png" type="Texture" id=13]
 [ext_resource path="res://src/Assets/Checkbox/CheckBox_checked_12px.png" type="Texture" id=14]
 [ext_resource path="res://src/Themes/HSeparators/StdHSeparator.tres" type="StyleBox" id=15]
+[ext_resource path="res://src/Assets/Spinbox/updown.png" type="Texture" id=16]
 
 [sub_resource type="StyleBoxEmpty" id=65]
 
@@ -367,10 +368,18 @@ LineEdit/styles/focus = SubResource( 16 )
 LineEdit/styles/normal = SubResource( 17 )
 LineEdit/styles/read_only = SubResource( 18 )
 LinkButton/constants/underline_spacing = 1
+MenuButton/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+MenuButton/colors/font_color_disabled = Color( 1, 1, 1, 0.3 )
+MenuButton/colors/font_color_focus = Color( 0.94, 0.94, 0.94, 1 )
+MenuButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+MenuButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+MenuButton/constants/hseparation = 6
+MenuButton/fonts/font = null
 MenuButton/styles/disabled = SubResource( 68 )
 MenuButton/styles/focus = SubResource( 69 )
 MenuButton/styles/hover = SubResource( 70 )
 MenuButton/styles/normal = SubResource( 71 )
+MenuButton/styles/pressed = null
 OptionButton/styles/normal = SubResource( 25 )
 Panel/styles/panel = SubResource( 14 )
 PanelContainer/styles/panel = SubResource( 36 )
@@ -379,6 +388,7 @@ PopupMenu/icons/radio_unchecked = ExtResource( 13 )
 PopupMenu/styles/hover = SubResource( 35 )
 PopupMenu/styles/panel = SubResource( 67 )
 RichTextLabel/styles/focus = SubResource( 63 )
+SpinBox/icons/updown = ExtResource( 16 )
 TabContainer/colors/font_color_bg = Color( 0.69, 0.69, 0.69, 1 )
 TabContainer/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 TabContainer/colors/font_color_fg = Color( 0.94, 0.94, 0.94, 1 )
@@ -397,6 +407,7 @@ Tabs/colors/font_color_bg = Color( 0.69, 0.69, 0.69, 1 )
 Tabs/colors/font_color_fg = Color( 0.152941, 0.152941, 0.152941, 1 )
 TextEdit/styles/focus = SubResource( 61 )
 TextEdit/styles/normal = SubResource( 60 )
+TooltipLabel/colors/font_color = Color( 1, 1, 1, 1 )
 Tree/constants/item_margin = 10
 Tree/constants/vseparation = 5
 Tree/styles/bg = SubResource( 39 )

@@ -299,7 +299,7 @@ func SkipSong(var main_idx : int) -> void:
 	if Global.first_skipped_path == "":
 		Global.first_skipped_path = path
 		SongLists.SetCurrentSong(path)
-		ChangeSong(+1)
+		ChangeSong(Global.last_direction)
 
 
 func LoadOptions(var index : int, var ignore_same : bool = false):
@@ -406,6 +406,8 @@ func ChangeSong(var direction : int) -> void:
 	var path : String = AllSongs.GetSongPath( next_main_idx )
 	
 	UpdateHighlightedSong(path)
+	Global.last_direction = direction
+	
 	PlaySong(
 		next_main_idx,
 		true,

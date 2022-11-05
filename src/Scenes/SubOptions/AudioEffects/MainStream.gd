@@ -2,7 +2,6 @@ extends AudioStreamPlayer
 
 
 func _ready():
-	
 	####Stream Timer#############
 	StreamTimer.one_shot = true
 	StreamTimer.autostart = false

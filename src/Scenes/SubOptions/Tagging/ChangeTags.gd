@@ -196,6 +196,7 @@ func _on_SetTag_pressed():
 		var x : SongLoader = SongLoader.new()
 		x.Reload()
 		ResetLineEditChanged()
+		SetSongPaths(MultiplePaths)
 		InitTags(MultiplePaths)
 		root.UpdatePlayerInfos()
 

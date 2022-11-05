@@ -101,12 +101,15 @@ func _on_FileDialog_dir_selected(var NewFolders : PoolStringArray,var _screen : 
 func _on_Remove_pressed():
 	if FolderSelection != -1:
 		#Able to remove after the child index because they are loaded in the correct order already
-		var ToRemove : String = FolderControl.get_child(FolderSelection).FolderLabel.get_text()
-		SongLists.RemoveFolder(ToRemove)
+		var dir_to_remove : String = FolderControl.get_child(FolderSelection).FolderLabel.get_text()
+		SongLists.RemoveFolder(dir_to_remove)
 		FolderControl.get_child(FolderSelection).queue_free()
 		FolderSelection = -1
 		CurrentFolder = -1
 		Global.InitializeSongs = true
+		if SongLists.CurrentSong.get_base_dir() == dir_to_remove:
+			# resets the player when the current song is inside the folder that geets removed
+			Global.root.InitMain()
 		root.Message("Removed selected folder", SaveData.MESSAGE_NOTICE, true)
 	else:
 		root.Message("Cannot remove -> No Folder Selected", SaveData.MESSAGE_NOTICE, true)

@@ -50,6 +50,7 @@ func OnUserProfileSelected(var UserIdx : int) -> void:
 	init.CopyAudioPresets()
 	init.CopyExportTemplates()
 	init.InitAudioEffects()
+	init.init_volume()
 	
 	#Setting Std Download Folder
 	if !SaveData.Load(SongLists.AddUserToFilepath(SongLists.FilePaths[0])):

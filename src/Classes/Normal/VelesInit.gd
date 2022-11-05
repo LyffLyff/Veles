@@ -99,6 +99,13 @@ func InitAudioEffects() -> void:
 			x.set( SongLists.AudioEffects[i].keys()[j], SongLists.AudioEffects[i].values()[j] )
 
 
+func init_volume() -> void:
+	MainStream.set_volume_db(
+		SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,
+		"Volume")
+	)
+
+
 func CopyAudioPresets() -> void:
 	#Copying Standard Presets from project to userdata, on first time
 	if !Directory.new().file_exists( SongLists.AddUserToFilepath( SongLists.FilePaths[17] ) ):
