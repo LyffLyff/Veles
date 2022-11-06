@@ -2,7 +2,7 @@ extends VBoxContainer
 
 
 #NODES
-onready var LyricVBox : VBoxContainer = $Background/HBoxContainer/ScrollContainer/VBoxContainer/Lyrics
+onready var LyricVBox : VBoxContainer = $Background/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/Lyrics
 onready var Scroll : ScrollContainer = $Background/HBoxContainer/ScrollContainer
 onready var UpdateSecondsPassed : Timer = $UpdateSecondsPassed
 onready var Resync : TextureButton = $Background/VBoxContainer/HBoxContainer/Resync

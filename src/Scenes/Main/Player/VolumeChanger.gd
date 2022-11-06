@@ -23,17 +23,18 @@ func _exit_tree():
 
 
 func _ready():
-	#Setting the Value of the Slider on ready
-	#has to be converted from Db to a linear scale
-	VolumeSlider.set_value(db2linear(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Volume")))
+	#Setting the Value of the Slider on startup
+	init_volume_slider()
 
 
-func OnVolumeChanged(var NewVolume : float):
-	#Converting the Linear Scale of the Volume Slider to Db Values
-	NewVolume = linear2db(NewVolume)
-	#Saving the DB Value in the Volume Setting
-	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Volume",NewVolume)
-	MainStream.set_volume_db(NewVolume)
+func init_volume_slider() -> void:
+	VolumeSlider.set_value(
+		db2linear(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Volume"))
+	)
+
+
+func OnVolumeChanged(var volume_linear : float):
+	MainStream.set_volume(volume_linear)
 
 
 func OnVolumeChangerExited():

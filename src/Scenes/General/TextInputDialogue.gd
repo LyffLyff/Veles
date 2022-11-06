@@ -4,7 +4,6 @@ extends "res://src/Scenes/General/StdPopupBackground.gd"
 #SIGNALS
 signal TextSave
 
-
 #NODES
 onready var TopicLabel : Label = $PanelContainer/HBoxContainer/VBoxContainer/TopicLabel
 onready var InputEdit : LineEdit = $PanelContainer/HBoxContainer/VBoxContainer/Input/InputEdit

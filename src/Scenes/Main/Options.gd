@@ -55,10 +55,14 @@ func _ready():
 
 
 func OnOptionPressed(var idx : int):
+	set_sidebar_option(idx)
+	Global.root.LoadOptions(idx, ignores[idx])
+
+
+func set_sidebar_option(var idx : int):
 	self.get_child(CurrentOptionIdx).theme = OptionUnpressed
 	CurrentOptionIdx = idx
 	self.get_child(CurrentOptionIdx).theme = OptionPressed
-	Global.root.LoadOptions(idx,ignores[idx])
 
 
 func ToggleIcons(var toggle : bool) -> void:

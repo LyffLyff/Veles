@@ -19,5 +19,5 @@ margin_top = 292.0
 margin_right = 220.0
 margin_bottom = 308.0
 rect_min_size = Vector2( 200, 0 )
-align = 1
+valign = 1
 autowrap = true

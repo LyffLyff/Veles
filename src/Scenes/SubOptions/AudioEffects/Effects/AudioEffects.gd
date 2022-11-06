@@ -5,6 +5,8 @@ extends PanelContainer
 onready var Effects : VBoxContainer = $ScrollContainer/EffectBackground/Effects
 onready var Header : PanelContainer = $ScrollContainer/EffectBackground/Effects/EffectsMainHeader
 
+#VARIABLES
+var is_tweening : bool = false
 
 func _enter_tree():
 	Global.root.ToggleSongScrollerInput(false)
@@ -35,7 +37,9 @@ func _ready():
 		1.0,
 		0.3
 	)
+	is_tweening = true
 	yield(tw,"finished")
+	is_tweening = false
 	for Effect in Effects.get_children():
 		Effect.show()
 
@@ -47,11 +51,16 @@ func SaveCurrentAsPreset() -> void:
 	x.SetTopic("Preset Title")
 
 
-func SavePreset(var PresetTitle : String) -> void:
+func SavePreset(var preset_name : String) -> void:
+	# checking preset name
+	if !is_valid_preset_name(preset_name):
+		Global.root.Message("Invalid Preset Name", SaveData.MESSAGE_ERROR, true)
+		return
+	
 	#Saving the Preset with the Main enabled -> will be replaced on Load
 	var NewPreset : Array = SongLists.AudioEffects
 	SaveData.Save(
-		Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets/" + PresetTitle + ".epr",
+		Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets/" + preset_name + ".epr",
 		NewPreset
 	)
 	
@@ -86,6 +95,9 @@ func LoadPreset(var PresetIdx : int) -> void:
 
 func FreeAudioEffects() -> void:
 	#End Tween
+	if is_tweening:
+		return;
+	
 	var tw : SceneTreeTween = get_tree().create_tween()
 	tw = tw.set_trans(Tween.TRANS_QUAD)
 	for Effect in Effects.get_children():
@@ -102,6 +114,13 @@ func FreeAudioEffects() -> void:
 		0.0,
 		0.3
 	)
-	
+	is_tweening = true
 	yield(tw,"finished")
+	is_tweening = false
 	self.queue_free()
+
+
+func is_valid_preset_name(var preset_name : String) -> bool:
+	if !preset_name.is_valid_filename() or preset_name in Header.presets:
+		return false
+	return true

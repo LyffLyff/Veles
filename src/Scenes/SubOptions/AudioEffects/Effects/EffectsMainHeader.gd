@@ -6,6 +6,8 @@ onready var AddPreset : TextureButton = $VBoxContainer/HBoxContainer/AddPreset
 onready var Close : TextureButton = $VBoxContainer/HBoxContainer/Close
 onready var PresetSelection : MenuButton = $VBoxContainer/HBoxContainer/PresetSelection
 
+#PRESET NAMES
+var presets : PoolStringArray = []
 
 func _enter_tree():
 	InitColor()
@@ -45,6 +47,7 @@ func InitPresetSelection() -> void:
 			#filtering invalid files -> everything not preset
 			continue;
 		
+		presets.push_back(TempFilename.trim_suffix(".epr"))
 		PresetPopup.add_item( TempFilename , ItemIdx)
 		PresetPopup.set_item_text(ItemIdx, TempFilename)
 		ItemIdx += 1

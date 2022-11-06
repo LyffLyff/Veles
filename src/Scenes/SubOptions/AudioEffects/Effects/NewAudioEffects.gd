@@ -5,8 +5,8 @@ const plus_texture : StreamTexture = preload("res://src/Assets/Icons/White/Gener
 const minus_texture : StreamTexture = preload("res://src/Assets/Icons/White/General/remove_1_72px.png")
 
 #CONSTANT
-const EXPANDED_Y : float = 350.0
-const SHRINKED_Y : float = 42.0
+const shrinked_y : float = 42.0
+const tw_speed : float = 550.0
 
 #NODES
 onready var EffectTypeVBox : VBoxContainer = $VBoxContainer/VBoxContainer
@@ -18,6 +18,7 @@ var EffectIdx : int = -1
 var IsEffectExpanded : bool = false
 var IsExpanding : bool = false
 var Properties : Array = []
+onready var expanded_y : float = EffectTypeVBox.rect_size.y + 60
 
 
 func _enter_tree():
@@ -53,9 +54,7 @@ func CallEffectContainers(var Method : String) -> void:
 
 func InitEffectContainer(var EffectContainer : Control) -> void:
 	var NewValue : float = SongLists.AudioEffects[ EffectIdx ][ Properties[EffectContainer.PropertyIdx] ]
-	EffectContainer.SetValue( 
-		NewValue
-	)
+	EffectContainer.SetValue(NewValue)
 	var _err = EffectContainer.connect("AudioEffectSubValueChanged", self,"SetAudioEffect")
 	SetAudioEffect(EffectContainer.PropertyIdx, NewValue)
 
@@ -65,7 +64,14 @@ func UpdateEffectContainer(var EffectContainer : Control) -> void:
 	EffectContainer.SetValue( 
 		NewValue
 	)
-	
+
+
+func get_expand_height() -> float:
+	for i in EffectTypeVBox.get_children():
+		if i is GridContainer:
+			return i.rect_size.y
+	return 350.0
+
 
 func ExpandEffect() -> void:
 	if IsExpanding:
@@ -73,24 +79,29 @@ func ExpandEffect() -> void:
 	
 	IsExpanding = true
 	var tw : SceneTreeTween = create_tween()
+	tw = tw.set_trans(Tween.TRANS_CUBIC)
 	var _err = tw.connect("finished",self,"set",["IsExpanding",false])
-	
+	var dis : float = 0.0
+	var height : float = 0.0
 	if !IsEffectExpanded:
 		EffectExpand.texture_normal = minus_texture
 		_err = tw.connect("finished",self.EffectTypeVBox,"set_visible",[true])
-		var ptw : PropertyTweener = tw.tween_property(
-			self,
-			"rect_min_size:y",
-			EXPANDED_Y,
-			0.3
-		)
+		dis = EffectTypeVBox.rect_size.y + 60 - self.rect_min_size.y
+		height = expanded_y
 	else:
-		EffectExpand.texture_normal = plus_texture
 		self.EffectTypeVBox.set_visible(false)
-		var ptw : PropertyTweener = tw.tween_property(
-			self,
-			"rect_min_size:y",
-			SHRINKED_Y,
-			0.3
-		)
+		EffectExpand.texture_normal = plus_texture
+		dis = self.rect_min_size.y - shrinked_y
+		height = shrinked_y
+	
+	# calculating duration, since the distance is not constant
+	var duration : float = dis / tw_speed
+	
+	var ptw : PropertyTweener = tw.tween_property(
+		self,
+		"rect_min_size:y",
+		height,
+		duration
+	)
+	
 	IsEffectExpanded = !IsEffectExpanded

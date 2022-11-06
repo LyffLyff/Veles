@@ -1,5 +1,10 @@
 extends AudioStreamPlayer
 
+#CONSTANTS
+const mute_threshold : float = 0.01
+
+#SIGNALS
+signal bus_mute
 
 func _ready():
 	####Stream Timer#############
@@ -7,7 +12,9 @@ func _ready():
 	StreamTimer.autostart = false
 	self.add_child(StreamTimer)
 	############################
-	self.set_volume_db(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Volume"))
+	self.set_volume(
+		db2linear(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Volume"))
+	)
 
 
 func _exit_tree():
@@ -46,6 +53,25 @@ func toggle_effects():
 # 2  minutes after that
 var StreamTimer : Timer = Timer.new()											#waits for a specific amount of time for a "stream" to be counted
 var stream_goals : PoolIntArray = [30,60,120]									#saves the amount  of seconds needed for the next stream goal
+
+
+func set_volume(var volume_linear : float) -> void:
+	# converting the linear Scale of the volume slider to db values
+	var volume_db : float = linear2db(volume_linear)
+	
+	MainStream.set_volume_db(volume_db)
+	
+	# saving db value to settings
+	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Volume",volume_db)
+	
+	#checking if stream needs to be muted/unmuted
+	if volume_linear <= mute_threshold:
+		if !AudioServer.is_bus_mute(0):
+			AudioServer.set_bus_mute(0,true)
+			emit_signal("bus_mute",true)
+	elif AudioServer.is_bus_mute(0):
+		AudioServer.set_bus_mute(0,false)
+		emit_signal("bus_mute",false)
 
 
 func ReloadStreamTimer(var is_paused : bool = false) -> void:

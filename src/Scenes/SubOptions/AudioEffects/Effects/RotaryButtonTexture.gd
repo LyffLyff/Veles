@@ -27,7 +27,6 @@ var MinValue : float = -1.0
 
 func _ready():
 	self.set_process(false)
-	
 	OnRotaryButtonItemRectChanged()
 
 
@@ -36,9 +35,9 @@ func _process(_delta):
 	NewRotationDegrees = ( YMouseOffset / RotationStepInPixels ) + CurrentButtonRotationDegrees
 	NewRotationDegrees = CheckRange(NewRotationDegrees);
 	RotatingSprite.rotation_degrees = NewRotationDegrees
-	
 	#Calculating the Real Value from the Rotation
 	RealValue = ( ( MaxValue - MinValue ) * NewRotationDegrees / RotationRange.y ) + MinValue
+	
 	emit_signal( "RotationChanged", RealValue)
 
 
@@ -71,12 +70,9 @@ func SetRotation(var NewRotation : float) -> void:
 
 
 func ValueToRotation(var NewValue : float) -> float:
-	if MinValue >= 0:
-		return ( (RotationRange.y - RotationRange.x) / MaxValue * NewValue ) + abs(MinValue)
-	else:
-		#Very bad code, but works
-		var ValueRange : float = abs(MinValue) + abs(MaxValue)
-		return ( (RotationRange.y - RotationRange.x) / ValueRange) * (NewValue  + ValueRange )
-	#var DegRange : float = RotationRange.y - RotationRange.x
-	#return (NewValue + abs(MinValue)) * (DegRange / (MinValue - MaxValue) ) - DegRange * (-1)
-
+	# converting a value to the buttons rotations
+	# does this by multiplying a ratio of the currents value from the absolute distance
+	# between the min./max. value and then multiplying with the maximum rotation
+	var diff : float = abs(MinValue) + abs(MaxValue)
+	var linear_range_of_value : float = abs(MinValue) + NewValue
+	return (linear_range_of_value / diff) * RotationRange.y

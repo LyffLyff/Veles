@@ -1,12 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/Scenes/Song/SongOptions/Main/SongOptionsMain.gd" type="Script" id=1]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-shadow_size = 1
+[ext_resource path="res://src/Themes/Panels/StdBackgroundPanel.tres" type="StyleBox" id=2]
 
 [node name="MainSongOptions" type="VBoxContainer"]
 margin_right = 200.0
@@ -20,7 +15,7 @@ margin_right = 200.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 200, 250 )
 mouse_filter = 2
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 margin_right = 200.0

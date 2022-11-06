@@ -17,6 +17,6 @@ func _ready():
 
 
 func SelectedOption(var OptionIdx : int) -> void:
-	self.get_child( SelectedOptionIdx ).set("custom_styles/normal",null)
+	self.get_child( SelectedOptionIdx ).theme = load("res://src/Themes/Buttons/SidebarButtonsUnpressed.tres")
 	SelectedOptionIdx = OptionIdx
-	self.get_child( SelectedOptionIdx ).set("custom_styles/normal",load("res://src/Themes/Buttons/ClearButtonPressed.tres"))
+	self.get_child( SelectedOptionIdx ).theme = load("res://src/Themes/Buttons/SidebarButtonsPressed.tres")

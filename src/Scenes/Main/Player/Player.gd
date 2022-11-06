@@ -104,6 +104,10 @@ func InitPlayer() -> void:
 		if prior_song.connect("pressed",self,"PriorNextSongPressed",[-1]):
 			Global.root.Message("CONNECTING PRESSED SIGNAL TO NEXT SONG BUTTON", SaveData.MESSAGE_ERROR)
 	
+	# connecting volume button to MainStream -> bus_mute signal
+	if !MainStream.is_connected("bus_mute",self,"set_volume_texture"):
+		if MainStream.connect("bus_mute",self,"set_volume_texture"):
+			Global.root.Message("CONNECTING MAINSTREAM BUS MUTE TO SET VOLUME BUTTON TEXTURE", SaveData.MESSAGE_ERROR)
 	
 
 func _on_Play_Pause_pressed():
@@ -191,6 +195,13 @@ func set_shuffle(var x : bool) -> void:
 	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Shuffle",x)
 
 
+func set_volume_texture(var is_mute : bool) -> void:
+	if is_mute:
+		VolumeButton.set_deferred("texture_normal", load("res://src/Assets/Icons/White/Audio/Volume/mute_72px.png"))
+	else:
+		VolumeButton.set_deferred("texture_normal", load("res://src/Assets/Icons/White/Audio/Volume/high volume_72px.png"))
+
+
 func _on_Shuffle_pressed():
 	if shuffle_button.modulate.a == 0.5:
 		var _tw : PropertyTweener = create_tween().tween_property(shuffle_button, "modulate:a", 1.0, tw_duration )
@@ -225,12 +236,6 @@ func SetImageViewCover(var img : Texture) -> void:
 		viewer_control.ImageViewCover.set_normal_texture(img)
 		viewer_control.UpdateOption()
 		viewer_control.SetImageViewBackgroundColor()
-
-
-func _on_VolumeSlider_value_changed(value):
-	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Volume",value)
-	MainStream.set_volume_db(value)
-
 
 
 func OnEffectsPressed():
@@ -305,6 +310,7 @@ func OnArtistPressed():
 	root.LoadTemporaryPlaylist( 
 		Artist,
 		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Descriptions/" + Artist + ".txt",
-		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Covers/" + Artist + ".png"
+		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Covers/" + Artist + ".png",
+		3
 	)
 	DisableImageView()

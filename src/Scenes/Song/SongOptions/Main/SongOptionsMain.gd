@@ -38,7 +38,6 @@ func _on_QueueSongMain_pressed():
 	_on_QueueSong_pressed(AllSongs.GetMainIdx(SongLists.CurrentSong))
 
 
-
 func _on_RemoveFromPlaylist_pressed():
 	RemoveFromPlaylist(AllSongs.GetMainIdx(SongLists.CurrentSong))
 

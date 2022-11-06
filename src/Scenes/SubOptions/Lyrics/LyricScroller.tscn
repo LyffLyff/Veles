@@ -76,10 +76,21 @@ margin_bottom = 200.0
 rect_min_size = Vector2( 0, 200 )
 size_flags_horizontal = 3
 
-[node name="Lyrics" type="VBoxContainer" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer"]
 margin_top = 208.0
 margin_right = 1084.0
 margin_bottom = 208.0
+size_flags_horizontal = 3
+
+[node name="Lyrics" type="VBoxContainer" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_right = 1066.0
+size_flags_horizontal = 3
+
+[node name="RightEmpty" type="Control" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_left = 1074.0
+margin_right = 1084.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
 
 [node name="BottomBuffer" type="Control" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer"]
 margin_top = 216.0

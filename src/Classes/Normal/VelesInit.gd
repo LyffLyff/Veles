@@ -100,9 +100,8 @@ func InitAudioEffects() -> void:
 
 
 func init_volume() -> void:
-	MainStream.set_volume_db(
-		SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,
-		"Volume")
+	MainStream.set_volume(
+		db2linear(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS, "Volume"))
 	)
 
 

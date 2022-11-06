@@ -66,7 +66,8 @@ func OnArtistSelected(var ArtistNames : PoolStringArray) -> void:
 	Global.root.LoadTemporaryPlaylist(
 		ArtistNames.join(", "),
 		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Descriptions/" + ArtistNames.join("") + ".txt",
-		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Covers/" + ArtistNames.join("") + ".png"
+		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Covers/" + ArtistNames.join("") + ".png",
+		3
 	)
 
 

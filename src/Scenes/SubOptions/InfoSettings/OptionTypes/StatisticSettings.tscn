@@ -9,14 +9,22 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 22.0
+margin_bottom = 50.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
 SettingTypeIdx = 4
 
+[node name="BottomBuffer" type="Control" parent="VBoxContainer" groups=["Buffer"]]
+margin_right = 22.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+
 [node name="RightEmpty" type="Control" parent="."]
 margin_left = 30.0
 margin_right = 40.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_vertical = 3

@@ -45,7 +45,7 @@ margin_bottom = 80.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 0
+custom_constants/separation = 3
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
 margin_right = 7.0
@@ -54,9 +54,9 @@ mouse_filter = 2
 custom_constants/separation = 7
 
 [node name="Artist" type="TextureRect" parent="HBoxContainer"]
-margin_left = 7.0
+margin_left = 10.0
 margin_top = 5.0
-margin_right = 87.0
+margin_right = 90.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 80, 70 )
 mouse_filter = 2
@@ -66,22 +66,25 @@ expand = true
 stretch_mode = 6
 
 [node name="Info" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 87.0
+margin_left = 93.0
 margin_right = 598.0
 margin_bottom = 80.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
 [node name="Name" type="Label" parent="HBoxContainer/Info"]
-margin_right = 511.0
-margin_bottom = 32.0
+margin_top = 24.0
+margin_right = 505.0
+margin_bottom = 56.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 4 )
 text = "Artist Name"
 clip_text = true
 
 [node name="Profession" type="Label" parent="HBoxContainer/Info"]
+visible = false
 margin_top = 40.0
 margin_right = 511.0
 margin_bottom = 56.0
@@ -89,8 +92,8 @@ text = "Producer/Singer/Band"
 autowrap = true
 
 [node name="RightEmpty" type="Control" parent="HBoxContainer"]
-margin_left = 598.0
-margin_right = 1110.0
+margin_left = 601.0
+margin_right = 1107.0
 margin_bottom = 80.0
 mouse_filter = 2
 size_flags_horizontal = 3

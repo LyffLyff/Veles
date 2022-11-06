@@ -39,11 +39,14 @@ func LoadOption(var OptionIdx : int) -> void:
 	var OptionVBox : VBoxContainer = OptionRef.get_child(0)
 	
 	for n in OptionVBox.get_child_count():
+		if OptionVBox.get_child(n).is_in_group("Buffer"):
+			continue;
+		
 		if OptionVBox.get_child(n).get_child(2).connect("mouse_entered",self,"OnMouseEntered",[n]):
 			Global.root.Message("CONNECTING SETTING CONTAINERS TO MOUSE ENTERED",  SaveData.MESSAGE_ERROR )
 		if OptionVBox.get_child(n).get_child(2).connect("mouse_exited",self,"OnMouseExited"):
 			Global.root.Message("CONNECTING SETTING CONTAINERS TO MOUSE EXITED",  SaveData.MESSAGE_ERROR )
-		
+	
 		#Normal Options
 		if OptionVBox.get_child(n).get_child(2) is OptionButton:
 			if OptionVBox.get_child(n).get_child(2).has_method("NormalSettingItemSelected"):
@@ -137,5 +140,6 @@ func InitCurrentFileEdits() -> void:
 	
 	
 	for i in OptionRef.get_child(0).get_child_count():
-		if OptionRef.get_child(0).get_child(i).SettingType == "File":
-			CurrentFileEdits.push_back( OptionRef.get_child(0).get_child(i).get_child(2) )
+		if !OptionRef.get_child(0).get_child(i).is_in_group("Buffer"):
+			if OptionRef.get_child(0).get_child(i).SettingType == "File":
+				CurrentFileEdits.push_back( OptionRef.get_child(0).get_child(i).get_child(2) )

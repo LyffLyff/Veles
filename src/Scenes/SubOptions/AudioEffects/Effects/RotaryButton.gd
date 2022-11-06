@@ -29,9 +29,9 @@ func SetValue(var NewValue : float) -> void:
 		#even when manually entering the effects must be within Min/Max range
 		NewValue = MinValue
 	
-	var NewRotation : float = RotaryButton.ValueToRotation(NewValue)
+	var NewRotation : float = RotaryButton.ValueToRotation(NewValue)	
 	RotaryButton.SetRotation( NewRotation )
-	RotaryEdit.set_text( str(NewValue) )
+	RotaryEdit.SetRotaryEdit( NewValue )
 	RotationValueChanged(NewValue, "AudioEffectSubValueChanged")
 
 

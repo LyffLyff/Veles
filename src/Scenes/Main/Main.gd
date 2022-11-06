@@ -459,10 +459,11 @@ func UpdateHighlightedSong(var NextHighlighted : String) -> void:
 			options.get_child(0).HighlightSong(options.get_child(0).songs.get_child( NextHighlightedIdx ) )
 
 
-func LoadTemporaryPlaylist(var TemporaryPlaylistTitle : String, var PlaylistDescriptionPath : String, var PlaylistCoverPath : String) -> void:
+func LoadTemporaryPlaylist(var TemporaryPlaylistTitle : String, var PlaylistDescriptionPath : String, var PlaylistCoverPath : String, var option_idx : int) -> void:
 	Global.PlaylistPressed = -2
 	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS, "TempPlaylistTitle", TemporaryPlaylistTitle)
 	DeleteCurrentoption()
+	Sidebar.Options.set_sidebar_option(option_idx)
 	var NewTempPlaylist : Control = SmartPlaylistTemplate.instance()
 	options.add_child( NewTempPlaylist )
 	NewTempPlaylist.NReady( SongLists.TempPlaylistConditions,TemporaryPlaylistTitle,PlaylistDescriptionPath, PlaylistCoverPath )
@@ -538,6 +539,7 @@ func OpenGeneralFileDialogue(var NodeRef : Object, var OpenMode : int, var FileA
 
 func LoadPlaylist(var PlaylistIdx : int) -> void:
 	DeleteCurrentoption()
+	Sidebar.Options.set_sidebar_option(1)
 	var PlaylistTemplate : Node = null
 	
 	if PlaylistIdx >= 0:
