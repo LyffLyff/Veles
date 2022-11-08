@@ -24,7 +24,7 @@ var _is_ready: bool = false
 
 
 func _init() -> void:
-	print("[yt-dlp] Downloading the latest yt-dlp version")
+	#print("[yt-dlp] Downloading the latest yt-dlp version")
 	
 	_downloader = Downloader.new()
 	
@@ -55,7 +55,7 @@ func _init() -> void:
 	else:
 		OS.execute("chmod", PoolStringArray(["+x", OS.get_user_data_dir() + "/yt-dlp"]))
 	
-	print("[yt-dlp] Ready!")
+	#print("[yt-dlp] Ready!")
 	_is_ready = true
 	emit_signal("ready")
 

@@ -13,7 +13,7 @@ func InitDownloadContainer(var CurrentDownload : Dictionary) -> void:
 	QTitle.set_text("Title: " + CurrentDownload["TITLE"])
 	QURL.set_text("URL: " + CurrentDownload["URL"])
 	QSoundVideo.set_text( "Audio" ) if CurrentDownload["AUDIO"] else QSoundVideo.set_text( "Video" )
-	QFileformat.set_text("Format: " + str( CurrentDownload["AUDIO_FORMAT"] ) ) if CurrentDownload["AUDIO"] else QSoundVideo.set_text("Format: " + str( CurrentDownload["VIDEO_FORMAT"] ) )
+	QFileformat.set_text("Format: " + Global.audio_formats[CurrentDownload["AUDIO_FORMAT"]] ) if CurrentDownload["AUDIO"] else QSoundVideo.set_text("Format: " + Global.video_formats[CurrentDownload["VIDEO_FORMAT"]] )
 	DstFolder.set_text(CurrentDownload["DST_FOLDER"])
 
 

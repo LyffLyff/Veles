@@ -241,11 +241,13 @@ func SetCoverPath(var paths : PoolStringArray) -> void:
 func RenameSong(var old_path : String, var new_path : String, var new_title : String, var PathIdx : int) -> bool:
 	var dir : Directory = Directory.new()
 	if dir.rename(old_path, new_path) == OK:
-		#Current Song
+		
+		# Current Song
 		MultiplePaths[ PathIdx ] = new_path
 		if old_path == SongLists.CurrentSong:
 			SongLists.CurrentSong = new_path
-		#Key in AllSongs
+		
+		# replacing key in AllSongs
 		if SongLists.AllSongs.has(old_path):
 			var temp : Array = SongLists.AllSongs.get(old_path)
 			temp[0] = new_title
@@ -253,7 +255,8 @@ func RenameSong(var old_path : String, var new_path : String, var new_title : St
 			SongLists.AllSongs.values()[SongLists.AllSongs.keys().find(old_path,0)] = temp
 			if !SongLists.AllSongs.erase(old_path):
 				root.Message("PATH THAT YOU WANTED TO ERASE FROM ALLSONGS IS NOT EXISTENT IN IT: " + old_path, SaveData.MESSAGE_ERROR)
-		#Replacing in Playlists
+		
+		# replacing in Playlists
 		for n in SongLists.Playlists.size():
 			if SongLists.Playlists.values()[n].has(old_path):
 				var value : Array = SongLists.Playlists.values()[n].get(old_path)
@@ -262,6 +265,13 @@ func RenameSong(var old_path : String, var new_path : String, var new_title : St
 					SongLists.Playlists.values()[n][new_path] = value
 				else:
 					root.Message("COULD NOT ERASE KEY IN THE PLAYLISTS", SaveData.MESSAGE_ERROR)
+		
+		# replacing in Streams
+		if SongLists.Streams.has(old_path):
+			var temp_value = SongLists.Streams.get(old_path)
+			if SongLists.Streams.erase(old_path):
+				SongLists.Streams[new_path] = temp_value
+		
 		return true
 	else:
 		if dir.file_exists(old_path):

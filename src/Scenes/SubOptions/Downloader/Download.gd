@@ -67,7 +67,11 @@ func CheckSetup() -> bool:
 
 func OnDownloadAdded():
 	if !CheckSetup():
-		Global.root.Message("DOWNLOAD SETUP NOT COMPLETE -> SEE INFOS",  SaveData.MESSAGE_ERROR, true, Color(ColorN("dark_red")) )
+		Global.root.Message("Download setup is NOT complete -> see Infos",  SaveData.MESSAGE_ERROR, true, Color(ColorN("dark_red")) )
+		return
+	
+	if !Directory.new().dir_exists( DstFolder.get_text().get_base_dir() ):
+		Global.root.Message("Destination Folder not found",  SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )
 		return
 	
 	if Title.get_text() == "":
@@ -76,6 +80,7 @@ func OnDownloadAdded():
 	if !Title.get_text().is_valid_filename():
 		Global.root.Message("Invalid Filename Title",  SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )
 		return
+	
 	if URL.get_text() == "":
 		Global.root.Message("No Download link entered",  SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )
 		return
@@ -83,7 +88,7 @@ func OnDownloadAdded():
 	Global.PushNewDownload(
 		URL.get_text(),
 		Title.get_text(),
-		DstFolder.get_text(),
+		DstFolder.get_text().get_base_dir(),
 		AudioVideo.selected,
 		Videoformat.selected,
 		Audioformat.selected,

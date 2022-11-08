@@ -90,12 +90,21 @@ func _on_AddFolder_pressed():
 
 
 func _on_FileDialog_dir_selected(var NewFolders : PoolStringArray,var _screen : int = -1):
-	for Folder in NewFolders:
-		if !SongLists.Folders.has(Folder):
-			SongLists.AddFolder(Folder)
-			AddFolder(Folder)
-		else:
-			Global.root.Message("Folders can only be added once", SaveData.MESSAGE_WARNING)
+	var dir : Directory = Directory.new()
+	for folder in NewFolders:
+		folder = folder.get_base_dir()
+		
+		# checking validity of folder
+		if !dir.dir_exists(folder):
+			Global.root.Message("Folder not found", SaveData.MESSAGE_WARNING, true)
+			continue
+		if !SongLists.Folders.has(folder):
+			Global.root.Message("Folders can only be added once", SaveData.MESSAGE_WARNING, true)
+			continue
+		
+		# adding the folder
+		SongLists.AddFolder(folder)
+		AddFolder(folder)
 
 
 func _on_Remove_pressed():

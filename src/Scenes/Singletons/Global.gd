@@ -9,6 +9,8 @@ const SongArtistPath : String = "Panel/HBoxContainer/Artist"
 const SongLengthPath : String = "Panel/HBoxContainer/Length"
 const SongCoverPath : String = "Panel/HBoxContainer/Cover"
 const SupportedImgFormats : Array = ["*.jpg","*.png","*.webp","*.jpeg"]
+const audio_formats : Array = ["AAC","FLAC","MP3","M4A","OGG-OPUS","OGG-VORBIS","WAV"]
+const video_formats : Array = ["MP4","WEBM"]
 
 #NODES
 onready var DownloaderRef : YtDlp = YtDlp.new()

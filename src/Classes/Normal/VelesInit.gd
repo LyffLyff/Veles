@@ -83,17 +83,16 @@ func CreateFolders():
 
 
 func InitAudioEffects() -> void:
-	var MainEnabled : bool = SongLists.AudioEffects[SongLists.AudioEffects.size()-1]["main_enabled"]
+	var MainEnabled : bool = SongLists.AudioEffects[SongLists.AudioEffects.size() - 1]["main_enabled"]
 	for i in SongLists.AudioEffects.size() - 1:
-		#Setting Effect Enabled
-		if MainEnabled:
-			AudioServer.set_bus_effect_enabled(
-				0,
-				i,
-				SongLists.AudioEffects[i]["enabled"]
-			)
+		# setting Effect Enabled
+		AudioServer.set_bus_effect_enabled(
+			0,
+			i,
+			SongLists.AudioEffects[i]["enabled"] and MainEnabled	# if main is not enabled the effects will be off
+		)
 		
-		#Setting Effect Values
+		# setting Effect Values
 		var x : AudioEffect = AudioServer.get_bus_effect(0,i)
 		for j in range(1, SongLists.AudioEffects[i].size()):
 			x.set( SongLists.AudioEffects[i].keys()[j], SongLists.AudioEffects[i].values()[j] )

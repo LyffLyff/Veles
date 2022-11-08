@@ -45,6 +45,8 @@ func OnUserProfileSelected(var UserIdx : int) -> void:
 	Global.InitializeSongs = true
 	SongLists.ResetUserdata()
 	SongLists.LoadUserSpecificData(SongLists.FilePaths)
+	
+	# initialising user profile
 	var init : VelesInit = VelesInit.new()
 	init.CreateFolders()
 	init.CopyAudioPresets()
