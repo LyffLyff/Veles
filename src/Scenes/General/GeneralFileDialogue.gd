@@ -113,7 +113,7 @@ func SaveLastFolder(var args : String):
 
 
 func OnFilesDropped(var Files : PoolStringArray, var _ScreenIdx : int) -> void:
-	Dialog.set_current_dir(Files[0].get_basename())
+	Dialog.set_current_dir(Files[0].get_base_dir())
 
 
 func OnFileDialogHidden():

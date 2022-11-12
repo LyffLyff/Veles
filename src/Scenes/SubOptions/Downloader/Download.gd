@@ -94,4 +94,6 @@ func OnDownloadAdded():
 		Audioformat.selected,
 		IsPlaylist.selected
 	)
+	URL.clear()
+	Title.clear()
 	UpdateDownloads()

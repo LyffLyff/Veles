@@ -17,6 +17,5 @@ func InitDownloadContainer(var CurrentDownload : Dictionary) -> void:
 	DstFolder.set_text(CurrentDownload["DST_FOLDER"])
 
 
-
 func OnDstFolderPressed():
 	var _err = OS.shell_open(DstFolder.get_text())

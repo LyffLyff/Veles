@@ -93,16 +93,18 @@ rect_min_size = Vector2( 0, 20 )
 
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
 margin_top = 2.0
-margin_right = 1.0
+margin_right = 47.0
 margin_bottom = 18.0
 text = "Folder: "
-clip_text = true
+valign = 1
 
 [node name="DstFolder" type="LinkButton" parent="HBoxContainer/VBoxContainer/HBoxContainer2"]
-margin_left = 9.0
-margin_right = 9.0
+margin_left = 55.0
+margin_right = 55.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
+size_flags_vertical = 4
+underline = 1
 
 [node name="Stop" type="TextureButton" parent="HBoxContainer"]
 margin_left = 1070.0

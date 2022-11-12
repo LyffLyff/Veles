@@ -60,6 +60,7 @@ margin_right = 72.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
 Title = "room"
+MinValue = 0.0
 MaxValue = 0.6
 
 [node name="Damping" parent="VBoxContainer/VBoxContainer/Reverb" instance=ExtResource( 2 )]
@@ -68,6 +69,7 @@ margin_right = 154.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
 Title = "damp"
+MinValue = 0.0
 MaxValue = 1.0
 PropertyIdx = 1
 
@@ -77,6 +79,7 @@ margin_right = 236.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
 Title = "spread"
+MinValue = 0.0
 MaxValue = 1.0
 PropertyIdx = 2
 
@@ -86,6 +89,7 @@ margin_right = 318.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
 Title = "hiPass"
+MinValue = 0.0
 MaxValue = 1.0
 PropertyIdx = 3
 
@@ -95,6 +99,7 @@ margin_right = 400.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
 Title = "dry"
+MinValue = 0.0
 MaxValue = 1.0
 PropertyIdx = 4
 
@@ -104,6 +109,7 @@ margin_right = 72.0
 margin_bottom = 184.0
 size_flags_horizontal = 0
 Title = "wet"
+MinValue = 0.0
 MaxValue = 1.0
 PropertyIdx = 5
 

@@ -62,7 +62,7 @@ func _init() -> void:
 
 func download(url: String, destination: String, file_name: String, convert_to_audio: bool = false,
 		video_format: int = Video.WEBM, audio_format: int = Audio.VORBIS, playlist : bool = false) -> void:
-	
+	print("FROM PLAYLIST", playlist)
 	if destination[-1] != '/':
 		destination += '/'
 	
@@ -92,9 +92,6 @@ func _execute_on_thread(arguments: Array) -> void:
 	var audio_format: int = arguments[5]
 	var playlist : bool = arguments[6]
 	
-	var IsPlaylist: String = "no"
-	if playlist:
-		IsPlaylist = "yes"
 	
 	var executable: String = OS.get_user_data_dir() + \
 			("/yt-dlp.exe" if OS.get_name() == "Windows" else "/yt-dlp")
@@ -115,13 +112,22 @@ func _execute_on_thread(arguments: Array) -> void:
 		
 		options_and_arguments.append_array(["--format", format])
 	
-	var file_path: String = "{destination}{file_name}.%(ext)s" \
-			.format({
-				"destination": destination,
-				"file_name": file_name,
-			})
+	var file_path: String
 	
-	options_and_arguments.append_array(["--no-continue","-" + IsPlaylist + "--playlist", "-o", file_path, url])
+	# adding the title of the individual download, if playlist is set to yes
+	if playlist:
+		file_path = "{destination}{file_name} - %(title)s.%(ext)s"
+	else:
+		file_path = "{destination}{file_name}.%(ext)s"
+	
+	file_path = file_path.format(
+		{ 
+			"destination": destination,
+			"file_name": file_name,
+		})
+	
+	print(file_path)
+	options_and_arguments.append_array(["--no-continue", "-o", file_path, url])
 	
 	var output: Array = []
 	OS.execute(executable, options_and_arguments, true, output)
@@ -132,10 +138,9 @@ func _execute_on_thread(arguments: Array) -> void:
 
 func _thread_finished():
 	print("download_completed")
+	_thread.wait_to_finish()
 	emit_signal("download_completed")
 	Global.DownloadFromQueue(true)
-	_thread.wait_to_finish()
-	#_is_ready = true
 	
 	# Decrement the reference count once the thread is done
 	unreference()

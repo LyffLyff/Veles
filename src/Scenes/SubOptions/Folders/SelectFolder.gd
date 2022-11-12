@@ -98,13 +98,14 @@ func _on_FileDialog_dir_selected(var NewFolders : PoolStringArray,var _screen : 
 		if !dir.dir_exists(folder):
 			Global.root.Message("Folder not found", SaveData.MESSAGE_WARNING, true)
 			continue
-		if !SongLists.Folders.has(folder):
+		if SongLists.Folders.has(folder):
 			Global.root.Message("Folders can only be added once", SaveData.MESSAGE_WARNING, true)
 			continue
 		
 		# adding the folder
 		SongLists.AddFolder(folder)
 		AddFolder(folder)
+		print(SongLists.Folders)
 
 
 func _on_Remove_pressed():
@@ -117,8 +118,9 @@ func _on_Remove_pressed():
 		CurrentFolder = -1
 		Global.InitializeSongs = true
 		if SongLists.CurrentSong.get_base_dir() == dir_to_remove:
-			# resets the player when the current song is inside the folder that geets removed
+			SongLists.CurrentSong = ""
 			Global.root.InitMain()
+			#Playback.new().stop_playback()
 		root.Message("Removed selected folder", SaveData.MESSAGE_NOTICE, true)
 	else:
 		root.Message("Cannot remove -> No Folder Selected", SaveData.MESSAGE_NOTICE, true)

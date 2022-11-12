@@ -174,16 +174,18 @@ func DownloadFromQueue(var CompletedDownload : bool = false) -> void:
 		if CurrentDownloads.size() > 0:
 			CurrentDownloads.remove(0)
 			Global.InitializeSongs = true
+	
 	if CurrentDownloads.size() > 0:
-		DownloaderRef.download(
-			CurrentDownloads[0]["URL"],
-			CurrentDownloads[0]["DST_FOLDER"],
-			CurrentDownloads[0]["TITLE"],
-			CurrentDownloads[0]["AUDIO"],
-			CurrentDownloads[0]["VIDEO_FORMAT"],
-			CurrentDownloads[0]["AUDIO_FORMAT"],
-			CurrentDownloads[0]["PLAYLIST"]
-		)
+		if !DownloaderRef._thread.is_active():
+			DownloaderRef.download(
+				CurrentDownloads[0]["URL"],
+				CurrentDownloads[0]["DST_FOLDER"],
+				CurrentDownloads[0]["TITLE"],
+				CurrentDownloads[0]["AUDIO"],
+				CurrentDownloads[0]["VIDEO_FORMAT"],
+				CurrentDownloads[0]["AUDIO_FORMAT"],
+				CurrentDownloads[0]["PLAYLIST"]
+			)
 	else:
 		#All downloads finished
 		emit_signal("DownloadsFinished")

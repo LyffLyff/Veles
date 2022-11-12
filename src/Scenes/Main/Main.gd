@@ -38,7 +38,6 @@ const NormalPlaylistTemplate : PackedScene = preload("res://src/Scenes/SubOption
 const SmartPlaylistTemplate : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/SmartPlaylist.tscn")
 
 #VARIABLES
-var CurrentOption : int = -1
 var SongSpaceOption : Control = null
 var DisabledCounter : int = 0
 
@@ -126,12 +125,6 @@ func _unhandled_key_input(event):
 				KEY_I:
 					#Toggling Image View
 					player._on_Cover_pressed()
-				#KEY_LEFT:
-				#	#Backwards thge Current Song 5s
-				#	MainStream.seek( MainStream.get_playback_position() - 5.0 )
-				#KEY_RIGHT:
-				#	#Forwards thge Current Song 5s
-				#	MainStream.seek( MainStream.get_playback_position() + 5.0 )
 
 
 func _ready():
@@ -290,14 +283,22 @@ func SkipSong(var main_idx : int) -> void:
 	#skips to the next Song if the Header FileFormat is not supported or the path couldn't be opened
 	#when loading Veles checks for the Filename extension not the "REAL" format
 	var path : String = AllSongs.GetSongPath(main_idx)
+	var to_next : bool = false
+	print("SKIP: ",path)
 	if Global.first_skipped_path == path:
 		# only skips if the first song that was skipped does is not the one that wants to be skipped
 		#-> prevents an endless loop if EVERY song is invalid
 		SongLists.SetCurrentSong("")
 		MainStream.set_stream_paused(true)
 		return
+	else:
+		to_next = true
+	
 	if Global.first_skipped_path == "":
 		Global.first_skipped_path = path
+		to_next = true
+	
+	if to_next:
 		SongLists.SetCurrentSong(path)
 		ChangeSong(Global.last_direction)
 
@@ -305,9 +306,9 @@ func SkipSong(var main_idx : int) -> void:
 func LoadOptions(var index : int, var ignore_same : bool = false):
 	var del : bool = true
 	#if there isn't an option loaded it won't try to free it
-	if CurrentOption == -1:
+	if Sidebar.Options.CurrentOptionIdx == -1:
 		del = false
-	if CurrentOption != index or ignore_same:
+	if Sidebar.Options.CurrentOptionIdx != index or ignore_same:
 		var option : Control
 		match index:
 			0:
@@ -341,12 +342,12 @@ func LoadOptions(var index : int, var ignore_same : bool = false):
 		#Adding option to SceneTree
 		Message("LOADED OPTION: " + str(index), SaveData.MESSAGE_NOTICE)
 		AddOption(option)
-		CurrentOption = index
+		Sidebar.Options.set_sidebar_option(index)
 		ResetInputDisabler()
 
 
 func ReloadCurrentOption() -> void:
-	LoadOptions(CurrentOption,true)
+	LoadOptions(Sidebar.Options.CurrentOptionIdx,true)
 
 
 func AddOption(var option : Control) -> void:
@@ -500,17 +501,21 @@ func ToggleSongScrollerInput(var x : bool) -> void:
 	#be used when just on of them enabled the Scroller, event though one of them is still there
 	
 	if options.get_child_count() > 0:
+		var ref : Node = null
 		if options.get_child(0).get("songs"):
-			if !x:
-				DisabledCounter += 1;
-				Global.InputToggler(options.get_child(0).songs.get_parent(),false)
-			else:
-				DisabledCounter -= 1;
-				if DisabledCounter < 0:
-					DisabledCounter = 0;
-					Message("PROCESS INPUT DISIABLER FOR SONG SCROLLER CALLED WITH MULTIPLE DISABLERS", SaveData.MESSAGE_WARNING)
-				if DisabledCounter == 0:
-					Global.InputToggler(options.get_child(0).songs.get_parent(),true)
+			# only set reference if it exists -> input toggler can handle null Nodes
+			ref = options.get_child(0).songs.get_parent()
+		
+		if !x:
+			DisabledCounter += 1;
+			Global.InputToggler(ref,false)
+		else:
+			DisabledCounter -= 1;
+			if DisabledCounter < 0:
+				DisabledCounter = 0;
+				Message("PROCESS INPUT DISIABLER FOR SONG SCROLLER CALLED WITH MULTIPLE DISABLERS", SaveData.MESSAGE_WARNING)
+			if DisabledCounter == 0:
+				Global.InputToggler(ref,true)
 
 
 func ResetInputDisabler() -> void:

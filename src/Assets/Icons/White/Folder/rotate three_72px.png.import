@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/rotate three_72px.png-1e92599a06776d2d87450c49f079da76.stex"
+path="res://.import/rotate three_72px.png-077dd9abc7d14b7380a0e436084a11a4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/assets/Icons/White/Folder/rotate three_72px.png"
-dest_files=[ "res://.import/rotate three_72px.png-1e92599a06776d2d87450c49f079da76.stex" ]
+source_file="res://src/Assets/Icons/White/Folder/rotate three_72px.png"
+dest_files=[ "res://.import/rotate three_72px.png-077dd9abc7d14b7380a0e436084a11a4.stex" ]
 
 [params]
 

@@ -55,7 +55,6 @@ func _ready():
 
 
 func OnOptionPressed(var idx : int):
-	set_sidebar_option(idx)
 	Global.root.LoadOptions(idx, ignores[idx])
 
 
