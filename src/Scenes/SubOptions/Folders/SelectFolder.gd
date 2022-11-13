@@ -90,6 +90,9 @@ func _on_AddFolder_pressed():
 
 
 func _on_FileDialog_dir_selected(var NewFolders : PoolStringArray,var _screen : int = -1):
+	if Global.general_dialogue_visible:
+		return
+
 	var dir : Directory = Directory.new()
 	for folder in NewFolders:
 		folder = folder.get_base_dir()

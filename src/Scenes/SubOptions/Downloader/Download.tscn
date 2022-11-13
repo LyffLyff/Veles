@@ -136,10 +136,38 @@ margin_right = 836.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 
-[node name="AudioVideo" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
+[node name="Playlist" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
 margin_top = 90.0
 margin_right = 836.0
 margin_bottom = 110.0
+rect_min_size = Vector2( 250, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Playlist"]
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 100, 0 )
+text = "Playlist:"
+align = 1
+valign = 1
+
+[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Playlist"]
+margin_left = 108.0
+margin_right = 836.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "No"
+align = 1
+items = [ "No", null, false, 0, false, "Yes", null, false, 0, false ]
+selected = 0
+
+[node name="AudioVideo" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
+margin_top = 120.0
+margin_right = 836.0
+margin_bottom = 140.0
 rect_min_size = Vector2( 250, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -165,9 +193,9 @@ items = [ "Video", null, false, 0, false, "Audio", null, false, 0, false ]
 selected = 1
 
 [node name="Audioformat" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
-margin_top = 120.0
+margin_top = 150.0
 margin_right = 836.0
-margin_bottom = 140.0
+margin_bottom = 170.0
 rect_min_size = Vector2( 250, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -193,9 +221,9 @@ items = [ "AAC", null, false, 0, false, "FLAC", null, false, 0, false, "MP3", nu
 selected = 2
 
 [node name="Videoformat" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
-margin_top = 150.0
+margin_top = 180.0
 margin_right = 836.0
-margin_bottom = 170.0
+margin_bottom = 200.0
 rect_min_size = Vector2( 250, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -218,34 +246,6 @@ size_flags_vertical = 3
 text = "MP4"
 align = 1
 items = [ "MP4", null, false, 0, false, "WebM", null, false, 0, false ]
-selected = 0
-
-[node name="Playlist" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
-margin_top = 180.0
-margin_right = 836.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 250, 20 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Playlist"]
-margin_top = 2.0
-margin_right = 100.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 100, 0 )
-text = "Playlist:"
-align = 1
-valign = 1
-
-[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Playlist"]
-margin_left = 108.0
-margin_right = 836.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "No"
-align = 1
-items = [ "No", null, false, 0, false, "Yes", null, false, 0, false ]
 selected = 0
 
 [node name="RightEmpty" type="Control" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer"]

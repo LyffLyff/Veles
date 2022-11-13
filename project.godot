@@ -194,7 +194,6 @@ gdscript/warnings/standalone_ternary=false
 [display]
 
 window/size/width=1120
-window/size/borderless=true
 window/dpi/allow_hidpi=true
 window/per_pixel_transparency/allowed=true
 window/per_pixel_transparency/enabled=true

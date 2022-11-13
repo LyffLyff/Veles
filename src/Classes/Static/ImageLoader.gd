@@ -121,6 +121,10 @@ static func SquarifyImage(var img : Image) -> Image:
 	#Squarifying the Cover
 	#Extracting the Biggest Square out of the given Image
 	var NewSize : Vector2 = Vector2(img.get_width() / img.get_size().aspect(), img.get_height())
+	
+	#fixing the issue of one invalid line of pixels being shown at the bottom in some cases
+	NewSize.y -= 1
+	
 	var LeftPos : Vector2 = Vector2(
 		(img.get_size() / 2.0) - (NewSize / 2.0)
 	)

@@ -76,7 +76,7 @@ margin_bottom = 45.0
 rect_min_size = Vector2( 0, 40 )
 custom_fonts/font = SubResource( 2 )
 text = "Artists"
-valign = 1
+valign = 2
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/ScrollContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 margin_top = 50.0

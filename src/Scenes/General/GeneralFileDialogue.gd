@@ -19,9 +19,11 @@ func _ready():
 
 
 func _enter_tree():
+	Global.general_dialogue_visible = true
 	Global.root.ToggleSongScrollerInput(false)
 
 func _exit_tree():
+	Global.general_dialogue_visible = false
 	Global.root.ToggleSongScrollerInput(true)
 
 

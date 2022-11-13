@@ -69,7 +69,7 @@ func _ready():
 
 
 func OnFilesDropped(var Files : PoolStringArray,var _Screen : int) -> void:
-	print(get_global_mouse_position())
+	if Global.general_dialogue_visible: return;
 	var Dis2PathEdit : float = get_global_mouse_position().distance_to(PathEdit.rect_global_position) 
 	var Dis2CoverEdit : float = get_global_mouse_position().distance_to(Cover.rect_global_position)
 	if Dis2CoverEdit < Dis2PathEdit:
@@ -177,6 +177,7 @@ func _on_SetTag_pressed():
 			#Cover
 			if Cover.get_text() != "":
 				var cover_path : String = Cover.get_text()
+				print(MultiplePaths[ PathIdx ])
 				Tags.SetCover(
 					cover_path,
 					MultiplePaths[ PathIdx ],
@@ -192,13 +193,13 @@ func _on_SetTag_pressed():
 						Global.root.Message("COULD NOT COPY NEW COVER",  SaveData.MESSAGE_ERROR )
 		else:
 			root.Message("Cannot Set Tags on this Fileformat", SaveData.MESSAGE_ERROR, true)
-		
-		var x : SongLoader = SongLoader.new()
-		x.Reload()
-		ResetLineEditChanged()
-		SetSongPaths(MultiplePaths)
-		InitTags(MultiplePaths)
-		root.UpdatePlayerInfos()
+	
+	var x : SongLoader = SongLoader.new()
+	x.Reload()
+	ResetLineEditChanged()
+	SetSongPaths(MultiplePaths)
+	InitTags(MultiplePaths)
+	root.UpdatePlayerInfos()
 
 
 func _on_SelectSong_pressed():

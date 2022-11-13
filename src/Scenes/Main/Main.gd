@@ -135,6 +135,7 @@ func InitMain(var Load : bool = false) -> void:
 	if Global.CurrentProfileIdx != -1:
 		#Connecting User Profile Box
 		UserProfileBox.InitProfileBox()
+		Sidebar.UpdateSidebar()
 		if !self.is_connected("resized",Sidebar,"UpdateSidebar"):
 			var _err = self.connect("resized",Sidebar,"UpdateSidebar")
 		if !UserProfileBox.LoadUserSelect.is_connected("pressed",self,"LoadUserProfileSelection"):

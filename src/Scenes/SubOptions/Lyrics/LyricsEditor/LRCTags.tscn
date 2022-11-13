@@ -33,19 +33,19 @@ custom_constants/separation = 20
 alignment = 1
 
 [node name="Label" type="Label" parent="LRCTags/HBoxContainer"]
-margin_left = 497.0
+margin_left = 502.0
 margin_top = 4.0
-margin_right = 553.0
+margin_right = 558.0
 margin_bottom = 20.0
 text = "LRC Tags"
 
 [node name="Pointer" type="TextureRect" parent="LRCTags/HBoxContainer"]
-margin_left = 573.0
-margin_top = 2.0
-margin_right = 623.0
-margin_bottom = 22.0
-rect_min_size = Vector2( 50, 20 )
-rect_pivot_offset = Vector2( 25, 10 )
+margin_left = 578.0
+margin_top = 4.0
+margin_right = 618.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 40, 16 )
+rect_pivot_offset = Vector2( 20, 8 )
 mouse_filter = 2
 size_flags_horizontal = 9
 size_flags_vertical = 4

@@ -1,7 +1,4 @@
-extends Reference
-
-
-class_name WAV
+class_name WAV extends Reference
 
 #A class surrounding the .wav Musicformat
 #to read/calculate certain properties of .wav files

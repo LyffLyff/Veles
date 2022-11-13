@@ -28,6 +28,7 @@ func _ready():
 
 
 func _on_files_dropped(var files : Array , var _screen : int) -> void:
+	if Global.general_dialogue_visible: return;
 	DstFolder.set_text( files[0].replace("\\","/") )
 
 

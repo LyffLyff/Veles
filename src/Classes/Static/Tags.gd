@@ -71,7 +71,7 @@ static func SetReleaseYear(var ReleaseYear : String, var path : String) -> void:
 
 static func SetCover(var img_path : String, var song_path : String, var MimeType : String) -> void:
 	var x : Tagging = Tagging.new()
-	x.SetCover(img_path, song_path,MimeType)
+	print( x.SetCover(img_path, song_path,MimeType) ) 
 
 
 static func SetTag(var flag : int, var data : String,var path : String) -> void:

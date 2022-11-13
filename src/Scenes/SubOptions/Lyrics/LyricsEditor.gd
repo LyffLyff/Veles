@@ -102,6 +102,10 @@ func LoadProject() -> void:
 	InitTimestamps(ProjectData[2])
 
 
+func set_project_path(var new_project_path : String) -> void:
+	ProjectPath = new_project_path
+
+
 func InitVerses(var Verses : PoolStringArray) -> void:
 	for i in Verses.size():
 		OnAddVersePressed()
@@ -197,16 +201,19 @@ func OnSaveLyricsProject(var SaveAs : bool = false):
 	if FileChecker.exists( ProjectPath ) and !SaveAs:
 		#The Project already exists, the PreExisting File will
 		#be overriden with the new Data
-		SaveData.Save(ProjectPath.replace("user://", OS.get_user_data_dir() ), VLPFiledata )
+		SaveData.Save(ProjectPath.replace("user://", OS.get_user_data_dir() + "/" ), VLPFiledata )
 		ProjectUpToDate = true
 	else:
 		var x = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
-		self.add_child(x)
+		Global.root.TopUI.add_child(x)
 		x.NReady(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_USERDATA, "Lyrics",["*.vlp"], true, "Save Project As",Title)
 		x.Dialog.current_dir = Global.GetCurrentUserDataFolder() + "/Lyrics/Projects"
 		var _err = x.connect("SelectionMade", SaveData, "Save", [VLPFiledata])
+		
+		#changing current project path if save as is true
 		if SaveAs:
-			_err = x.connect("SelectionMade", self, "set", ["ProjectPath"])
+			_err = x.connect("SelectionMade", self, "set_project_path")
+		
 		_err = x.connect("SelectionMade", self, "AddProjectAsEdited")
 		_err = x.connect("Saved", self, "set", ["ProjectUpToDate",true])
 
@@ -237,7 +244,7 @@ func ExportToLRC() -> void:
 	)
 	
 	var x = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
-	self.add_child(x)
+	Global.root.TopUI.add_child(x)
 	x.NReady(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_FILESYSTEM, "ExportLRC",["*.lrc"], true, "Export Project to LRC File")
 	var _err = x.connect("SelectionMade", Exporter.new(), "ToLRC", [LRCFileData])
 
@@ -359,4 +366,3 @@ func OnAPIFetchpressed():
 	var APIFetch : Node = load("res://src/Scenes/SubOptions/Lyrics/APIFetch.tscn").instance()
 	var _err = APIFetch.connect("OverwriteProject",self,"CreateFromAPIResponse")
 	get_parent().add_child(APIFetch)
-

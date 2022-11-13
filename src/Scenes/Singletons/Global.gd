@@ -36,6 +36,7 @@ var LowFPS : bool
 var AppOpenedTime : int = OS.get_unix_time()
 var last_direction : int = 1				# either if the next or prior song was played
 var first_skipped_path : String = ""
+var general_dialogue_visible : bool = false
 
 
 #PRELOADS

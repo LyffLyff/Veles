@@ -24,6 +24,7 @@ func LoadLyricsProjects() -> void:
 		var x = Button.new()
 		x.align = Button.ALIGN_LEFT
 		x.theme = ClearButtonTheme
+		x.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		AllProjects.add_child(x)
 		x.rect_min_size.y = 30
 		x.set_text(y)
@@ -44,12 +45,13 @@ func LoadLyricsProjects() -> void:
 			SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects",Temp)
 			continue;
 		var x = Button.new()
+		x.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		x.theme = ClearButtonTheme
 		x.rect_min_size.y = 30
 		x.align = Button.ALIGN_LEFT
 		x.connect("pressed",Global.root,"LoadLyricEditor",[LastProjects[i]])
 		LastEditedProjects.add_child(x)
-		x.set_text(LastProjects[i])
+		x.set_text(LastProjects[i].get_file())
 
 
 func OnNewLyricsProjectPressed():

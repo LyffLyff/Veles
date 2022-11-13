@@ -27,23 +27,23 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 margin_right = 1064.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 0, 80 )
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 1 )
 text = "Lyrics"
-valign = 1
+valign = 2
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-margin_top = 88.0
+margin_top = 48.0
 margin_right = 1064.0
-margin_bottom = 98.0
+margin_bottom = 58.0
 custom_constants/separation = 10
 
 [node name="LastEdited" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 106.0
+margin_top = 66.0
 margin_right = 1064.0
-margin_bottom = 298.0
+margin_bottom = 278.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -57,25 +57,25 @@ text = "Last Edited:"
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/LastEdited"]
 margin_top = 24.0
 margin_right = 1064.0
-margin_bottom = 192.0
+margin_bottom = 212.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="LastEditedProjects" type="VBoxContainer" parent="VBoxContainer/LastEdited/ScrollContainer"]
 margin_right = 1064.0
-margin_bottom = 168.0
+margin_bottom = 188.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 2
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 306.0
+margin_top = 286.0
 margin_right = 1064.0
-margin_bottom = 316.0
+margin_bottom = 296.0
 custom_constants/separation = 10
 
 [node name="AllProjects" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 324.0
+margin_top = 304.0
 margin_right = 1064.0
 margin_bottom = 516.0
 size_flags_horizontal = 3
@@ -89,13 +89,13 @@ text = "All Lyrics Projects:"
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/AllProjects"]
 margin_top = 24.0
 margin_right = 1064.0
-margin_bottom = 192.0
+margin_bottom = 212.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="AllProjects" type="VBoxContainer" parent="VBoxContainer/AllProjects/ScrollContainer"]
 margin_right = 1064.0
-margin_bottom = 168.0
+margin_bottom = 188.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 2
@@ -126,6 +126,7 @@ margin_top = 2.0
 margin_right = 978.0
 margin_bottom = 37.0
 rect_min_size = Vector2( 60, 35 )
+mouse_default_cursor_shape = 2
 size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
 expand = true
@@ -137,6 +138,7 @@ margin_top = 2.0
 margin_right = 1046.0
 margin_bottom = 37.0
 rect_min_size = Vector2( 60, 35 )
+mouse_default_cursor_shape = 2
 size_flags_vertical = 4
 texture_normal = ExtResource( 2 )
 expand = true

@@ -116,6 +116,8 @@ func OnFilesDropped(var FilePaths : PoolStringArray, var _ScreenIdx : int) -> vo
 	#A function that finds the Closest Reference of a Node inside of an Array,
 	#relative to the Mouse Position
 	#the Dropped File will then be entered automatically
+	if Global.general_dialogue_visible: return;
+	
 	if CurrentFileEdits.size() <= 0:
 		return;
 	

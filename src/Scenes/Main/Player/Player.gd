@@ -60,6 +60,8 @@ func InitPlayer() -> void:
 	SongArtist.set_text("")
 	PlayerInfoCover.set_normal_texture(Global.std_music_cover)
 	
+	
+	
 	#setting the saved values
 	set_repeat(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Repeat"))
 	set_shuffle(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Shuffle"))

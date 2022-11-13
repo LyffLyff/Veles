@@ -29,7 +29,6 @@ const VerseContainer : PackedScene = preload("res://src/Scenes/SubOptions/Lyrics
 
 
 func _ready():
-	Scroll.get_v_scrollbar().rect_min_size.x = 5
 	LoadLyrics()
 	SetFontSize( SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS, "LyricsFontSize") )
 
