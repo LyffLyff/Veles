@@ -44,16 +44,16 @@ var MultiplePaths : PoolStringArray = []
 
 func _ready():
 	if get_tree().connect("files_dropped",self,"OnFilesDropped"):
-		Global.root.Message("CANNOT CONNECT FILES DROPPED SIGNAL TO OnFilesDropped FUNCTION",  SaveData.MESSAGE_ERROR )
+		Global.root.message("CANNOT CONNECT FILES DROPPED SIGNAL TO OnFilesDropped FUNCTION",  SaveData.MESSAGE_ERROR )
 
 	for n in LineEdits.size():
 		LinedEditsChanged.push_back(false)
 		if LineEdits[n] is TextEdit:
 			if LineEdits[n].connect("text_changed",self,"OnLineEditTextChanged",["",n]):
-				Global.root.Message("CANNOT CONNECT TEXT CHANGED SIGNAL TO OnLineEditTextChanged FUNCTION",  SaveData.MESSAGE_ERROR )
+				Global.root.message("CANNOT CONNECT TEXT CHANGED SIGNAL TO OnLineEditTextChanged FUNCTION",  SaveData.MESSAGE_ERROR )
 		elif LineEdits[n] is LineEdit:
 			if LineEdits[n].connect("text_changed",self,"OnLineEditTextChanged",[n]):
-				Global.root.Message("CANNOT CONNECT TEXT CHANGED SIGNAL TO OnLineEditTextChanged FUNCTION",  SaveData.MESSAGE_ERROR )
+				Global.root.message("CANNOT CONNECT TEXT CHANGED SIGNAL TO OnLineEditTextChanged FUNCTION",  SaveData.MESSAGE_ERROR )
 	
 	#when loading this section it checks
 	#if a Global path has been set to
@@ -97,13 +97,13 @@ func _on_SetTag_pressed():
 		var z : File = File.new()
 		if z.open(MultiplePaths[ PathIdx ],File.READ) != OK:
 			#Skipping the Song if it couldn't be opened
-			Global.root.Message("File could not be tagged:\n" + MultiplePaths[ PathIdx ],  SaveData.MESSAGE_ERROR, true )
+			Global.root.message("File could not be tagged:\n" + MultiplePaths[ PathIdx ],  SaveData.MESSAGE_ERROR, true )
 			continue;
 		
 		if FormatChecker.GetMusicFormat( z.get_buffer(1024).hex_encode() ) == -1 and FormatChecker.FileNameFormat(MultiplePaths[ PathIdx ]) == -1:
 			#if the Real Format is not supported the loop will be skipped
 			#-> to prevent false tags
-			Global.root.Message("FILEFORMAT CANNOT BE TAGGED",  SaveData.MESSAGE_ERROR, true )
+			Global.root.message("FILEFORMAT CANNOT BE TAGGED",  SaveData.MESSAGE_ERROR, true )
 			continue;
 		z.close()
 		
@@ -115,7 +115,7 @@ func _on_SetTag_pressed():
 			TempMainIdx = AllSongs.GetMainIdx(MultiplePaths[ PathIdx ])
 			
 		if FileChecker.exists(MultiplePaths[ PathIdx ]):
-			Global.root.Message("Setting Tags on: " + MultiplePaths[ PathIdx ], SaveData.MESSAGE_NOTICE)
+			Global.root.message("Setting Tags on: " + MultiplePaths[ PathIdx ], SaveData.MESSAGE_NOTICE)
 			
 			#ARTIST
 			if LinedEditsChanged[ ARTIST ]:
@@ -190,20 +190,20 @@ func _on_SetTag_pressed():
 					if y.copy(cover_path,Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + CoverHash + ".png") == OK:
 						x.FilteringDuplicateCovers({CoverHash : MultiplePaths[ PathIdx ]})
 					else:
-						Global.root.Message("COULD NOT COPY NEW COVER",  SaveData.MESSAGE_ERROR )
+						Global.root.message("COULD NOT COPY NEW COVER",  SaveData.MESSAGE_ERROR )
 		else:
-			root.Message("Cannot Set Tags on this Fileformat", SaveData.MESSAGE_ERROR, true)
+			root.message("Cannot Set Tags on this Fileformat", SaveData.MESSAGE_ERROR, true)
 	
 	var x : SongLoader = SongLoader.new()
 	x.Reload()
 	ResetLineEditChanged()
 	SetSongPaths(MultiplePaths)
 	InitTags(MultiplePaths)
-	root.UpdatePlayerInfos()
+	root.update_player_infos()
 
 
 func _on_SelectSong_pressed():
-	var dialog = root.OpenGeneralFileDialogue(
+	var dialog = root.load_general_file_dialogue(
 		self,
 		FileDialog.MODE_OPEN_FILES,
 		FileDialog.ACCESS_FILESYSTEM,
@@ -219,7 +219,7 @@ func _on_SelectSong_pressed():
 
 
 func _on_SelectCover_pressed():
-	var dialog = root.OpenGeneralFileDialogue(
+	var dialog = root.load_general_file_dialogue(
 		self,
 		FileDialog.MODE_OPEN_FILES,
 		FileDialog.ACCESS_FILESYSTEM,
@@ -255,7 +255,7 @@ func RenameSong(var old_path : String, var new_path : String, var new_title : St
 			SongLists.AllSongs.keys()[SongLists.AllSongs.keys().find(old_path,0)] = new_path
 			SongLists.AllSongs.values()[SongLists.AllSongs.keys().find(old_path,0)] = temp
 			if !SongLists.AllSongs.erase(old_path):
-				root.Message("PATH THAT YOU WANTED TO ERASE FROM ALLSONGS IS NOT EXISTENT IN IT: " + old_path, SaveData.MESSAGE_ERROR)
+				root.message("PATH THAT YOU WANTED TO ERASE FROM ALLSONGS IS NOT EXISTENT IN IT: " + old_path, SaveData.MESSAGE_ERROR)
 		
 		# replacing in Playlists
 		for n in SongLists.Playlists.size():
@@ -265,7 +265,7 @@ func RenameSong(var old_path : String, var new_path : String, var new_title : St
 					value[0] = AllSongs.GetSongAmount() -1
 					SongLists.Playlists.values()[n][new_path] = value
 				else:
-					root.Message("COULD NOT ERASE KEY IN THE PLAYLISTS", SaveData.MESSAGE_ERROR)
+					root.message("COULD NOT ERASE KEY IN THE PLAYLISTS", SaveData.MESSAGE_ERROR)
 		
 		# replacing in Streams
 		if SongLists.Streams.has(old_path):
@@ -338,9 +338,9 @@ func SetArtistLineEdits(var Artist_s : String) -> void:
 func _on_AddArtist_pressed():
 	var x : HBoxContainer = load("res://src/Scenes/SubOptions/Tagging/AdditionalArtist.tscn").instance()
 	if x.get_node("LineEdit").connect("text_changed",self,"OnLineEditTextChanged",[ ARTIST ]):
-		root.Message("CONNECTING NEW ARTIST LINEEDIT TO OnLineEditTextChanged function", SaveData.MESSAGE_ERROR)
+		root.message("CONNECTING NEW ARTIST LINEEDIT TO OnLineEditTextChanged function", SaveData.MESSAGE_ERROR)
 	if x.get_node("LineEdit").connect("tree_exited",self,"OnLineEditTextChanged",["", ARTIST ]):
-		root.Message("CONNECTING ARTIST LINEEDIT TREE EXITED TO OnLineEditTextChanged function", SaveData.MESSAGE_ERROR)
+		root.message("CONNECTING ARTIST LINEEDIT TREE EXITED TO OnLineEditTextChanged function", SaveData.MESSAGE_ERROR)
 	ArtistVBOX.add_child(x)
 
 

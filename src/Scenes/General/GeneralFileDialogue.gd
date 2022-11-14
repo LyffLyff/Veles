@@ -20,11 +20,11 @@ func _ready():
 
 func _enter_tree():
 	Global.general_dialogue_visible = true
-	Global.root.ToggleSongScrollerInput(false)
+	Global.root.toggle_songlist_input(false)
 
 func _exit_tree():
 	Global.general_dialogue_visible = false
-	Global.root.ToggleSongScrollerInput(true)
+	Global.root.toggle_songlist_input(true)
 
 
 #Node that needs this Scene has to call this function and give certain Parameters

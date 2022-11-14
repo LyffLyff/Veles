@@ -8,7 +8,7 @@ onready var SongFilter : Control = $HBoxContainer/VBoxContainer/SongFilters
 func _ready():
 	Global.PlaylistPressed = -1
 	if SongFilter.connect("filter_status",SongScroller,"SetFilterStatus"):
-		Global.root.Message("Connecting Song filters with ScrollContainer",  SaveData.MESSAGE_ERROR )
+		Global.root.message("Connecting Song filters with ScrollContainer",  SaveData.MESSAGE_ERROR )
 	#Child one and two of ScrollContainer are the Scrollbars
 	songs = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller/Songs
 	SongScroller = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller
@@ -22,4 +22,4 @@ func _ready():
 		x.Reload()
 		Global.InitializeSongs = false
 	x.CreateSongsSpaces(songs)
-	root.UpdateHighlightedSong(SongLists.CurrentSong)
+	root.update_highlighted_song(SongLists.CurrentSong)

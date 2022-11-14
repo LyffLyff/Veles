@@ -46,7 +46,7 @@ func CreateFolders():
 		for n in GlobalFolders.size():
 			if !dir.dir_exists(GlobalFolders[n]):
 				if dir.make_dir_recursive(GlobalFolders[n]) != OK:
-					Global.root.Message("CREATING" + GlobalFolders[n] + "FOLDER",SaveData.MESSAGE_ERROR)
+					Global.root.message("CREATING" + GlobalFolders[n] + "FOLDER",SaveData.MESSAGE_ERROR)
 		
 		#User Specific Folders
 		var UserSpecificFolders : PoolStringArray = [
@@ -79,7 +79,7 @@ func CreateFolders():
 			for n in UserSpecificFolders.size():
 				if !dir.dir_exists(Global.GetCurrentUserDataFolder() + UserSpecificFolders[n]):
 					if dir.make_dir_recursive("Users/" + Username  + "/" + UserSpecificFolders[n]) != OK:
-						Global.root.Message("CREATING" + UserSpecificFolders[n] + "FOLDER",SaveData.MESSAGE_ERROR)
+						Global.root.message("CREATING" + UserSpecificFolders[n] + "FOLDER",SaveData.MESSAGE_ERROR)
 
 
 func InitAudioEffects() -> void:
@@ -117,10 +117,10 @@ func CopyAudioPresets() -> void:
 						break;
 					if dir.file_exists("res://src/Ressources/StdAudioPresets/" + StdAudioPreset):
 						if dir.copy("res://src/Ressources/StdAudioPresets/" + StdAudioPreset,Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets/" + StdAudioPreset.get_file() ) != OK:
-							Global.root.Message("COPYING STANDARD PRESET FILE TO USERDATA",SaveData.MESSAGE_ERROR, false, Color() )
+							Global.root.message("COPYING STANDARD PRESET FILE TO USERDATA",SaveData.MESSAGE_ERROR, false, Color() )
 				SaveData.Save(SongLists.AddUserToFilepath( SongLists.FilePaths[17] ),true)
 		else:
-			Global.root.Message("StdAudioPresets couldn't be loaded", SaveData.MESSAGE_ERROR) 
+			Global.root.message("StdAudioPresets couldn't be loaded", SaveData.MESSAGE_ERROR) 
 
 
 func CopyExportTemplates() -> void:

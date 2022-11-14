@@ -11,7 +11,7 @@ static func exists(var path : String) -> bool:
 static func DeleteFile(var path : String) -> void:
 	var dir : Directory = Directory.new()
 	if dir.remove(path) != OK:
-		Global.root.Message("REMOVING FILE: " +  path,SaveData.MESSAGE_ERROR)
+		Global.root.message("REMOVING FILE: " +  path,SaveData.MESSAGE_ERROR)
 
 
 static func RemoveFolderRecursive(var DirPath : String):
@@ -33,12 +33,12 @@ static func RemoveFolderRecursive(var DirPath : String):
 		# Remove current path
 		directory.remove(DirPath)
 	else:
-		Global.root.Message("REMOVING DIRECTORY: " +  DirPath,SaveData.MESSAGE_ERROR)
+		Global.root.message("REMOVING DIRECTORY: " +  DirPath,SaveData.MESSAGE_ERROR)
 
 
 static func OpenDirectory(var dir : String) ->void:
 	if OS.shell_open(dir) != OK:
-		Global.root.Message("OPENING SONG DIRECTORY: " +  dir,SaveData.MESSAGE_ERROR)
+		Global.root.message("OPENING SONG DIRECTORY: " +  dir,SaveData.MESSAGE_ERROR)
 
 
 static func ClearFolder(var folder : String) -> void:
@@ -49,6 +49,6 @@ static func ClearFolder(var folder : String) -> void:
 				var file_to_delete : String = dir.get_next()
 				if file_to_delete != "":
 					if dir.remove(file_to_delete) != OK:
-						Global.root.Message("REMOVING FILE: " +  file_to_delete,SaveData.MESSAGE_ERROR)
+						Global.root.message("REMOVING FILE: " +  file_to_delete,SaveData.MESSAGE_ERROR)
 				else:
 					break;

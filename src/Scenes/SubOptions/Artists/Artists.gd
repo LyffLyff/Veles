@@ -63,7 +63,7 @@ func OnArtistSelected(var ArtistNames : PoolStringArray) -> void:
 	}
 	
 	#Passes the Title of Playlist -> Main Artists Name
-	Global.root.LoadTemporaryPlaylist(
+	Global.root.load_temporary_playlist(
 		ArtistNames.join(", "),
 		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Descriptions/" + ArtistNames.join("") + ".txt",
 		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Covers/" + ArtistNames.join("") + ".png",

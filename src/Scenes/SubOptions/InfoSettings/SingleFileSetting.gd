@@ -7,8 +7,8 @@ onready var root : Control = get_tree().get_root().get_child(get_tree().get_root
 
 
 func _ready() -> void:
-	if Dialogue.connect("pressed", root,"OpenGeneralFileDialogue",[FileEdit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",[],true]):
-		Global.root.Message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
+	if Dialogue.connect("pressed", root,"load_general_file_dialogue",[FileEdit, FileDialog.MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, "set_text", [], "Image", [], true]):
+		Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
 	var FilePath : String = SettingsData.GetSetting(
 		get_parent().get_parent().SettingTypeIdx,
 		get_parent().FileSettingKey

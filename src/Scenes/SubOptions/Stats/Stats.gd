@@ -23,7 +23,7 @@ func _ready():
 		var option : Button = options.get_child(n)
 		OptionTexts.push_back(option.get_child(0).get_text())
 		if option.connect("pressed",self,"SwitchTab",[n]) != OK:
-			Global.root.Message("CONNECTING STATS OPTIONS BUTTONS",  SaveData.MESSAGE_ERROR )
+			Global.root.message("CONNECTING STATS OPTIONS BUTTONS",  SaveData.MESSAGE_ERROR )
 	CreateSpaces(MAX_STATS)
 	SwitchTab(current_tab)
 	options.get_child(current_tab).self_modulate = OptionModulateString
@@ -158,5 +158,5 @@ func OnExportPressed():
 			]
 		)
 	var StatsExportMenu : Control = load("res://src/Scenes/Export/StatsExportMenu.tscn").instance() 
-	Global.root.TopUI.add_child( StatsExportMenu )
+	Global.root.top_ui.add_child( StatsExportMenu )
 	StatsExportMenu.InitStatsExportMenu(SortedStreamList)

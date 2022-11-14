@@ -10,9 +10,9 @@ func stop_playback() -> void:
 	SongLists.CurrentSong = ""
 	MainStream.set_stream_paused(true)
 	MainStream.set_stream(null)
-	Global.root.player.InitPlayer()
 	MainStream.ReloadStreamTimer(true)
-	#set_playback_button -> to paused
+	Global.root.player.init_player()
+	Global.root.player.set_playback_button(false)
 
 
 func skip_song() -> void:

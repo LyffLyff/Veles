@@ -22,7 +22,7 @@ func Reload() -> void:
 		var d : Directory = Directory.new()
 		if !d.file_exists(n):
 			if !SongLists.AllSongs.erase(n):
-				Global.root.Message("COULD NOT ERASE INDEX " + str(n) + "FROM ALLSONGS DICTIONARY", SaveData.MESSAGE_ERROR)
+				Global.root.message("COULD NOT ERASE INDEX " + str(n) + "FROM ALLSONGS DICTIONARY", SaveData.MESSAGE_ERROR)
 	
 	#Loading New Songs from Folder if any
 	for FolderIdx in SongLists.Folders.size():

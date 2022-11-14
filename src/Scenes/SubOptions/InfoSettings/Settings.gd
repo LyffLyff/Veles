@@ -43,24 +43,24 @@ func LoadOption(var OptionIdx : int) -> void:
 			continue;
 		
 		if OptionVBox.get_child(n).get_child(2).connect("mouse_entered",self,"OnMouseEntered",[n]):
-			Global.root.Message("CONNECTING SETTING CONTAINERS TO MOUSE ENTERED",  SaveData.MESSAGE_ERROR )
+			Global.root.message("CONNECTING SETTING CONTAINERS TO MOUSE ENTERED",  SaveData.MESSAGE_ERROR )
 		if OptionVBox.get_child(n).get_child(2).connect("mouse_exited",self,"OnMouseExited"):
-			Global.root.Message("CONNECTING SETTING CONTAINERS TO MOUSE EXITED",  SaveData.MESSAGE_ERROR )
+			Global.root.message("CONNECTING SETTING CONTAINERS TO MOUSE EXITED",  SaveData.MESSAGE_ERROR )
 	
 		#Normal Options
 		if OptionVBox.get_child(n).get_child(2) is OptionButton:
 			if OptionVBox.get_child(n).get_child(2).has_method("NormalSettingItemSelected"):
 				if OptionVBox.get_child(n).get_child(2).connect("item_selected",OptionVBox.get_child(n).get_child(2),"NormalSettingItemSelected"):
-					Global.root.Message("CONNECTING SETTING CONTAINERS TO PARENTD",  SaveData.MESSAGE_ERROR )
+					Global.root.message("CONNECTING SETTING CONTAINERS TO PARENTD",  SaveData.MESSAGE_ERROR )
 		
 		#Design Options
 		if OptionVBox.get_child(n).get_child(2) is ColorPickerButton:
 			if OptionVBox.get_child(n).get_child(2).connect("pressed",self,"OnColorChangerShown",[n]):
-				Global.root.Message("COULDN'T CONNECT picker_created SIGNAL TO OnColorChangerShown FUNCTION",  SaveData.MESSAGE_ERROR )
+				Global.root.message("COULDN'T CONNECT picker_created SIGNAL TO OnColorChangerShown FUNCTION",  SaveData.MESSAGE_ERROR )
 			if OptionVBox.get_child(n).get_child(2).connect("popup_closed",self,"OnColorChangerFreed"):
-				Global.root.Message("COULDN'T CONNECT popup_closed SIGNAL TO OnColorChangerFreed FUNCTION",  SaveData.MESSAGE_ERROR )
+				Global.root.message("COULDN'T CONNECT popup_closed SIGNAL TO OnColorChangerFreed FUNCTION",  SaveData.MESSAGE_ERROR )
 			if OptionVBox.get_child(n).get_child(2).connect("color_changed",self,"OnColorChanged"):
-				Global.root.Message("COULDN'T CONNECT color_changed SIGNAL TO OnColorChanged FUNCTION",  SaveData.MESSAGE_ERROR )
+				Global.root.message("COULDN'T CONNECT color_changed SIGNAL TO OnColorChanged FUNCTION",  SaveData.MESSAGE_ERROR )
 	
 	InitCurrentFileEdits()
 

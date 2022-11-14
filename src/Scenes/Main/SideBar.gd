@@ -1,75 +1,72 @@
 extends ScrollContainer
 
-#CONSTANTS
 const ICON_TOGGLE_WIDTH : int = 1000
 const CONTRACTED_SIZE : float = 40.0
 const EXPANDED_SIZE : float = 120.0
 
-#VARIABLE
-var IconsShown : bool = false
+var icons_visible : bool = false
 
-#NODES
-onready var Options : VBoxContainer = $HBoxContainer/VBoxContainer/Options
-onready var UserProfile : PanelContainer = $HBoxContainer/VBoxContainer/UserProfileBox
+onready var sub_options : VBoxContainer = $HBoxContainer/VBoxContainer/sub_options
+onready var user_profile_container : PanelContainer = $HBoxContainer/VBoxContainer/UserProfileBox
 
 
 func _ready():
-	#Init
+	# init
 	self.rect_min_size.x = EXPANDED_SIZE
-	UpdateSidebar(0.0)
+	update_sidebar(0.0)
 	
-	#Setting Desgin
+	# initialising color
 	self.get_stylebox("bg").set(
 		"bg_color",
 		SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS,"MainOptionsBackground")
 	)
 	
-	#Hiding Scrollbar
+	# hiding Scrollbar
 	self.get_v_scrollbar().modulate = "00000000"
 
 
-func UpdateSidebar(var Duration : float = 0.3) -> void:
+func update_sidebar(var duration : float = 0.3) -> void:
 	match SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS, "SidebarMode"):
 		0:
 			#Automatic
 			if Global.root.get_rect().size.x < ICON_TOGGLE_WIDTH:
-				ContractSidebar(Duration)
+				contract_sidebar(duration)
 			else:
-				if IconsShown:
-					ExpandSidebar(Duration)
+				if icons_visible:
+					expand_sidebar(duration)
 				else:
 					return;
 		1:
 			#Expanded
-			if IconsShown:
-				ExpandSidebar(Duration)
+			if icons_visible:
+				expand_sidebar(duration)
 		2:
 			#Contracted
-			if !IconsShown:
-				ContractSidebar(Duration)
-	Options.ToggleIcons(IconsShown)
+			if !icons_visible:
+				contract_sidebar(duration)
+	sub_options.ToggleIcons(icons_visible)
 
 
-func ContractSidebar(var Duration : float) -> void:
+func contract_sidebar(var duration : float) -> void:
 	var tw : SceneTreeTween = get_tree().create_tween()
-	IconsShown = true
-	UserProfile.UsernameLabel.hide()
+	icons_visible = true
+	user_profile_container.UsernameLabel.hide()
 	var ptw : PropertyTweener = tw.tween_property(
 		self,
 		"rect_min_size:x",
 		CONTRACTED_SIZE,
-		Duration
+		duration
 	)
 
 
-func ExpandSidebar(var Duration : float) -> void:
-	IconsShown = false
+func expand_sidebar(var duration : float) -> void:
+	icons_visible = false
 	var tw : SceneTreeTween = get_tree().create_tween()
 	var ptw : PropertyTweener = tw.tween_property(
 	self,
 	"rect_min_size:x",
 	EXPANDED_SIZE,
-	Duration
+	duration
 	)
 	yield(tw,"finished")
-	UserProfile.UsernameLabel.show()
+	user_profile_container.UsernameLabel.show()

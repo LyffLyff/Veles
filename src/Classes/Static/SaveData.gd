@@ -26,7 +26,7 @@ static func Load(var filename : String):
 		return data
 	else:
 		if Global.root:
-			Global.root.Message("OPENING FILE TO LOAD VARIANT: " + filename,MESSAGE_ERROR, false, Color() )
+			Global.root.message("OPENING FILE TO LOAD VARIANT: " + filename,MESSAGE_ERROR, false, Color() )
 	return null
 
 
@@ -47,7 +47,7 @@ static func LoadAsText(var filename : String) -> String:
 			return data
 	else:
 		if Global.root:
-			Global.root.Message("OPENING FILE TO LOAD AS TEXT: " + str(err) + " :" + filename,MESSAGE_ERROR, false, Color() )
+			Global.root.message("OPENING FILE TO LOAD AS TEXT: " + str(err) + " :" + filename,MESSAGE_ERROR, false, Color() )
 	return ""
 
 
@@ -116,7 +116,7 @@ static func ReplaceKeyFromFile(var filename : String, var old_key : String, var 
 
 static func LogMessage(var message : String, var message_type : int) -> void:
 	#Appends a given message to the Log file.
-	#Message start defines the type of message given
+	#message start defines the type of message given
 	var message_start : String = ""
 	var path : String = Global.GetCurrentUserDataFolder() + "/Settings/CoreSettings/Logs.txt"
 	var file : File = File.new()

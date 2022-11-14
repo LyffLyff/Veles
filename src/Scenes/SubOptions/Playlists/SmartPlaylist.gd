@@ -67,7 +67,7 @@ func NReady( var Conditions : Dictionary = {}, var Title = "",var CustomDescript
 		CreationDate.text = ""
 	
 	#Setting Current Song
-	root.UpdateHighlightedSong(SongLists.CurrentSong)
+	root.update_highlighted_song(SongLists.CurrentSong)
 
 
 func LoadPlaylistConditions() -> Dictionary:

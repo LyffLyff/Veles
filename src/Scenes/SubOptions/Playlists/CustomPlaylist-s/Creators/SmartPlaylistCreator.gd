@@ -20,7 +20,7 @@ const ConditionFunctions : Array = [
 
 func _ready():
 	$Panel/VBoxContainer2/Main/Conditions.get_v_scrollbar().rect_min_size.x = 5
-	var _err = Cover.connect("DialoguePressed",Global.root, "OpenGeneralFileDialogue",[
+	var _err = Cover.connect("DialoguePressed",Global.root, "load_general_file_dialogue",[
 		Cover.InputEdit,
 		FileDialog.MODE_OPEN_FILE,
 		FileDialog.ACCESS_FILESYSTEM,

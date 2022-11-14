@@ -37,7 +37,7 @@ func FormatHTMLHeader(var HTMLFile  : String, var Title : String = "", var Headl
 	return HTMLFile
 
 func CreateHTMLSonglist(var SongPaths : PoolStringArray, var HeaderTitle : String = "") -> String:
-	Global.root.Message(SongPaths.join("\n"), SaveData.MESSAGE_NOTICE)
+	Global.root.message(SongPaths.join("\n"), SaveData.MESSAGE_NOTICE)
 	var Pos : int = -1
 	var HTMLFile : String =  SaveData.LoadAsText("user://GlobalSettings/ExportTemplates/SonglistTemplate.html")
 

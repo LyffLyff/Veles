@@ -9,11 +9,11 @@ onready var Header : PanelContainer = $ScrollContainer/EffectBackground/Effects/
 var is_tweening : bool = false
 
 func _enter_tree():
-	Global.root.ToggleSongScrollerInput(false)
+	Global.root.toggle_songlist_input(false)
 
 
 func _exit_tree():
-	Global.root.ToggleSongScrollerInput(true)
+	Global.root.toggle_songlist_input(true)
 
 
 func _ready():
@@ -46,7 +46,7 @@ func _ready():
 
 func SaveCurrentAsPreset() -> void:
 	var x = load("res://src/Scenes/General/TextInputDialogue.tscn").instance()
-	Global.root.TopUI.add_child(x)
+	Global.root.top_ui.add_child(x)
 	x.connect("TextSave",self,"SavePreset")
 	x.SetTopic("Preset Title")
 
@@ -54,7 +54,7 @@ func SaveCurrentAsPreset() -> void:
 func SavePreset(var preset_name : String) -> void:
 	# checking preset name
 	if !is_valid_preset_name(preset_name):
-		Global.root.Message("Invalid Preset Name", SaveData.MESSAGE_ERROR, true)
+		Global.root.message("Invalid Preset Name", SaveData.MESSAGE_ERROR, true)
 		return
 	
 	#Saving the Preset with the Main enabled -> will be replaced on Load
@@ -74,7 +74,7 @@ func LoadPreset(var PresetIdx : int) -> void:
 	var PresetData = SaveData.Load(Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets/" + PresetTitle)
 	
 	if !PresetData:
-		Global.root.Message("LOADING PRESET: " + PresetTitle,  SaveData.MESSAGE_ERROR)
+		Global.root.message("LOADING PRESET: " + PresetTitle,  SaveData.MESSAGE_ERROR)
 		return;
 	
 	#Setting Preset as Current Audio Effect

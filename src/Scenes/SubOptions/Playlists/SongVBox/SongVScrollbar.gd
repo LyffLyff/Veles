@@ -13,7 +13,7 @@ func _ready():
 	self.rect_min_size.y = 5
 	self.rect_clip_content = false
 	if self.connect("gui_input",self,"GUI_Input"):
-		Global.root.Message("Cannot Connect Scroller VScrollbar to GUI Input function",  SaveData.MESSAGE_ERROR )
+		Global.root.message("Cannot Connect Scroller VScrollbar to GUI Input function",  SaveData.MESSAGE_ERROR )
 
 
 func GUI_Input(var event) -> void:

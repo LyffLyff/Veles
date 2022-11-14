@@ -28,7 +28,7 @@ func LoadLyricsProjects() -> void:
 		AllProjects.add_child(x)
 		x.rect_min_size.y = 30
 		x.set_text(y)
-		x.connect("pressed",Global.root,"LoadLyricEditor",[Global.GetCurrentUserDataFolder() + "/Lyrics/Projects/" + y])
+		x.connect("pressed",Global.root,"load_lyric_editor",[Global.GetCurrentUserDataFolder() + "/Lyrics/Projects/" + y])
 		x.size_flags_horizontal = SIZE_EXPAND_FILL
 	
 	#Loading Last Edited
@@ -49,21 +49,21 @@ func LoadLyricsProjects() -> void:
 		x.theme = ClearButtonTheme
 		x.rect_min_size.y = 30
 		x.align = Button.ALIGN_LEFT
-		x.connect("pressed",Global.root,"LoadLyricEditor",[LastProjects[i]])
+		x.connect("pressed",Global.root,"load_lyric_editor",[LastProjects[i]])
 		LastEditedProjects.add_child(x)
 		x.set_text(LastProjects[i].get_file())
 
 
 func OnNewLyricsProjectPressed():
-	Global.root.LoadLyricEditor()
+	Global.root.load_lyric_editor()
 
 
 func OnOpenLRCFilePressed():
-	var _dialog = Global.root.OpenGeneralFileDialogue(
+	var _dialog = Global.root.load_general_file_dialogue(
 		Global.root,
 		FileDialog.MODE_OPEN_FILE,
 		FileDialog.ACCESS_FILESYSTEM,
-		"LoadLyricEditor",
+		"load_lyric_editor",
 		[],
 		"Lyrics",
 		["*.lrc","*.mp3","*.vlp"],

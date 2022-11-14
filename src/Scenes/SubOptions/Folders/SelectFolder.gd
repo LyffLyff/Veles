@@ -18,7 +18,7 @@ var FolderSelection : int = -1					#the folder that has been selected
 
 func _ready():
 	if get_tree().connect("files_dropped",self,"_on_FileDialog_dir_selected"):
-		Global.root.Message("CANNOT CONNECT FILES DROPPED SIGNAL TO _on_FileDialog_dir_selected FUNCTION",  SaveData.MESSAGE_ERROR)
+		Global.root.message("CANNOT CONNECT FILES DROPPED SIGNAL TO _on_FileDialog_dir_selected FUNCTION",  SaveData.MESSAGE_ERROR)
 	LoadFolders()
 
 
@@ -64,7 +64,7 @@ func GetValidSongAmount(var FolderPath : String) -> String:
 func AddFolder(var Folder : String):
 	var NewLabel : PanelContainer = NewFolderSpace()
 	if NewLabel.connect("SetFolder",self,"SetCurrentFolder"):
-		Global.root.Message("CONNECTING FOLDER SPACE WITH SET CURRENT FOLDER FUNCTION",  SaveData.MESSAGE_ERROR)
+		Global.root.message("CONNECTING FOLDER SPACE WITH SET CURRENT FOLDER FUNCTION",  SaveData.MESSAGE_ERROR)
 	NewLabel.FolderLabel.set_text( Folder )
 	NewLabel.SongAmountLabel.set_text( GetValidSongAmount(Folder) )
 
@@ -76,7 +76,7 @@ func NewFolderSpace() -> Control:
 
 
 func _on_AddFolder_pressed():
-	var _dialog = Global.root.OpenGeneralFileDialogue(
+	var _dialog = Global.root.load_general_file_dialogue(
 		self,
 		FileDialog.MODE_OPEN_DIR,
 		FileDialog.ACCESS_FILESYSTEM,
@@ -99,10 +99,10 @@ func _on_FileDialog_dir_selected(var NewFolders : PoolStringArray,var _screen : 
 		
 		# checking validity of folder
 		if !dir.dir_exists(folder):
-			Global.root.Message("Folder not found", SaveData.MESSAGE_WARNING, true)
+			Global.root.message("Folder not found", SaveData.MESSAGE_WARNING, true)
 			continue
 		if SongLists.Folders.has(folder):
-			Global.root.Message("Folders can only be added once", SaveData.MESSAGE_WARNING, true)
+			Global.root.message("Folders can only be added once", SaveData.MESSAGE_WARNING, true)
 			continue
 		
 		# adding the folder
@@ -122,8 +122,8 @@ func _on_Remove_pressed():
 		Global.InitializeSongs = true
 		if SongLists.CurrentSong.get_base_dir() == dir_to_remove:
 			SongLists.CurrentSong = ""
-			Global.root.InitMain()
+			Global.root.init_main()
 			#Playback.new().stop_playback()
-		root.Message("Removed selected folder", SaveData.MESSAGE_NOTICE, true)
+		root.message("Removed selected folder", SaveData.MESSAGE_NOTICE, true)
 	else:
-		root.Message("Cannot remove -> No Folder Selected", SaveData.MESSAGE_NOTICE, true)
+		root.message("Cannot remove -> No Folder Selected", SaveData.MESSAGE_NOTICE, true)

@@ -262,7 +262,7 @@ texture_normal = ExtResource( 7 )
 expand = true
 stretch_mode = 5
 
-[node name="Play" type="TextureButton" parent="Main/MainPlayer/Middle/HBoxContainer"]
+[node name="Playback" type="TextureButton" parent="Main/MainPlayer/Middle/HBoxContainer"]
 margin_left = 40.0
 margin_right = 72.0
 margin_bottom = 32.0
@@ -451,14 +451,14 @@ autostart = true
 [connection signal="pressed" from="Main/SongInfo/Info/Cover/Cover" to="Main/SongInfo/Info/Cover/Cover" method="OnCoverPressed"]
 [connection signal="resized" from="Main/SongInfo/Info/Infos" to="Main/SongInfo/Info/Infos/Artist" method="_on_Parent_Resized"]
 [connection signal="resized" from="Main/SongInfo/Info/Infos" to="Main/SongInfo/Info/Infos/Playlist" method="_on_Parent_Resized"]
-[connection signal="pressed" from="Main/SongInfo/Info/Infos/Artist" to="." method="OnArtistPressed"]
-[connection signal="pressed" from="Main/SongInfo/Info/Infos/Playlist" to="." method="OnPlaylistLabelPressed"]
+[connection signal="pressed" from="Main/SongInfo/Info/Infos/Artist" to="." method="_on_Artist_pressed"]
+[connection signal="pressed" from="Main/SongInfo/Info/Infos/Playlist" to="." method="_on_Playlist_pressed"]
 [connection signal="pressed" from="Main/MainPlayer/Middle/Shuffle" to="." method="_on_Shuffle_pressed"]
-[connection signal="pressed" from="Main/MainPlayer/Middle/HBoxContainer/Play" to="." method="_on_Play_Pause_pressed"]
+[connection signal="pressed" from="Main/MainPlayer/Middle/HBoxContainer/Playback" to="." method="_on_Playback_pressed"]
 [connection signal="pressed" from="Main/MainPlayer/Middle/Repeat" to="." method="_on_RepeatMode_pressed"]
 [connection signal="value_changed" from="Main/MainPlayer/Bottom/PlaybackSlider" to="." method="_on_PlaybackSlider_value_changed"]
-[connection signal="pressed" from="Main/Additional/Volume/Volume" to="." method="OnVolumePressed"]
+[connection signal="pressed" from="Main/Additional/Volume/Volume" to="." method="_on_Volume_pressed"]
 [connection signal="pressed" from="Main/Additional/OutputDevice" to="." method="_on_OutputDevice_pressed"]
-[connection signal="pressed" from="Main/Additional/Effects" to="." method="OnEffectsPressed"]
+[connection signal="pressed" from="Main/Additional/Effects" to="." method="_on_Effects_pressed"]
 [connection signal="pressed" from="Main/Additional/SongOptions" to="Main/Additional/SongOptions" method="OnDisplayOptionsPressed"]
-[connection signal="timeout" from="PlaybackTimer" to="." method="SetPlayback"]
+[connection signal="timeout" from="PlaybackTimer" to="." method="_on_PlaybackTimer_timeout"]

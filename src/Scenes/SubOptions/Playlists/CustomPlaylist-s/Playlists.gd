@@ -76,28 +76,28 @@ func CreateNewPlaylistPressed(var NewPlaylistType : int) -> void:
 		
 		PlaylistType.NORMAL_FROM_SCRATCH:
 			PlaylistCreator = PlaylistFromScratch.instance()
-			Global.root.TopUI.add_child(PlaylistCreator)
-			if PlaylistCreator.Cover.connect("DialoguePressed",main,"OpenGeneralFileDialogue",[PlaylistCreator.Cover.InputEdit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",Global.SupportedImgFormats,true]):
-				Global.root.Message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
+			Global.root.top_ui.add_child(PlaylistCreator)
+			if PlaylistCreator.Cover.connect("DialoguePressed",main,"load_general_file_dialogue",[PlaylistCreator.Cover.InputEdit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",Global.SupportedImgFormats,true]):
+				Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
 		
 		PlaylistType.NORMAL_FROM_FOLDER:
 			PlaylistCreator = PlaylistFromFolder.instance()
-			Global.root.TopUI.add_child(PlaylistCreator)
-			if PlaylistCreator.Cover.connect("DialoguePressed",main,"OpenGeneralFileDialogue",[PlaylistCreator.Cover.InputEdit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",Global.SupportedImgFormats,true]):
-				Global.root.Message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
-			if PlaylistCreator.Folder.connect("DialoguePressed",main,"OpenGeneralFileDialogue",[PlaylistCreator.Folder.InputEdit,FileDialog.MODE_OPEN_DIR,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Song",[],true]):
-				Global.root.Message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
+			Global.root.top_ui.add_child(PlaylistCreator)
+			if PlaylistCreator.Cover.connect("DialoguePressed",main,"load_general_file_dialogue",[PlaylistCreator.Cover.InputEdit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",Global.SupportedImgFormats,true]):
+				Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
+			if PlaylistCreator.Folder.connect("DialoguePressed",main,"load_general_file_dialogue",[PlaylistCreator.Folder.InputEdit,FileDialog.MODE_OPEN_DIR,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Song",[],true]):
+				Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
 		
 		PlaylistType.SMART_FROM_SCRATCH:
 			PlaylistCreator = SmartPlaylistCreator.instance()
-			Global.root.TopUI.add_child(PlaylistCreator)
+			Global.root.top_ui.add_child(PlaylistCreator)
 	
 	var _err = PlaylistCreator.connect("Save",self,"SaveNewPlaylist",[NewPlaylistType])
 
 
 func SaveNewPlaylist(var PlaylistTitle : String, var PlaylistCoverPath : String, var Folder : String, var Conditions : Dictionary ,var NewPlaylistType : int) -> void:
 	if !Playlist.CheckPlaylistTitle(PlaylistTitle):
-		main.Message("Illegal Title!!\n Title Can't be Empty or the same as another Playlist", SaveData.MESSAGE_ERROR)
+		main.message("Illegal Title!!\n Title Can't be Empty or the same as another Playlist", SaveData.MESSAGE_ERROR)
 	
 	match NewPlaylistType:
 		
@@ -107,7 +107,7 @@ func SaveNewPlaylist(var PlaylistTitle : String, var PlaylistCoverPath : String,
 		PlaylistType.NORMAL_FROM_FOLDER:
 			var dir : Directory = Directory.new()
 			if dir.open(Folder) != OK:
-				Global.root.Message("Selected Folder Could not be opened", SaveData.MESSAGE_ERROR, true)
+				Global.root.message("Selected Folder Could not be opened", SaveData.MESSAGE_ERROR, true)
 			var InFolders : bool = false
 			if Folder in SongLists.Folders:
 				#Checking if New Folder has already been added
@@ -140,7 +140,7 @@ func SaveNewPlaylist(var PlaylistTitle : String, var PlaylistCoverPath : String,
 			SongLists.NewSmartPlaylist(PlaylistTitle,Conditions)
 	
 	Playlist.CopyPlaylistCover(PlaylistCoverPath, Playlist.GetPlaylistIndex(PlaylistTitle) )
-	Global.root.ReloadCurrentOption()
+	Global.root.reload_option()
 
 
 func AddNewPlaylistToGrid(var IsSmart : bool, var PlaylistCoverPath : String) -> void:

@@ -49,13 +49,13 @@ func _ready():
 		NewSidebarOption.OptionIcon.set_texture(load(OptionIcons[i]))
 		NewSidebarOption.OptionLabel.set_text(OptionTitles[i])
 		if NewSidebarOption.connect("pressed",self,"OnOptionPressed",[i]):
-			Global.root.Message("CONNECTING OPTION BUTTONS ON MAIN",  SaveData.MESSAGE_ERROR)
+			Global.root.message("CONNECTING OPTION BUTTONS ON MAIN",  SaveData.MESSAGE_ERROR)
 	ToggleIcons(false)
 	self.get_child(CurrentOptionIdx).theme = OptionPressed
 
 
 func OnOptionPressed(var idx : int):
-	Global.root.LoadOptions(idx, ignores[idx])
+	Global.root.load_option(idx, ignores[idx])
 
 
 func set_sidebar_option(var idx : int):

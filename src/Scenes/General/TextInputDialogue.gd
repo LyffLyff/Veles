@@ -16,7 +16,7 @@ func SetTopic(var Topic : String) -> void:
 
 func InitDialogueButton(var OpenMode : int = FileDialog.MODE_OPEN_FILE, var FileAccess : int = FileDialog.ACCESS_FILESYSTEM, FileType : String = "Cover", FileTypeFilters : PoolStringArray = []) -> void:
 	DialogueButton.show()
-	var _err = DialogueButton.connect("pressed",Global.root,"OpenGeneralFileDialogue",[
+	var _err = DialogueButton.connect("pressed",Global.root,"load_general_file_dialogue",[
 		InputEdit,
 		OpenMode,
 		FileAccess,

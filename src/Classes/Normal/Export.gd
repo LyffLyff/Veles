@@ -17,7 +17,7 @@ func ToFolder(var DstFolderPath : String, var SongPaths : PoolStringArray, var P
 	for i in SongPaths.size():
 		TempDstFolder = DstFolderPath + "/" + Title + "/" + SongPaths[i].get_file()
 		if dir.copy(SongPaths[i], DstFolderPath + "/" + Title + "/" + SongPaths[i].get_file() ) != OK:
-			Global.root.Message("COPYING FILE: " + SongPaths[i] + "TO: " + TempDstFolder,SaveData.MESSAGE_ERROR)
+			Global.root.message("COPYING FILE: " + SongPaths[i] + "TO: " + TempDstFolder,SaveData.MESSAGE_ERROR)
 
 	return true;
 
@@ -48,7 +48,7 @@ func ToImage(var DstPath : String, var SongPaths : PoolStringArray) -> void:
 		)
 	
 	if !Tags.CopyCovers(SongPaths, NewDstPaths)[0]:
-		Global.root.Message(
+		Global.root.message(
 			"EXCTRACTING COVER FROM FILES: " + SongPaths.join(", ") + " TO:" + NewDstPaths.join(", "),
 			SaveData.MESSAGE_ERROR,
 			Color(),

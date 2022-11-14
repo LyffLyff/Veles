@@ -28,7 +28,7 @@ var std_cover = null
 var std_music_cover = null
 #tells if the program has just been started
 var InitializeSongs : bool = true
-var WindowMaximized : bool = false
+var window_maximized : bool = false
 var PlaylistPressed : int = -1
 var DisplayedMessage : String = ""
 var CurrentDownloads : Array = []
@@ -59,7 +59,7 @@ func _ready():
 
 
 func WindowChanged(var x : bool) -> void:
-	WindowMaximized = x;
+	window_maximized = x;
 
 
 func InputToggler(var ToDisable : Node,var x : bool = false) -> void:
@@ -93,7 +93,7 @@ func is_username_valid( var new_username : String ) -> bool:
 
 func RenameUser(var new_username : String, var UserIdx : int) -> void:
 	if !is_username_valid(new_username):
-		root.Message("Invalid Username", SaveData.MESSAGE_ERROR, true)
+		root.message("Invalid Username", SaveData.MESSAGE_ERROR, true)
 		return
 	
 	var dir : Directory = Directory.new()

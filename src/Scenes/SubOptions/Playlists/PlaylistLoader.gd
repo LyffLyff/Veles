@@ -19,7 +19,6 @@ onready var Infos : Array = []
 
 #VARIABLES
 var HighLightedSong : Resource = preload("res://src/Ressources/Themes/Song/HighlightedSong.tres")
-var GeneralDialogue : PackedScene = preload("res://src/scenes/General/GeneralFileDialogue.tscn")
 #saves the Rect of the Song Scroller -> will be updated using the resized signal
 var SongScrollerRect : Rect2
 var Idx : int = -1
@@ -64,13 +63,13 @@ func _process(_delta):
 
 func ConnectScrollContainer() -> void:
 	if songs.get_parent().connect("space_pressed",self,"OnLeftMouseButtonClicked"):
-		Global.root.Message("CONNECTING SPACE PRESSED SIGNAL WITH LEFT BUTTON CLICKED FUNCTION",  SaveData.MESSAGE_ERROR )
+		Global.root.message("CONNECTING SPACE PRESSED SIGNAL WITH LEFT BUTTON CLICKED FUNCTION",  SaveData.MESSAGE_ERROR )
 	if songs.get_parent().connect("space_rightclick",self,"OnSongSpaceOptions"):
-		Global.root.Message("CONNECTING SPACE RIGHTCLICKED SIGNAL WITH RIGHT BUTTON CLICKED FUNCTION",  SaveData.MESSAGE_ERROR )
+		Global.root.message("CONNECTING SPACE RIGHTCLICKED SIGNAL WITH RIGHT BUTTON CLICKED FUNCTION",  SaveData.MESSAGE_ERROR )
 
 
 func UnloadPlaylist():
-	root.DeleteCurrentoption()
+	root.delete_current_option()
 	root.options.add_child(root.playlists.instance())
 
 
@@ -132,13 +131,12 @@ func OnLeftMouseButtonClicked(var idx : int) -> void:
 			#highlighting the current song if it has not been already
 			HighlightSong(song_)
 			SongLists.CurrentPlayList = song_.PlaylistIdx
-			root.PlaySong(
+			root.playback_song(
 				main_idx,
 				true,
 				Playlist.GetPlaylistName(playlist_idx)
 			)
 			root.player.set_repeat(false)
-			root.SetPlayerImg(1)
 		else:
 			SongLists.AddHighlightedSongs(songs, idx)
 
@@ -178,7 +176,7 @@ func GetPlaylistRuntime() -> String:
 
 func PlaylistOptionspressed(var IsSmart : bool = false):
 	if !SongOptionsRef:
-		Global.root.ToggleSongScrollerInput(false)
+		Global.root.toggle_songlist_input(false)
 		var x : Node
 		if !IsSmart:
 			x = load("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/NormalPlaylist/NormalPlaylistOptions.tscn").instance()
@@ -186,7 +184,7 @@ func PlaylistOptionspressed(var IsSmart : bool = false):
 			x = load("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/SmartPlaylist/SmartPlaylistOptions.tscn").instance()
 		SongOptionsRef = x
 		var _err = x.connect("tree_exiting",self,"set",["SongOptionsRef",null])
-		_err = x.connect("tree_exiting",Global.root,"ToggleSongScrollerInput",[true])
+		_err = x.connect("tree_exiting",Global.root,"toggle_songlist_input",[true])
 		self.add_child(SongOptionsRef)
 		SongOptionsRef.set_owner(self)
 		SongOptionsRef.ConnectOptionSignals()
@@ -198,18 +196,18 @@ func PlaylistOptionspressed(var IsSmart : bool = false):
 
 
 func RenamePlaylist() -> void:
-	Global.root.ToggleSongScrollerInput(false)
+	Global.root.toggle_songlist_input(false)
 	var x : Node = load("res://src/Scenes/General/TextInputDialogue.tscn").instance()
 	root.add_child(x)
 	x.SetTopic("New Playlist Title")
 	var _err = x.connect("TextSave",Playlist,"RenamePlaylist",[PlaylistIdx])
 	_err = x.connect("tree_exited",self,"UnloadPlaylist")
-	_err = x.connect("tree_exited",Global.root,"ToggleSongScrollerInput",[true])
+	_err = x.connect("tree_exited",Global.root,"toggle_songlist_input",[true])
 
 
 func ExportPlaylist() -> void:
 	var PlaylistExportMenu : Node = load("res://src/Scenes/Export/PlaylistExportMenu.tscn").instance()
-	Global.root.TopUI.add_child(PlaylistExportMenu)
+	Global.root.top_ui.add_child(PlaylistExportMenu)
 	PlaylistExportMenu.InitPlaylistExportMenu(PlaylistIdx)
 
 
@@ -271,7 +269,7 @@ func SetHeaderInfosHeight(var new_height : float) -> void:
 
 
 func OnSetCoverPressed():
-	var _dialog = Global.root.OpenGeneralFileDialogue(
+	var _dialog = Global.root.load_general_file_dialogue(
 		self,
 		FileDialog.MODE_OPEN_FILE,
 		FileDialog.ACCESS_FILESYSTEM,

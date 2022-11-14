@@ -15,7 +15,7 @@ enum DisplayFlag{
 static func WebpToPng(var WebpData : PoolByteArray) -> PoolByteArray:
 	var img : Image = Image.new()
 	if img.load_webp_from_buffer(WebpData) != OK:
-		Global.root.Message("LOADING WEBP IMAGE FROM BUFFER" ,SaveData.MESSAGE_ERROR)
+		Global.root.message("LOADING WEBP IMAGE FROM BUFFER" ,SaveData.MESSAGE_ERROR)
 		return PoolByteArray();
 	return img.save_png_to_buffer()
 
@@ -74,13 +74,13 @@ static func CreateImageFromData(var data : PoolByteArray):
 	match FormatChecker.ReturnImgFormat( data.subarray(0,128).hex_encode() ):
 			0:
 				if NewImage.load_jpg_from_buffer(data) != OK:
-					Global.root.Message("LOADING JPG FROM BUFFER" ,SaveData.MESSAGE_ERROR)
+					Global.root.message("LOADING JPG FROM BUFFER" ,SaveData.MESSAGE_ERROR)
 			1:
 				if NewImage.load_png_from_buffer(data) != OK:
-					Global.root.Message("LOADING PNG FROM BUFFER" ,SaveData.MESSAGE_ERROR)
+					Global.root.message("LOADING PNG FROM BUFFER" ,SaveData.MESSAGE_ERROR)
 			2:
 				if NewImage.load_webp_from_buffer(data) != OK:
-					Global.root.Message("LOADING WebP FROM BUFFER" ,SaveData.MESSAGE_ERROR)
+					Global.root.message("LOADING WebP FROM BUFFER" ,SaveData.MESSAGE_ERROR)
 			_:
 				return null
 	return NewImage

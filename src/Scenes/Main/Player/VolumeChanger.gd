@@ -15,11 +15,11 @@ var temp : float
 
 
 func _enter_tree():
-	Global.root.ToggleSongScrollerInput(false)
+	Global.root.toggle_songlist_input(false)
 
 
 func _exit_tree():
-	Global.root.ToggleSongScrollerInput(true)
+	Global.root.toggle_songlist_input(true)
 
 
 func _ready():

@@ -87,7 +87,7 @@ func FilteringDuplicateCovers(var NewSongs : Dictionary) -> void:
 					temp.push_back( Covers.keys()[x] ) 
 					Covers[  SongLists.CoverCache.keys()[y] ] = temp
 					if !Covers.erase(Covers.keys()[x]):
-						Global.root.Message("COULD NOT ERASE HASH FROM COVER DICTIONARY: " + Covers.keys()[x], SaveData.MESSAGE_ERROR)
+						Global.root.message("COULD NOT ERASE HASH FROM COVER DICTIONARY: " + Covers.keys()[x], SaveData.MESSAGE_ERROR)
 
 
 	for x in Covers.size():
@@ -103,7 +103,7 @@ func FilteringDuplicateCovers(var NewSongs : Dictionary) -> void:
 				AllSongs.UpdateCoverHash(path,UniqueHash)
 			else:
 				if !SongLists.CoverCache.erase(DuplicateHash):
-					Global.root.Message("COULD NOT DELETE COVER THAT WAS PREVIOUSLY IN THE COVERCACHE: " + DuplicateHash, SaveData.MESSAGE_ERROR)
+					Global.root.message("COULD NOT DELETE COVER THAT WAS PREVIOUSLY IN THE COVERCACHE: " + DuplicateHash, SaveData.MESSAGE_ERROR)
 			FileChecker.DeleteFile(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + DuplicateHash + ".png")
 
 

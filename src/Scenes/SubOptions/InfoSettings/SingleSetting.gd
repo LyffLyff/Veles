@@ -59,4 +59,4 @@ func _ready():
 			var x : OptionButton = load("res://src/Scenes/SubOptions/InfoSettings/OptionTypes/ProjectSettingEdit.tscn").instance()
 			self.add_child(x)
 		_:
-			Global.root.Message("INVALID SETTING TYPE",  SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )
+			Global.root.message("INVALID SETTING TYPE",  SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )

@@ -46,7 +46,7 @@ func LoadSubOptions() -> void:
 		var x : Button = Button.new()
 		x.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		if x.connect("pressed",self,"emit_signal",["SubInfoPressed",i]):
-			Global.root.Message("CANNOT CONNECT pressed signal to emit_signal SubInfoPressed",  SaveData.MESSAGE_ERROR)
+			Global.root.message("CANNOT CONNECT pressed signal to emit_signal SubInfoPressed",  SaveData.MESSAGE_ERROR)
 		x.theme = load("res://src/Themes/Buttons/ClearButtons.tres")
 		x.rect_min_size.y = 30
 		x.set_text(

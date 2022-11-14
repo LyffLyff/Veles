@@ -24,7 +24,7 @@ func InitColor() -> void:
 func InitPresetSelection() -> void:
 	var dir : Directory = Directory.new()
 	if dir.open(Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets") != OK:
-		Global.root.Message("OPENING PRESETS FOLDER",  SaveData.MESSAGE_ERROR)
+		Global.root.message("OPENING PRESETS FOLDER",  SaveData.MESSAGE_ERROR)
 		return;
 	
 	if dir.list_dir_begin(true,true) != OK:

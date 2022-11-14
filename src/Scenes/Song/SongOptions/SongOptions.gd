@@ -8,11 +8,11 @@ var is_ready : bool = false
 
 
 func _enter_tree():
-	Global.root.ToggleSongScrollerInput(false)
+	Global.root.toggle_songlist_input(false)
 
 
 func _exit_tree():
-	Global.root.ToggleSongScrollerInput(true)
+	Global.root.toggle_songlist_input(true)
 
 
 func _ready():
@@ -48,7 +48,7 @@ func GetClickedSongPath() -> String:
 
 
 func _on_ChangeTag_pressed(var main_idx : int = -1):
-	Global.root.player.DisableImageView()
+	Global.root.player.disable_image_view()
 	var SongPath : String = AllSongs.GetSongPath(main_idx)
 	if main_idx != -1:
 			Global.PushTagPath( SongPath )
@@ -59,7 +59,7 @@ func _on_ChangeTag_pressed(var main_idx : int = -1):
 			Global.PushTagPath( GetClickedSongPath() )
 	
 	#Since this changes the option the Input Toggler is called manually 
-	Global.root.LoadOptions(4,true)
+	Global.root.load_option(4,true)
 	ExitPlayerOption()
 
 
@@ -142,7 +142,7 @@ func LoadPlaylistSelector(var main_idxs : PoolIntArray) -> void:
 		var PlaylistButton = load("res://src/Scenes/SubOptions/Playlists/StdPlaylistButton.tscn").instance()
 		PlaylistSelector.Playlists.add_child(PlaylistButton)
 		if PlaylistButton.connect("pressed",Global,"AddToPlaylist",[PlaylistSelector,n,main_idxs]):
-			Global.root.Message("ADDING SONG TO PLAYLIST", SaveData.MESSAGE_ERROR)
+			Global.root.message("ADDING SONG TO PLAYLIST", SaveData.MESSAGE_ERROR)
 		PlaylistButton.get_child(0).text = SongLists.Playlists.keys()[n]
 
 
@@ -156,7 +156,7 @@ func ExtractSongCover(var MainIdx : int = -1) -> void:
 		else:
 			SongPaths.push_back( GetClickedSongPath() )
 	
-	var _dialog = Global.root.OpenGeneralFileDialogue(
+	var _dialog = Global.root.load_general_file_dialogue(
 		Exporter.new(),
 		FileDialog.MODE_SAVE_FILE,
 		FileDialog.ACCESS_FILESYSTEM,
@@ -181,6 +181,6 @@ func RemoveFromPlaylist(var main_idx : int = -1) -> void:
 	for i in keys.size():
 		SongLists.Playlists.values()[Global.PlaylistPressed].erase(keys[i])
 	
-	Global.root.ReloadCurrentOption()
+	Global.root.reload_option()
 	ExitPlayerOption()
 

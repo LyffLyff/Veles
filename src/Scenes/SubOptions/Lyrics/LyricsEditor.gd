@@ -179,9 +179,9 @@ func CreateFromSong(var Lyrics : Array) -> void:
 
 
 func OnSaveLyricsProject(var SaveAs : bool = false):
-	#VLP = Veles Lyrics Project
-	#Structure = Array
-	#[Title, Verses, Timestamps, [Artist, Album, Title, Author, Length, Language, Creator of File] ]
+	# VLP = Veles Lyrics Project
+	# structure = Array
+	# [Title, Verses, Timestamps, [Artist, Album, Title, Author, Length, Language, Creator of File] ]
 	var Title : String = ProjectTitle.get_text()
 	var VLPFiledata : Array = [
 		Title,
@@ -204,18 +204,18 @@ func OnSaveLyricsProject(var SaveAs : bool = false):
 		SaveData.Save(ProjectPath.replace("user://", OS.get_user_data_dir() + "/" ), VLPFiledata )
 		ProjectUpToDate = true
 	else:
-		var x = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
-		Global.root.TopUI.add_child(x)
-		x.NReady(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_USERDATA, "Lyrics",["*.vlp"], true, "Save Project As",Title)
-		x.Dialog.current_dir = Global.GetCurrentUserDataFolder() + "/Lyrics/Projects"
-		var _err = x.connect("SelectionMade", SaveData, "Save", [VLPFiledata])
+		var general_file_dialogue = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
+		Global.root.top_ui.add_child(general_file_dialogue)
+		general_file_dialogue.NReady(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_USERDATA, "Lyrics",["*.vlp"], true, "Save Project As",Title)
+		general_file_dialogue.Dialog.current_dir = Global.GetCurrentUserDataFolder() + "/Lyrics/Projects"
+		var _err = general_file_dialogue.connect("SelectionMade", SaveData, "Save", [VLPFiledata])
 		
-		#changing current project path if save as is true
+		# changing current project path if save as is true
 		if SaveAs:
-			_err = x.connect("SelectionMade", self, "set_project_path")
+			_err = general_file_dialogue.connect("SelectionMade", self, "set_project_path")
 		
-		_err = x.connect("SelectionMade", self, "AddProjectAsEdited")
-		_err = x.connect("Saved", self, "set", ["ProjectUpToDate",true])
+		_err = general_file_dialogue.connect("SelectionMade", self, "AddProjectAsEdited")
+		_err = general_file_dialogue.connect("Saved", self, "set", ["ProjectUpToDate",true])
 
 
 func AddProjectAsEdited(var NewProjectPath : String) -> void:
@@ -243,10 +243,17 @@ func ExportToLRC() -> void:
 		LRCTags.CreatorOfFile.get_text()
 	)
 	
-	var x = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
-	Global.root.TopUI.add_child(x)
-	x.NReady(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_FILESYSTEM, "ExportLRC",["*.lrc"], true, "Export Project to LRC File")
-	var _err = x.connect("SelectionMade", Exporter.new(), "ToLRC", [LRCFileData])
+	Global.root.load_general_file_dialogue(
+		Exporter.new(),
+		FileDialog.MODE_SAVE_FILE,
+		FileDialog.ACCESS_FILESYSTEM,
+		"ToLRC",
+		[LRCFileData],
+		"ExportLRC",
+		["*.lrc"],
+		true,
+		"Export Project to LRC File"
+	)
 
 
 func _on_PasteFromClipboard_pressed():
@@ -308,10 +315,10 @@ func OnReturnPressed():
 		var x : Node = load("res://src/Scenes/General/QuestionDialog.tscn").instance()
 		Global.root.add_child(x)
 		x.NReady( "Leave Project without Saving?" )
-		var _err = x.connect("Yes",Global.root,"LoadOptions",[6,true])
+		var _err = x.connect("Yes",Global.root,"load_option",[6,true])
 	else:
 		#If Porject is up to Date it won't display Notice
-		Global.root.LoadOptions(6,true)
+		Global.root.load_option(6,true)
 
 func GetLyricsProjectPath(var Title : String) -> String:
 	return OS.get_user_data_dir() + "/Lyrics/Projects/" + Title + VPLFileExtension
@@ -338,7 +345,7 @@ func OnTitleEntered(var _NewTitle : String):
 func OnDeleteProjectFilePressed():
 	#Deleting the Current Project and returning to the Project Selection screen
 	if Directory.new().remove(ProjectPath) != OK:
-		Global.root.Message("REMOVING PROJECT FILE: " + ProjectPath,  SaveData.MESSAGE_ERROR )
+		Global.root.message("REMOVING PROJECT FILE: " + ProjectPath,  SaveData.MESSAGE_ERROR )
 	OnReturnPressed()
 
 
@@ -346,16 +353,24 @@ func OnEmbedInFilePressed():
 	var Verses : PoolStringArray = GetAllVerses()
 	var Timestamps : PoolRealArray = GetAllTimeStamps()
 	var IsSynchronized : bool = Verses.size() == Timestamps.size()
-	var x = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
-	Global.root.add_child(x)
-	x.NReady(FileDialog.MODE_OPEN_FILES ,FileDialog.ACCESS_FILESYSTEM, "Song",["*.mp3","*.ogg","*.wav"], false, "Embed In Song")
-	var _err = x.connect("SelectionMade", Tags, "SetLyrics", [IsSynchronized, Verses, Timestamps])
+	
+	Global.root.load_general_file_dialogue(
+		Tags,
+		FileDialog.MODE_OPEN_FILES,
+		FileDialog.ACCESS_FILESYSTEM,
+		"SetLyrics",
+		[IsSynchronized, Verses, Timestamps],
+		"",
+		["*.mp3","*.ogg","*.wav"],
+		false,
+		"Embed In Song"
+	)
 
 
 func OnOpenInFileManagerPressed():
 	var NPath : String = ProjectPath.replace(ProjectPath.get_file(),"").replace("user://",OS.get_user_data_dir() + "/")
 	if OS.shell_open( 	NPath ) != OK:
-		Global.root.Message("OPENING PROJECT DIRECTORY: " + NPath,  SaveData.MESSAGE_ERROR )
+		Global.root.message("OPENING PROJECT DIRECTORY: " + NPath,  SaveData.MESSAGE_ERROR )
 
 
 func OnSaveAs() -> void:

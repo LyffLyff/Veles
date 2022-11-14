@@ -351,7 +351,7 @@ func NewPlaylist(var PlaylistName : String) -> void:
 	var value : Dictionary = {}
 	Playlists[PlaylistName] = value
 	if !SaveData.PushDictKeyAndSave(SongLists.AddUserToFilepath(SongLists.FilePaths[9]),PlaylistName,0,true,OS.get_datetime()):
-		Global.root.Message("ERROR://CANNOT EDIT REQUESTED KEY", SaveData.MESSAGE_ERROR)
+		Global.root.message("ERROR://CANNOT EDIT REQUESTED KEY", SaveData.MESSAGE_ERROR)
 
 
 func NewSmartPlaylist(var SmartPlaylistTitle : String, var Conditions : Dictionary) -> void:
@@ -359,7 +359,7 @@ func NewSmartPlaylist(var SmartPlaylistTitle : String, var Conditions : Dictiona
 	var ConditionsPath : String = Global.GetCurrentUserDataFolder() + "/Songs/Playlists/SmartPlaylists/Conditions/" + SmartPlaylistTitle + ".dat"
 	SaveData.Save(ConditionsPath, Conditions)
 	if !SaveData.PushDictKeyAndSave(SongLists.AddUserToFilepath(SongLists.FilePaths[9]),SmartPlaylistTitle,0,true,OS.get_datetime()):
-		Global.root.Message("ERROR://CANNOT EDIT REQUESTED KEY", SaveData.MESSAGE_ERROR)
+		Global.root.message("ERROR://CANNOT EDIT REQUESTED KEY", SaveData.MESSAGE_ERROR)
 
 
 func AppendArtists(var Idx : int, var NewArtists : PoolStringArray) -> void:

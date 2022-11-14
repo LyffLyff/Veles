@@ -29,10 +29,10 @@ func _on_MainStream_finished() -> void:
 	#Repeat Has thee highest Priority
 	#before -> Queue and Shuffle
 	if !SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Repeat"):
-		Global.root.player.PriorNextSongPressed(+1)
+		Global.root.player.prior_next_song(+1)
 	else:
 		self.play(0)
-		Global.root.UpdatePlayerInfos()
+		Global.root.update_player_infos()
 		ReloadStreamTimer()
 
 
@@ -80,7 +80,7 @@ func ReloadStreamTimer(var is_paused : bool = false) -> void:
 	if StreamTimer.is_connected("timeout",self,"StreamTimerTimeout"):
 		StreamTimer.disconnect("timeout",self,"StreamTimerTimeout")
 	if StreamTimer.connect("timeout",self,"StreamTimerTimeout",[0,main_idx]) != OK:
-		Global.root.Message("CONNECTING STREAM TIMER TO TIMEOUT",  SaveData.MESSAGE_ERROR)
+		Global.root.message("CONNECTING STREAM TIMER TO TIMEOUT",  SaveData.MESSAGE_ERROR)
 	StreamTimer.start()
 	StreamTimer.set_deferred("paused",is_paused)
 
@@ -95,7 +95,7 @@ func StreamTimerTimeout(var timer_idx : int, var main_idx):
 	timer_idx += 1
 	if timer_idx < stream_goals.size():
 		if StreamTimer.connect("timeout",self,"StreamTimerTimeout",[timer_idx,main_idx]):
-			Global.root.Message("CONNECTING STREAM TIMER TO TIMEOUT",  SaveData.MESSAGE_ERROR)
+			Global.root.message("CONNECTING STREAM TIMER TO TIMEOUT",  SaveData.MESSAGE_ERROR)
 		StreamTimer.set_wait_time(stream_goals[timer_idx])
 		StreamTimer.start()
 	#if all goals where reached the timer stops

@@ -54,7 +54,7 @@ static func CopyPlaylistCover(var ImgSrc : String,var PlaylistIdx : int,var GetI
 	var dir : Directory = Directory.new()
 	if dir.file_exists(ImgSrc):
 		if dir.copy(ImgSrc,CoverPath) != OK:
-			Global.root.Message("COPYING PLAYLIST COVER TO USERDATA FROM: " + ImgSrc + " TO: " + CoverPath,SaveData.MESSAGE_ERROR, false, Color() )
+			Global.root.message("COPYING PLAYLIST COVER TO USERDATA FROM: " + ImgSrc + " TO: " + CoverPath,SaveData.MESSAGE_ERROR, false, Color() )
 	if GetImage:
 		return ImageLoader.GetCover(CoverPath)
 
@@ -107,14 +107,14 @@ static func RenamePlaylist(var NewPlaylistTitle : String,var PlaylistIdx : int) 
 			Global.GetCurrentUserDataFolder() + "/Songs/Playlists/SmartPlaylists/Conditions/" + OldPlaylistTitle + ".dat",
 			Global.GetCurrentUserDataFolder() + "/Songs/Playlists/SmartPlaylists/Conditions/" + NewPlaylistTitle + ".dat"
 		) != OK:
-			Global.root.Message("RENAMING SmartPlaylistConditions FROM: " + OldPlaylistTitle + " TO " + NewPlaylistTitle,SaveData.MESSAGE_ERROR, false, Color() )
+			Global.root.message("RENAMING SmartPlaylistConditions FROM: " + OldPlaylistTitle + " TO " + NewPlaylistTitle,SaveData.MESSAGE_ERROR, false, Color() )
 		SongLists.SmartPlaylists[ (PlaylistIdx * -1) - 3] = NewPlaylistTitle
 	
 	#Changing Cover path
 	if dir.rename(
 		Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + OldPlaylistTitle + ".png",
 		Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + NewPlaylistTitle + ".png" ) != OK:
-		Global.root.Message("RENAMING Playlist's Cover FROM: " + OldPlaylistTitle + " TO " + NewPlaylistTitle,SaveData.MESSAGE_ERROR, false, Color() )
+		Global.root.message("RENAMING Playlist's Cover FROM: " + OldPlaylistTitle + " TO " + NewPlaylistTitle,SaveData.MESSAGE_ERROR, false, Color() )
 	
 	#Metadata Changes
 	#Replacing the Playlists metadata key(name) in dictionary file, with the new one

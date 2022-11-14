@@ -24,7 +24,7 @@ func AddSelection() -> void:
 		x.get_node("PlusMinus").set_normal_texture( load("res://src/Assets/Icons/White/General/remove_1_72px.png") )
 	LineEditVbox.add_child( x )
 	if x.get_node("PlusMinus").connect("pressed", self, "OnPlusMinusPressed", [ x ] ):
-		Global.root.Message("CANNOT CONNECT pressed Signal to OnPlusMinusPressed function", SaveData.MESSAGE_ERROR)
+		Global.root.message("CANNOT CONNECT pressed Signal to OnPlusMinusPressed function", SaveData.MESSAGE_ERROR)
 
 
 func OnPlusMinusPressed(var Ref : Node) -> void:

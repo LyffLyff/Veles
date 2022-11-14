@@ -11,7 +11,7 @@ onready var ArtistCover : TextureRect = $HBoxContainer/Artist
 #CONSTANTS
 const highlight_clr : Color = Color("161616")
 const normal_clr : Color = Color("222222")
-const tw_duration : float = 0.15
+const TW_DURATION : float = 0.15
 
 #VARIABLES
 var Artists : PoolStringArray = []
@@ -53,8 +53,8 @@ func _input(event):
 
 
 func _on_ArtistSpace_mouse_entered():
-	var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", highlight_clr, tw_duration)
+	var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", highlight_clr, TW_DURATION)
 
 
 func _on_ArtistSpace_mouse_exited():
-	var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", normal_clr, tw_duration )
+	var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", normal_clr, TW_DURATION )

@@ -59,17 +59,17 @@ func _ready():
 	SongSlider.set_h_size_flags(SIZE_SHRINK_CENTER)
 	SongSlider._ready()
 	if SongSlider.connect("ScrollBarReleased", self, "BlockSongHighLighter",[true]):
-		Global.root.Message("Cannot Connect ScrollBarReleased to BlockSongHighLighter function",  SaveData.MESSAGE_ERROR )
+		Global.root.message("Cannot Connect ScrollBarReleased to BlockSongHighLighter function",  SaveData.MESSAGE_ERROR )
 	if SongSlider.connect("ScrollBarPressed", self, "BlockSongHighLighter",[false]):
-		Global.root.Message("Cannot Connect ScrollBarPressed to BlockSongHighLighter function",  SaveData.MESSAGE_ERROR )
+		Global.root.message("Cannot Connect ScrollBarPressed to BlockSongHighLighter function",  SaveData.MESSAGE_ERROR )
 	if SongSlider.connect("mouse_entered",SongSlider,"grab_click_focus"):
-		Global.root.Message("CONNECTING SONG SCROLLBAR TO VScrollbarFocusser FUNCTION",  SaveData.MESSAGE_ERROR )
+		Global.root.message("CONNECTING SONG SCROLLBAR TO VScrollbarFocusser FUNCTION",  SaveData.MESSAGE_ERROR )
 	if SongSlider.connect("mouse_entered",self,"emit_signal",["space_exited",curr_idx]):
-		Global.root.Message("CONNECTING SONG SCROLLBAR TO VScrollbarFocusser FUNCTION",  SaveData.MESSAGE_ERROR )
+		Global.root.message("CONNECTING SONG SCROLLBAR TO VScrollbarFocusser FUNCTION",  SaveData.MESSAGE_ERROR )
 	
 	#ProcessToggler
 	if self.connect("PanelVisible",self.get_parent().get_parent().get_parent().get_parent().get_node("SongHighlighter"),"set_visible"):
-		Global.root.Message("CONNECTING TOGGLE PROCESS TO SONGSCROLLER VISIBILITY",  SaveData.MESSAGE_ERROR )
+		Global.root.message("CONNECTING TOGGLE PROCESS TO SONGSCROLLER VISIBILITY",  SaveData.MESSAGE_ERROR )
 
 
 func _notification(what):

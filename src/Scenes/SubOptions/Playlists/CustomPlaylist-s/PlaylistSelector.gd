@@ -6,11 +6,11 @@ onready var root : Control = get_tree().get_root().get_child(get_tree().get_root
 
 
 func _ready():
-	Global.root.ToggleSongScrollerInput(false)
+	Global.root.toggle_songlist_input(false)
 
 
 func _exit_tree():
-	Global.root.ToggleSongScrollerInput(true)
+	Global.root.toggle_songlist_input(true)
 
 
 func OnCloseButtonPressed() -> void:

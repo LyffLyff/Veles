@@ -10,17 +10,17 @@ const Modes : Array = [FileDialog.MODE_SAVE_FILE, FileDialog.MODE_SAVE_FILE]
 onready var ExportTypes : VBoxContainer = $PanelContainer/HBoxContainer/VBoxContainer/ExportTypes
 
 func _enter_tree():
-	Global.root.ToggleSongScrollerInput( false )
+	Global.root.toggle_songlist_input( false )
 
 
 func _exit_tree():
-	Global.root.ToggleSongScrollerInput( true )
+	Global.root.toggle_songlist_input( true )
 
 
 func InitStatsExportMenu(var ContentGrid : Array) -> void:
 	var Export : Exporter = Exporter.new()
 	for i in ExportTypes.get_child_count() - 1:
-		var _err = ExportTypes.get_child(i).connect("pressed",Global.root,"OpenGeneralFileDialogue",[
+		var _err = ExportTypes.get_child(i).connect("pressed",Global.root,"load_general_file_dialogue",[
 			Export,
 			Modes[i],
 			FileDialog.ACCESS_FILESYSTEM,

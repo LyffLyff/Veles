@@ -45,17 +45,17 @@ func _ready():
 	SetImageViewBackgroundColor()
 	anim_player.play("start")
 	if self.connect("resized",self,"OnImageViewResized"):
-		Global.root.Message("CANNOT CONNECT IMAGE VIEW TO RESIZED FUNCTION", SaveData.MESSAGE_ERROR)
+		Global.root.message("CANNOT CONNECT IMAGE VIEW TO RESIZED FUNCTION", SaveData.MESSAGE_ERROR)
 	OnImageViewResized()
 
 
 func _enter_tree():
-	Global.root.ToggleSongScrollerInput(false)
+	Global.root.toggle_songlist_input(false)
 
 
 func _exit_tree():
 	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS, "ImageViewLastOption", LastOption)
-	Global.root.ToggleSongScrollerInput(true)
+	Global.root.toggle_songlist_input(true)
 
 
 #end function plays the appear funtion backwards and removes scene when finished

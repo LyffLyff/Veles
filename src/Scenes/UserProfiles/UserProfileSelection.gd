@@ -5,11 +5,11 @@ onready var ProfileHBox : HBoxContainer = $VBoxContainer/ScrollContainer/VBoxCon
 
 
 func _enter_tree():
-	Global.root.ToggleSongScrollerInput(false)
+	Global.root.toggle_songlist_input(false)
 
 
 func _exit_tree():
-	Global.root.ToggleSongScrollerInput(true)
+	Global.root.toggle_songlist_input(true)
 
 
 func _ready():
@@ -115,7 +115,7 @@ func OnDeleteUser(var UserIdx : int) -> void:
 	if Username == Global.PriorUser:
 		Global.PriorUser = ""
 		Global.CurrentProfileIdx = -1
-		Global.root.player.InitPlayer()
+		Global.root.player.init_player()
 		if MainStream.stream:
 			MainStream.set_stream(null)
 			MainStream.set_stream_paused(true)

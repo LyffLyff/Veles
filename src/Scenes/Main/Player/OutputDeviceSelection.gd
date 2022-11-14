@@ -6,11 +6,11 @@ onready var OutputDevices : VBoxContainer = $HBoxContainer/VBoxContainer/HBoxCon
 
 
 func _enter_tree():
-	Global.root.ToggleSongScrollerInput(false)
+	Global.root.toggle_songlist_input(false)
 
 
 func _exit_tree():
-	Global.root.ToggleSongScrollerInput(true)
+	Global.root.toggle_songlist_input(true)
 
 
 func _ready():
@@ -19,11 +19,11 @@ func _ready():
 		var x : Button = Button.new()
 		var y : Label = Label.new()
 		if x.connect("pressed",AudioServer,"set_device",[OutputDevice]):
-			Global.root.Message("COULD NOT CONNECT pressed SIGNAL to AudioServer set_device()", SaveData.MESSAGE_ERROR)
+			Global.root.message("COULD NOT CONNECT pressed SIGNAL to AudioServer set_device()", SaveData.MESSAGE_ERROR)
 		if x.connect("pressed",SettingsData,"SetSetting",[SettingsData.GENERAL_SETTINGS, "AudioOutputDevice", OutputDevice]):
-			Global.root.Message("CONNECTING SET SETTING OF AUDIO OUTPUT DEVICE", SaveData.MESSAGE_ERROR)
+			Global.root.message("CONNECTING SET SETTING OF AUDIO OUTPUT DEVICE", SaveData.MESSAGE_ERROR)
 		if x.connect("pressed",self,"queue_free"):
-			Global.root.Message("COULD NOT CONNECT pressed SIGNAL to queue_free()", SaveData.MESSAGE_ERROR)
+			Global.root.message("COULD NOT CONNECT pressed SIGNAL to queue_free()", SaveData.MESSAGE_ERROR)
 		OutputDevices.add_child(x)
 		y.autowrap = true
 		if OutputDevice == AudioServer.get_device():

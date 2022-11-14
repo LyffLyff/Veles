@@ -1,27 +1,8 @@
 extends Control
+# main script always being loaded
 
 
-#NODES
-onready var UserProfileBox : PanelContainer = $MarginContainer/VBoxContainer/MiddlePart/VBoxContainer/HBoxContainer/SideBar/HBoxContainer/VBoxContainer/UserProfileBox
-onready var Sidebar : ScrollContainer = $MarginContainer/VBoxContainer/MiddlePart/VBoxContainer/HBoxContainer/SideBar
-onready var options : MarginContainer = $MarginContainer/VBoxContainer/MiddlePart/VBoxContainer/HBoxContainer/Option
-onready var player : PanelContainer = $MarginContainer/VBoxContainer/Player
-onready var middle_part : MarginContainer = $MarginContainer/VBoxContainer/MiddlePart
-onready var WindowBar : PanelContainer = $MarginContainer/VBoxContainer/WindowBar
-onready var play_button : TextureButton = player.play
-onready var next_song : TextureButton = player.next_song
-onready var prior_song : TextureButton = player.prior_song
-onready var song_length_label : Label = player.get_node("Main/MainPlayer/Bottom/SongLength")
-onready var title : Label = player.SongTitle
-onready var artist : LinkButton = player.get_node("Main/SongInfo/Info/Infos/Artist")
-onready var playlist : LinkButton = player.get_node("Main/SongInfo/Info/Infos/Playlist")
-onready var cover : TextureButton = $MarginContainer/VBoxContainer/Player/Main/SongInfo/Info/Cover/Cover
-onready var ResizeHandles : HBoxContainer = $MarginContainer/ResizeHandles
-onready var mouse_stopper : Control = $MarginContainer/VBoxContainer/MiddlePart/MouseStopper
-onready var TopUI : Control = $TopUI
-
-#PRELOADS
-#all the possible options that can be selected in the left sidebar menu
+# all the possible options that can be selected in the left sidebar menu
 const all_songs : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/AllSongs/SongsNew.tscn")
 const playlists : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/PlaylistGrid.tscn")
 const AddFolder : PackedScene = preload("res://src/Scenes/SubOptions/Folders/SelectFolder.tscn")
@@ -32,155 +13,147 @@ const stats : PackedScene = preload("res://src/Scenes/SubOptions/Stats/Stats.tsc
 const change_tags : PackedScene = preload("res://src/Scenes/SubOptions/Tagging/ChangeTags.tscn")
 const artists : PackedScene = preload("res://src/Scenes/SubOptions/Artists/Artists.tscn")
 const lyrics : PackedScene = preload("res://src/Scenes/SubOptions/Lyrics/LyricsProjects.tscn")
-const MessageContainer : PackedScene = preload("res://src/scenes/ErrorHandling/MessageContainer.tscn")
-const GeneralDialogue : PackedScene = preload("res://src/scenes/General/GeneralFileDialogue.tscn")
-const NormalPlaylistTemplate : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/NormalPlaylist/Playlist.tscn")
-const SmartPlaylistTemplate : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/SmartPlaylist.tscn")
 
-#VARIABLES
-var SongSpaceOption : Control = null
-var DisabledCounter : int = 0
+const MESSAGE_CONTAINER : PackedScene = preload("res://src/scenes/ErrorHandling/MessageContainer.tscn")
+const GENERAL_DIALOGUE : PackedScene = preload("res://src/scenes/General/GeneralFileDialogue.tscn")
+const NORMAL_PLAYLIST_TEMPLATE : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/NormalPlaylist/Playlist.tscn")
+const SMART_PLAYLIST_TEMPLATE : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/SmartPlaylist.tscn")
+
+var input_disable_counter : int = 0
+
+onready var sidebar : ScrollContainer = $MarginContainer/VBoxContainer/MiddlePart/VBoxContainer/HBoxContainer/SideBar
+onready var options : MarginContainer = $MarginContainer/VBoxContainer/MiddlePart/VBoxContainer/HBoxContainer/Option
+onready var player : PanelContainer = $MarginContainer/VBoxContainer/Player
+onready var middle_part : MarginContainer = $MarginContainer/VBoxContainer/MiddlePart
+onready var window_bar : PanelContainer = $MarginContainer/VBoxContainer/WindowBar
+onready var resize_handles : HBoxContainer = $MarginContainer/ResizeHandles
+onready var mouse_stopper : Control = $MarginContainer/VBoxContainer/MiddlePart/MouseStopper
+onready var top_ui : Control = $TopUI
+
+
+func _ready():
+	init_main(true)
 
 
 func _notification(what):
-	#toggles the mouse stopper to prevent unintended inputs when reentering focus
 	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
-		#Setting the Framerate to one per second if window is unfocused
-		#why 1 seconds -> for the PlaybackSlider to work
-		#why not low processor mode -> that only works if nothing changes on the screen
-		#but here the playback slider always moves once per seconds sop it never activates
-		#DRAMATICALLY drecreases the Performance need in the background
-		#GPU -> 9 - 11% to 0,1 - 0,2%
-		#CPU -> 1,5 - 3% -> 0% [without audio effects, with them way higher but still way lower]
-		#if Global.AnimationsRunning != 0:
-			#Waiting for important animations to finish before dramativ framerate decrease
-			#BUGGY REWORK NEEDED!!
-		#	yield(Global,"AnimationsFinished")
-		#if options.get_child(0).get("songs"):
-		#	if options.get_child(0).songs.get_parent().CurrentScrollSpeed != 0:
-		#		yield(options.get_child(0).songs.get_parent(),"decelerated")
-		ToggleSongScrollerInput(false)
+		# setting the Framerate to one per second if window is unfocused
+		# why? 1 seconds -> for the playback_slider to work
+		# why not low processor mode -> that only works if nothing changes on the screen
+		# but here the playback slider always moves once per seconds sop it never activates
+		# DRAMATICALLY decreases the Performance need in the background
+		# GPU -> 9 - 11% to 0,1 - 0,2%
+		# CPU -> 1,5 - 3% -> 0% [without audio effects, with them way higher but still way lower]
+		toggle_songlist_input(false)
 		get_tree().get_root().set_disable_input(true)
 		Global.LowFPS = true
 		Engine.set_target_fps(4)
 		#Engine.set_iterations_per_second(1)
 	elif what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
-		#resetting the engine frame rate to 60 for many mouse detections to work
+		# resetting the engine frame rate to 60 fps
 		Global.LowFPS = false
 		Engine.set_target_fps(60)
-		#Engine.set_iterations_per_second(60)
-		#only disables the mouse stopper if it wasn't enabled manually prior
-		ToggleSongScrollerInput(true)
+		toggle_songlist_input(true)
 		get_tree().get_root().set_disable_input(false)
 
 
 func _unhandled_key_input(event):
-	#Here all of the options to control the App via Keys is located
-	#They need to be in unhabdled input so that when they are actually
-	#needed for example a lineedit they won't randomly pause and unpause the music
+	# here all of the options to control the App via Keys is located
+	# they need to be in unhabdled input so that when they are actually
+	# needed for example a lineedit they won't randomly pause and unpause the music
 	if event.is_pressed():
 		if !Input.is_key_pressed(KEY_CONTROL):
-			#Load Options Shortcut L + First Character of Option
+			
+			# load Options Shortcut L + first Character of Option (most of the time)
 			if Input.is_key_pressed(KEY_L):
 				match event.scancode:
 					KEY_O:
-						#Loading Settings
-						LoadOptions(0, true)
+						# loading Settings
+						load_option(0, true)
 					KEY_P:
-						#Loading Playlists
-						LoadOptions(1, true)
+						# loading Playlists
+						load_option(1, true)
 					KEY_F:
-						#Loading Select Folders
-						LoadOptions(2, true)
+						# loading Select Folders
+						load_option(2, true)
 					KEY_A:
-						#Loading Artists
-						LoadOptions(3, true)
+						# loading Artists
+						load_option(3, true)
 					KEY_C:
-						#Loading Change Tags
-						LoadOptions(4, true)
+						# loading Change Tags
+						load_option(4, true)
 					KEY_D:
-						#Loading Downloads
-						LoadOptions(5, true)
+						#  loading Downloads
+						load_option(5, true)
 					KEY_Y:
-						#Loading Lyrics
-						LoadOptions(6, true)
+						# loading Lyrics
+						load_option(6, true)
 					KEY_S:
-						#Loading Stats
-						LoadOptions(7, true)
+						# loading Stats
+						load_option(7, true)
 					KEY_E:
-						#Loading Settings
-						LoadOptions(8, true)
+						# loading Settings
+						load_option(8, true)
 			
-			#Random Shortcuts
+			# random global Shortcuts
 			match event.get_scancode():
 				KEY_SPACE:
-					#A unhandled Space Press toggles the music
-					player._on_Play_Pause_pressed()
+					# a unhandled space-key press toggles the music
+					player._on_Playback_pressed()
 				KEY_S:
-					#Toggling the Shuffle feature
+					# toggling the Shuffle feature
 					player._on_Shuffle_pressed()
 				KEY_R:
-					#Toggling Song Repeat Mode
+					# toggling Song Repeat Mode
 					player._on_RepeatMode_pressed()
 				KEY_I:
-					#Toggling Image View
+					# toggling Image View
 					player._on_Cover_pressed()
 
 
-func _ready():
-	InitMain(true)
-
-
-func InitMain(var Load : bool = false) -> void:
+func init_main(var load_current_song : bool = false) -> void:
 	if Global.CurrentProfileIdx != -1:
-		#Connecting User Profile Box
-		UserProfileBox.InitProfileBox()
-		Sidebar.UpdateSidebar()
-		if !self.is_connected("resized",Sidebar,"UpdateSidebar"):
-			var _err = self.connect("resized",Sidebar,"UpdateSidebar")
-		if !UserProfileBox.LoadUserSelect.is_connected("pressed",self,"LoadUserProfileSelection"):
-			var _err = UserProfileBox.LoadUserSelect.connect("pressed",self,"LoadUserProfileSelection")
 		
-		#Connecting a Signal form the Windowbar when the Window gets maximized or unmaximized
-		#hides the resize handles on a true signal
-		if !WindowBar.is_connected("WindowMaximized",ResizeHandles,"set_deferred"):
-			if WindowBar.connect("WindowMaximized",ResizeHandles,"set_deferred"):
-				Global.root.Message("CONNECTING WINDOW MAXIMIZED SIGNAL TO RESIZE HANDLE TOGGLE", SaveData.MESSAGE_ERROR)
+		# connecting User Profile Box
+		sidebar.user_profile_container.InitProfileBox()
+		sidebar.update_sidebar()
+		if !self.is_connected("resized",sidebar,"update_sidebar"):
+			var _err = self.connect("resized",sidebar,"update_sidebar")
+		if !sidebar.user_profile_container.LoadUserSelect.is_connected("pressed",self,"load_user_profile_selection"):
+			var _err = sidebar.user_profile_container.LoadUserSelect.connect("pressed",self,"load_user_profile_selection")
 		
-		#Only Resets if the selected Profiles is NOT the one used before
-		if Global.GetCurrentUser() != Global.PriorUser or Load:
-			LoadOptions(0, true)
-			#Loading Current Song
+		# connecting a Signal form the Windowbar when the Window gets maximized or unmaximized
+		# hides the resize handles on a true signal
+		if !window_bar.is_connected("window_maximized",resize_handles,"set_deferred"):
+			if window_bar.connect("window_maximized",resize_handles,"set_deferred"):
+				message("CONNECTING WINDOW MAXIMIZED SIGNAL TO RESIZE HANDLE TOGGLE", SaveData.MESSAGE_ERROR)
+		
+		# only Resets if the selected Profiles is NOT the one used before
+		if Global.GetCurrentUser() != Global.PriorUser or load_current_song:
+			
+			# loading all songs suboption
+			load_option(0, true)
+			
+			# loading current sing
 			if SongLists.CurrentSong != "":
-				PlaySong(
+				playback_song(
 					AllSongs.GetMainIdx(SongLists.CurrentSong),
 					false,
 					Playlist.GetPlaylistName(SongLists.CurrentPlayList)
 				)
 			else:
-				#Resetting
-				MainStream.ReloadStreamTimer(true)
-				MainStream.set_stream(null)
-				SetPlayerImg(0)
-				player.InitPlayer()
+				# resetting
+				Playback.new().stop_playback()
 	else:
-		LoadUserProfileSelection()
+		load_user_profile_selection()
 
 
-func LoadUserProfileSelection() -> void:
-	#Saving AudioEffects
-	SongLists.SaveUserSpecificData( SongLists.AddUsersToFilepaths(SongLists.FilePaths) )
-	
-	var x = load("res://src/Scenes/UserProfiles/UserProfileSelection.tscn").instance()
-	var _err = x.connect("tree_exited",self,"InitMain")
-	middle_part.call_deferred("add_child",x)
-
-
-#doesn't play unless said so -> play : bool
-func PlaySong(var main_idx : int, var play : bool = false, var _PlaylistName : String = ""):
+func playback_song(var main_idx : int, var play : bool = false, var _PlaylistName : String = ""):
+	# function that handles the replay of a given file 
+	# only plays if play is true, otherwise just prepares and pauses
 	if SongLists.CurrentPlayList == Playlist.GetPlaylistIndex(_PlaylistName) and AllSongs.GetSongPath(main_idx) == SongLists.CurrentSong:
-		#if the song that was just presed is the same that was playing
-		#the AudioPlayer justs seeks the start instead of loading the song from scratch
+		# if the song that was just presed is the same that was playing
+		# the AudioPlayer justs seeks the start instead of loading the song from scratch
 		MainStream.seek(0.0)
 		MainStream.ReloadStreamTimer()
 	
@@ -218,7 +191,7 @@ func PlaySong(var main_idx : int, var play : bool = false, var _PlaylistName : S
 				if FormatType <= 2:
 					stream.format = FormatType
 				else:
-					Message("UNKNOWN WAV FORMAT: " + str(FormatType), SaveData.MESSAGE_ERROR)
+					message("UNKNOWN WAV FORMAT: " + str(FormatType), SaveData.MESSAGE_ERROR)
 					RealFormatFlag = -1
 				
 				song_data = song_data.subarray( 128 * 10, song_data.size() - 1 )
@@ -242,13 +215,13 @@ func PlaySong(var main_idx : int, var play : bool = false, var _PlaylistName : S
 			MainStream.set_stream(stream)
 			if !MainStream.stream:
 				#Last Check to see if the decoding of Music Data worked
-				Message("Unsupported Musicformat -> Failed to Decode: " + song_path, SaveData.MESSAGE_ERROR)
-				SkipSong(main_idx)
+				message("Unsupported Musicformat -> Failed to Decode: " + song_path, SaveData.MESSAGE_ERROR)
+				skip_song(main_idx)
 			
 			#Updating Player Music replay data
 			var song_length : float = MainStream.stream.get_length()
-			song_length_label.text = TimeFormatter.FormatSeconds(song_length)
-			player.PlaybackSlider.max_value = int(song_length)
+			player.song_length.text = TimeFormatter.FormatSeconds(song_length)
+			player.playback_slider.max_value = int(song_length)
 			
 			#Valid Song -> reset first skipped song
 			Global.first_skipped_path = ""
@@ -257,114 +230,30 @@ func PlaySong(var main_idx : int, var play : bool = false, var _PlaylistName : S
 			SongLists.SetCurrentSong(AllSongs.GetSongPath(main_idx))
 			
 			#Update Player Infos
-			UpdatePlayerInfos()
+			update_player_infos()
 			
 			#Play
 			MainStream.play(0)
 			if !play:
-				SetPlayerImg(0)
+				player.set_playback_button(0)
 				MainStream.seek(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"PlaybackPosition"))
 				MainStream.set_stream_paused(true)
 				#pauses the stream timer on start
 				MainStream.ReloadStreamTimer(true)
 			else:
-				SetPlayerImg(1)
+				player.set_playback_button(1)
 				MainStream.set_stream_paused(false)
 				MainStream.ReloadStreamTimer()
 		else:
-			Message("Unsupported Fileformat: " + song_path, SaveData.MESSAGE_ERROR)
-			SkipSong(main_idx)
+			message("Unsupported Fileformat: " + song_path, SaveData.MESSAGE_ERROR)
+			skip_song(main_idx)
 	else:
-		Message("Could not open specified song path:" + song_path, SaveData.MESSAGE_ERROR)
-		SkipSong(main_idx)
+		message("Could not open specified song path:" + song_path, SaveData.MESSAGE_ERROR)
+		skip_song(main_idx)
 	file.close()
 
 
-func SkipSong(var main_idx : int) -> void:
-	#skips to the next Song if the Header FileFormat is not supported or the path couldn't be opened
-	#when loading Veles checks for the Filename extension not the "REAL" format
-	var path : String = AllSongs.GetSongPath(main_idx)
-	var to_next : bool = false
-	print("SKIP: ",path)
-	if Global.first_skipped_path == path:
-		# only skips if the first song that was skipped does is not the one that wants to be skipped
-		#-> prevents an endless loop if EVERY song is invalid
-		SongLists.SetCurrentSong("")
-		MainStream.set_stream_paused(true)
-		return
-	else:
-		to_next = true
-	
-	if Global.first_skipped_path == "":
-		Global.first_skipped_path = path
-		to_next = true
-	
-	if to_next:
-		SongLists.SetCurrentSong(path)
-		ChangeSong(Global.last_direction)
-
-
-func LoadOptions(var index : int, var ignore_same : bool = false):
-	var del : bool = true
-	#if there isn't an option loaded it won't try to free it
-	if Sidebar.Options.CurrentOptionIdx == -1:
-		del = false
-	if Sidebar.Options.CurrentOptionIdx != index or ignore_same:
-		var option : Control
-		match index:
-			0:
-				option = all_songs.instance()
-			1:
-				option = playlists.instance()
-			2:
-				option = AddFolder.instance()
-			3:
-				option = artists.instance()
-			4:
-				option = change_tags.instance()
-			5:
-				option = download.instance()
-			6:
-				option = lyrics.instance()
-			7:
-				option = stats.instance()
-			8:
-				option = settings.instance()
-			9:
-				option = infos.instance()
-		if del:
-			#frees more than one option in a loop just in case
-			FreeOptions()
-		
-		#Disabling Input in the Loading time of the Option
-		self.set_process_input(false)
-		var _err = option.connect("ready",self,"set_process_input", [true],CONNECT_ONESHOT)
-		
-		#Adding option to SceneTree
-		Message("LOADED OPTION: " + str(index), SaveData.MESSAGE_NOTICE)
-		AddOption(option)
-		Sidebar.Options.set_sidebar_option(index)
-		ResetInputDisabler()
-
-
-func ReloadCurrentOption() -> void:
-	LoadOptions(Sidebar.Options.CurrentOptionIdx,true)
-
-
-func AddOption(var option : Control) -> void:
-	options.add_child(option)
-
-
-func FreeOptions() -> void:
-	#even though the options should only habe one child
-	#if something goes wrong looping thourgh all possible children shoudl fix everything again
-	#remove_child() is also called since the child needs to be removed immediately from the options Node for the Highlighting to work properlay
-	for n in options.get_children():
-		n.queue_free()
-		options.remove_child(n)
-
-
-func ChangeSong(var direction : int) -> void:
+func change_song(var direction : int) -> void:
 	if !SongLists.AllSongs.has(SongLists.CurrentSong):
 		return;
 	
@@ -407,17 +296,17 @@ func ChangeSong(var direction : int) -> void:
 		next_main_idx = AllSongs.GetMainIdx(playlist_n.keys()[idx_in_playlist])
 	var path : String = AllSongs.GetSongPath( next_main_idx )
 	
-	UpdateHighlightedSong(path)
+	update_highlighted_song(path)
 	Global.last_direction = direction
 	
-	PlaySong(
+	playback_song(
 		next_main_idx,
 		true,
 		Playlist.GetPlaylistName(SongLists.CurrentPlayList)
 	)
 
 
-func RandomSong() -> void:
+func random_song() -> void:
 	randomize()
 	var random_song_idx : int = 0
 
@@ -437,15 +326,101 @@ func RandomSong() -> void:
 		#Smart Playlist/Automaticly Created
 		var temp = randi() % SongLists.CurrentTempSmartPlaylist.size()
 		random_song_idx = AllSongs.GetMainIdx( SongLists.CurrentTempSmartPlaylist.keys()[temp] )
-	UpdateHighlightedSong(AllSongs.GetSongPath(random_song_idx))
-	PlaySong(
+	update_highlighted_song(AllSongs.GetSongPath(random_song_idx))
+	playback_song(
 		random_song_idx,
 		true,
 		Playlist.GetPlaylistName(SongLists.CurrentPlayList)
 	)
 
 
-func UpdateHighlightedSong(var NextHighlighted : String) -> void:
+func skip_song(var main_idx : int) -> void:
+	# skips to the next Song if the Header FileFormat is not supported or the path couldn't be opened
+	# when loading Veles checks for the Filename extension not the "REAL" format
+	var path : String = AllSongs.GetSongPath(main_idx)
+	var to_next : bool = false
+	if Global.first_skipped_path == path:
+		# only skips if the first song that was skipped does is not the one that wants to be skipped
+		# -> prevents an endless loop if EVERY song is invalid
+		SongLists.SetCurrentSong("")
+		MainStream.set_stream_paused(true)
+		return
+	else:
+		to_next = true
+	
+	if Global.first_skipped_path == "":
+		Global.first_skipped_path = path
+		to_next = true
+	
+	if to_next:
+		SongLists.SetCurrentSong(path)
+		change_song(Global.last_direction)
+
+
+func load_option(var index : int, var ignore_same : bool = false):
+	var del : bool = true
+	# if there isn't an option loaded it won't try to free it
+	if sidebar.sub_options.CurrentOptionIdx == -1:
+		del = false
+	if sidebar.sub_options.CurrentOptionIdx != index or ignore_same:
+		var option : Control
+		match index:
+			0:
+				option = all_songs.instance()
+			1:
+				option = playlists.instance()
+			2:
+				option = AddFolder.instance()
+			3:
+				option = artists.instance()
+			4:
+				option = change_tags.instance()
+			5:
+				option = download.instance()
+			6:
+				option = lyrics.instance()
+			7:
+				option = stats.instance()
+			8:
+				option = settings.instance()
+			9:
+				option = infos.instance()
+		if del:
+			# frees more than one option in a loop just in case
+			free_option()
+		
+		# disabling Input in the Loading time of the Option
+		self.set_process_input(false)
+		var _err = option.connect("ready",self,"set_process_input", [true],CONNECT_ONESHOT)
+		
+		# adding option to SceneTree
+		message("LOADED OPTION: " + str(index), SaveData.MESSAGE_NOTICE)
+		options.add_child(option)
+		sidebar.sub_options.set_sidebar_option(index)
+		reset_input_disabler()
+
+
+func delete_current_option() -> void:
+	# removes deletes the currently loaded option from node tree
+	var to_delete : Node = options.get_child(0)
+	options.remove_child(to_delete)
+	to_delete.queue_free()
+
+
+func reload_option() -> void:
+	load_option(sidebar.sub_options.CurrentOptionIdx,true)
+
+
+func free_option() -> void:
+	# even though the options should only habe one child
+	# if something goes wrong looping thourgh all possible children shoudl fix everything again
+	# remove_child() is also called since the child needs to be removed immediately from the options Node for the Highlighting to work properlay
+	for n in options.get_children():
+		n.queue_free()
+		options.remove_child(n)
+
+
+func update_highlighted_song(var NextHighlighted : String) -> void:
 	#checks first if either AllSongs or a Playlist are shown
 	if options.get_child(0).get("songs") != null:
 		var highlighted_song : int = options.get_child(0).SongListHasThis(SongLists.CurrentSong)
@@ -461,42 +436,17 @@ func UpdateHighlightedSong(var NextHighlighted : String) -> void:
 			options.get_child(0).HighlightSong(options.get_child(0).songs.get_child( NextHighlightedIdx ) )
 
 
-func LoadTemporaryPlaylist(var TemporaryPlaylistTitle : String, var PlaylistDescriptionPath : String, var PlaylistCoverPath : String, var option_idx : int) -> void:
-	Global.PlaylistPressed = -2
-	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS, "TempPlaylistTitle", TemporaryPlaylistTitle)
-	DeleteCurrentoption()
-	Sidebar.Options.set_sidebar_option(option_idx)
-	var NewTempPlaylist : Control = SmartPlaylistTemplate.instance()
-	options.add_child( NewTempPlaylist )
-	NewTempPlaylist.NReady( SongLists.TempPlaylistConditions,TemporaryPlaylistTitle,PlaylistDescriptionPath, PlaylistCoverPath )
-
-
-func LoadLyricEditor(var ProjectPath : String = "") -> void:
-	DeleteCurrentoption()
-	var x = load("res://src/Scenes/SubOptions/Lyrics/LyricsEditor.tscn").instance()
-	options.add_child( x )
-	x.get_child(0).NReady(ProjectPath)
-
-
-func SetPlayerImg(var flag : int) -> void:
-	match flag:
-		0:
-			play_button.set_normal_texture(Global.play_img)
-		1:
-			play_button.set_normal_texture(Global.pause_img)
-
-
-func Message(var message : String,var message_type : int, var display : bool = false, var bg_clr : Color = Color("9d9d9d")) -> void:
+func message(var message : String,var message_type : int, var display : bool = false, var bg_clr : Color = Color("9d9d9d")) -> void:
 	message = message.to_upper()
 	SaveData.LogMessage(message,message_type)
 	if display:
 		Global.DisplayedMessage = message;
-		var MessageRef : Control = MessageContainer.instance()
+		var MessageRef : Control = MESSAGE_CONTAINER.instance()
 		self.add_child(MessageRef)
 		MessageRef.SetBackgroundColor(bg_clr)
 
 
-func ToggleSongScrollerInput(var x : bool) -> void:
+func toggle_songlist_input(var x : bool) -> void:
 	#if the toggle gets set to disabled it will be counted
 	#so that if it f.e. disabled by the volume and image view, the Songscroller cannot
 	#be used when just on of them enabled the Scroller, event though one of them is still there
@@ -508,74 +458,111 @@ func ToggleSongScrollerInput(var x : bool) -> void:
 			ref = options.get_child(0).songs.get_parent()
 		
 		if !x:
-			DisabledCounter += 1;
+			input_disable_counter += 1;
 			Global.InputToggler(ref,false)
 		else:
-			DisabledCounter -= 1;
-			if DisabledCounter < 0:
-				DisabledCounter = 0;
-				Message("PROCESS INPUT DISIABLER FOR SONG SCROLLER CALLED WITH MULTIPLE DISABLERS", SaveData.MESSAGE_WARNING)
-			if DisabledCounter == 0:
+			input_disable_counter -= 1;
+			if input_disable_counter < 0:
+				input_disable_counter = 0;
+				message("PROCESS INPUT DISABLER FOR SONG SCROLLER DISABLED MULTIPLE TIMES", SaveData.MESSAGE_WARNING)
+			if input_disable_counter == 0:
 				Global.InputToggler(ref,true)
 
 
-func ResetInputDisabler() -> void:
-	DisabledCounter = 0
+func reset_input_disabler() -> void:
+	input_disable_counter = 0
 	if options.get_child(0).get("songs"):
 		Global.InputToggler(options.get_child(0).songs.get_parent(),true)
 
 
-func DeleteCurrentoption() -> void:
-	var ToBeDeleted = options.get_child(0)
-	options.remove_child(ToBeDeleted)
-	ToBeDeleted.queue_free()
+func load_user_profile_selection() -> void:
+	# loads the user profiles selection to change the current user
+	
+	# saving user specific data
+	SongLists.SaveUserSpecificData( SongLists.AddUsersToFilepaths(SongLists.FilePaths) )
+	
+	var x = load("res://src/Scenes/UserProfiles/UserProfileSelection.tscn").instance()
+	var _err = x.connect("tree_exited",self,"init_main")
+	middle_part.call_deferred("add_child",x)
 
 
-#Creates an Insatance of the General FileDialogue and Autromatically sets thew text where needed
-func OpenGeneralFileDialogue(var NodeRef : Object, var OpenMode : int, var FileAccess : int, var Method : String,
-		var MethodArgs : Array, var FileType : String, var FileTypeFilters : PoolStringArray = [],
-		var ReturnString : bool  = false, var TitleOverride : String = "") -> Node:
-	var dialog = GeneralDialogue.instance()
-	TopUI.add_child(dialog)
-	if dialog.connect("SelectionMade",NodeRef,Method, MethodArgs):
-		Message("Couldn't not connect Folder Selection to General File Dialogue", SaveData.MESSAGE_ERROR)
-	dialog.NReady(OpenMode,FileAccess,FileType, FileTypeFilters, ReturnString, TitleOverride)
+func load_general_file_dialogue(var ref : Object, var open_mode : int, var file_access : int, var method : String,
+		var method_args : Array, var filetype : String, var filetype_filters : PoolStringArray = [],
+		var return_string : bool  = false, var title_override : String = "") -> Node:
+	# creates an Instance of the General FileDialogue and Autromatically sets thew text where needed
+	
+	# adding to scene tree
+	var dialog = GENERAL_DIALOGUE.instance()
+	top_ui.add_child(dialog)
+	
+	# connecting given mehod to selection_made signal
+	if dialog.connect("SelectionMade", ref, method, method_args):
+		message("Couldn't not connect Folder Selection to General File Dialogue", SaveData.MESSAGE_ERROR)
+	
+	# initialising file dialogue
+	dialog.NReady(open_mode,file_access,filetype, filetype_filters, return_string, title_override)
+	
+	# returning dialogue if needed
 	return dialog
 
 
-func LoadPlaylist(var PlaylistIdx : int) -> void:
-	DeleteCurrentoption()
-	Sidebar.Options.set_sidebar_option(1)
-	var PlaylistTemplate : Node = null
+func load_playlist(var playlist_idx : int) -> void:
+	delete_current_option()
 	
-	if PlaylistIdx >= 0:
-		PlaylistTemplate = NormalPlaylistTemplate.instance()
-		options.add_child(PlaylistTemplate)
+	# setting sidebar to playlist suboption
+	sidebar.sub_options.set_sidebar_option(1)
+	
+	# loading a smart or normal playlist depending on the index
+	var playlist_scene : Node = null
+	if playlist_idx >= 0:
+		playlist_scene = NORMAL_PLAYLIST_TEMPLATE.instance()
+		options.add_child(playlist_scene)
 	else:
-		PlaylistTemplate = SmartPlaylistTemplate.instance()
-		options.add_child(PlaylistTemplate)
-		PlaylistTemplate.NReady()
+		playlist_scene = SMART_PLAYLIST_TEMPLATE.instance()
+		options.add_child(playlist_scene)
+		playlist_scene.NReady()
 
 
-func UpdatePlayerInfos() -> void:
-	var MainIdx : int = AllSongs.GetMainIdx(SongLists.CurrentSong)
-	var PlalistText : String = ""
+func load_temporary_playlist(var temp_playlist_title : String, var description_path : String, var cover_path : String, var option_idx : int) -> void:
+	delete_current_option()
+	Global.PlaylistPressed = -2
+	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS, "TempPlaylistTitle", temp_playlist_title)
 	
-	#Title
-	player.SongTitle.set_text( AllSongs.SongTitle(MainIdx) )
+	# setting sidebar to playlist suboption
+	sidebar.sub_options.set_sidebar_option(option_idx)
 	
-	#Artist
-	player.SongArtist.set_text("by " +  AllSongs.GetSongArtist(MainIdx) )
+	# loading temporary playlist from given arguments
+	var new_temp_playlist : Control = SMART_PLAYLIST_TEMPLATE.instance()
+	options.add_child( new_temp_playlist )
+	new_temp_playlist.NReady( SongLists.TempPlaylistConditions,temp_playlist_title,description_path, cover_path )
+
+
+func load_lyric_editor(var ProjectPath : String = "") -> void:
+	delete_current_option()
+	var x = load("res://src/Scenes/SubOptions/Lyrics/LyricsEditor.tscn").instance()
+	options.add_child( x )
+	x.get_child(0).NReady(ProjectPath)
+
+
+func update_player_infos() -> void:
+	var main_idx : int = AllSongs.GetMainIdx(SongLists.CurrentSong)
 	
-	#Playlist Label
+	# title
+	player.song_title.set_text( AllSongs.SongTitle(main_idx) )
+	
+	# artist
+	player.song_artist.set_text("by " +  AllSongs.GetSongArtist(main_idx) )
+	
+	# playlist Label
+	var playlist_name : String
 	if SettingsData.GetSetting(SettingsData.PLAYLIST_ALBUM_SETTINGS,"PlaylistSpaceText") == 0:
-		PlalistText = Playlist.GetPlaylistName( SongLists.CurrentPlayList )
+		playlist_name = Playlist.GetPlaylistName( SongLists.CurrentPlayList )
 	else:
-		PlalistText = Tags.GetAlbum(SongLists.CurrentSong)
-	player.SongPlaylist.set_text("in " +  PlalistText )
+		playlist_name = Tags.GetAlbum(SongLists.CurrentSong)
+	player.song_playlist.set_text("in " +  playlist_name )
 	
 	#Covers
-	player.UpdatePlayerCovers(
+	player.update_player_covers(
 		Playlist.GetPlaylistName(
 			SongLists.CurrentPlayList
 		)

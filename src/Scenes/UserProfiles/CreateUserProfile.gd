@@ -10,7 +10,7 @@ func _ready():
 
 
 func LoadDialogue() -> void:
-	var _dialog = Global.root.OpenGeneralFileDialogue(
+	var _dialog = Global.root.load_general_file_dialogue(
 		ProfileImgSelection.InputEdit,
 		FileDialog.MODE_OPEN_FILE,
 		FileDialog.ACCESS_FILESYSTEM,
@@ -26,7 +26,7 @@ func OnSaveProfile() -> void:
 	var new_username : String = Username.InputEdit.get_text()
 	
 	if !Global.is_username_valid(new_username):
-		Global.root.Message("Invalid Username", SaveData.MESSAGE_ERROR, true)
+		Global.root.message("Invalid Username", SaveData.MESSAGE_ERROR, true)
 		ExitPopup()
 		return;
 	

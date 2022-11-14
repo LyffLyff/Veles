@@ -57,7 +57,7 @@ func OnCoverSelected(var ImgSrc : String):
 func OnDeletePressed():
 	var playlist_key : String = SongLists.Playlists.keys()[PlaylistIdx]
 	if !SongLists.Playlists.erase(playlist_key):
-		Global.root.Message("DELETIING PLAYLIST COVER FROM USER DATA",  SaveData.MESSAGE_ERROR )
+		Global.root.message("DELETIING PLAYLIST COVER FROM USER DATA",  SaveData.MESSAGE_ERROR )
 	FileChecker.DeleteFile(OS.get_user_data_dir() + "/Songs/Playlists/Covers/" + playlist_key + ".png")
 	SaveData.EraseKeyFromFile(SongLists.FilePaths[9],playlist_key)
 	UnloadPlaylist()

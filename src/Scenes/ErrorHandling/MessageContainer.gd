@@ -4,8 +4,8 @@ extends Control
 const DURATION : float = 0.3
 
 #NODES
-onready var MessagePanel : PanelContainer = $VBoxContainer/Message
-onready var MessageLabel : Label = $VBoxContainer/Message/Label
+onready var MessagePanel : PanelContainer = $VBoxContainer/message
+onready var MessageLabel : Label = $VBoxContainer/message/Label
 
 func _ready():
 	self.rect_position.y = 150

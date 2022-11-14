@@ -16,7 +16,6 @@ onready var PopupBackground : ColorRect = $PlaylistPopups/PopupBackground
 onready var PopupPlace : Control = $PlaylistPopups
 
 #VARIABLES
-var GeneralDialogue : PackedScene = preload("res://src/scenes/General/GeneralFileDialogue.tscn")
 var ContentContainer : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/PlaylistsContainer.tscn")
 var PlaylistFromScratch : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/PlaylistFromScratch.tscn")
 var PlaylistFromFolder : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Creators/PlaylistFromFolder.tscn")
