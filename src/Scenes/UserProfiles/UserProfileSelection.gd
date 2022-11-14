@@ -25,7 +25,7 @@ func LoadUserProfiles() -> void:
 		x.connect("pressed",self,"OnUserProfileSelected",[i])
 		ProfileHBox.add_child(x)
 		x.Username.set_text(Global.UserProfiles[i])
-		x.ProfileImg.set_texture( ImageLoader.GetCover("user://GlobalSettings/UserImages/" + Global.UserProfiles[i] + ".png") )
+		x.ProfileImg.set_texture( ImageLoader.get_cover("user://GlobalSettings/UserImages/" + Global.UserProfiles[i] + ".png") )
 		ProfileHBox.move_child(x,0)
 
 
@@ -40,7 +40,7 @@ func OnUserProfileSelected(var UserIdx : int) -> void:
 	var Paths : PoolStringArray = []
 	for i in SongLists.FilePaths.size():
 		Paths.push_back( SongLists.AddUserToFilepath(SongLists.FilePaths[i]) )
-	SongLists.SaveUserSpecificData(Paths)
+	SongLists.saveUserSpecificData(Paths)
 	Global.CurrentProfileIdx = UserIdx
 	Global.InitializeSongs = true
 	SongLists.ResetUserdata()
@@ -48,14 +48,14 @@ func OnUserProfileSelected(var UserIdx : int) -> void:
 	
 	# initialising user profile
 	var init : VelesInit = VelesInit.new()
-	init.CreateFolders()
-	init.CopyAudioPresets()
-	init.CopyExportTemplates()
-	init.InitAudioEffects()
+	init.create_folders()
+	init.copy_std_audio_presets()
+	init.copy_export_templates()
+	init.init_audio_effects()
 	init.init_volume()
 	
 	#Setting Std Download Folder
-	if !SaveData.Load(SongLists.AddUserToFilepath(SongLists.FilePaths[0])):
+	if !SaveData.load_data(SongLists.AddUserToFilepath(SongLists.FilePaths[0])):
 		SongLists.AddFolder(Global.GetCurrentUserDataFolder() + "/Downloads")
 	
 	self.queue_free()
@@ -103,7 +103,7 @@ func OnDeleteUser(var UserIdx : int) -> void:
 	
 	#Removing Folders Containing the Users specific data
 	Global.RemoveUser(UserIdx)
-	FileChecker.RemoveFolderRecursive( Global.GetCurrentUserDataFolder() )
+	ExtendedDirectory.remove_folder_recursive( Global.GetCurrentUserDataFolder() )
 	
 	#Removing the users profile image
 	var dir : Directory = Directory.new()

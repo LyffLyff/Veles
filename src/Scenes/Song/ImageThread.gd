@@ -1,6 +1,4 @@
-extends Reference
-
-class_name CoverLoader
+class_name CoverLoader extends Reference
 
 
 #defines how many bytes will be loaded an then compared to delete the duplicate covers
@@ -8,7 +6,7 @@ class_name CoverLoader
 #Lower values are faster, but could Display some files with the wrong Cover
 #256 -> very few mistakes -> 2 in 200
 #512 -> up to now none
-var COVER_DUPLICATE_SAMPLE : int = 256*3
+var COVER_DUPLICATE_SAMPLE : int = 256 * 3
 
 
 func NewSongCovers(var ToCopy : PoolStringArray) -> void:
@@ -29,7 +27,7 @@ func CopySongCovers(var ToCopy : PoolStringArray) -> Dictionary:
 		DstCoverPaths.push_back(DstFolder + CoverHashes[n] + ".png")
 
 	#Copying and getting Successes
-	var CopySuccesses : PoolByteArray = Tags.CopyCovers(ToCopy,DstCoverPaths)
+	var CopySuccesses : PoolByteArray = Tags.copy_embedded_covers(ToCopy,DstCoverPaths)
 	
 	#Filtering Copied Covers -> Successful/Unsuccessful
 	var CopiedCovers : PoolStringArray = []
@@ -57,11 +55,11 @@ func FilteringDuplicateCovers(var NewSongs : Dictionary) -> void:
 	
 	#Comparing with the New Covers
 	for x in NewSongs.size():
-		X_ImgHeader = SaveData.LoadBuffer(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + NewSongs.keys()[x] + ".png",1024)
+		X_ImgHeader = SaveData.load_buffer(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + NewSongs.keys()[x] + ".png",1024)
 		for y in NewSongs.size():
 			if !YToSkip.has(x):
 				if x != y:
-					if X_ImgHeader ==  SaveData.LoadBuffer(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + NewSongs.keys()[y] + ".png",1024):
+					if X_ImgHeader ==  SaveData.load_buffer(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + NewSongs.keys()[y] + ".png",1024):
 						
 						if Covers.has(NewSongs.keys()[x]):
 							var Val : PoolStringArray = Covers.get(NewSongs.keys()[x])
@@ -79,9 +77,9 @@ func FilteringDuplicateCovers(var NewSongs : Dictionary) -> void:
 	
 	#Comparing with other Covers
 	for x in Covers.size():
-		X_ImgHeader = SaveData.LoadBuffer(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + Covers.keys()[x] + ".png",1024)
+		X_ImgHeader = SaveData.load_buffer(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + Covers.keys()[x] + ".png",1024)
 		for y in SongLists.CoverCache.size():
-			if X_ImgHeader == SaveData.LoadBuffer(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + SongLists.CoverCache.keys()[y] + ".png",1024):
+			if X_ImgHeader == SaveData.load_buffer(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + SongLists.CoverCache.keys()[y] + ".png",1024):
 				if !Covers.has(SongLists.CoverCache.keys()[y]):
 					var temp : PoolStringArray =  Covers.values()[x]
 					temp.push_back( Covers.keys()[x] ) 
@@ -93,17 +91,17 @@ func FilteringDuplicateCovers(var NewSongs : Dictionary) -> void:
 	for x in Covers.size():
 		var UniqueHash : String = Covers.keys()[x]
 		if !SongLists.CoverCache.has(UniqueHash):
-			SongLists.CoverCache[UniqueHash] = ImageLoader.GetCover(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + UniqueHash + ".png","",Vector2(70,70))
+			SongLists.CoverCache[UniqueHash] = ImageLoader.get_cover(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + UniqueHash + ".png","",Vector2(70,70))
 		for y in Covers.values()[x].size():
 			var Temp = null
 			var DuplicateHash : String = Covers.values()[x][y]
 			Temp = NewSongs.get( DuplicateHash )
 			if Temp:
 				var path : String = Temp
-				AllSongs.UpdateCoverHash(path,UniqueHash)
+				AllSongs.set_coverhash(path,UniqueHash)
 			else:
 				if !SongLists.CoverCache.erase(DuplicateHash):
 					Global.root.message("COULD NOT DELETE COVER THAT WAS PREVIOUSLY IN THE COVERCACHE: " + DuplicateHash, SaveData.MESSAGE_ERROR)
-			FileChecker.DeleteFile(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + DuplicateHash + ".png")
+			ExtendedDirectory.delete_file(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + DuplicateHash + ".png")
 
 

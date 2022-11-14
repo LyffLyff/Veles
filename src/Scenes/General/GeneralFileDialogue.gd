@@ -28,7 +28,7 @@ func _exit_tree():
 
 
 #Node that needs this Scene has to call this function and give certain Parameters
-func NReady(var ModeFlag : int = 0,var AccessFlag : int = 0,var Type : String = "", var FileTypeSpecification : PoolStringArray = [],var ReturnAsString : bool = false, var TitleOverride : String = "", var _FileOverride : String = ""):
+func n_ready(var ModeFlag : int = 0,var AccessFlag : int = 0,var Type : String = "", var FileTypeSpecification : PoolStringArray = [],var ReturnAsString : bool = false, var TitleOverride : String = "", var _FileOverride : String = ""):
 	#Mode and Access NEED to be set prior to prevent blocking the set path/dir/file functions
 	Dialog.set_access(AccessFlag)
 	Dialog.set_mode(ModeFlag)
@@ -45,7 +45,7 @@ func NReady(var ModeFlag : int = 0,var AccessFlag : int = 0,var Type : String = 
 			if path != "":
 				Dialog.set_current_dir(path)
 		"Song":
-			var path : String = SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"SongPath")
+			var path : String = SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"song_path")
 			if path != "":
 				Dialog.set_current_dir(path)
 		"Lyrics":
@@ -101,7 +101,7 @@ func SaveLastFolder(var args : String):
 		"Image":
 			SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"ImagePath",folder)
 		"Song":
-			SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"SongPath",folder)
+			SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"song_path",folder)
 		"ExportCover":
 			SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"CoverExportPath",folder)
 		"ExportHTML":

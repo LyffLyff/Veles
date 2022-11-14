@@ -19,7 +19,7 @@ var TempPlaylistCoverPath : String = ""
 
 
 
-func NReady( var Conditions : Dictionary = {}, var Title = "",var CustomDescriptionPath : String = "", var TmpPlaylistCvrPth : String = ""):
+func n_ready( var Conditions : Dictionary = {}, var Title = "",var CustomDescriptionPath : String = "", var TmpPlaylistCvrPth : String = ""):
 	var _err = Scroll.get_v_scrollbar().connect("value_changed", self, "OnScrollValueChanged")
 	SongHighlighter = $SongHighlighter
 	PlaylistOptions = $HBoxContainer/VBoxContainer/Header/HBoxContainer/PlaylistOptions
@@ -34,18 +34,18 @@ func NReady( var Conditions : Dictionary = {}, var Title = "",var CustomDescript
 	TempPlaylistCoverPath = TmpPlaylistCvrPth
 	ConnectScrollContainer()
 	if Conditions.empty():
-		PlaylistIdx = Global.PlaylistPressed
-		PlaylistTitle = SongLists.SmartPlaylists[ -PlaylistIdx - 3 ]
+		playlist_idx = Global.PlaylistPressed
+		PlaylistTitle = SongLists.SmartPlaylists[ -playlist_idx - 3 ]
 		Conditions = LoadPlaylistConditions()
 	else:
 		PlaylistTitle = Title
-		PlaylistIdx = -2
+		playlist_idx = -2
 		
 	SmartPlaylistTitleLabel.set_text( PlaylistTitle )
 	if TempPlaylistCoverPath == "":
-		SmartPlaylistCover.set_texture( ImageLoader.GetCover(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + PlaylistTitle + ".png") )
+		SmartPlaylistCover.set_texture( ImageLoader.get_cover(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + PlaylistTitle + ".png") )
 	else:
-		SmartPlaylistCover.set_texture( ImageLoader.GetCover(TempPlaylistCoverPath))
+		SmartPlaylistCover.set_texture( ImageLoader.get_cover(TempPlaylistCoverPath))
 	var SongIdxs : PoolIntArray = GetSmartPlaylistSongs(Conditions)
 	if SongIdxs.size() > 0:
 		LoadSongs(SongIdxs)
@@ -57,10 +57,10 @@ func NReady( var Conditions : Dictionary = {}, var Title = "",var CustomDescript
 	Description.LoadDescription(DescriptionPath)
 	
 	#Header Info
-	var PlaylistIdx : int = Playlist.GetPlaylistIndex(PlaylistTitle) 
+	var playlist_idx : int = Playlist.get_playlist_index(PlaylistTitle) 
 	SongAmount.text = str( SongIdxs.size() )
 	Runtime.text = GetPlaylistRuntime()
-	if PlaylistIdx <= -3:
+	if playlist_idx <= -3:
 		#No Temporary Playlists
 		CreationDate.text = GetPlaylistCreationDate()
 	else:
@@ -71,7 +71,7 @@ func NReady( var Conditions : Dictionary = {}, var Title = "",var CustomDescript
 
 
 func LoadPlaylistConditions() -> Dictionary:
-	var Temp = SaveData.Load(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/SmartPlaylists/Conditions/" + PlaylistTitle + ".dat")
+	var Temp = SaveData.load_data(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/SmartPlaylists/Conditions/" + PlaylistTitle + ".dat")
 	if Temp:
 		return Temp
 	return Dictionary()
@@ -118,17 +118,17 @@ func LoadSongs(var SongIdxs : PoolIntArray) -> void:
 
 func OnDeleteSmartPlaylistpressed():
 	SongLists.SmartPlaylists.erase( PlaylistTitle )
-	FileChecker.DeleteFile(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + PlaylistTitle + ".png")
-	FileChecker.DeleteFile(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Metadata/Descriptions/" + PlaylistTitle + ".txt")
+	ExtendedDirectory.delete_file(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + PlaylistTitle + ".png")
+	ExtendedDirectory.delete_file(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Metadata/Descriptions/" + PlaylistTitle + ".txt")
 	UnloadPlaylist()
 
    
 func OnCoverSelected(var ImgSrc : String):
 	#Saving Cover Copy in User Data
 	if TempPlaylistCoverPath == "":
-		SmartPlaylistCover.texture = Playlist.CopyPlaylistCover(
+		SmartPlaylistCover.texture = Playlist.copy_playlist_cover(
 			ImgSrc,
-			Playlist.GetPlaylistIndex( PlaylistTitle ),
+			Playlist.get_playlist_index( PlaylistTitle ),
 			true
 			)
 	else:
@@ -136,7 +136,7 @@ func OnCoverSelected(var ImgSrc : String):
 			ImgSrc,
 			TempPlaylistCoverPath
 		)
-		SmartPlaylistCover.texture = ImageLoader.GetCover(TempPlaylistCoverPath)
+		SmartPlaylistCover.texture = ImageLoader.get_cover(TempPlaylistCoverPath)
 
 
 

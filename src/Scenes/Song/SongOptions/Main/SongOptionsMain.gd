@@ -23,24 +23,24 @@ func _ready():
 
 
 func _on_AddToPlaylistMain_pressed():
-	_on_AddToPlaylist_pressed(AllSongs.GetMainIdx(SongLists.CurrentSong))
+	_on_AddToPlaylist_pressed(AllSongs.get_main_idx(SongLists.CurrentSong))
 
 
 func _on_ChangeTagMain_pressed():
-	_on_ChangeTag_pressed(AllSongs.GetMainIdx(SongLists.CurrentSong))
+	_on_ChangeTag_pressed(AllSongs.get_main_idx(SongLists.CurrentSong))
 
 
 func _on_ShowInFilesystemMain_pressed():
-	_on_ShowInFilesystem_pressed(AllSongs.GetMainIdx(SongLists.CurrentSong))
+	_on_ShowInFilesystem_pressed(AllSongs.get_main_idx(SongLists.CurrentSong))
 
 
 func _on_QueueSongMain_pressed():
-	_on_QueueSong_pressed(AllSongs.GetMainIdx(SongLists.CurrentSong))
+	_on_QueueSong_pressed(AllSongs.get_main_idx(SongLists.CurrentSong))
 
 
 func _on_RemoveFromPlaylist_pressed():
-	RemoveFromPlaylist(AllSongs.GetMainIdx(SongLists.CurrentSong))
+	RemoveFromPlaylist(AllSongs.get_main_idx(SongLists.CurrentSong))
 
 
 func _on_ExtractCurrentCover_pressed():
-	ExtractSongCover(AllSongs.GetMainIdx(SongLists.CurrentSong))
+	ExtractSongCover(AllSongs.get_main_idx(SongLists.CurrentSong))

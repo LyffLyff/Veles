@@ -59,7 +59,7 @@ func SavePreset(var preset_name : String) -> void:
 	
 	#Saving the Preset with the Main enabled -> will be replaced on Load
 	var NewPreset : Array = SongLists.AudioEffects
-	SaveData.Save(
+	SaveData.save(
 		Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets/" + preset_name + ".epr",
 		NewPreset
 	)
@@ -69,9 +69,9 @@ func SavePreset(var preset_name : String) -> void:
 
 
 func LoadPreset(var PresetIdx : int) -> void:
-	var MainEnabled : bool = SongLists.AudioEffects[SongLists.AudioEffects.size() - 1]["main_enabled"]
+	var main_enabled : bool = SongLists.AudioEffects[SongLists.AudioEffects.size() - 1]["main_enabled"]
 	var PresetTitle : String = Header.PresetSelection.get_popup().get_item_text(PresetIdx)
-	var PresetData = SaveData.Load(Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets/" + PresetTitle)
+	var PresetData = SaveData.load_data(Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets/" + PresetTitle)
 	
 	if !PresetData:
 		Global.root.message("LOADING PRESET: " + PresetTitle,  SaveData.MESSAGE_ERROR)
@@ -79,7 +79,7 @@ func LoadPreset(var PresetIdx : int) -> void:
 	
 	#Setting Preset as Current Audio Effect
 	
-	PresetData[PresetData.size() - 1]["main_enabled"] = MainEnabled
+	PresetData[PresetData.size() - 1]["main_enabled"] = main_enabled
 	SongLists.AudioEffects = PresetData
 	
 	#Updating the Effects

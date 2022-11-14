@@ -14,7 +14,7 @@ onready var Close : Button = $PanelContainer/HBoxContainer/OptionVBox/Close
 func ConnectOptionSignals() -> void:
 	var _err = Return.connect("pressed",self.get_owner(),"UnloadPlaylist")
 	_err = PlaylistCover.connect("pressed",self.get_owner(),"OnSetCoverPressed")
-	_err = Rename.connect("pressed", self.get_owner(), "RenamePlaylist")
+	_err = Rename.connect("pressed", self.get_owner(), "rename_playlist")
 	_err = Export.connect("pressed", self.get_owner(), "ExportPlaylist")
 	_err = DeletePlaylist.connect("pressed",self.get_owner(),"OnDeleteSmartPlaylistpressed")
 	_err = Close.connect("pressed",self,"UnloadPlaylistOptions")

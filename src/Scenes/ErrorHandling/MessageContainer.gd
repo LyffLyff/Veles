@@ -1,26 +1,24 @@
 extends Control
 
-#CONSTANTS
 const DURATION : float = 0.3
 
-#NODES
-onready var MessagePanel : PanelContainer = $VBoxContainer/message
-onready var MessageLabel : Label = $VBoxContainer/message/Label
+onready var message_panel : PanelContainer = $VBoxContainer/message
+onready var message_label : Label = $VBoxContainer/message/Label
 
 func _ready():
 	self.rect_position.y = 150
-	MessageLabel.set_text("  " + Global.DisplayedMessage + "  ")
+	message_label.set_text("  " + Global.DisplayedMessage + "  ")
 	Global.RequestFPSChange(60)
-	MessageTween(0, 1.0)
+	message_tween(0, 1.0)
 	yield(get_tree().create_timer(1.5),"timeout")
 	Global.RequestFPSChange(60)
-	MessageTween(150, 0.0)
+	message_tween(150, 0.0)
 	yield(get_tree().create_timer(DURATION),"timeout")
 	Global.RequestFPSChange(4)
 	self.queue_free()
 
 
-func MessageTween(var final_y_val : float, var final_mod_val : float) -> void:
+func message_tween(var final_y_val : float, var final_mod_val : float) -> void:
 	var tw : SceneTreeTween = get_tree().create_tween()
 	tw = tw.set_trans(Tween.TRANS_CUBIC)
 	var _ptw : PropertyTweener = tw.tween_property(
@@ -30,11 +28,12 @@ func MessageTween(var final_y_val : float, var final_mod_val : float) -> void:
 		DURATION
 	)
 	_ptw = tw.parallel().tween_property(
-		MessagePanel,
+		message_panel,
 		"modulate:a",
 		final_mod_val,
 		DURATION
 	)
 
-func SetBackgroundColor(var clr : Color) -> void:
-	MessagePanel.get_stylebox("panel").set_bg_color(clr)
+
+func set_background_color(var clr : Color) -> void:
+	message_panel.get_stylebox("panel").set_bg_color(clr)

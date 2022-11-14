@@ -31,7 +31,7 @@ var GeneralSettings : Dictionary = {
 	#Path Used prior ot get Images
 	"ImagePath" : "",
 	#Path Used Prior to get Folder/Music
-	"SongPath" : "",
+	"song_path" : "",
 	
 	"CoverExportPath" : "",
 	

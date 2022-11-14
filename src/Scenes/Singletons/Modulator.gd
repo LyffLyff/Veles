@@ -1,6 +1,5 @@
 extends Node
 
-
 func modulate_hover(var object : CanvasItem) -> void:
 	var _ptw : PropertyTweener = get_tree().create_tween().tween_property(
 		object,

@@ -12,7 +12,7 @@ func Reload() -> void:
 	
 	#Variables
 	var Title : String = ""
-	var SongPath : String = ""
+	var song_path : String = ""
 	var MainIndex : int = 0
 	var NewSongs : PoolStringArray = []
 	var NewAllSongs : Dictionary = {}
@@ -37,16 +37,16 @@ func Reload() -> void:
 							#End of folder
 							break;
 						
-						if FormatChecker.FileNameFormat(Title) != -1:
-							SongPath = dir.get_current_dir()+ "/" + Title
-							if SongLists.AllSongs.has(SongPath):
-								AllSongs.UpdateMainIndex(SongPath,MainIndex)
-								NewAllSongs[SongPath] = SongLists.AllSongs.get(SongPath)
+						if FormatChecker.get_music_filename_extension(Title) != -1:
+							song_path = dir.get_current_dir()+ "/" + Title
+							if SongLists.AllSongs.has(song_path):
+								AllSongs.set_main_idx(song_path,MainIndex)
+								NewAllSongs[song_path] = SongLists.AllSongs.get(song_path)
 								
 							else:
 								#Adding all Artists to List
-								var Artist : String = Tags.GetArtist(SongPath)
-								var DividedArtists : PoolStringArray = Streams.DivideMultipleArtists(Artist)
+								var Artist : String = Tags.get_artist(song_path)
+								var DividedArtists : PoolStringArray = Streams.divide_artists(Artist)
 								for n in DividedArtists.size():
 									
 									if DividedArtists[n] == "":
@@ -58,20 +58,20 @@ func Reload() -> void:
 										[ DividedArtists[n] ] 
 									);
 								
-								NewAllSongs[SongPath] = [
+								NewAllSongs[song_path] = [
 									Title,
 									Artist,
 									MainIndex,
 									0,
-									str(SongPath.hash()),
-									Tags.GetTitle(SongPath),
-									Tags.GetSongDuration(SongPath),
+									str(song_path.hash()),
+									Tags.get_title(song_path),
+									Tags.get_song_duration(song_path),
 									false
 								]
 								#the new Song in the folder that has just been added will be at the end of the Dictionary
 								#should be loaded with the other songs from its folder
 								#SongLists.PushAllSongIdx(SongLists.AllSongs.size() - 1)
-								NewSongs.push_back(SongPath)
+								NewSongs.push_back(song_path)
 							MainIndex += 1
 	SongLists.AllSongs = NewAllSongs
 	var x : CoverLoader = CoverLoader.new()
@@ -79,7 +79,7 @@ func Reload() -> void:
 	emit_signal("SongsReloaded")
 
 
-func CreateSongsSpaces(var SongVBOX : VBoxContainer,var ToSet : PoolIntArray = [], var PlaylistIdx : int = -1) -> void:
+func CreateSongsSpaces(var SongVBOX : VBoxContainer,var ToSet : PoolIntArray = [], var playlist_idx : int = -1) -> void:
 	var NewSong : HBoxContainer
 	var Loop = SongLists.AllSongs.size()
 	if !ToSet.empty():
@@ -91,36 +91,36 @@ func CreateSongsSpaces(var SongVBOX : VBoxContainer,var ToSet : PoolIntArray = [
 		SongVBOX.add_child(NewSong)
 		#Set Song Space Properties
 		NewSong.main_index = n
-		NewSong.PlaylistIdx = PlaylistIdx
-		NewSong.path = AllSongs.GetSongPath(n)
+		NewSong.playlist_idx = playlist_idx
+		NewSong.path = AllSongs.get_song_path(n)
 		
 		#Filling in Songspace Data
-		SetSongspaceCover(NewSong,n,PlaylistIdx)
+		SetSongspaceCover(NewSong,n,playlist_idx)
 		SetSongspaceTitle(NewSong,n)
 		SetSongspaceArtist(NewSong,n)
 		SetSongspaceLength(NewSong,n)
 
 
-func SetSongspaceCover(var SongSpace : HBoxContainer,var MainIdx : int, var PlaylistIdx : int = -1) -> void:
+func SetSongspaceCover(var SongSpace : HBoxContainer,var main_idx : int, var playlist_idx : int = -1) -> void:
 	var CoverImg : Texture = null
 	var CoverSpace : TextureRect = SongSpace.get_node(Global.SongCoverPath)
 	
 	if SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "ShowSongspaceCover"):
-		var CoverHash : String = AllSongs.GetSongCoverHash(MainIdx)
+		var CoverHash : String = AllSongs.get_song_coverhash(main_idx)
 		if SongLists.CoverCache.has(CoverHash):
 			CoverImg = SongLists.CoverCache.get(CoverHash)
 		else:
-			CoverImg = ImageLoader.GetCover("", Playlist.GetPlaylistName(PlaylistIdx) )
+			CoverImg = ImageLoader.get_cover("", Playlist.get_playlist_name(playlist_idx) )
 	CoverSpace.set_deferred("texture",CoverImg)
 
 
-func SetSongspaceTitle(var SongSpace : HBoxContainer,var MainIdx : int) -> void:
-	SongSpace.get_node(Global.SongNamePath).set_deferred("text",AllSongs.SongTitle(MainIdx))
+func SetSongspaceTitle(var SongSpace : HBoxContainer,var main_idx : int) -> void:
+	SongSpace.get_node(Global.SongNamePath).set_deferred("text",AllSongs.song_title(main_idx))
 
 
-func SetSongspaceArtist(var SongSpace : HBoxContainer,var MainIdx : int) -> void:
-	SongSpace.get_node(Global.SongArtistPath).set_deferred("text",AllSongs.GetSongArtist(MainIdx))
+func SetSongspaceArtist(var SongSpace : HBoxContainer,var main_idx : int) -> void:
+	SongSpace.get_node(Global.SongArtistPath).set_deferred("text",AllSongs.get_song_artist(main_idx))
 
 
-func SetSongspaceLength(var SongSpace : HBoxContainer,var MainIdx : int) -> void:
-	SongSpace.get_node(Global.SongLengthPath).set_deferred("text",TimeFormatter.FormatSeconds(AllSongs.GetSongDuration(MainIdx)))
+func SetSongspaceLength(var SongSpace : HBoxContainer,var main_idx : int) -> void:
+	SongSpace.get_node(Global.SongLengthPath).set_deferred("text",TimeFormatter.format_seconds(AllSongs.get_song_duration(main_idx)))

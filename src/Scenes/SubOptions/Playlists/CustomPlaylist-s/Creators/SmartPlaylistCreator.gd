@@ -8,18 +8,17 @@ onready var Cover : HBoxContainer = $Panel/VBoxContainer2/Main/Cover
 
 #CONDITIONS
 const ConditionFunctions : Array = [
-	"Genre",
-	"Album",
-	"IsLongerThan",
-	"IsShorterThan",
-	"IncludesArtist",
-	"SongRatingIs",
-	"SongRatingIsHigher",
-	"SongRatingIsLower"
+	"genre",
+	"album",
+	"is_longer_than",
+	"is_shorter_than",
+	"includes_artist",
+	"song_rating_is",
+	"song_rating_is_greater",
+	"song_rating_is_lesser"
 ]
 
 func _ready():
-	$Panel/VBoxContainer2/Main/Conditions.get_v_scrollbar().rect_min_size.x = 5
 	var _err = Cover.connect("DialoguePressed",Global.root, "load_general_file_dialogue",[
 		Cover.InputEdit,
 		FileDialog.MODE_OPEN_FILE,

@@ -1,30 +1,29 @@
 extends LinkButton
+# script that limits the label of a link button to display
+# a set maximum amount of characters
 
-
-#CONSTANTS
 const MAX_CHARACTERS : int = 30;
 const CHAR_BUFFER : int = 2
 const FONT_RATIO : float = 1.6
 
-#VARIABLES
 var uncut_string : String = ""
 var cut_string : String = ""
 
 
-func set_text(var NewText : String) -> void:
-	uncut_string = NewText
+func set_text(var new_text : String) -> void:
+	uncut_string = new_text
 	set_label()
 
 
 func get_max_chars() -> int:
-	#returns the amount of characters fit in the current space
-	#getting the rect_size of parent since then the LinkButton sdon't have to be set on expand
-	#meaning they only get a hover and click input when actually being over the text
+	# returns the amount of characters fit in the current space
+	# getting the rect_size of parent since then the LinkButton sdon't have to be set on expand
+	# meaning they only get a hover and click input when actually being over the text
 	return int(get_parent().rect_size.x / self.get_font("font").get_size() * FONT_RATIO) - CHAR_BUFFER
 
 
 func set_label() -> void:
-	#Cuts the String if it won't fit into the Rect
+	# cuts the String if it won't fit into the Rect
 	if uncut_string.length() > get_max_chars():
 		cut_string = uncut_string.substr(0,get_max_chars() - 3)
 		cut_string += "..."
@@ -34,5 +33,5 @@ func set_label() -> void:
 
 
 func _on_Parent_Resized():
-	#updates the label if the rect changes
+	# updates the label if the rect changes
 	set_label()

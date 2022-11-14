@@ -1,8 +1,5 @@
-extends Reference
+class_name SaveData extends Reference
 
-class_name SaveData
-
-#ENUMS
 enum {
 	MESSAGE_ERROR,
 	MESSAGE_WARNING,
@@ -10,15 +7,14 @@ enum {
 	MESSAGE_NOTICE
 }
 
-
-static func Save(var filename : String, var data) -> void:
+static func save(var filename : String, var data) -> void:
 	var file : File = File.new()
 	if file.open(filename,File.WRITE) == OK:
 		file.store_var(data)
 		file.close()
 
 
-static func Load(var filename : String):
+static func load_data(var filename : String):
 	var file : File = File.new()
 	if file.open(filename,File.READ) == OK:
 		var data = file.get_var()
@@ -30,14 +26,14 @@ static func Load(var filename : String):
 	return null
 
 
-static func SaveAsText(var filename : String, var data : String) -> void:
+static func save_as_text(var filename : String, var data : String) -> void:
 	var file : File = File.new()
 	if file.open(filename,File.WRITE) == OK:
 		file.store_string(data)
 		file.close()
 
 
-static func LoadAsText(var filename : String) -> String:
+static func load_as_text(var filename : String) -> String:
 	var file : File = File.new()
 	var err = file.open(filename,File.READ)
 	if err == OK:
@@ -51,9 +47,9 @@ static func LoadAsText(var filename : String) -> String:
 	return ""
 
 
-#loads and images data as a PoolByteArray and returns it
-#length_flag = -1 then all data will be loaded else just the the header
-static func LoadBuffer(var path : String, var Length : int = -1) -> PoolByteArray:
+static func load_buffer(var path : String, var Length : int = -1) -> PoolByteArray:
+	# loads and images data as a PoolByteArray and returns it
+	# length_flag = -1 then all data will be loaded else just the the header
 	var file : File = File.new()
 	if file.open(path,File.READ) == OK:
 		var data
@@ -64,15 +60,15 @@ static func LoadBuffer(var path : String, var Length : int = -1) -> PoolByteArra
 		file.close()
 		return data
 	else:
-		#returns empty PoolByteArray if the data could not be loaded
+		# returns empty PoolByteArray if the data could not be loaded
 		return PoolByteArray()
 
 
-static func PushDictKeyAndSave(var filename : String,var Key : String,var ArrIdx : int,var EditFlag : bool,var PushData) -> bool:
-	#Can Edit Data in specificly formatted Dictionary
-	#Value -> Array
-	#Edit Flag defines if the Value Array will be edited or Replaced with the given data
-	var data = Load(filename);
+static func push_key_and_save(var filename : String,var Key : String,var ArrIdx : int,var EditFlag : bool,var PushData) -> bool:
+	# can Edit Data in specificly formatted Dictionary
+	# value -> Array
+	# edit Flag defines if the Value Array will be edited or Replaced with the given data
+	var data = load_data(filename);
 	if !data:
 		data = {}
 	if !data.has(Key):
@@ -82,47 +78,48 @@ static func PushDictKeyAndSave(var filename : String,var Key : String,var ArrIdx
 		Arr.insert(ArrIdx,PushData)
 		data[Key] = Arr
 	else:
-		#if this type is chosen the PushData needs to be of type Array
+		# if this type is chosen the PushData needs to be of type Array
 		data[Key] = PushData
-	Save(filename, data)
+	save(filename, data)
 	return true;
 
 
-static func EraseKeyFromFile(var filename : String,var Key : String) -> void:
-	var data = Load(filename);
+static func erase_key_from_file(var filename : String,var Key : String) -> void:
+	var data = load_data(filename);
 	if !data or !data.has(Key):
 		return
 	data.erase(Key)
-	Save(filename, data)
+	save(filename, data)
 
 
-static func GetDictKeyFromFile(var filename : String,var Key : String,var ArrIdx : int):
-	var data = Load(filename)
+static func get_key_from_file(var filename : String,var Key : String,var ArrIdx : int):
+	var data = load_data(filename)
 	if !data or !data.has(Key):
 		return null
 	if data[Key].size() > ArrIdx:
 		return data[Key][ArrIdx]
 
 
-static func ReplaceKeyFromFile(var filename : String, var old_key : String, var new_key : String) -> void:
-	var data = Load(filename)
+static func replace_key_from_file(var filename : String, var old_key : String, var new_key : String) -> void:
+	var data = load_data(filename)
 	if !data or !data.has(old_key):
 		return
 	var value = data.get(old_key)
 	data.erase(old_key)
 	data[new_key] = value
-	Save(filename, data)
+	save(filename, data)
 
 
-static func LogMessage(var message : String, var message_type : int) -> void:
-	#Appends a given message to the Log file.
-	#message start defines the type of message given
+static func log_message(var message : String, var message_type : int) -> void:
+	# appends a given message to the Log file.
+	# message start defines the type of message given
+	
 	var message_start : String = ""
 	var path : String = Global.GetCurrentUserDataFolder() + "/Settings/CoreSettings/Logs.txt"
 	var file : File = File.new()
 	
-	#READ_WRITE will not create a file
-	#WRITE_READ, creates aa file, but seek_end will not work
+	# READ_WRITE will not create a file
+	# WRITE_READ, creates a file, but seek_end will not work
 	match file.open(path, File.READ_WRITE):
 		OK:
 			pass;
@@ -133,7 +130,7 @@ static func LogMessage(var message : String, var message_type : int) -> void:
 			if file.open(path, File.READ_WRITE) != OK:
 				return
 		_:
-			#Returns on all errors that are not ERR_FILE_NOT_FOUND
+			# returns on all errors that are not ERR_FILE_NOT_FOUND
 			return
 	
 	file.seek_end()
@@ -156,23 +153,23 @@ static func LogMessage(var message : String, var message_type : int) -> void:
 	file.close()
 
 
-static func LoadConfigFile(var path : String) -> ConfigFile:
+static func load_config_file(var path : String) -> ConfigFile:
 	var config : ConfigFile = ConfigFile.new()
 	var _err = config.load(path)
 	return config
 
 
-static func GetConfigValue(var Section : String, var Key : String):
-	var config : ConfigFile = LoadConfigFile("user://override.cfg" )
-	if !config.has_section(Section):
+static func get_config_value(var section : String, var key : String):
+	var config : ConfigFile = load_config_file("user://override.cfg" )
+	if !config.has_section(section):
 		return null
-	if !config.has_section_key(Section,Key):
+	if !config.has_section_key(section, key):
 		return null
 	
-	return config.get_value(Section, Key)
+	return config.get_value(section, key)
 
 
-static func SetConfigValue(var Section : String, var Key : String, var NewValue) -> void:
-	var config : ConfigFile = LoadConfigFile("user://override.cfg" )
-	config.set_value(Section,Key,NewValue)
+static func set_config_value(var section : String, var key : String, var new_value) -> void:
+	var config : ConfigFile = load_config_file("user://override.cfg" )
+	config.set_value(section, key, new_value)
 	var _err = config.save("user://override.cfg")

@@ -137,9 +137,9 @@ func init_main(var load_current_song : bool = false) -> void:
 			# loading current sing
 			if SongLists.CurrentSong != "":
 				playback_song(
-					AllSongs.GetMainIdx(SongLists.CurrentSong),
+					AllSongs.get_main_idx(SongLists.CurrentSong),
 					false,
-					Playlist.GetPlaylistName(SongLists.CurrentPlayList)
+					Playlist.get_playlist_name(SongLists.CurrentPlayList)
 				)
 			else:
 				# resetting
@@ -151,23 +151,23 @@ func init_main(var load_current_song : bool = false) -> void:
 func playback_song(var main_idx : int, var play : bool = false, var _PlaylistName : String = ""):
 	# function that handles the replay of a given file 
 	# only plays if play is true, otherwise just prepares and pauses
-	if SongLists.CurrentPlayList == Playlist.GetPlaylistIndex(_PlaylistName) and AllSongs.GetSongPath(main_idx) == SongLists.CurrentSong:
+	if SongLists.CurrentPlayList == Playlist.get_playlist_index(_PlaylistName) and AllSongs.get_song_path(main_idx) == SongLists.CurrentSong:
 		# if the song that was just presed is the same that was playing
 		# the AudioPlayer justs seeks the start instead of loading the song from scratch
 		MainStream.seek(0.0)
 		MainStream.ReloadStreamTimer()
 	
 	var file = File.new()
-	var song_path : String = AllSongs.GetSongPath(main_idx)
+	var song_path : String = AllSongs.get_song_path(main_idx)
 	if file.open(song_path, File.READ) == OK:
 		
 		#GET DATA
 		var song_data : PoolByteArray = file.get_buffer(file.get_len())
 		
 		#CHECK MUSIC FORMAT WITH HEADER
-		var RealFormatFlag : int = FormatChecker.GetMusicFormat(song_data.subarray(0,1024).hex_encode())
+		var RealFormatFlag : int = FormatChecker.get_music_format_from_data(song_data.subarray(0,1024).hex_encode())
 		if RealFormatFlag == -1:
-			RealFormatFlag = FormatChecker.FileNameFormat(song_path) 
+			RealFormatFlag = FormatChecker.get_music_filename_extension(song_path) 
 		
 		#CREATE STREAM
 		var stream = null
@@ -181,13 +181,13 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 				
 				#Set WAV Properties
 				var WavProperties : WAV = WAV.new()
-				var FmtOffset : int = WavProperties.FindFMTInFile(song_data)
+				var FmtOffset : int = WavProperties.find_fmt_in_file(song_data)
 				var Header : PoolByteArray = song_data.subarray(0,45 + FmtOffset)
 				if FmtOffset == -1:
 					#if a the "fmt " specifier could not be found the song will be skipped
 					RealFormatFlag = -1
 					
-				var FormatType : int = WavProperties.GetWAVFormatType(Header, FmtOffset)
+				var FormatType : int = WavProperties.get_format_type(Header, FmtOffset)
 				if FormatType <= 2:
 					stream.format = FormatType
 				else:
@@ -195,16 +195,16 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 					RealFormatFlag = -1
 				
 				song_data = song_data.subarray( 128 * 10, song_data.size() - 1 )
-				stream.stereo = WavProperties.IsChannelTypeStereo(Header, FmtOffset)
-				stream.mix_rate = WavProperties.GetMixRate(Header, FmtOffset)
+				stream.stereo = WavProperties.is_channel_stereo(Header, FmtOffset)
+				stream.mix_rate = WavProperties.get_mix_rate(Header, FmtOffset)
 				
-				var BitsPerSample : int = WavProperties.GetBitsPerSample(Header, FmtOffset)
+				var BitsPerSample : int = WavProperties.get_bits_per_sample(Header, FmtOffset)
 				if BitsPerSample > 16:
 					#24Bit, 32Bits per sample 
-					#song_data = WavProperties.Convert32And24BitsTo16(song_data, BitsPerSample)
+					#song_data = WavProperties.convert_32_and_24_to_16_bits(song_data, BitsPerSample)
 					RealFormatFlag = -1
 				
-				song_data = WavProperties.AudioPopWorkAround(song_data)
+				song_data = WavProperties.audio_pop_workaround(song_data)
 			-1:
 				pass
 		
@@ -220,14 +220,14 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 			
 			#Updating Player Music replay data
 			var song_length : float = MainStream.stream.get_length()
-			player.song_length.text = TimeFormatter.FormatSeconds(song_length)
+			player.song_length.text = TimeFormatter.format_seconds(song_length)
 			player.playback_slider.max_value = int(song_length)
 			
 			#Valid Song -> reset first skipped song
 			Global.first_skipped_path = ""
 			
 			#Updating Current Song
-			SongLists.SetCurrentSong(AllSongs.GetSongPath(main_idx))
+			SongLists.SetCurrentSong(AllSongs.get_song_path(main_idx))
 			
 			#Update Player Infos
 			update_player_infos()
@@ -293,8 +293,8 @@ func change_song(var direction : int) -> void:
 		#getting the main idx
 		#it is safer to search the path (playlist_n.keys()[idx_in_playlist]) in the AllSongs Dictionary 
 		#since the main index can change when reloading AllSongs
-		next_main_idx = AllSongs.GetMainIdx(playlist_n.keys()[idx_in_playlist])
-	var path : String = AllSongs.GetSongPath( next_main_idx )
+		next_main_idx = AllSongs.get_main_idx(playlist_n.keys()[idx_in_playlist])
+	var path : String = AllSongs.get_song_path( next_main_idx )
 	
 	update_highlighted_song(path)
 	Global.last_direction = direction
@@ -302,7 +302,7 @@ func change_song(var direction : int) -> void:
 	playback_song(
 		next_main_idx,
 		true,
-		Playlist.GetPlaylistName(SongLists.CurrentPlayList)
+		Playlist.get_playlist_name(SongLists.CurrentPlayList)
 	)
 
 
@@ -320,24 +320,24 @@ func random_song() -> void:
 		var temp = randi() % SongLists.Playlists.values()[playlist_idx].size()
 		
 		var random_song_path : String  = SongLists.Playlists.values()[playlist_idx].keys()[temp]
-		random_song_idx = AllSongs.GetMainIdx(random_song_path)
+		random_song_idx = AllSongs.get_main_idx(random_song_path)
 	
 	else:
 		#Smart Playlist/Automaticly Created
 		var temp = randi() % SongLists.CurrentTempSmartPlaylist.size()
-		random_song_idx = AllSongs.GetMainIdx( SongLists.CurrentTempSmartPlaylist.keys()[temp] )
-	update_highlighted_song(AllSongs.GetSongPath(random_song_idx))
+		random_song_idx = AllSongs.get_main_idx( SongLists.CurrentTempSmartPlaylist.keys()[temp] )
+	update_highlighted_song(AllSongs.get_song_path(random_song_idx))
 	playback_song(
 		random_song_idx,
 		true,
-		Playlist.GetPlaylistName(SongLists.CurrentPlayList)
+		Playlist.get_playlist_name(SongLists.CurrentPlayList)
 	)
 
 
 func skip_song(var main_idx : int) -> void:
 	# skips to the next Song if the Header FileFormat is not supported or the path couldn't be opened
 	# when loading Veles checks for the Filename extension not the "REAL" format
-	var path : String = AllSongs.GetSongPath(main_idx)
+	var path : String = AllSongs.get_song_path(main_idx)
 	var to_next : bool = false
 	if Global.first_skipped_path == path:
 		# only skips if the first song that was skipped does is not the one that wants to be skipped
@@ -438,12 +438,12 @@ func update_highlighted_song(var NextHighlighted : String) -> void:
 
 func message(var message : String,var message_type : int, var display : bool = false, var bg_clr : Color = Color("9d9d9d")) -> void:
 	message = message.to_upper()
-	SaveData.LogMessage(message,message_type)
+	SaveData.log_message(message,message_type)
 	if display:
 		Global.DisplayedMessage = message;
 		var MessageRef : Control = MESSAGE_CONTAINER.instance()
 		self.add_child(MessageRef)
-		MessageRef.SetBackgroundColor(bg_clr)
+		MessageRef.set_background_color(bg_clr)
 
 
 func toggle_songlist_input(var x : bool) -> void:
@@ -479,7 +479,7 @@ func load_user_profile_selection() -> void:
 	# loads the user profiles selection to change the current user
 	
 	# saving user specific data
-	SongLists.SaveUserSpecificData( SongLists.AddUsersToFilepaths(SongLists.FilePaths) )
+	SongLists.saveUserSpecificData( SongLists.AddUsersToFilepaths(SongLists.FilePaths) )
 	
 	var x = load("res://src/Scenes/UserProfiles/UserProfileSelection.tscn").instance()
 	var _err = x.connect("tree_exited",self,"init_main")
@@ -500,7 +500,7 @@ func load_general_file_dialogue(var ref : Object, var open_mode : int, var file_
 		message("Couldn't not connect Folder Selection to General File Dialogue", SaveData.MESSAGE_ERROR)
 	
 	# initialising file dialogue
-	dialog.NReady(open_mode,file_access,filetype, filetype_filters, return_string, title_override)
+	dialog.n_ready(open_mode,file_access,filetype, filetype_filters, return_string, title_override)
 	
 	# returning dialogue if needed
 	return dialog
@@ -520,7 +520,7 @@ func load_playlist(var playlist_idx : int) -> void:
 	else:
 		playlist_scene = SMART_PLAYLIST_TEMPLATE.instance()
 		options.add_child(playlist_scene)
-		playlist_scene.NReady()
+		playlist_scene.n_ready()
 
 
 func load_temporary_playlist(var temp_playlist_title : String, var description_path : String, var cover_path : String, var option_idx : int) -> void:
@@ -534,36 +534,36 @@ func load_temporary_playlist(var temp_playlist_title : String, var description_p
 	# loading temporary playlist from given arguments
 	var new_temp_playlist : Control = SMART_PLAYLIST_TEMPLATE.instance()
 	options.add_child( new_temp_playlist )
-	new_temp_playlist.NReady( SongLists.TempPlaylistConditions,temp_playlist_title,description_path, cover_path )
+	new_temp_playlist.n_ready( SongLists.TempPlaylistConditions,temp_playlist_title,description_path, cover_path )
 
 
 func load_lyric_editor(var ProjectPath : String = "") -> void:
 	delete_current_option()
 	var x = load("res://src/Scenes/SubOptions/Lyrics/LyricsEditor.tscn").instance()
 	options.add_child( x )
-	x.get_child(0).NReady(ProjectPath)
+	x.get_child(0).n_ready(ProjectPath)
 
 
 func update_player_infos() -> void:
-	var main_idx : int = AllSongs.GetMainIdx(SongLists.CurrentSong)
+	var main_idx : int = AllSongs.get_main_idx(SongLists.CurrentSong)
 	
 	# title
-	player.song_title.set_text( AllSongs.SongTitle(main_idx) )
+	player.song_title.set_text( AllSongs.song_title(main_idx) )
 	
 	# artist
-	player.song_artist.set_text("by " +  AllSongs.GetSongArtist(main_idx) )
+	player.song_artist.set_text("by " +  AllSongs.get_song_artist(main_idx) )
 	
 	# playlist Label
 	var playlist_name : String
 	if SettingsData.GetSetting(SettingsData.PLAYLIST_ALBUM_SETTINGS,"PlaylistSpaceText") == 0:
-		playlist_name = Playlist.GetPlaylistName( SongLists.CurrentPlayList )
+		playlist_name = Playlist.get_playlist_name( SongLists.CurrentPlayList )
 	else:
-		playlist_name = Tags.GetAlbum(SongLists.CurrentSong)
+		playlist_name = Tags.get_album(SongLists.CurrentSong)
 	player.song_playlist.set_text("in " +  playlist_name )
 	
 	#Covers
 	player.update_player_covers(
-		Playlist.GetPlaylistName(
+		Playlist.get_playlist_name(
 			SongLists.CurrentPlayList
 		)
 	)

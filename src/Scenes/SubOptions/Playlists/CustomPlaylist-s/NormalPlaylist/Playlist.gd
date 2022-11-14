@@ -10,7 +10,7 @@ onready var Runtime : Label = $HBoxContainer/VBoxContainer/Header/HBoxContainer/
 
 func _ready():
 	var _err = Scroll.get_v_scrollbar().connect("value_changed",self,"OnScrollValueChanged")
-	PlaylistIdx = Global.PlaylistPressed
+	playlist_idx = Global.PlaylistPressed
 	PlaylistOptions = $HBoxContainer/VBoxContainer/Header/HBoxContainer/PlaylistOptions
 	songs = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller/Songs
 	SongHighlighter = $SongHighlighter
@@ -23,25 +23,25 @@ func _ready():
 	var IdxsToSet : PoolIntArray = []
 	var TempPath : String = ""
 	var TempMainIdx : int = 0
-	for n in SongLists.Playlists.values()[PlaylistIdx].size():
-		TempPath = SongLists.Playlists.values()[PlaylistIdx].keys()[n]
-		TempMainIdx = AllSongs.GetMainIdx(TempPath)
+	for n in SongLists.Playlists.values()[playlist_idx].size():
+		TempPath = SongLists.Playlists.values()[playlist_idx].keys()[n]
+		TempMainIdx = AllSongs.get_main_idx(TempPath)
 		IdxsToSet.push_back(TempMainIdx)
 	if IdxsToSet.size() > 0:
 		#Calling this function with empty Array would load all songs
 		var x : SongLoader = SongLoader.new()
-		x.CreateSongsSpaces(songs, IdxsToSet, PlaylistIdx)
+		x.CreateSongsSpaces(songs, IdxsToSet, playlist_idx)
 	ConnectScrollContainer()
 	title = $HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Title
-	var playlist_name : String = Playlist.GetPlaylistName(PlaylistIdx)
+	var playlist_name : String = Playlist.get_playlist_name(playlist_idx)
 	title.set_text(playlist_name)
 	
 	#Setting playlist name in Thread so Song without Cover will be overriden with Playlist Cover
 	#SongLoader = playlist_name
 	
 	#Setting the Header Cover
-	var playlist_cover_path : String = Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + Playlist.GetPlaylistName(PlaylistIdx) + ".png"
-	HeaderCover.texture = ImageLoader.GetCover(playlist_cover_path,playlist_name)
+	var playlist_cover_path : String = Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + Playlist.get_playlist_name(playlist_idx) + ".png"
+	HeaderCover.texture = ImageLoader.get_cover(playlist_cover_path,playlist_name)
 	
 	#Setting Header Info
 	SongAmount.text = str( GetPlaylistSongAmount() )
@@ -51,19 +51,19 @@ func _ready():
 
 func OnCoverSelected(var ImgSrc : String):
 	#Saving Cover Copy in User Data
-	HeaderCover.texture = Playlist.CopyPlaylistCover(ImgSrc,PlaylistIdx,true)
+	HeaderCover.texture = Playlist.copy_playlist_cover(ImgSrc,playlist_idx,true)
 
 
 func OnDeletePressed():
-	var playlist_key : String = SongLists.Playlists.keys()[PlaylistIdx]
+	var playlist_key : String = SongLists.Playlists.keys()[playlist_idx]
 	if !SongLists.Playlists.erase(playlist_key):
 		Global.root.message("DELETIING PLAYLIST COVER FROM USER DATA",  SaveData.MESSAGE_ERROR )
-	FileChecker.DeleteFile(OS.get_user_data_dir() + "/Songs/Playlists/Covers/" + playlist_key + ".png")
-	SaveData.EraseKeyFromFile(SongLists.FilePaths[9],playlist_key)
+	ExtendedDirectory.delete_file(OS.get_user_data_dir() + "/Songs/Playlists/Covers/" + playlist_key + ".png")
+	SaveData.erase_key_from_file(SongLists.FilePaths[9],playlist_key)
 	UnloadPlaylist()
 
 
 func OnQueuePlaylistPressed() -> void:
 	#Queueing all the Songs in trhe Current Playlist
-	for n in SongLists.Playlists.values()[PlaylistIdx].size():
-		SongLists.QueueSong( SongLists.Playlists.values()[PlaylistIdx].keys()[n] )
+	for n in SongLists.Playlists.values()[playlist_idx].size():
+		SongLists.QueueSong( SongLists.Playlists.values()[playlist_idx].keys()[n] )

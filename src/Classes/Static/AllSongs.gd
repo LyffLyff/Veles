@@ -1,88 +1,85 @@
-extends Reference
+class_name AllSongs extends Reference
 
-class_name AllSongs
-
-
-static func GetSongPath(var main_idx : int) -> String:
+static func get_song_path(var main_idx : int) -> String:
 	return SongLists.AllSongs.keys()[main_idx]
 
 
-static func GetSongArtist(var main_idx : int) -> String:
+static func get_song_artist(var main_idx : int) -> String:
 	return SongLists.AllSongs.values()[main_idx][1]
 
 
-static func GetSongTitle(var main_idx : int) -> String:
+static func get_song_filename(var main_idx : int) -> String:
 	return SongLists.AllSongs.values()[main_idx][0]
 
 
-static func GetSongTitleTag(var main_idx : int) -> String:
+static func get_song_title(var main_idx : int) -> String:
+	# returns title set in the files tag
 	return SongLists.AllSongs.values()[main_idx][5]
 
 
-static func GetSongStreams(var main_idx : int) -> int:
+static func get_song_streams(var main_idx : int) -> int:
 	return SongLists.AllSongs.values()[main_idx][3]
 
 
-static func GetSongDuration(var main_idx : int) -> int:
+static func get_song_duration(var main_idx : int) -> int:
 	return SongLists.AllSongs.values()[main_idx][6]
 
-static func GetSongCoverHash(var main_idx : int) -> String:
+
+static func get_song_coverhash(var main_idx : int) -> String:
 	return SongLists.AllSongs.values()[main_idx][4]
 
 
-static func SetCoverHash(var Hash : String, var main_idx : int) -> void:
-	SongLists.AllSongs.values()[main_idx][4] = Hash
-
-
-static func SetSongArtist(var NewArtist : String, var main_idx : int) -> void:
-	SongLists.AllSongs.values()[main_idx][1] = NewArtist
-
-
-static func SetSongTitleTag(var NewTitle : String, var main_idx : int) -> void:
-	SongLists.AllSongs.values()[main_idx][5] = NewTitle
-
-
-static func SetSongLiked(var main_idx : int, var Liked : bool) -> void:
-	SongLists.AllSongs.values()[main_idx][7] = Liked
-
-
-static func GetSongLiked(var main_idx : int) -> bool:
-	return SongLists.AllSongs.values()[main_idx][7]
-
-
-static func GetMainIdx(var path : String) -> int:
+static func get_main_idx(var path : String) -> int:
 	if SongLists.AllSongs.has(path):
 		return SongLists.AllSongs.keys().find(path)
 	else:
 		return -1
 
 
-static func GetSongCoverPath(var MainIdx : int) -> String:
-	return Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + GetSongCoverHash(MainIdx) + ".png"
+static func get_song_liked(var main_idx : int) -> bool:
+	return SongLists.AllSongs.values()[main_idx][7]
 
 
-static func GetSongAmount() -> int:
+static func get_song_cover_path(var main_idx : int) -> String:
+	return Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + get_song_coverhash(main_idx) + ".png"
+
+
+static func get_song_amount() -> int:
 	return SongLists.AllSongs.values().size()
 
 
-static func SongTitle(var main_idx : int) -> String:
+static func set_song_coverhash(var coverhash : String, var main_idx : int) -> void:
+	SongLists.AllSongs.values()[main_idx][4] = coverhash
+
+
+static func set_song_artist(var new_artist : String, var main_idx : int) -> void:
+	SongLists.AllSongs.values()[main_idx][1] = new_artist
+
+
+static func set_song_title(var new_title : String, var main_idx : int) -> void:
+	SongLists.AllSongs.values()[main_idx][5] = new_title
+
+
+static func set_song_liked(var main_idx : int, var liked : bool) -> void:
+	SongLists.AllSongs.values()[main_idx][7] = liked
+
+
+static func set_main_idx(var path : String, var new_main_idx : int) -> void:
+	SongLists.AllSongs[path][2] = new_main_idx
+
+
+static func set_coverhash(var path : String, var new_coverhash : String) -> void:
+	SongLists.AllSongs[path][4] = new_coverhash
+
+
+static func song_title(var main_idx : int) -> String:
 	match SettingsData.GetSetting(SettingsData.SONG_SETTINGS,"DisplayNameMode"):
 		0:
-			return GetSongTitle(main_idx)
+			return get_song_filename(main_idx)
 		1:
-			return GetSongTitle(main_idx).get_basename()
+			return get_song_filename(main_idx).get_basename()
 		2:
-			return GetSongTitleTag(main_idx)
+			return get_song_title(main_idx)
 		_:
-			return "ERROR://UNINTENDED BEHAVIOUR"
-
-
-static func UpdateMainIndex(var path : String,var NewMainIdx : int) -> void:
-	SongLists.AllSongs[path][2] = NewMainIdx
-
-
-static func UpdateCoverHash(var path : String,var NewCoverHash : String) -> void:
-	SongLists.AllSongs[path][4] = NewCoverHash
-
-
+			return "ERROR://INVALID SETTING VALUE"
 

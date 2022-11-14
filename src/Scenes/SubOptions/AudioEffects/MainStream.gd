@@ -75,7 +75,7 @@ func set_volume(var volume_linear : float) -> void:
 
 
 func ReloadStreamTimer(var is_paused : bool = false) -> void:
-	var main_idx : int = AllSongs.GetMainIdx(SongLists.CurrentSong)
+	var main_idx : int = AllSongs.get_main_idx(SongLists.CurrentSong)
 	StreamTimer.set_wait_time(stream_goals[0])
 	if StreamTimer.is_connected("timeout",self,"StreamTimerTimeout"):
 		StreamTimer.disconnect("timeout",self,"StreamTimerTimeout")
@@ -87,9 +87,9 @@ func ReloadStreamTimer(var is_paused : bool = false) -> void:
 
 func StreamTimerTimeout(var timer_idx : int, var main_idx):
 	#adds one to the stream of the current song
-	Streams.AddSongStream(AllSongs.GetSongPath(main_idx),+1)
-	Streams.AddPlaylistStream(Playlist.GetPlaylistName(SongLists.CurrentPlayList),+1)
-	Streams.AddArtistStream(AllSongs.GetSongArtist(main_idx),+1)
+	Streams.add_song_stream(AllSongs.get_song_path(main_idx),+1)
+	Streams.add_playlist_stream(Playlist.get_playlist_name(SongLists.CurrentPlayList),+1)
+	Streams.add_artist_stream(AllSongs.get_song_artist(main_idx),+1)
 	#disconnect the stream timer so the argument can be changed
 	StreamTimer.disconnect("timeout",self,"StreamTimerTimeout")
 	timer_idx += 1

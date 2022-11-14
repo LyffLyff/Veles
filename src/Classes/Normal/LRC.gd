@@ -1,25 +1,20 @@
-extends Reference
+class_name LRC extends Reference
+# the .lrc file format is a format used to synchronize lyrics to an audiofile
+# it can be used in the formats MP3, OGG Vorbis and MIDI
+# this class will hold function to create and read .lrc files and make them into lyric editor projects
+# [mm:ss.cc][Minutes:Seconds:Hundreeths]
+# the . between ss and cc can also be a : depending on the program used -> Veles uses .
+# [ar: Artist/s]
+# [al: Album, from where this Song originates from]
+# [ti: Title of Song]
+# [au: Author and/or Composer]
+# [length: Length of Audio File]
+# [la: Two Letters representing the Langauge of Lyrics in ISO-639-1 Notation]
+# [by:Creator of this LRC-File]
+# [re:Veles -> Automatic]
+# [ve:Veles Version -> Automatic]
 
-
-#The .lrc file format is a format used to synchronize lyrics to an audiofile
-#It can be used in the formats MP3, OGG Vorbis and MIDI
-#This class will hold function to create and read .lrc files and make them into lyric editor projects
-#[mm:ss.cc][Minutes:Seconds:Hundreeths]
-#the . between ss and cc can also be a : depending on the program used -> Veles uses .
-#[ar: Artist/s]
-#[al: Album, from where this Song originates from]
-#[ti: Title of Song]
-#[au: Author and/or Composer]
-#[length: Length of Audio File]
-#[la: Two Letters representing the Langauge of Lyrics in ISO-639-1 Notation]
-#[by:Creator of this LRC-File]
-#[re:Veles -> Automatic]
-#[ve:Veles Version -> Automatic]
-
-class_name LRC
-
-#CONSTANTS
-const InfoTags : Dictionary = {
+const info_tags : Dictionary = {
 	"ar:" : "",
 	"al:" : "",
 	"ti:" : "",
@@ -32,110 +27,115 @@ const InfoTags : Dictionary = {
 }
 
 
-
-func EncodeLRCFile(
-	var Verses : PoolStringArray,
-	var TimeStampsInSeconds : PoolRealArray = [],
-	var Artist : String = "",
-	var Album : String = "",
-	var Title : String = "",
-	var Author : String = "",
-	var SongLength : String = "",
-	var Language : String = "",
-	var CreatorOfLRCFile : String = ""
+func encode_lrc_file(
+	var verses : PoolStringArray,
+	var timestamps_in_seconds : PoolRealArray = [],
+	var artist : String = "",
+	var album : String = "",
+	var title : String = "",
+	var author : String = "",
+	var song_length : String = "",
+	var language : String = "",
+	var creator_of_lrc_file : String = ""
 	) -> String:
 	
-	var LRCFile : String = ""
-	#Header
-	LRCFile += "[re:Veles Music Tool https://lyfflyff.itch.io/veles]\n"
-	if Artist.length() > 0:
-		LRCFile += "[" + InfoTags.keys()[0] + Artist + "]" + "\n"
-	if Album.length() > 0:
-		LRCFile += "[" + InfoTags.keys()[1] + Album + "]" + "\n"
-	if Title.length() > 0:
-		LRCFile += "[" + InfoTags.keys()[2] + Title + "]" + "\n"
-	if Author.length() > 0:
-		LRCFile += "[" + InfoTags.keys()[3] + Author + "]" + "\n"
-	if SongLength != "":
-		LRCFile += "[" + InfoTags.keys()[4] + SongLength + "]" + "\n"
-	if Language != "":
-		#the given Language will ALWAYS be in the right format
-		LRCFile += "[" + InfoTags.keys()[5] + Language + "]" + "\n"
-	if CreatorOfLRCFile != "":
-		LRCFile += "[" + InfoTags.keys()[6] + CreatorOfLRCFile + "]" + "\n"
+	var lrc_file : String = ""
 	
-	#Lyrics
-	var TempTimeStamp : String = ""
-	for i in Verses.size():
-		if TimeStampsInSeconds.size() > i:
-			TempTimeStamp = TimeFormatter.SecondsToLRCTimestamp(TimeStampsInSeconds[i])
+	# header
+	lrc_file += "[re:Veles Music Tool https://lyfflyff.itch.io/veles]\n"
+	if artist.length() > 0:
+		lrc_file += "[" + info_tags.keys()[0] + artist + "]" + "\n"
+	if album.length() > 0:
+		lrc_file += "[" + info_tags.keys()[1] + album + "]" + "\n"
+	if title.length() > 0:
+		lrc_file += "[" + info_tags.keys()[2] + title + "]" + "\n"
+	if author.length() > 0:
+		lrc_file += "[" + info_tags.keys()[3] + author + "]" + "\n"
+	if song_length != "":
+		lrc_file += "[" + info_tags.keys()[4] + song_length + "]" + "\n"
+	if language != "":
+		# the given Language will always be in the right format
+		lrc_file += "[" + info_tags.keys()[5] + language + "]" + "\n"
+	if creator_of_lrc_file != "":
+		lrc_file += "[" + info_tags.keys()[6] + creator_of_lrc_file + "]" + "\n"
+	
+	# lyrics
+	var temp_timestamp : String = ""
+	for i in verses.size():
+		if timestamps_in_seconds.size() > i:
+			temp_timestamp = TimeFormatter.seconds_to_lrc_timestamp(timestamps_in_seconds[i])
 		else:
-			TempTimeStamp = "[00:00.00]"
-		LRCFile += TempTimeStamp + Verses[i] + "\n"
+			temp_timestamp = "[00:00.00]"
+		lrc_file += temp_timestamp + verses[i] + "\n"
 	
-	#Erasing the last Newline from the file, since it's not needed
-	LRCFile.erase(LRCFile.length() - 1,2)
+	# erasing the last Newline from the file, since it's not needed
+	lrc_file.erase(lrc_file.length() - 1,2)
 	
-	return LRCFile
+	return lrc_file
 
 
-func DecodeLRCFile(var LRCFileData : String) -> Array:
-	#This function Returns an Array with all the possible properties of a LRC File
-	#If the property does not exist in the LRC file it will be set as the Variant, but empty
-	var DecodedLRCFile : Array = [InfoTags]
+func decode_lrc_file(var lrc_data : String) -> Array:
+	# this function Returns an Array with all the possible properties of a LRC File
+	# if the property does not exist in the LRC file it will be set as the Variant, but empty
+	var decoded_lrc_file : Array = [info_tags]
 	
-	#Header
-	var PriorOpenBracketidx : int = -1
-	var OpenBracketIdx : int = -1
-	var CloseBracketIdx : int = -1
-	var ColonIdx : int = -1
-	var TempLRCTag : String = ""
-	var TempLRCTagData : String = ""
-	var LRCTagIdx : int = -1
+	# header
+	var prior_open_bracket_idx : int = -1
+	var open_bracket_idx : int = -1
+	var close_bracket_idx : int = -1
+	var colon_idx : int = -1
+	var temp_lrc_tag : String = ""
+	var temp_lrc_tag_data : String = ""
+	
 	while true:
-		PriorOpenBracketidx = OpenBracketIdx
-		OpenBracketIdx = LRCFileData.find("[",OpenBracketIdx + 1)
-		CloseBracketIdx = LRCFileData.find("]",OpenBracketIdx + 1)
-		ColonIdx = LRCFileData.find(":",OpenBracketIdx + 1)
-		TempLRCTag = LRCFileData.substr(OpenBracketIdx + 1, ColonIdx - OpenBracketIdx)
-		if InfoTags.has(TempLRCTag):
-			#Getting the LRC Tag Data if the Tag is valid
-			TempLRCTagData = LRCFileData.substr(ColonIdx + 1, CloseBracketIdx - ColonIdx - 1)
-			DecodedLRCFile[0][TempLRCTag] = TempLRCTagData
+		prior_open_bracket_idx = open_bracket_idx
+		open_bracket_idx = lrc_data.find("[",open_bracket_idx + 1)
+		close_bracket_idx = lrc_data.find("]",open_bracket_idx + 1)
+		colon_idx = lrc_data.find(":",open_bracket_idx + 1)
+		temp_lrc_tag = lrc_data.substr(open_bracket_idx + 1, colon_idx - open_bracket_idx)
+		if info_tags.has(temp_lrc_tag):
+			
+			# getting the LRC Tag Data if the Tag is valid
+			temp_lrc_tag_data = lrc_data.substr(colon_idx + 1, close_bracket_idx - colon_idx - 1)
+			decoded_lrc_file[0][temp_lrc_tag] = temp_lrc_tag_data
 		else:
 			break;
 	
-	#Lyrics
+	# lyrics
 	var Verses : PoolStringArray = []
 	var Timestamps : PoolRealArray = []
 	
 	while true:
-		#Retrieving Timestamp
+		
+		# retrieving Timestamp
 		Timestamps.push_back(
-			TimeFormatter.LRCTimeStampToSeconds(
-				LRCFileData.substr(OpenBracketIdx, CloseBracketIdx - OpenBracketIdx)
+			TimeFormatter.lrc_timestamp_to_seconds(
+				lrc_data.substr(open_bracket_idx, close_bracket_idx - open_bracket_idx)
 			)
 		)
 		
-		#Retrieving Corresponding Verse
-		OpenBracketIdx = LRCFileData.find("[",CloseBracketIdx)
-		#Checking for end of LRC File
-		if OpenBracketIdx == -1:
-			#if this is the Last Verse to Add and not the only one
+		# retrieving Corresponding Verse
+		open_bracket_idx = lrc_data.find("[",close_bracket_idx)
+		
+		# checking for end of LRC File
+		if open_bracket_idx == -1:
+			
+			# if this is the Last verse to add and not the only verse
 			Verses.push_back(
-				LRCFileData.substr(CloseBracketIdx + 1, LRCFileData.length() - CloseBracketIdx - 1)
+				lrc_data.substr(close_bracket_idx + 1, lrc_data.length() - close_bracket_idx - 1)
 			)
 			break;
 		else:
-			#If there is another Verse to Add
+			
+			# if there is another verse to add
 			Verses.push_back(
-				LRCFileData.substr(CloseBracketIdx + 1, OpenBracketIdx - CloseBracketIdx - 2)
+				lrc_data.substr(close_bracket_idx + 1, open_bracket_idx - close_bracket_idx - 2)
 			)
-			CloseBracketIdx = LRCFileData.find("]",OpenBracketIdx + 1)
+			close_bracket_idx = lrc_data.find("]",open_bracket_idx + 1)
 	
-	DecodedLRCFile.push_back(Verses)
-	DecodedLRCFile.push_back(Timestamps)
+	decoded_lrc_file.push_back(Verses)
+	decoded_lrc_file.push_back(Timestamps)
 	
-	#Returning the Decoded LRC Files as Array
-	#[{LRC_TAGS}, Verses, Timestamps]
-	return DecodedLRCFile;
+	# returning the Decoded LRC Files as Array
+	# [{LRC_TAGS}, Verses, Timestamps]
+	return decoded_lrc_file;

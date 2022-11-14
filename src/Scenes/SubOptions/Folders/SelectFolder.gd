@@ -54,7 +54,7 @@ func GetValidSongAmount(var FolderPath : String) -> String:
 		if dir.list_dir_begin(true,true) == OK:
 			var temp : String = dir.get_next()
 			while temp != "":
-				if FormatChecker.FileNameFormat(temp) != -1:
+				if FormatChecker.get_music_filename_extension(temp) != -1:
 					SongCounter += 1
 				temp = dir.get_next()
 			return "Songs: " + str(SongCounter)

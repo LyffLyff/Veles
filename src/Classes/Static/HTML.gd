@@ -1,14 +1,12 @@
-extends Reference
+class_name HTML extends Reference
+# a class for the export of data from Veles to html files
 
-class_name HTML
-
-#CONSTANTS
-const RowTemplate : String = "					<th>CONTENT</th>\n"
-const TableStart : String = "            <table>\n"
-const TableEnd : String = "            </table>\n"
-const ColumnStartTemplate : String = "				<tr>\n"
-const ColumnEndTemplate : String = "				</tr>\n"
-const SonglistRowTemplate : String = """
+const row_template : String = "					<th>CONTENT</th>\n"
+const table_start : String = "            <table>\n"
+const table_end : String = "            </table>\n"
+const column_start_template : String = "				<tr>\n"
+const column_end_template : String = "				</tr>\n"
+const songlist_row_template : String = """
 				<tr>
 					<th>TITLE</th>
 					<th>ARTIST</th>
@@ -22,86 +20,87 @@ const SonglistRowTemplate : String = """
 				</tr>"""
 
 
-func FormatHTMLHeader(var HTMLFile  : String, var Title : String = "", var Headline : String = "") -> String:
+func format_html_header(var html_file  : String, var title : String = "", var headline : String = "") -> String:
 	#Title
-	HTMLFile = HTMLFile.format(
-		[Title],
+	html_file = html_file.format(
+		[title],
 		"TITLE"
 		)
 	
 	#h1
-	HTMLFile = HTMLFile.format(
-		[Headline],
+	html_file = html_file.format(
+		[headline],
 		"HEADLINE"
 		)
-	return HTMLFile
+	return html_file
 
-func CreateHTMLSonglist(var SongPaths : PoolStringArray, var HeaderTitle : String = "") -> String:
-	Global.root.message(SongPaths.join("\n"), SaveData.MESSAGE_NOTICE)
-	var Pos : int = -1
-	var HTMLFile : String =  SaveData.LoadAsText("user://GlobalSettings/ExportTemplates/SonglistTemplate.html")
 
-	#Formatting Html Template File with the given Data
+func create_html_songlist(var song_paths : PoolStringArray, var header_title : String = "") -> String:
+	# formatting html Template File with the given data
+	
+	Global.root.message(song_paths.join("\n"), SaveData.MESSAGE_NOTICE)
+	var pos : int = -1
+	var html_file : String =  SaveData.load_as_text("user://GlobalSettings/ExportTemplates/SonglistTemplate.html")
 	
 	#HTML/CSS Doc Options -> f.e. Design Options 
-	HTMLFile = FormatHTMLHeader(HTMLFile,HeaderTitle,HeaderTitle)
+	html_file = format_html_header(html_file, header_title, header_title)
 
-	for i in SongPaths.size():
-		Pos = HTMLFile.find_last("</tr>") + 5
-		HTMLFile = HTMLFile.insert(Pos, SonglistRowTemplate )
-		HTMLFile = HTMLFile.format(
-			[Tags.GetTitle(SongPaths[i])],
+	for i in song_paths.size():
+		pos = html_file.find_last("</tr>") + 5
+		html_file = html_file.insert(pos, songlist_row_template )
+		html_file = html_file.format(
+			[Tags.get_title(song_paths[i])],
 			"TITLE"
 			)
-		HTMLFile = HTMLFile.format(
-			[Tags.GetArtist(SongPaths[i])],
+		html_file = html_file.format(
+			[Tags.get_artist(song_paths[i])],
 			"ARTIST"
 			)
-		HTMLFile = HTMLFile.format(
-			[ Tags.GetAlbum(SongPaths[i]) ],
+		html_file = html_file.format(
+			[ Tags.get_album(song_paths[i]) ],
 			"ALBUM"
 			)
-		HTMLFile = HTMLFile.format(
-			[ Tags.GetGenre(SongPaths[i]) ],
+		html_file = html_file.format(
+			[ Tags.get_genre(song_paths[i]) ],
 			"GENRE"
 			)
-		HTMLFile = HTMLFile.format(
-			[ Tags.GetMultipleTags(SongPaths[i], [6])[0] ],
+		html_file = html_file.format(
+			[ Tags.get_text_tags(song_paths[i], [6])[0] ],
 			"TRACK"
 			)
-		HTMLFile = HTMLFile.format(
-			[ Tags.GetMultipleTags(SongPaths[i], [5])[0] ],
+		html_file = html_file.format(
+			[ Tags.get_text_tags(song_paths[i], [5])[0] ],
 			"YEAR"
 			)
-		HTMLFile = HTMLFile.format(
-			[ TimeFormatter.FormatSeconds( Tags.GetSongDuration( SongPaths[i] ) ) ],
+		html_file = html_file.format(
+			[ TimeFormatter.format_seconds( Tags.get_song_duration( song_paths[i] ) ) ],
 			"SONGLENGTH"
 			)
-		HTMLFile = HTMLFile.format(
-			[ SongPaths[i].get_file() ],
+		html_file = html_file.format(
+			[ song_paths[i].get_file() ],
 			"FILENAME"
 			)
-		HTMLFile = HTMLFile.format(
-			[ FormatChecker.GetMusicFormatExtension( SongPaths[i] ) ],
+		html_file = html_file.format(
+			[ FormatChecker.get_music_file_extension( song_paths[i] ) ],
 			"FILEFORMAT"
 			)
 
-	return HTMLFile;
+	return html_file;
 
 
-func CreateTable(var Content : Array,var Title : String = "", var Headline : String = "") -> String:
-	#Gets a two dimensional array, which will be represented as HTML
-	var HTMLTable : String = ""
-	HTMLTable += TableStart
+func create_table(var content : Array, var title : String = "", var headline : String = "") -> String:
+	# encodes an array of content to a html table [i][0] = Column 1, [i][1] = Column 2,...
+	var html_table : String = ""
+	html_table += table_start
 	
-	for i in Content.size():
-		HTMLTable += ColumnStartTemplate
-		for j in Content[i].size():
-			HTMLTable += RowTemplate.format([Content[i][j]],"CONTENT")
-		HTMLTable += ColumnEndTemplate
-	HTMLTable += TableEnd
-	var GeneralTemplate : String = SaveData.LoadAsText("user://GlobalSettings/ExportTemplates/GeneralTemplate.html").format(
-		[HTMLTable],
+	for i in content.size():
+		html_table += column_start_template
+		for j in content[i].size():
+			html_table += row_template.format([content[i][j]],"CONTENT")
+		html_table += column_end_template
+	html_table += table_end
+	var general_template : String = SaveData.load_as_text("user://GlobalSettings/ExportTemplates/GeneralTemplate.html").format(
+		[html_table],
 		"BODY"
 	)
-	return FormatHTMLHeader( GeneralTemplate, Title, Headline )
+	return format_html_header(general_template, title, headline)

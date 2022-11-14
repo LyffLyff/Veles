@@ -1,82 +1,85 @@
-extends Reference
-
-class_name TimeFormatter
-
+class_name TimeFormatter extends Reference
+# a class to format times from string to int, timestamp to seconds,.....
 
 const Months : Array = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 const DayExtension : Array = ["st","nd","rd","th"]
 
 
-static func FormatSeconds(var Seconds_F : float) -> String:
-	#Formatting a given float representing seconds to hours:minutes:seconds
-	var Seconds_I: int = int(Seconds_F)
-	var Min : String = str( Seconds_I /60 )
-	var Seconds : int = Seconds_I % 60
-	var Seconds_S : String
-	if Seconds < 10:
-		Seconds_S = "0" + str(Seconds)
+static func format_seconds(var seconds_f : float) -> String:
+	# formatting a given float representing seconds to hours:minutes:seconds
+	var seconds_i: int = int(seconds_f)
+	var minutes : String = str( seconds_i /60 )
+	seconds_i = seconds_i % 60
+	var seconds_s : String
+	if seconds_i < 10:
+		seconds_s = "0" + str(seconds_i)
 	else:
-		Seconds_S = str(Seconds)
-	return Min + ":" + Seconds_S
+		seconds_s = str(seconds_i)
+	return minutes + ":" + seconds_s
 
 
-static func FormatDayTime(var hour : int, var minute : int, var second : int) -> String:
-	var FormattedDayTime : String = ""
-	for n in [hour,minute,second]:
-		if n < 10:
-			FormattedDayTime += "0" + "%d"%n
+static func format_daytime(var hour : int, var minute : int, var second : int) -> String:
+	var formatted_daytime : String = ""
+	for time in [hour,minute,second]:
+		if time < 10:
+			formatted_daytime += "0" + "%d"%time
 		else:
-			FormattedDayTime += "%d"%n
-		FormattedDayTime += ":"
-	return FormattedDayTime.substr(0,FormattedDayTime.length() - 1)
+			formatted_daytime += "%d"%time
+		formatted_daytime += ":"
+	return formatted_daytime.substr(0,formatted_daytime.length() - 1)
 
 
-static func FormatDate(var Day : int, var MonthIdx : int, var Year : int) -> String:
-	return "%d"%Day + GetDayExtension(Day) + " " + Months[MonthIdx - 1] + " " + "%d"%Year
+static func format_date(var day : int, var month_idx : int, var year : int) -> String:
+	return "%d"%day + get_day_extension(day) + " " + Months[month_idx - 1] + " " + "%d"%year
 
 
-static func GetDayExtension(var Day : int) -> String:
-	if Day >= 3:
+static func get_day_extension(var day : int) -> String:
+	if day >= 3:
 		return DayExtension[3]
-	return DayExtension[Day]
+	return DayExtension[day]
 
 
-static func LRCTimeStampToSeconds(var LRCTimestamp : String) -> float:
-	#Input -> [20:30.01]
-	#Output -> [1230.01 Seconds]
+static func lrc_timestamp_to_seconds(var lrc_timestamp : String) -> float:
+	# input -> [20:30.01]
+	# output -> [1230.01 Seconds]
 	
-	var CombinedSeconds : float = 0.0;
-	var Temp1 : int = -1
-	var Temp2 : int = -1
+	var combined_seconds : float = 0.0;
+	var temp1 : int = -1
+	var temp2 : int = -1
 	
-	#Minutes
-	Temp1 = LRCTimestamp.find("[",0)
-	Temp2 = LRCTimestamp.find(":",Temp1 + 1)
-	CombinedSeconds += int( LRCTimestamp.substr(Temp1,Temp2 - Temp1) ) * 60
+	# minutes
+	temp1 = lrc_timestamp.find("[", 0)
+	temp2 = lrc_timestamp.find(":", temp1 + 1)
+	combined_seconds += int( lrc_timestamp.substr(temp1, temp2 - temp1) ) * 60
 
-	#Seconds
-	CombinedSeconds += int( LRCTimestamp.substr(Temp2 + 1,2) )
+	# seconds
+	combined_seconds += int( lrc_timestamp.substr(temp2 + 1, 2) )
 	
-	#Subsecond Part
-	CombinedSeconds += float( LRCTimestamp.substr(Temp2 + 3,3) )
+	# subsecond Part
+	combined_seconds += float( lrc_timestamp.substr(temp2 + 3, 3) )
 	
-	return CombinedSeconds;
+	return combined_seconds;
 
 
-static func SecondsToLRCTimestamp(var Seconds : float) -> String:
-	var timestamp_in_millsecs : String = str( Seconds * 1000 ).pad_decimals(0)  
-	var LRCTimestamp : String = "["
-	var minutes : String = str( int(Seconds) / 60 )
+static func seconds_to_lrc_timestamp(var seconds_f : float) -> String:
+	var timestamp_in_millsecs : String = str( seconds_f * 1000 ).pad_decimals(0)  
+	var lrc_timestamp : String = "["
+	
+	var minutes : String = str( int(seconds_f) / 60 )
 	if minutes.length() < 2:
-		#Adding a Zero if minutes is less than double digits
+		# adding a Zero if minutes is less than double digits
 		minutes = minutes.insert(0,"0")
-	var seconds : String = str( int(Seconds) % 60 )
-	if seconds.length() < 2:
-		#Adding a Zero if minutes is less than double digits
-		seconds = seconds.insert(0,"0")
-	LRCTimestamp += minutes + ":"
-	LRCTimestamp += seconds + "."
 	
-	#sub second value
-	LRCTimestamp += timestamp_in_millsecs.substr(timestamp_in_millsecs.length()-3, 2) + "]"
-	return LRCTimestamp
+	var seconds_s : String = str( int(seconds_f) % 60 )
+	if seconds_s.length() < 2:
+		# adding a Zero if minutes is less than double digits
+		seconds_s = seconds_s.insert(0,"0")
+	
+	# adding divisors between values
+	lrc_timestamp += minutes + ":"
+	lrc_timestamp += seconds_s + "."
+	
+	# sub second value
+	lrc_timestamp += timestamp_in_millsecs.substr(timestamp_in_millsecs.length()-3, 2) + "]"
+	
+	return lrc_timestamp

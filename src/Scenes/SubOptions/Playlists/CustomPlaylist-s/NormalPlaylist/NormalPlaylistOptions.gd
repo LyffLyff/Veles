@@ -20,6 +20,6 @@ func ConnectOptionSignals() -> void:
 	_err = QueuePlaylist.connect("pressed",self,"UnloadPlaylistOptions")
 	
 	_err = ExportPlaylist.connect("pressed",self.get_owner(),"ExportPlaylist")
-	_err = Rename.connect("pressed", self.get_owner(), "RenamePlaylist")
+	_err = Rename.connect("pressed", self.get_owner(), "rename_playlist")
 	_err = DeletePlaylist.connect("pressed",self.get_owner(),"OnDeletePressed")
 	_err = Close.connect("pressed",self,"UnloadPlaylistOptions")

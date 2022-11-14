@@ -86,6 +86,7 @@ func _on_SetTag_pressed():
 	#only sets the specific tag if the LineEdit hasn't been left empty
 	var UpdateValuesInAllSongs : bool = false
 	var TempMainIdx : int = -1
+	var dir : Directory = Directory.new()
 	
 	#Retrieving Paths of Songs
 	MultiplePaths.resize(0)
@@ -100,7 +101,7 @@ func _on_SetTag_pressed():
 			Global.root.message("File could not be tagged:\n" + MultiplePaths[ PathIdx ],  SaveData.MESSAGE_ERROR, true )
 			continue;
 		
-		if FormatChecker.GetMusicFormat( z.get_buffer(1024).hex_encode() ) == -1 and FormatChecker.FileNameFormat(MultiplePaths[ PathIdx ]) == -1:
+		if FormatChecker.get_music_format_from_data( z.get_buffer(1024).hex_encode() ) == -1 and FormatChecker.get_music_filename_extension(MultiplePaths[ PathIdx ]) == -1:
 			#if the Real Format is not supported the loop will be skipped
 			#-> to prevent false tags
 			Global.root.message("FILEFORMAT CANNOT BE TAGGED",  SaveData.MESSAGE_ERROR, true )
@@ -112,51 +113,51 @@ func _on_SetTag_pressed():
 			#if the Current Song has been added to the AllSongs, certain properties
 			#will be changed 
 			UpdateValuesInAllSongs = true
-			TempMainIdx = AllSongs.GetMainIdx(MultiplePaths[ PathIdx ])
+			TempMainIdx = AllSongs.get_main_idx(MultiplePaths[ PathIdx ])
 			
-		if FileChecker.exists(MultiplePaths[ PathIdx ]):
+		if dir.file_exists(MultiplePaths[ PathIdx ]):
 			Global.root.message("Setting Tags on: " + MultiplePaths[ PathIdx ], SaveData.MESSAGE_NOTICE)
 			
 			#ARTIST
 			if LinedEditsChanged[ ARTIST ]:
 				var NewArtist : String = CreateArtistString()
-				Tags.SetArtist(NewArtist, MultiplePaths[ PathIdx ])
+				Tags.set_artist(NewArtist, MultiplePaths[ PathIdx ])
 				if UpdateValuesInAllSongs:
 					#Adding the Changed Artist if not there
 					if !SongLists.Artists.has([NewArtist]):
 						SongLists.Artists.push_back([NewArtist])
 					
 					#Setting in AllSongs
-					AllSongs.SetSongArtist(NewArtist,TempMainIdx)
+					AllSongs.set_song_artist(NewArtist,TempMainIdx)
 			
 			#TITLE
 			if LinedEditsChanged[ TITLE ]:
-				Tags.SetTitle(Title.get_text(),MultiplePaths[ PathIdx ])
+				Tags.set_title(Title.get_text(),MultiplePaths[ PathIdx ])
 				if UpdateValuesInAllSongs:
-					AllSongs.SetSongTitleTag(Title.get_text(),TempMainIdx)
+					AllSongs.set_song_title(Title.get_text(),TempMainIdx)
 			
 			#ALBUM
 			if LinedEditsChanged[ ALBUM ]:
-				Tags.SetAlbum(Album.get_text(),MultiplePaths[ PathIdx ])
+				Tags.set_album(Album.get_text(),MultiplePaths[ PathIdx ])
 			
 			#GENRE
-			Tags.SetGenre(Genre.get_text(),MultiplePaths[ PathIdx ])
+			Tags.set_genre(Genre.get_text(),MultiplePaths[ PathIdx ])
 			
 			#TRACK NUMBER
 			if LinedEditsChanged[ TRACK_NUMBER ]:
-				Tags.SetTrackNumber(Track.get_text(), MultiplePaths[ PathIdx ])
+				Tags.set_track_number(Track.get_text(), MultiplePaths[ PathIdx ])
 			
 			#RELEASE_YEAR
 			if LinedEditsChanged[ RELEASE_YEAR ]:
-				Tags.SetReleaseYear(ReleaseYear.get_text(), MultiplePaths[ PathIdx ])
+				Tags.set_release_year(ReleaseYear.get_text(), MultiplePaths[ PathIdx ])
 			
 			#COMMENT
 			if LinedEditsChanged[ COMMENT ]:
-				Tags.SetComment(Comment.get_text(), MultiplePaths[ PathIdx ])
+				Tags.set_comment(Comment.get_text(), MultiplePaths[ PathIdx ])
 			
 			#COVER_DESCRIPTION
 			if LinedEditsChanged[ COVER_DESCRIPTION ]:
-				Tags.SetCoverDescription(MultiplePaths[ PathIdx ], CoverDescription.get_text())
+				Tags.set_cover_description(MultiplePaths[ PathIdx ], CoverDescription.get_text())
 			
 			#Rating
 			if Rating.get_line_edit().text.is_valid_integer():
@@ -178,10 +179,10 @@ func _on_SetTag_pressed():
 			if Cover.get_text() != "":
 				var cover_path : String = Cover.get_text()
 				print(MultiplePaths[ PathIdx ])
-				Tags.SetCover(
+				Tags.set_cover(
 					cover_path,
 					MultiplePaths[ PathIdx ],
-					ImageLoader.GetImageMimeType(cover_path)
+					ImageLoader.get_image_mime_type(cover_path)
 				)
 				if SongLists.AllSongs.has(MultiplePaths[ PathIdx ]):
 					var CoverHash : String = str(MultiplePaths[ PathIdx ].hash())
@@ -262,7 +263,7 @@ func RenameSong(var old_path : String, var new_path : String, var new_title : St
 			if SongLists.Playlists.values()[n].has(old_path):
 				var value : Array = SongLists.Playlists.values()[n].get(old_path)
 				if SongLists.Playlists.values()[n].erase(old_path):
-					value[0] = AllSongs.GetSongAmount() -1
+					value[0] = AllSongs.get_song_amount() -1
 					SongLists.Playlists.values()[n][new_path] = value
 				else:
 					root.message("COULD NOT ERASE KEY IN THE PLAYLISTS", SaveData.MESSAGE_ERROR)
@@ -287,16 +288,16 @@ func InitTags(var ValidPaths : PoolStringArray) -> void:
 	
 	#Set Covers
 	#Loaded from Scratch so also Songs not in the Covercache can be tagged properly
-	var data : PoolByteArray = Tags.ReturnCoverData( ValidPaths[0] )
+	var data : PoolByteArray = Tags.get_embedded_cover( ValidPaths[0] )
 	if data.size() > 0:
-		var img : Image = ImageLoader.CreateImageFromData(data)
-		TopCovers.get_child(0).set_deferred( "texture",ImageLoader.CreateTextureFromImage(img) )
+		var img : Image = ImageLoader.create_image_from_data(data)
+		TopCovers.get_child(0).set_deferred( "texture",ImageLoader.image_to_texture(img) )
 	else:
 		TopCovers.get_child(0).set_deferred( "texture", null)
 	
 	#Retrieve Text Tags
 	var AllTags : PoolStringArray = []
-	AllTags = Tags.new().GetMultipleTags( ValidPaths[0],[0,1,2,3,4,5,6] )
+	AllTags = Tags.get_text_tags( ValidPaths[0],[0,1,2,3,4,5,6] )
 	#Set Tags
 	if AllTags.size() == 0:
 		AllTags = ["","","","","","",""]
@@ -325,7 +326,7 @@ func ResetLineEditChanged() -> void:
 
 func SetArtistLineEdits(var Artist_s : String) -> void:
 	FreeingArtistLabels()
-	var DividedArtists : PoolStringArray = Streams.DivideMultipleArtists(Artist_s)
+	var DividedArtists : PoolStringArray = Streams.divide_artists(Artist_s)
 	for n in DividedArtists.size():
 		if n == 0:
 			Artist.set_text(DividedArtists[n])
@@ -361,8 +362,9 @@ func CreateArtistString() -> String:
 
 
 func OnSongPathEntered(var paths : PoolStringArray) -> void:
-	for n in paths:
-		if !FileChecker.exists(n):
+	var dir : Directory = Directory.new()
+	for path in paths:
+		if !dir.file_exists(path):
 			return;
 	InitTags(paths)
 	ResetLineEditChanged()
@@ -370,7 +372,7 @@ func OnSongPathEntered(var paths : PoolStringArray) -> void:
 
 func OnSongPathManuallyEntered(var ManuallyEnteredPath : String) -> void:
 	InitTags([ManuallyEnteredPath])
-	if !FileChecker.exists(ManuallyEnteredPath):
+	if !Directory.new().file_exists(ManuallyEnteredPath):
 		return;
 	ResetLineEditChanged()
 

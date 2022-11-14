@@ -25,7 +25,7 @@ var Idx : int = -1
 var TempPos : float = -1.0
 var TempIdx : int = -1
 var SongOptionsRef : Node = null
-var PlaylistIdx : int = -1
+var playlist_idx : int = -1
 var ScrollingFast : bool = false
 var LastMousePos : Vector2 = Vector2()
 var HeaderExpanded : bool = true
@@ -122,7 +122,7 @@ func OnLeftMouseButtonClicked(var idx : int) -> void:
 			#Playing pressed song
 			var song_ : Control = songs.get_child(idx)
 			var main_idx : int = song_.main_index
-			var playlist_idx : int = song_.PlaylistIdx
+			var playlist_idx : int = song_.playlist_idx
 			#unhighlights the highlighted song when another one has been pressed
 			var highlighted_song : int = SongListHasThis(SongLists.CurrentSong)
 			if highlighted_song != idx:
@@ -130,11 +130,11 @@ func OnLeftMouseButtonClicked(var idx : int) -> void:
 					UnHighlightSong(highlighted_song)
 			#highlighting the current song if it has not been already
 			HighlightSong(song_)
-			SongLists.CurrentPlayList = song_.PlaylistIdx
+			SongLists.CurrentPlayList = song_.playlist_idx
 			root.playback_song(
 				main_idx,
 				true,
-				Playlist.GetPlaylistName(playlist_idx)
+				Playlist.get_playlist_name(playlist_idx)
 			)
 			root.player.set_repeat(false)
 		else:
@@ -146,32 +146,32 @@ func  _on_SongScroller_resized():
 
 
 func GetPlaylistSongAmount() -> int:
-	if PlaylistIdx >= 0:
+	if playlist_idx >= 0:
 		#Normal Playlists
-		return SongLists.Playlists.values()[PlaylistIdx].size();
-	elif PlaylistIdx <= -2:
+		return SongLists.Playlists.values()[playlist_idx].size();
+	elif playlist_idx <= -2:
 		#Temporary and Smart Playlists
 		return SongLists.PressedTempSmartPlaylist.size();
-	elif PlaylistIdx == -1:
+	elif playlist_idx == -1:
 		#All Songs
 		return SongLists.AllSongs.size();
 	return -1;
 
 
 func GetPlaylistCreationDate() -> String:
-	var PlaylistName : String = Playlist.GetPlaylistName(PlaylistIdx)
-	var TempDate = SaveData.GetDictKeyFromFile(SongLists.AddUserToFilepath(SongLists.FilePaths[9]),PlaylistName,0)
+	var playlist_name : String = Playlist.get_playlist_name(playlist_idx)
+	var TempDate = SaveData.get_key_from_file(SongLists.AddUserToFilepath(SongLists.FilePaths[9]),playlist_name,0)
 	if TempDate:
 		var TimeFormat : TimeFormatter = TimeFormatter.new()
-		var Daytime : String = TimeFormat.FormatDayTime(TempDate.hour, TempDate.minute, TempDate.second)
-		var Date : String = TimeFormat.FormatDate(TempDate.day,TempDate.month,TempDate.year)
+		var Daytime : String = TimeFormat.format_daytime(TempDate.hour, TempDate.minute, TempDate.second)
+		var Date : String = TimeFormat.format_date(TempDate.day,TempDate.month,TempDate.year)
 		return Daytime + " " + Date;
 	else:
 		return "00:00:00 0000 00 000"
 
 
 func GetPlaylistRuntime() -> String:
-	return TimeFormatter.FormatSeconds( Playlist.GetRuntimeInSeconds(PlaylistIdx) ) + "min"
+	return TimeFormatter.format_seconds( Playlist.get_runtime_seconds(playlist_idx) ) + "min"
 
 
 func PlaylistOptionspressed(var IsSmart : bool = false):
@@ -195,12 +195,12 @@ func PlaylistOptionspressed(var IsSmart : bool = false):
 		SongOptionsRef.queue_free()
 
 
-func RenamePlaylist() -> void:
+func rename_playlist() -> void:
 	Global.root.toggle_songlist_input(false)
 	var x : Node = load("res://src/Scenes/General/TextInputDialogue.tscn").instance()
 	root.add_child(x)
 	x.SetTopic("New Playlist Title")
-	var _err = x.connect("TextSave",Playlist,"RenamePlaylist",[PlaylistIdx])
+	var _err = x.connect("TextSave",Playlist,"rename_playlist",[playlist_idx])
 	_err = x.connect("tree_exited",self,"UnloadPlaylist")
 	_err = x.connect("tree_exited",Global.root,"toggle_songlist_input",[true])
 
@@ -208,7 +208,7 @@ func RenamePlaylist() -> void:
 func ExportPlaylist() -> void:
 	var PlaylistExportMenu : Node = load("res://src/Scenes/Export/PlaylistExportMenu.tscn").instance()
 	Global.root.top_ui.add_child(PlaylistExportMenu)
-	PlaylistExportMenu.InitPlaylistExportMenu(PlaylistIdx)
+	PlaylistExportMenu.InitPlaylistExportMenu(playlist_idx)
 
 
 #Header Expanding/Contracting

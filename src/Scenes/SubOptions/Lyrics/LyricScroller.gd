@@ -98,7 +98,7 @@ func LoadLyrics() -> void:
 	Resync.set_visible( false )
 	
 	#Setting Lyrics
-	var Lyrics : Array = Tags.GetLyrics( SongLists.CurrentSong )
+	var Lyrics : Array = Tags.get_lyrics( SongLists.CurrentSong )
 	if Lyrics.size() == 2 and Lyrics[0].size() > 1:
 		#SYNCHED
 		#0: PoolStringArray of Verses

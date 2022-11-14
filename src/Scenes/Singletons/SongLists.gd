@@ -83,7 +83,7 @@ var CoverCache : Dictionary = {}
 #PATH : [TITLE, ARTIST,ALLSONGS_IDX,Streams,COVER_HASH,TAG,DURATION IN SECONDS, LIKED(TRUE/FALSE]
 var AllSongs : Dictionary = {}
 
-#PlaylistName : {SongPath : MainIdx}
+#playlist_name : {song_path : main_idx}
 var Playlists : Dictionary = {}
 
 #Titles of each Smart Playlist
@@ -100,7 +100,7 @@ var ArtistStreams : Dictionary = {}
 
 var Artists : Array = []
 
-var MainEnabled : bool = false
+var main_enabled : bool = false
 
 var HighlightedSongs : PoolStringArray = []
 
@@ -189,7 +189,7 @@ func _enter_tree():
 	get_viewport().render_target_clear_mode = Viewport.CLEAR_MODE_ALWAYS
 	
 	get_tree().get_root().set_transparent_background( SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"TransparentBackground") )
-	VelesInit.new().CreateFolders()
+	VelesInit.new().create_folders()
 	
 	var temp = null
 	#Saving Std Userdata Values to GlobalSettings
@@ -197,7 +197,7 @@ func _enter_tree():
 	
 	#Global Data
 	for i in GlobalFilePaths.size():
-		temp = SaveData.Load(GlobalFilePaths[i])
+		temp = SaveData.load_data(GlobalFilePaths[i])
 		if temp != null:
 			match i:
 				0:
@@ -209,10 +209,10 @@ func _enter_tree():
 	#User Specific Data
 	LoadUserSpecificData(FilePaths)
 	var x : VelesInit = VelesInit.new()
-	x.CreateFolders()
-	x.InitAudioEffects()
-	x.InitRandomSettings()
-	x.InitStdCovers()
+	x.create_folders()
+	x.init_audio_effects()
+	x.init_random_settings()
+	x.init_std_covers()
 
 
 func _exit_tree():
@@ -222,9 +222,9 @@ func _exit_tree():
 	SettingsData.Settings[SettingsData.GENERAL_SETTINGS].WindowSize = OS.get_window_size()
 	
 	#Global Data
-	SaveData.Save( GlobalFilePaths[0], Global.CurrentProfileIdx)
-	SaveData.Save( GlobalFilePaths[1], Global.UserProfiles)
-	SaveData.Save( GlobalFilePaths[2], Global.PriorUser)
+	SaveData.save( GlobalFilePaths[0], Global.CurrentProfileIdx)
+	SaveData.save( GlobalFilePaths[1], Global.UserProfiles)
+	SaveData.save( GlobalFilePaths[2], Global.PriorUser)
 	
 	#User Specific Data
 	SaveUserSpecificData( AddUsersToFilepaths(FilePaths) )
@@ -233,7 +233,7 @@ func _exit_tree():
 func LoadUserSpecificData(var Paths : PoolStringArray) -> void:
 	var temp
 	for i in Paths.size():
-		temp = SaveData.Load( AddUserToFilepath( Paths[i] ) )
+		temp = SaveData.load_data( AddUserToFilepath( Paths[i] ) )
 		if temp != null:
 			match i:
 				0:
@@ -284,24 +284,24 @@ func AddUsersToFilepaths(var UPaths : PoolStringArray) -> PoolStringArray:
 
 
 func SaveUserSpecificData(var Paths : PoolStringArray) -> void:
-	SaveData.Save( Paths[0] , Folders)
-	SaveData.Save( Paths[1] , CurrentSong)
-	SaveData.Save( Paths[2] , CurrentPlayList)
-	SaveData.Save( Paths[3] , Playlists)
-	SaveData.Save( Paths[4] , Streams)
-	SaveData.Save( Paths[5] , PlaylistStreams)
-	SaveData.Save( Paths[6] , ArtistStreams)
+	SaveData.save( Paths[0] , Folders)
+	SaveData.save( Paths[1] , CurrentSong)
+	SaveData.save( Paths[2] , CurrentPlayList)
+	SaveData.save( Paths[3] , Playlists)
+	SaveData.save( Paths[4] , Streams)
+	SaveData.save( Paths[5] , PlaylistStreams)
+	SaveData.save( Paths[6] , ArtistStreams)
 	
 	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS, "PlaybackPosition", MainStream.get_playback_position())
-	SaveData.Save( Paths[7] , SettingsData.Settings)
-	SaveData.Save( Paths[8] , SongQueue)
-	SaveData.Save( Paths[10] , AllSongs)
-	SaveData.Save( Paths[11] , CoverCache)
-	SaveData.Save( Paths[12] , Artists)
-	SaveData.Save( Paths[13] , SmartPlaylists )
-	SaveData.Save( Paths[14] , CurrentTempSmartPlaylist )
-	SaveData.Save( Paths[15] , AudioEffects )
-	SaveData.Save( Paths[16], Global.CurrentDownloads)
+	SaveData.save( Paths[7] , SettingsData.Settings)
+	SaveData.save( Paths[8] , SongQueue)
+	SaveData.save( Paths[10] , AllSongs)
+	SaveData.save( Paths[11] , CoverCache)
+	SaveData.save( Paths[12] , Artists)
+	SaveData.save( Paths[13] , SmartPlaylists )
+	SaveData.save( Paths[14] , CurrentTempSmartPlaylist )
+	SaveData.save( Paths[15] , AudioEffects )
+	SaveData.save( Paths[16], Global.CurrentDownloads)
 
 
 func ResetUserdata() -> void:
@@ -342,23 +342,23 @@ func QueueSongPassed() -> void:
 			SongFromQueue = false
 
 
-func SetCoverHash(var CoverHash : String, var main_idx : int) -> void:
+func set_song_coverhash(var CoverHash : String, var main_idx : int) -> void:
 	AllSongs.values()[main_idx][4] = CoverHash
 
 
-func NewPlaylist(var PlaylistName : String) -> void:
+func NewPlaylist(var playlist_name : String) -> void:
 	#Creates New Key with an Empty Dictionary as Value
 	var value : Dictionary = {}
-	Playlists[PlaylistName] = value
-	if !SaveData.PushDictKeyAndSave(SongLists.AddUserToFilepath(SongLists.FilePaths[9]),PlaylistName,0,true,OS.get_datetime()):
+	Playlists[playlist_name] = value
+	if !SaveData.push_key_and_save(SongLists.AddUserToFilepath(SongLists.FilePaths[9]),playlist_name,0,true,OS.get_datetime()):
 		Global.root.message("ERROR://CANNOT EDIT REQUESTED KEY", SaveData.MESSAGE_ERROR)
 
 
 func NewSmartPlaylist(var SmartPlaylistTitle : String, var Conditions : Dictionary) -> void:
 	SmartPlaylists.push_back(SmartPlaylistTitle)
 	var ConditionsPath : String = Global.GetCurrentUserDataFolder() + "/Songs/Playlists/SmartPlaylists/Conditions/" + SmartPlaylistTitle + ".dat"
-	SaveData.Save(ConditionsPath, Conditions)
-	if !SaveData.PushDictKeyAndSave(SongLists.AddUserToFilepath(SongLists.FilePaths[9]),SmartPlaylistTitle,0,true,OS.get_datetime()):
+	SaveData.save(ConditionsPath, Conditions)
+	if !SaveData.push_key_and_save(SongLists.AddUserToFilepath(SongLists.FilePaths[9]),SmartPlaylistTitle,0,true,OS.get_datetime()):
 		Global.root.message("ERROR://CANNOT EDIT REQUESTED KEY", SaveData.MESSAGE_ERROR)
 
 
@@ -375,7 +375,7 @@ func InitialisingCoverCache() -> void:
 	var counter = 0
 	for x in CoverCache.keys():
 		counter += 1
-		CoverCache[x] = ImageLoader.GetCover(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + x + ".png","",Vector2(70,70))
+		CoverCache[x] = ImageLoader.get_cover(Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + x + ".png","",Vector2(70,70))
 
 
 func AddFolder(var dir : String):

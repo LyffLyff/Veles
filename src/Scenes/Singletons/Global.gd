@@ -46,12 +46,12 @@ const play_img : StreamTexture =  preload("res://src/Assets/Icons/White/Audio/Re
 
 func _exit_tree():
 	#Calculating the App usage time on Minutes
-	var PriorUsageTimeMin = SaveData.Load(SongLists.GlobalFilePaths[3])
+	var PriorUsageTimeMin = SaveData.load_data(SongLists.GlobalFilePaths[3])
 	var NewUsagetime : float = 0.0
 	if PriorUsageTimeMin == null:
 		PriorUsageTimeMin = 0.0
 	NewUsagetime = PriorUsageTimeMin + ( (OS.get_unix_time() - AppOpenedTime) / 60.0 )
-	SaveData.Save(SongLists.GlobalFilePaths[3], NewUsagetime ) 
+	SaveData.save(SongLists.GlobalFilePaths[3], NewUsagetime ) 
 
 
 func _ready():
@@ -81,7 +81,7 @@ func PushTagPath(var NewTagPath : String) -> void:
 #User Profiles
 func NewUserProfile(var NewUsername : String) -> void:
 	UserProfiles.push_back(NewUsername)
-	VelesInit.new().CreateFolders()
+	VelesInit.new().create_folders()
 
 
 func is_username_valid( var new_username : String ) -> bool:
@@ -138,11 +138,11 @@ func GetCurrentUserDataFolder() -> String:
 
 
 #Playlist
-func AddToPlaylist(var playlist_selector,var PlaylistIdx : int, var main_idxs : PoolIntArray):
+func AddToPlaylist(var playlist_selector,var playlist_idx : int, var main_idxs : PoolIntArray):
 	for main_idx in main_idxs:
-		var path : String = AllSongs.GetSongPath(main_idx)
+		var path : String = AllSongs.get_song_path(main_idx)
 		#creates new key with path as the key and other infos as values
-		SongLists.Playlists.values()[PlaylistIdx][path] = [main_idx]
+		SongLists.Playlists.values()[playlist_idx][path] = [main_idx]
 		playlist_selector.queue_free()
 
 

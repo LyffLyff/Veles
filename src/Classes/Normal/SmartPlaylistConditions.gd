@@ -1,91 +1,88 @@
-extends Reference
+class_name SmartPlaylistConditions extends Reference
+# this class holds functions to check the set conditions of smart playlists
 
 
-class_name SmartPlaylistConditions
+func is_longer_than(var song_path : String, var length_in_seconds : String) -> bool:
+	# returns true if the given Song is Longer than the Given Duration
+	return AllSongs.get_song_duration( AllSongs.get_main_idx( song_path ) ) >= int( length_in_seconds );
 
 
-func IsLongerThan(var SongPath : String, var LengthInSeconds : String) -> bool:
-	#Returns true if the given Song is Longer than the Given Duration
-	return AllSongs.GetSongDuration( AllSongs.GetMainIdx( SongPath ) ) >= int( LengthInSeconds );
+func is_shorter_than(var song_path : String, var length_in_seconds : String) -> bool:
+	# returns true if the given Song is Shorter than the Given Duration
+	return AllSongs.get_song_duration( AllSongs.get_main_idx( song_path ) ) <= int( length_in_seconds );
 
 
-func IsShorterThan(var SongPath : String, var LengthInSeconds : String) -> bool:
-	#Returns true if the given Song is Shorter than the Given Duration
-	return AllSongs.GetSongDuration( AllSongs.GetMainIdx( SongPath ) ) <= int( LengthInSeconds );
+func genre(var song_path : String, var genre : String) -> bool:
+	# returns true if the given Genre is equal to the Genre specified in the Songs Tag
+	return Tags.get_genre( song_path ) == genre;
 
 
-func Genre(var SongPath : String, var GenreType : String) -> bool:
-	#Returns true if the given Genre is equal to the Genre specified in the Songs Tag
-	return Tags.GetGenre( SongPath ) == GenreType;
+func album(var song_path : String, var album_title : String) -> bool:
+	# returns true if the given album title is equal to the Album Title specified in the Songs Tag
+	return Tags.get_album( song_path ) == album_title;
 
 
-#Album
-func Album(var SongPath : String, var AlbumTitle : String) -> bool:
-	#Returns true if the given Album Title is equal to the Album Title specified in the Songs Tag
-	return Tags.GetAlbum( SongPath ) == AlbumTitle;
+func includes_artist(var song_path : String, var artist : String) -> bool:
+	return artist in AllSongs.get_song_artist( AllSongs.get_main_idx(song_path) );
 
 
-#Artist
-func IncludesArtist(var SongPath : String, var ArtistName : String) -> bool:
-	return ArtistName in AllSongs.GetSongArtist( AllSongs.GetMainIdx(SongPath) );
+func excludes_artist(var song_path : String, var artist : String) -> bool:
+	# returns true if the Artist not in the String
+	return !( artist in AllSongs.get_song_artist( AllSongs.get_main_idx(song_path) ) );
 
 
-func DoesNotIncludeArtist(var SongPath : String, var ArtistName : String) -> bool:
-	#Returns true if the Artist not in the String
-	return !( ArtistName in AllSongs.GetSongArtist( AllSongs.GetMainIdx(SongPath) ) );
-
-
-func IncludesEitherArtist(var SongPath : String, var Artists : PoolStringArray) -> bool:
-	#Returns true if any of the given Artists is cited as Artist in the given Song
-	var SongArtists : String = AllSongs.GetSongArtist( AllSongs.GetMainIdx(SongPath) )
-	for Artist in Artists:
-		if Artist in SongArtists:
+func includes_either_artist(var song_path : String, var artists : PoolStringArray) -> bool:
+	# returns true if any of the given Artists is cited as Artist in the given Song
+	var song_artists : String = AllSongs.get_song_artist( AllSongs.get_main_idx(song_path) )
+	for artist in artists:
+		if artist in song_artists:
 			return true;
 	return false;
 
 
-#Lyrics
-func HasEmbeddedLyrics(var _SongPath : String) -> bool:
-	#returns true if the given Song has either UNSYNCHED/SYNCHED Lyrics
-	return false;
-
-func HasSynchedLyrics(var _SongPath : String) -> bool :
-	return false;
-
-func HasUnsynchedLyrics(var _SongPath : String) -> bool :
+func has_embedded_lyrics(var _song_path : String) -> bool:
+	# returns true if the given Song has either UNSYNCHED/SYNCHED Lyrics
 	return false;
 
 
-#Title
-func TitleIncludes(var SongPath : String, var SearchString : String) -> bool:
-	var TagTitle : String = Tags.new().GetTitle(SongPath)
-	return TagTitle.find( SearchString ) != -1 
+func has_synched_lyrics(var _song_path : String) -> bool :
+	return false;
 
 
-#Song Rating
-func SongRatingIs(var SongPath : String, var RatingOutOf10 : String) -> bool:
+func has_unsynched_lyrics(var _song_path : String) -> bool :
+	return false;
+
+
+func title_includes(var song_path : String, var search_phrase : String) -> bool:
+	var TagTitle : String = Tags.new().get_title(song_path)
+	return TagTitle.find( search_phrase ) != -1 
+
+
+func song_rating_is(var song_path : String, var rating_out_of_10 : String) -> bool:
 	#Return if the Song Rating out of 10 given is the same as the Songs Rating
-	var EmbeddedRating = Tagging.new().GetSongPopularity(SongPath)[0]
-	if typeof(EmbeddedRating) != TYPE_INT:
+	var song_rating = Tagging.new().GetSongPopularity(song_path)[0]
+	if typeof(song_rating) != TYPE_INT:
 		return false
-	return EmbeddedRating == int(RatingOutOf10)
+	return song_rating == int(rating_out_of_10)
 
-func SongRatingIsHigher(var SongPath : String, var RatingOutOf10 : String) -> bool:
-	var EmbeddedRating = Tagging.new().GetSongPopularity(SongPath)[0]
-	if typeof(EmbeddedRating) != TYPE_INT:
+
+func song_rating_is_greater(var song_path : String, var rating_out_of_10 : String) -> bool:
+	var song_rating = Tagging.new().GetSongPopularity(song_path)[0]
+	if typeof(song_rating) != TYPE_INT:
 		return false
-	return EmbeddedRating > int(RatingOutOf10)
+	return song_rating > int(rating_out_of_10)
 
-func SongRatingIsLower(var SongPath : String, var RatingOutOf10 : String) -> bool:
-	var EmbeddedRating = Tagging.new().GetSongPopularity(SongPath)[0]
-	if typeof(EmbeddedRating) != TYPE_INT:
+
+func song_rating_is_lesser(var song_path : String, var rating_out_of_10 : String) -> bool:
+	var song_rating = Tagging.new().GetSongPopularity(song_path)[0]
+	if typeof(song_rating) != TYPE_INT:
 		return false
-	return EmbeddedRating < int(RatingOutOf10)
+	return song_rating < int(rating_out_of_10)
 
 
-#Cover
-func HasCover(var _SongPath : String) -> bool:
+func has_cover(var _song_path : String) -> bool:
 	return false
 
-func HasTheSameCoverAs(var _SongPath : String, var _CoverSrc : String) -> bool:
+
+func has_same_cover_as(var _song_path : String, var _cover_src : String) -> bool:
 	return false

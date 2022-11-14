@@ -2,7 +2,7 @@ extends OptionButton
 
 
 func _ready():
-	var SettingValue = SaveData.GetConfigValue(get_parent().PropertySection,get_parent().PropertyKey)
+	var SettingValue = SaveData.get_config_value(get_parent().PropertySection,get_parent().PropertyKey)
 	
 	for i in get_parent().Items.size():
 		self.add_item( var2str( get_parent().ProjectSettingOptions[i] ) )
@@ -14,7 +14,7 @@ func _ready():
 
 
 func OnProjectSettingEditItemSelected(var idx : int):
-	SaveData.SetConfigValue(
+	SaveData.set_config_value(
 		get_parent().PropertySection,
 		get_parent().PropertyKey,
 		get_parent().ProjectSettingOptions[idx]

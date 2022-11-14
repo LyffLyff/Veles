@@ -1,7 +1,7 @@
 extends PanelContainer
 
 #CONSTANTS
-const Methods : Array = ["ToHTMLTable", "ToCSVTable",]
+const Methods : Array = ["to_html_table", "to_CSV_table",]
 const SaveTypes : Array = ["ExportHTML", "ExportCSV"]
 const FileFilters : Array = ["*.html", "*.csv"]
 const Modes : Array = [FileDialog.MODE_SAVE_FILE, FileDialog.MODE_SAVE_FILE]
@@ -17,7 +17,7 @@ func _exit_tree():
 	Global.root.toggle_songlist_input( true )
 
 
-func InitStatsExportMenu(var ContentGrid : Array) -> void:
+func InitStatsExportMenu(var content : Array) -> void:
 	var Export : Exporter = Exporter.new()
 	for i in ExportTypes.get_child_count() - 1:
 		var _err = ExportTypes.get_child(i).connect("pressed",Global.root,"load_general_file_dialogue",[
@@ -25,7 +25,7 @@ func InitStatsExportMenu(var ContentGrid : Array) -> void:
 			Modes[i],
 			FileDialog.ACCESS_FILESYSTEM,
 			Methods[i],
-			[ContentGrid],
+			[content],
 			SaveTypes[i],
 			[FileFilters[i]],
 			true

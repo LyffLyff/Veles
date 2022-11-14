@@ -1,15 +1,12 @@
-extends Reference
-
-class_name HexaDecimal
-
-#A class holding useful functions to Interface with HexaDecimal Numbers
+class_name HexaDecimal extends Reference
+#a class holding useful functions to handle hexaDecimal numbers
 
 
-func SingleHexToDecimal(var Hex : String) -> int:
-	if Hex.is_valid_integer():
-		return int(Hex)
+func hex_digit_to_decimal(var hex_digit : String) -> int:
+	if hex_digit.is_valid_integer():
+		return int(hex_digit)
 	else:
-		match Hex:
+		match hex_digit:
 			"a":
 				return 10
 			"b":

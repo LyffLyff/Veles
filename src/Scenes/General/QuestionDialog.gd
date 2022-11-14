@@ -10,7 +10,7 @@ signal No
 onready var QuestionLabel : Label = $PanelContainer/HBoxContainer/VBoxContainer/Question
 
 
-func NReady(var Question : String) -> void:
+func n_ready(var Question : String) -> void:
 	QuestionLabel.set_text(Question)
 
 

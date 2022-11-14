@@ -33,7 +33,7 @@ func apply_filter(var filter : String) -> void:
 	if filter != "":
 		emit_signal("filter_status",true)
 		for n in songs.get_child_count():
-			var song_name : String = AllSongs.GetSongTitle( songs.get_child(n).main_index )
+			var song_name : String = AllSongs.get_song_filename( songs.get_child(n).main_index )
 			# if the text is somewhat similar or includes the entered phrase it'll be shown
 			if song_name.similarity(filter) > 0.7 or song_name.findn(filter,0) != -1:
 				# if Global.valid_song(song_name) == 1 or  Global.valid_song(song_name) == 0:			#onyl allows valid files to be shown -> else can show .wav files

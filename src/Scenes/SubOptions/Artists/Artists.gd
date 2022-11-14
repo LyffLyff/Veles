@@ -59,7 +59,7 @@ func OnMovableContainerReleased() -> void:
 
 func OnArtistSelected(var ArtistNames : PoolStringArray) -> void:
 	SongLists.TempPlaylistConditions = {
-		"IncludesEitherArtist" : [ArtistNames]
+		"includes_either_artist" : [ArtistNames]
 	}
 	
 	#Passes the Title of Playlist -> Main Artists Name

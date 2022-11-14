@@ -28,12 +28,12 @@ func Update() -> void:
 
 func InitSongInfos() -> void:
 	#Retrieving Infos
-	Infos["Title"] = Tags.GetTitle(SongLists.CurrentSong)
-	Infos["Artist/s"] = Tags.GetArtist(SongLists.CurrentSong)
-	Infos["Album"] = Tags.GetAlbum(SongLists.CurrentSong)
-	Infos["Filetype"] = FormatChecker.GetMusicFormatExtension(SongLists.CurrentSong)
+	Infos["Title"] = Tags.get_title(SongLists.CurrentSong)
+	Infos["Artist/s"] = Tags.get_artist(SongLists.CurrentSong)
+	Infos["Album"] = Tags.get_album(SongLists.CurrentSong)
+	Infos["Filetype"] = FormatChecker.get_music_file_extension(SongLists.CurrentSong)
 	Infos["Filepath"] = SongLists.CurrentSong
-	Infos["Song Duration"] = TimeFormatter.FormatSeconds( float( Tags.GetSongDuration(SongLists.CurrentSong) ) ) + "min"
+	Infos["Song Duration"] = TimeFormatter.format_seconds( float( Tags.get_song_duration(SongLists.CurrentSong) ) ) + "min"
 	
 	var x : Tagging = Tagging.new()
 	Infos["Sample Rate"] = str( x.GetSongSampleRate(SongLists.CurrentSong) ) + "Hz"

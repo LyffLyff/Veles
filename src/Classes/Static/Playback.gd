@@ -1,5 +1,4 @@
-extends Reference
-class_name Playback
+class_name Playback extends Reference
 
 
 func is_song_playable() -> bool: 

@@ -1,26 +1,22 @@
-extends Reference
+class_name ImageLoader extends Reference
 
-class_name ImageLoader
-
-
-#ENUMS
 enum DisplayFlag{
-	SongsSpace = 0,
-	Player = 1,
-	ImageView = 2,
-	Pure = 3
+	SONGSPACE = 0,
+	PLAYER = 1,
+	IMAGE_VIEW = 2,
+	PURE = 3,
 }
 
 
-static func WebpToPng(var WebpData : PoolByteArray) -> PoolByteArray:
+static func webp_to_png(var webp_data : PoolByteArray) -> PoolByteArray:
 	var img : Image = Image.new()
-	if img.load_webp_from_buffer(WebpData) != OK:
+	if img.load_webp_from_buffer(webp_data) != OK:
 		Global.root.message("LOADING WEBP IMAGE FROM BUFFER" ,SaveData.MESSAGE_ERROR)
 		return PoolByteArray();
 	return img.save_png_to_buffer()
 
 
-static func GetCover(var path : String,var PlaylistName : String = "",var ImageSize : Vector2 = Vector2.ZERO) -> ImageTexture:
+static func get_cover(var path : String, var playlist_name : String = "", var ImageSize : Vector2 = Vector2.ZERO) -> ImageTexture:
 	#Retrieving Image from the File itself and returning is as a usable ImageTexture
 	#If this process fails a standard StreamTexture will be returned
 	var img : Image = Image.new()
@@ -28,72 +24,72 @@ static func GetCover(var path : String,var PlaylistName : String = "",var ImageS
 	var dir : Directory = Directory.new()
 	if dir.file_exists(path):
 		texture = ImageTexture.new()
-		var img_data : PoolByteArray = SaveData.LoadBuffer(path)
-		var image_header : String = SaveData.LoadBuffer(path,512).hex_encode()
-		match FormatChecker.ReturnImgFormat(image_header):
+		var img_data : PoolByteArray = SaveData.load_buffer(path)
+		var image_header : String = SaveData.load_buffer(path,512).hex_encode()
+		match FormatChecker.identify_image_file(image_header):
 			0:
 				if !img.load_jpg_from_buffer(img_data) == OK:
-					return GetCover("")
+					return get_cover("")
 			1:
 				if !img.load_png_from_buffer(img_data) == OK:
-					return GetCover("")
+					return get_cover("")
 			2:
 				if !img.load_webp_from_buffer(img_data) == OK:
-					return GetCover("")
+					return get_cover("")
 			-1:
 				#intentionally loads this function with wrong path to get an "empty image"
-				texture = GetCover("")
+				texture = get_cover("")
 		
 		if ImageSize != Vector2.ZERO:
 			var AspectRatio : float = img.get_size().aspect()
 			ImageSize *= AspectRatio
 			img.resize( int(ImageSize.x * AspectRatio) , int( ImageSize.y ) )
-		img = SquarifyImage(img)
+		img = squarify_image(img)
 		texture.create_from_image(img,Texture.FLAGS_DEFAULT)
 	else:
 		#if the given path to an image doesn't exist
-		if PlaylistName == "AllSongs" or PlaylistName == "":
+		if playlist_name == "AllSongs" or playlist_name == "":
 			#if no playlist was specifed on function call
-			var StdCoverPath : String = SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "StandardSongCover")
-			if StdCoverPath != "" and Directory.new().file_exists(StdCoverPath):
+			var std_cover_path : String = SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "StandardSongCover")
+			if std_cover_path != "" and Directory.new().file_exists(std_cover_path):
 				#Loads the std Cover Image Specified in the Settings
-				texture = GetCover( SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "StandardSongCover") )
+				texture = get_cover( SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "StandardSongCover") )
 			else:
 				#Loads the true std cover -> when no std cover was selected
 				texture = load("res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png")
 		else:
-			var playlist_cover_path : String = Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + PlaylistName + ".png"
-			texture = GetCover(playlist_cover_path)
+			var playlist_cover_path : String = Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + playlist_name + ".png"
+			texture = get_cover(playlist_cover_path)
 	return texture
 
 
-static func CreateImageFromData(var data : PoolByteArray):
+static func create_image_from_data(var data : PoolByteArray):
 	if data.size() == 0:
 		return null
-	var NewImage : Image = Image.new()
-	match FormatChecker.ReturnImgFormat( data.subarray(0,128).hex_encode() ):
+	var new_image : Image = Image.new()
+	match FormatChecker.identify_image_file( data.subarray(0,128).hex_encode() ):
 			0:
-				if NewImage.load_jpg_from_buffer(data) != OK:
+				if new_image.load_jpg_from_buffer(data) != OK:
 					Global.root.message("LOADING JPG FROM BUFFER" ,SaveData.MESSAGE_ERROR)
 			1:
-				if NewImage.load_png_from_buffer(data) != OK:
+				if new_image.load_png_from_buffer(data) != OK:
 					Global.root.message("LOADING PNG FROM BUFFER" ,SaveData.MESSAGE_ERROR)
 			2:
-				if NewImage.load_webp_from_buffer(data) != OK:
+				if new_image.load_webp_from_buffer(data) != OK:
 					Global.root.message("LOADING WebP FROM BUFFER" ,SaveData.MESSAGE_ERROR)
 			_:
 				return null
-	return NewImage
+	return new_image
 
 
-static func CreateTextureFromImage(var CoverImg : Image):
-	var Cover : ImageTexture = ImageTexture.new()
-	Cover.create_from_image(CoverImg)
-	return Cover
+static func image_to_texture(var img : Image):
+	var texture : ImageTexture = ImageTexture.new()
+	texture.create_from_image(img)
+	return texture
 
 
-static func GetImageMimeType(var CoverPath : String) -> String:
-	match FormatChecker.ReturnImgFormat( SaveData.LoadBuffer(CoverPath, 256).hex_encode() ):
+static func get_image_mime_type(var cover_path : String) -> String:
+	match FormatChecker.identify_image_file( SaveData.load_buffer(cover_path, 256).hex_encode() ):
 		0:
 			return "image/jpeg";
 		1:
@@ -104,29 +100,31 @@ static func GetImageMimeType(var CoverPath : String) -> String:
 			return "";
 
 
-static func GetCoverCacheImageTexture(var CoverHash : String, var PlaylistName : String = ""):
-	var data : PoolByteArray = SaveData.LoadBuffer( Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + CoverHash + ".png")
-	var img : Image = CreateImageFromData(data)
+static func get_covercache_texture(var coverhash : String, var playlist_name : String = ""):
+	var data : PoolByteArray = SaveData.load_buffer( Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + coverhash + ".png")
+	var img : Image = create_image_from_data(data)
 	
 	if !img:
-		if PlaylistName != "":
-			return GetCover(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + PlaylistName + ".png")
+		if playlist_name != "":
+			return get_cover(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + playlist_name + ".png")
 		return load("res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png")
 	else:
-		img = SquarifyImage(img)
-	return CreateTextureFromImage(img)
+		img = squarify_image(img)
+	return image_to_texture(img)
 
 
-static func SquarifyImage(var img : Image) -> Image:
-	#Squarifying the Cover
-	#Extracting the Biggest Square out of the given Image
-	var NewSize : Vector2 = Vector2(img.get_width() / img.get_size().aspect(), img.get_height())
+static func squarify_image(var img : Image) -> Image:
+	# squarifying the Cover
+	# extracting the biggest square out of the given image
+	var new_rect : Rect2 = Rect2()
+	new_rect.size = Vector2(img.get_width() / img.get_size().aspect(), img.get_height())
 	
-	#fixing the issue of one invalid line of pixels being shown at the bottom in some cases
-	NewSize.y -= 1
+	# fixing the issue of one invalid line of pixels being shown at the bottom in some cases
+	new_rect.size.y -= 1
 	
-	var LeftPos : Vector2 = Vector2(
-		(img.get_size() / 2.0) - (NewSize / 2.0)
+	new_rect.position = Vector2(
+		(img.get_size() / 2.0) - (new_rect.size / 2.0)
 	)
-	img = img.get_rect( Rect2(LeftPos,NewSize) )
-	return img
+	
+	# extracting calculated square
+	return img.get_rect(new_rect)

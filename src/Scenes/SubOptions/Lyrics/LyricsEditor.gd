@@ -66,13 +66,13 @@ func _ready():
 	_err = VerseTools.CutVerse.connect("pressed",self,"OnCutVersePressed")
 
 
-func NReady(var PrjctPth : String = "") -> void:
+func n_ready(var PrjctPth : String = "") -> void:
 	if PrjctPth != "":
 		match PrjctPth.get_extension():
 			"lrc":
 				CreateFromLRC(PrjctPth)
 			"mp3":
-				CreateFromSong( Tags.GetLyrics(PrjctPth) )
+				CreateFromSong( Tags.get_lyrics(PrjctPth) )
 			"vlp":
 				ProjectPath = PrjctPth
 				LoadProject()
@@ -81,7 +81,7 @@ func NReady(var PrjctPth : String = "") -> void:
 
 
 func LoadProject() -> void:
-	var ProjectData : Array = SaveData.Load(ProjectPath)
+	var ProjectData : Array = SaveData.load_data(ProjectPath)
 	
 	#title
 	ProjectTitle.set_text( ProjectData[0] )
@@ -123,30 +123,30 @@ func InitTimestamps(var Timestamps : PoolRealArray) -> void:
 
 func CreateFromLRC(var LRCFilePath : String) -> void:
 	#Retreive Encoded Data
-	var EncodedProjectData : String = SaveData.LoadAsText(LRCFilePath)
-	var DecodedLRCFile : Array = LRC.new().DecodeLRCFile( EncodedProjectData )
+	var EncodedProjectData : String = SaveData.load_as_text(LRCFilePath)
+	var decoded_lrc_file : Array = LRC.new().decode_lrc_file( EncodedProjectData )
 	
 	#Info
 	ProjectTitle.set_text( ProjectPath.get_file().replace(".lrc","") )
-	LRCTags.Artist.set_text(DecodedLRCFile[0].values()[0])
-	LRCTags.Album.set_text(DecodedLRCFile[0].values()[1])
-	LRCTags.Title.set_text(DecodedLRCFile[0].values()[2])
-	LRCTags.Author.set_text(DecodedLRCFile[0].values()[3])
-	LRCTags.SongLength.set_text(DecodedLRCFile[0].values()[4])
-	LRCTags.Language.set_text(DecodedLRCFile[0].values()[5])
-	LRCTags.CreatorOfFile.set_text(DecodedLRCFile[0].values()[6])
+	LRCTags.Artist.set_text(decoded_lrc_file[0].values()[0])
+	LRCTags.Album.set_text(decoded_lrc_file[0].values()[1])
+	LRCTags.Title.set_text(decoded_lrc_file[0].values()[2])
+	LRCTags.Author.set_text(decoded_lrc_file[0].values()[3])
+	LRCTags.SongLength.set_text(decoded_lrc_file[0].values()[4])
+	LRCTags.Language.set_text(decoded_lrc_file[0].values()[5])
+	LRCTags.CreatorOfFile.set_text(decoded_lrc_file[0].values()[6])
 	
 	#Verses
-	for i in DecodedLRCFile[1].size():
+	for i in decoded_lrc_file[1].size():
 		OnAddVersePressed()
-		VerseVBox.get_child(i).VerseText.set_text( DecodedLRCFile[1][i] )
+		VerseVBox.get_child(i).VerseText.set_text( decoded_lrc_file[1][i] )
 		
 		#Resizing the Verse TextEdit if the Verse  is Mutliline
 		VerseVBox.get_child(i).OnVerseTextChanged()
 	#TimeStamps
-	for i in DecodedLRCFile[2].size():
+	for i in decoded_lrc_file[2].size():
 		OnAddTimeStampPressed()
-		TimeStampVBox.get_child(i).TimeStamp.set_text( str( DecodedLRCFile[2][i] ) )
+		TimeStampVBox.get_child(i).TimeStamp.set_text( str( decoded_lrc_file[2][i] ) )
 
 
 func CreateFromAPIResponse(var APIResponse : Array) -> void:
@@ -198,15 +198,15 @@ func OnSaveLyricsProject(var SaveAs : bool = false):
 		]
 	]
 	
-	if FileChecker.exists( ProjectPath ) and !SaveAs:
+	if Directory.new().file_exists(ProjectPath) and !SaveAs:
 		#The Project already exists, the PreExisting File will
 		#be overriden with the new Data
-		SaveData.Save(ProjectPath.replace("user://", OS.get_user_data_dir() + "/" ), VLPFiledata )
+		SaveData.save(ProjectPath.replace("user://", OS.get_user_data_dir() + "/" ), VLPFiledata )
 		ProjectUpToDate = true
 	else:
 		var general_file_dialogue = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
 		Global.root.top_ui.add_child(general_file_dialogue)
-		general_file_dialogue.NReady(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_USERDATA, "Lyrics",["*.vlp"], true, "Save Project As",Title)
+		general_file_dialogue.n_ready(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_USERDATA, "Lyrics",["*.vlp"], true, "Save Project As",Title)
 		general_file_dialogue.Dialog.current_dir = Global.GetCurrentUserDataFolder() + "/Lyrics/Projects"
 		var _err = general_file_dialogue.connect("SelectionMade", SaveData, "Save", [VLPFiledata])
 		
@@ -231,7 +231,7 @@ func AddProjectAsEdited(var NewProjectPath : String) -> void:
 func ExportToLRC() -> void:
 	var Title : String = ProjectTitle.get_text()
 	
-	var LRCFileData : String = LRC.new().EncodeLRCFile(
+	var LRCFileData : String = LRC.new().encode_lrc_file(
 		GetAllVerses(),
 		GetAllTimeStamps(),
 		LRCTags.Artist.get_text(),
@@ -247,7 +247,7 @@ func ExportToLRC() -> void:
 		Exporter.new(),
 		FileDialog.MODE_SAVE_FILE,
 		FileDialog.ACCESS_FILESYSTEM,
-		"ToLRC",
+		"to_LRC",
 		[LRCFileData],
 		"ExportLRC",
 		["*.lrc"],
@@ -314,7 +314,7 @@ func OnReturnPressed():
 		#Asking if they want to leave without saving
 		var x : Node = load("res://src/Scenes/General/QuestionDialog.tscn").instance()
 		Global.root.add_child(x)
-		x.NReady( "Leave Project without Saving?" )
+		x.n_ready( "Leave Project without Saving?" )
 		var _err = x.connect("Yes",Global.root,"load_option",[6,true])
 	else:
 		#If Porject is up to Date it won't display Notice
@@ -358,7 +358,7 @@ func OnEmbedInFilePressed():
 		Tags,
 		FileDialog.MODE_OPEN_FILES,
 		FileDialog.ACCESS_FILESYSTEM,
-		"SetLyrics",
+		"set_lyrics",
 		[IsSynchronized, Verses, Timestamps],
 		"",
 		["*.mp3","*.ogg","*.wav"],

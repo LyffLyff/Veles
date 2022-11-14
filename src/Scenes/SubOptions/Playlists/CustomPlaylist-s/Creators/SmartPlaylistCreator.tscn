@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/Scenes/Templates/ExpandableLineEdit.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Scenes/General/InputWithDialog.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Creators/SmartPlaylistCreator.gd" type="Script" id=3]
 [ext_resource path="res://src/Ressources/Fonts/MidSizedHeader.tres" type="DynamicFont" id=4]
 [ext_resource path="res://src/Themes/Panels/PlaylistCreators.tres" type="StyleBox" id=5]
+[ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=6]
 
 [sub_resource type="StyleBoxFlat" id=2]
 
@@ -79,6 +80,7 @@ margin_right = 587.0
 margin_bottom = 299.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource( 6 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer2/Main/Conditions"]
 margin_right = 585.0

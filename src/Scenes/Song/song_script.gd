@@ -7,7 +7,7 @@ onready var cover : TextureRect = $Panel/HBoxContainer/Cover
 var main_index : int = 0
 
 #saves the index of the Playlist used in SongLists CurrentPlaylist
-var PlaylistIdx : int = -1
+var playlist_idx : int = -1
 
 
 var path : String = ""

@@ -20,7 +20,7 @@ var Artists : PoolStringArray = []
 func InitArtistSpace(var ArtistNames : PoolStringArray, var ArtistProfession : String) -> void:
 	self.get_stylebox("panel").set_bg_color(normal_clr)
 	Artists = ArtistNames
-	ArtistCover.set_texture( ImageLoader.GetCover(Global.GetCurrentUserDataFolder() + "/Songs/Artists/Covers/" + ArtistNames.join("") + ".png") )
+	ArtistCover.set_texture( ImageLoader.get_cover(Global.GetCurrentUserDataFolder() + "/Songs/Artists/Covers/" + ArtistNames.join("") + ".png") )
 	ArtistNameLabel.set_text( ArtistNames.join(", ") )
 	ArtistProfessionLabel.set_text( ArtistProfession )
 	HoldThresholdTimer.set_wait_time(HoldThreshold)

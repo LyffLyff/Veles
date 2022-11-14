@@ -6,7 +6,7 @@ const EXPANDED_SIZE : float = 120.0
 
 var icons_visible : bool = false
 
-onready var sub_options : VBoxContainer = $HBoxContainer/VBoxContainer/sub_options
+onready var sub_options : VBoxContainer = $HBoxContainer/VBoxContainer/Options
 onready var user_profile_container : PanelContainer = $HBoxContainer/VBoxContainer/UserProfileBox
 
 

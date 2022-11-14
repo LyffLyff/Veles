@@ -40,9 +40,9 @@ _global_script_classes=[ {
 "path": "res://src/Classes/Normal/Export.gd"
 }, {
 "base": "Reference",
-"class": "FileChecker",
+"class": "ExtendedDirectory",
 "language": "GDScript",
-"path": "res://src/Classes/Static/FileChecker.gd"
+"path": "res://src/Classes/Static/ExtendedDirectory.gd"
 }, {
 "base": "Reference",
 "class": "FormatChecker",
@@ -136,7 +136,7 @@ _global_script_class_icons={
 "CoverLoader": "",
 "DesignPaths": "",
 "Exporter": "",
-"FileChecker": "",
+"ExtendedDirectory": "",
 "FormatChecker": "",
 "HTML": "",
 "HexaDecimal": "",
@@ -176,7 +176,7 @@ channel_disable_threshold_db=-30.0
 
 [autoload]
 
-Modulator="*res://src/Classes/Static/Modulator.gd"
+Modulator="*res://src/Scenes/Singletons/Modulator.gd"
 Global="*res://src/Scenes/Singletons/Global.gd"
 SettingsData="*res://src/Scenes/Singletons/SettingsData.gd"
 SongLists="*res://src/Scenes/Singletons/SongLists.gd"

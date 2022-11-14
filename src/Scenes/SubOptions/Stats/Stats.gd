@@ -81,14 +81,14 @@ func SetStats(var songs : PoolVector2Array, var StreamTypeFlag : int) -> void:
 		for n in range(amount - 1,-1,-1):
 			index = amount - 1 - n
 			if StreamTypeFlag == 1:
-				main_idx = AllSongs.GetMainIdx(song_dict.keys()[songs[n].y])
+				main_idx = AllSongs.get_main_idx(song_dict.keys()[songs[n].y])
 			if index >= 3:
 				value = song_dict.values()[songs[n].y][0]
 				if value > 0:
 					if main_idx == -1:
 						contents.get_child(index - special_places).text = song_dict.keys()[songs[n].y]
 					else:
-						contents.get_child(index - special_places).text = AllSongs.SongTitle(main_idx)
+						contents.get_child(index - special_places).text = AllSongs.song_title(main_idx)
 					values.get_child(index - special_places).text = "       " + str(song_dict.values()[songs[n].y][0])
 					indexes.get_child(n).set_text(str(n+1 + special_places) + ".)")
 				else:
@@ -97,7 +97,7 @@ func SetStats(var songs : PoolVector2Array, var StreamTypeFlag : int) -> void:
 				if main_idx == -1:
 					toptitles.get_node(str(index + 1) + "/Title").set_text(song_dict.keys()[songs[n].y])
 				else:
-					toptitles.get_node(str(index + 1) + "/Title").set_text(AllSongs.SongTitle(main_idx))
+					toptitles.get_node(str(index + 1) + "/Title").set_text(AllSongs.song_title(main_idx))
 				toptitles.get_node(str(index + 1) + "/Streams").set_text(str(song_dict.values()[songs[n].y][0]))
 
 

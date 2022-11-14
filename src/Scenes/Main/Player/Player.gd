@@ -7,7 +7,7 @@ enum ViewMode {
 }
 
 const VOLUME_CHANGER : PackedScene = preload("res://src/Scenes/Main/Player/VolumeChanger.tscn")
-const IMAGE_VIEW : PackedScene = preload("res://src/scenes/views/ImageView.tscn")
+const IMAGE_VIEW : PackedScene = preload("res://src/Scenes/Views/ImageView.tscn")
 const TW_DURATION : float = 0.1
 
 var view : int = 0
@@ -152,7 +152,7 @@ func _on_Cover_pressed():
 		viewer_control = IMAGE_VIEW.instance()
 		view = ViewMode.COVER_VIEW
 		Global.root.middle_part.add_child(viewer_control)
-		update_player_covers( Playlist.GetPlaylistName(SongLists.CurrentPlayList) )
+		update_player_covers( Playlist.get_playlist_name(SongLists.CurrentPlayList) )
 	else:
 		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"ImageViewActivated",false)
 		viewer_control.end()
@@ -201,13 +201,13 @@ func _on_OutputDevice_pressed():
 
 func _on_PlaybackTimer_timeout() -> void:
 	playback_pos = MainStream.get_playback_position()
-	playback_position.set_text( TimeFormatter.FormatSeconds( playback_pos ) )
+	playback_position.set_text( TimeFormatter.format_seconds( playback_pos ) )
 	playback_slider.set_value( int( playback_pos ) )
 
 
 func _on_Playlist_pressed():
 	# updating playback position every timeout
-	Global.PlaylistPressed =  Playlist.GetPlaylistIndex( song_playlist.get_text().replace("in ","") )
+	Global.PlaylistPressed =  Playlist.get_playlist_index( song_playlist.get_text().replace("in ","") )
 	if Global.PlaylistPressed >= 0 or Global.PlaylistPressed <= -3:
 		Global.root.load_playlist(Global.PlaylistPressed)
 
@@ -215,7 +215,7 @@ func _on_Playlist_pressed():
 func _on_Artist_pressed():
 	var Artist : String = song_artist.get_text().substr(3)
 	SongLists.TempPlaylistConditions = {
-		"IncludesArtist" : [ Artist ]
+		"includes_artist" : [ Artist ]
 		}
 	Global.root.load_temporary_playlist( 
 		Artist,
@@ -248,14 +248,14 @@ func prior_next_song(var direction : int) -> void:
 		else:
 			if !SongLists.SongQueue.empty():
 				var path : String = SongLists.SongQueue.keys()[0]
-				var PlaylistIdx : int = SongLists.SongQueue.get(path)
-				var main_idx : int = AllSongs.GetMainIdx(path)
+				var playlist_idx : int = SongLists.SongQueue.get(path)
+				var main_idx : int = AllSongs.get_main_idx(path)
 				SongLists.SongFromQueue = true
 				Global.root.update_highlighted_song(path)
 				Global.root.playback_song(
 					main_idx,
 					true,
-					Playlist.GetPlaylistName(PlaylistIdx)
+					Playlist.get_playlist_name(playlist_idx)
 				)
 			else:
 				#plays the next song from the last on the was NOT in the queue
@@ -272,10 +272,10 @@ func disable_image_view() -> void:
 		view = ViewMode.NORMAL_VIEW
 
 
-func update_player_covers(var PlaylistName : String = "") -> void:
-	if AllSongs.GetMainIdx(SongLists.CurrentSong) != -1:
-		var CoverHash : String =  AllSongs.GetSongCoverHash(AllSongs.GetMainIdx(SongLists.CurrentSong))
-		var CacheImg = ImageLoader.GetCoverCacheImageTexture(CoverHash, PlaylistName)
+func update_player_covers(var playlist_name : String = "") -> void:
+	if AllSongs.get_main_idx(SongLists.CurrentSong) != -1:
+		var CoverHash : String =  AllSongs.get_song_coverhash(AllSongs.get_main_idx(SongLists.CurrentSong))
+		var CacheImg = ImageLoader.get_covercache_texture(CoverHash, playlist_name)
 		info_cover.set_deferred("texture_normal",CacheImg)
 		set_image_view_cover( CacheImg )
 

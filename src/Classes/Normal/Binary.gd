@@ -1,53 +1,51 @@
-extends Reference
-
-class_name Binary
-
-#A class that hold useful function to handle binary data
+class_name Binary  extends Reference
+# a class that hold useful function to handle binary data
 
 
-func ByteArrayToInt32(var Bytes : PoolByteArray) -> int:
-	#The Max Input of this Function should be 4 Bytes
-	#Any more would not be a Int32 anymore
-	#Converted Using BIG Endian
+func byte_array_to_int32(var bytes : PoolByteArray) -> int:
+	# the Max Input of this Function should be 4 Bytes
+	# any more would not be a Int32 anymore
+	# conversion uses BIG Endian
 	var ShiftLength : int = 0
 	var Int32 : int = 0
-	for i in Bytes.size():
+	for i in bytes.size():
 		if i == 4:
 			break;
-		Int32 += Bytes[i] << ShiftLength
-		#Each Byte is 8 Bit -> for each Index the Shift length has to increase by 8
+		Int32 += bytes[i] << ShiftLength
+		# each Byte is 8 bit -> for each Index the Shift length has to increase by 8
 		ShiftLength += 8 
 	return Int32;
 
 
-func Binary2Decimal(var BinaryValue : int) -> int:
-	#Converting a binary Number represented using an integer
-	#to an actual decimal integer
-	var DecimalValue : int = 0
-	var Count : int = 0
-	var Temp : int
+func binary_to_decimal(var binary_number : int) -> int:
+	# converting a binary Number represented using an integer
+	# to an actual decimal integer
+	var decimal_number : int = 0
+	var count : int = 0
+	var temp : int
 	
-	while( BinaryValue != 0 ):
-		Temp = BinaryValue % 10
-		BinaryValue /= 10
-		DecimalValue += Temp * int( pow(2, Count) )
-		Count += 1
+	while( binary_number != 0 ):
+		temp = binary_number % 10
+		binary_number /= 10
+		decimal_number += temp * int( pow(2, count) )
+		count += 1
 	
-	return DecimalValue
+	return decimal_number
 
 
-func Decimal2Binary(var DecimalValue,var Bits : int) -> String:
-	var BinaryString = "" 
-	var Temp : int
-	var Count = Bits - 1
+func decimal_to_binary(var decimal_value ,var bits : int) -> String:
+	# converting a decimal number given as an integer to a binary number represented as a string
+	var binary_string = "" 
+	var temp : int
+	var count = bits - 1
 	
-	while(Count >= 0):
-		Temp = DecimalValue >> Count 
-		if(Temp & 1):
-			BinaryString = BinaryString + "1"
+	while(count >= 0):
+		temp = decimal_value >> count 
+		if(temp & 1):
+			binary_string = binary_string + "1"
 		else:
-			BinaryString = BinaryString + "0"
-		Count -= 1
+			binary_string = binary_string + "0"
+		count -= 1
 	
-	return BinaryString
+	return binary_string
 
