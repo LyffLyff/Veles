@@ -1,105 +1,94 @@
 extends Node
+# global script holding random globally needed variables and functions
 
-#SIGNALS
-signal DownloadsFinished
+signal downloads_finished
 
-#CONSTANTS
-const SongNamePath : String = "Panel/HBoxContainer/Name"
-const SongArtistPath : String = "Panel/HBoxContainer/Artist"
-const SongLengthPath : String = "Panel/HBoxContainer/Length"
-const SongCoverPath : String = "Panel/HBoxContainer/Cover"
-const SupportedImgFormats : Array = ["*.jpg","*.png","*.webp","*.jpeg"]
+const supported_img_extensions : Array = ["*.jpg","*.png","*.webp","*.jpeg"]
 const audio_formats : Array = ["AAC","FLAC","MP3","M4A","OGG-OPUS","OGG-VORBIS","WAV"]
 const video_formats : Array = ["MP4","WEBM"]
+const pause_img : StreamTexture = preload("res://src/Assets/Icons/White/Audio/Replay/pause_72px.png")
+const play_img : StreamTexture =  preload("res://src/Assets/Icons/White/Audio/Replay/play_72px.png")
 
-#NODES
-onready var DownloaderRef : YtDlp = YtDlp.new()
-onready var root : Control = get_tree().get_root().get_child(get_tree().get_root().get_child_count()-1)
-
-#VARIABLES
-var UserProfiles : PoolStringArray = []
-var CurrentProfileIdx : int = -1
-var PriorUser : String = ""
-var TagPaths : PoolStringArray = []
-#will be set to true when the mouse stopper gets enabled 
-#by the download of option loader to prevent the
-#mouse stoppper from being disabled when reentering focus
+var user_profiles : PoolStringArray = []
+var current_profile_idx : int = -1
+var last_loaded_user : String = ""
+var temp_tag_paths : PoolStringArray = []
+# will be set to true when the mouse stopper gets enabled 
+# by the download of option loader to prevent the
+# mouse stoppper from being disabled when reentering focus
 var std_cover = null
 var std_music_cover = null
-#tells if the program has just been started
-var InitializeSongs : bool = true
+# tells if the program has just been started
+var init_songs : bool = true
 var window_maximized : bool = false
-var PlaylistPressed : int = -1
-var DisplayedMessage : String = ""
-var CurrentDownloads : Array = []
-var LowFPS : bool
-var AppOpenedTime : int = OS.get_unix_time()
+var pressed_playlist_idx : int = -1
+var displayed_message : String = ""
+var current_downloads : Array = []
+var is_low_fps : bool
+var app_opened_time : int = OS.get_unix_time()
 var last_direction : int = 1				# either if the next or prior song was played
 var first_skipped_path : String = ""
 var general_dialogue_visible : bool = false
 
-
-#PRELOADS
-const pause_img : StreamTexture = preload("res://src/Assets/Icons/White/Audio/Replay/pause_72px.png")
-const play_img : StreamTexture =  preload("res://src/Assets/Icons/White/Audio/Replay/play_72px.png")
-
-
-func _exit_tree():
-	#Calculating the App usage time on Minutes
-	var PriorUsageTimeMin = SaveData.load_data(SongLists.GlobalFilePaths[3])
-	var NewUsagetime : float = 0.0
-	if PriorUsageTimeMin == null:
-		PriorUsageTimeMin = 0.0
-	NewUsagetime = PriorUsageTimeMin + ( (OS.get_unix_time() - AppOpenedTime) / 60.0 )
-	SaveData.save(SongLists.GlobalFilePaths[3], NewUsagetime ) 
+onready var downloader_ref : YtDlp = YtDlp.new()
+onready var root : Control = get_tree().get_root().get_child(get_tree().get_root().get_child_count()-1)
 
 
 func _ready():
-	var _err = DownloaderRef.connect("ready",self,"DownloadFromQueue",[false],CONNECT_ONESHOT)
+	var _err = downloader_ref.connect("ready",self,"download_from_queue",[false],CONNECT_ONESHOT)
 
 
-func WindowChanged(var x : bool) -> void:
+func _exit_tree():
+	# calculating the App usage time on Minutes
+	var PriorUsageTimeMin = SaveData.load_data(SongLists.global_file_paths[3])
+	var NewUsagetime : float = 0.0
+	if PriorUsageTimeMin == null:
+		PriorUsageTimeMin = 0.0
+	NewUsagetime = PriorUsageTimeMin + ( (OS.get_unix_time() - app_opened_time) / 60.0 )
+	SaveData.save(SongLists.global_file_paths[3], NewUsagetime ) 
+
+
+func window_changed(var x : bool) -> void:
 	window_maximized = x;
 
 
-func InputToggler(var ToDisable : Node,var x : bool = false) -> void:
-	if ToDisable:
-		ToDisable.set_process_input(x)
-		ToDisable.set_process_unhandled_input(x)
+func set_node_input(var ref : Node, var input : bool = false) -> void:
+	if ref:
+		ref.set_process_input(input)
+		ref.set_process_unhandled_input(input)
 
 
-func RequestFPSChange(var fps : int) -> void:
-	#allows for the fps of the application to be boosted while being out of focus -> e.g. animations
-	if LowFPS:
+func request_fps_change(var fps : int) -> void:
+	# allows for the fps of the application to be boosted while being out of focus -> e.g. animations
+	if is_low_fps:
 		Engine.set_target_fps(fps)
 
 
-func PushTagPath(var NewTagPath : String) -> void:
-	TagPaths.push_back(NewTagPath)
+func push_tag_path(var new_tag_path : String) -> void:
+	temp_tag_paths.push_back(new_tag_path)
 
 
-#User Profiles
-func NewUserProfile(var NewUsername : String) -> void:
-	UserProfiles.push_back(NewUsername)
+func new_user_profile(var NewUsername : String) -> void:
+	user_profiles.push_back(NewUsername)
 	VelesInit.new().create_folders()
 
 
 func is_username_valid( var new_username : String ) -> bool:
-	#Checks if a given username is valid
-	if !new_username.is_valid_filename() or new_username == "" or UserProfiles.has(new_username) or new_username.length() > 100:
+	# checks if a given username is valid
+	if !new_username.is_valid_filename() or new_username == "" or user_profiles.has(new_username) or new_username.length() > 100:
 		return false
 	return true
 
 
-func RenameUser(var new_username : String, var UserIdx : int) -> void:
+func rename_user(var new_username : String, var user_idx : int) -> void:
 	if !is_username_valid(new_username):
 		root.message("Invalid Username", SaveData.MESSAGE_ERROR, true)
 		return
 	
 	var dir : Directory = Directory.new()
-	var old_username : String = UserProfiles[UserIdx]
+	var old_username : String = user_profiles[user_idx]
 	
-	#Renaming the Userimage
+	# renaming the user profile image
 	var user_imgs : String = "user://GlobalSettings/UserImages/"
 	if dir.file_exists( user_imgs + old_username + ".png" ):
 		var _err = dir.rename(
@@ -107,90 +96,89 @@ func RenameUser(var new_username : String, var UserIdx : int) -> void:
 			user_imgs + new_username + ".png"
 		)
 	
-	#Renaming the Directory in the Userdata
+	# renaming the Directory in the Userdata
 	var _err = dir.rename(
 		"user://Users/" + old_username,
 		"user://Users/" + new_username
 	)
 	
-	#Replacing the Old Username with new s
-	UserProfiles[UserIdx] = new_username
+	# replacing the Old Username with new s
+	user_profiles[user_idx] = new_username
  
 
-func RemoveUser(var UserIdx : int) -> void:
-	UserProfiles.remove(UserIdx)
+func remove_user(var user_idx : int) -> void:
+	user_profiles.remove(user_idx)
 
 
-func ChangeUserCover(var NewImagePath : String, var UserIdx : int) -> void:
-	var Dir : Directory = Directory.new()
-	var _err = Dir.remove( OS.get_user_data_dir() + "/GlobalSettings/UserImages/" + UserProfiles[UserIdx] + ".png" )
-	_err = Dir.copy(NewImagePath, OS.get_user_data_dir() + "/GlobalSettings/UserImages/" + UserProfiles[UserIdx] + ".png" )
+func change_user_cover(var new_img_path : String, var user_idx : int) -> void:
+	var dir : Directory = Directory.new()
+	var _err = dir.remove( OS.get_user_data_dir() + "/GlobalSettings/UserImages/" + user_profiles[user_idx] + ".png" )
+	_err = dir.copy(new_img_path, OS.get_user_data_dir() + "/GlobalSettings/UserImages/" + user_profiles[user_idx] + ".png" )
 
 
-func GetCurrentUser() -> String:
-	if CurrentProfileIdx == -1:
+func get_current_user() -> String:
+	if current_profile_idx == -1:
 		return ""
-	return UserProfiles[CurrentProfileIdx]
+	return user_profiles[current_profile_idx]
 
 
-func GetCurrentUserDataFolder() -> String:
-	return OS.get_user_data_dir() + "/Users/" + Global.GetCurrentUser()
+func get_current_user_data_folder() -> String:
+	return OS.get_user_data_dir() + "/Users/" + Global.get_current_user()
 
 
-#Playlist
-func AddToPlaylist(var playlist_selector,var playlist_idx : int, var main_idxs : PoolIntArray):
+func add_to_playlist(var playlist_selector, var playlist_idx : int, var main_idxs : PoolIntArray):
 	for main_idx in main_idxs:
 		var path : String = AllSongs.get_song_path(main_idx)
-		#creates new key with path as the key and other infos as values
-		SongLists.Playlists.values()[playlist_idx][path] = [main_idx]
+		# creates new key with path as the key and other infos as values
+		SongLists.normal_playlists.values()[playlist_idx][path] = [main_idx]
 		playlist_selector.queue_free()
 
 
-#Global Download -> Background loading possible
-func PushNewDownload(var URL : String, var Title : String, var DstFolder : String, var IsAudio : bool, var VideoFormat : int, var AudioFormat : int, var IsPlaylist : bool) -> void:
-	CurrentDownloads.push_back(
+func push_new_download(var url : String, var title : String, var dst_folder : String, var is_audio : bool, var video_format : int, var AudioFormat : int, var is_playlist : bool) -> void:
+	# global Download -> Background loading possible
+	current_downloads.push_back(
 		{
-			"URL" : URL,
-			"TITLE" : Title,
-			"DST_FOLDER" : DstFolder,
-			"AUDIO" : IsAudio,
-			"VIDEO_FORMAT" : VideoFormat,
+			"URL" : url,
+			"TITLE" : title,
+			"DST_FOLDER" : dst_folder,
+			"AUDIO" : is_audio,
+			"VIDEO_FORMAT" : video_format,
 			"AUDIO_FORMAT" : AudioFormat,
-			"PLAYLIST" : IsPlaylist 
+			"PLAYLIST" : is_playlist 
 		}
 	)
-	DownloadFromQueue(false)
+	download_from_queue(false)
 
 
-func DownloadFromQueue(var CompletedDownload : bool = false) -> void:
-	#If Downloader Not ready it waits for it
-	if !DownloaderRef._is_ready:
-		yield(DownloaderRef,"ready")
+func download_from_queue(var is_download_completed : bool = false) -> void:
+	# if downloader Not ready it waits for it
+	if !downloader_ref._is_ready:
+		yield(downloader_ref,"ready")
 	
-	if !DownloaderRef.is_connected("download_completed",self,"DownloadFromQueue"):
-		var _err = DownloaderRef.connect("download_completed",self,"DownloadFromQueue",[true],CONNECT_ONESHOT)
+	if !downloader_ref.is_connected("download_completed",self,"download_from_queue"):
+		var _err = downloader_ref.connect("download_completed",self,"download_from_queue",[true],CONNECT_ONESHOT)
 	
-	if CompletedDownload:
-		#if a download was completed the first in queue gets freed -> the downloaded one
-		if CurrentDownloads.size() > 0:
-			CurrentDownloads.remove(0)
-			Global.InitializeSongs = true
+	if is_download_completed:
+		# if a download was completed the first in queue gets freed -> the downloaded one
+		if current_downloads.size() > 0:
+			current_downloads.remove(0)
+			Global.init_songs = true
 	
-	if CurrentDownloads.size() > 0:
-		if !DownloaderRef._thread.is_active():
-			DownloaderRef.download(
-				CurrentDownloads[0]["URL"],
-				CurrentDownloads[0]["DST_FOLDER"],
-				CurrentDownloads[0]["TITLE"],
-				CurrentDownloads[0]["AUDIO"],
-				CurrentDownloads[0]["VIDEO_FORMAT"],
-				CurrentDownloads[0]["AUDIO_FORMAT"],
-				CurrentDownloads[0]["PLAYLIST"]
+	if current_downloads.size() > 0:
+		if !downloader_ref._thread.is_active():
+			downloader_ref.download(
+				current_downloads[0]["URL"],
+				current_downloads[0]["DST_FOLDER"],
+				current_downloads[0]["TITLE"],
+				current_downloads[0]["AUDIO"],
+				current_downloads[0]["VIDEO_FORMAT"],
+				current_downloads[0]["AUDIO_FORMAT"],
+				current_downloads[0]["PLAYLIST"]
 			)
 	else:
-		#All downloads finished
-		emit_signal("DownloadsFinished")
+		# all downloads finished
+		emit_signal("downloads_finished")
 
 
-func StopQueuedDownload(var idx : int) -> void:
-	CurrentDownloads.remove(idx)
+func stop_queued_download(var idx : int) -> void:
+	current_downloads.remove(idx)

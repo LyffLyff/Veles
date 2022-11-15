@@ -1,6 +1,4 @@
-extends Reference
-
-class_name SongLoader
+class_name SongLoader extends Reference
 
 var SongsSpaceScene : PackedScene = preload("res://src/scenes/song/SongSpace.tscn")
 
@@ -25,10 +23,10 @@ func Reload() -> void:
 				Global.root.message("COULD NOT ERASE INDEX " + str(n) + "FROM ALLSONGS DICTIONARY", SaveData.MESSAGE_ERROR)
 	
 	#Loading New Songs from Folder if any
-	for FolderIdx in SongLists.Folders.size():
+	for FolderIdx in SongLists.folders.size():
 		
 		var dir = Directory.new()
-		if dir.open(SongLists.Folders[FolderIdx]) == OK:
+		if dir.open(SongLists.folders[FolderIdx]) == OK:
 			if dir.list_dir_begin(true,true) == OK:
 					while true:
 						
@@ -51,10 +49,10 @@ func Reload() -> void:
 									
 									if DividedArtists[n] == "":
 										continue;
-									if SongLists.Artists.has( [ DividedArtists[n] ] ):
+									if SongLists.artists.has( [ DividedArtists[n] ] ):
 										continue;
 										
-									SongLists.Artists.push_back( 
+									SongLists.artists.push_back( 
 										[ DividedArtists[n] ] 
 									);
 								
@@ -103,24 +101,24 @@ func CreateSongsSpaces(var SongVBOX : VBoxContainer,var ToSet : PoolIntArray = [
 
 func SetSongspaceCover(var SongSpace : HBoxContainer,var main_idx : int, var playlist_idx : int = -1) -> void:
 	var CoverImg : Texture = null
-	var CoverSpace : TextureRect = SongSpace.get_node(Global.SongCoverPath)
+	var CoverSpace : TextureRect = SongSpace.get_node("Panel/HBoxContainer/Cover")
 	
-	if SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "ShowSongspaceCover"):
+	if SettingsData.get_setting(SettingsData.SONG_SETTINGS, "ShowSongspaceCover"):
 		var CoverHash : String = AllSongs.get_song_coverhash(main_idx)
-		if SongLists.CoverCache.has(CoverHash):
-			CoverImg = SongLists.CoverCache.get(CoverHash)
+		if SongLists.cached_covers.has(CoverHash):
+			CoverImg = SongLists.cached_covers.get(CoverHash)
 		else:
 			CoverImg = ImageLoader.get_cover("", Playlist.get_playlist_name(playlist_idx) )
 	CoverSpace.set_deferred("texture",CoverImg)
 
 
 func SetSongspaceTitle(var SongSpace : HBoxContainer,var main_idx : int) -> void:
-	SongSpace.get_node(Global.SongNamePath).set_deferred("text",AllSongs.song_title(main_idx))
+	SongSpace.get_node("Panel/HBoxContainer/Name").set_deferred("text",AllSongs.song_title(main_idx))
 
 
 func SetSongspaceArtist(var SongSpace : HBoxContainer,var main_idx : int) -> void:
-	SongSpace.get_node(Global.SongArtistPath).set_deferred("text",AllSongs.get_song_artist(main_idx))
+	SongSpace.get_node("Panel/HBoxContainer/Artist").set_deferred("text",AllSongs.get_song_artist(main_idx))
 
 
 func SetSongspaceLength(var SongSpace : HBoxContainer,var main_idx : int) -> void:
-	SongSpace.get_node(Global.SongLengthPath).set_deferred("text",TimeFormatter.format_seconds(AllSongs.get_song_duration(main_idx)))
+	SongSpace.get_node("Panel/HBoxContainer/Length").set_deferred("text",TimeFormatter.format_seconds(AllSongs.get_song_duration(main_idx)))

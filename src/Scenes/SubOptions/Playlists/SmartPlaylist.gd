@@ -19,7 +19,7 @@ var TempPlaylistCoverPath : String = ""
 
 
 
-func n_ready( var Conditions : Dictionary = {}, var Title = "",var CustomDescriptionPath : String = "", var TmpPlaylistCvrPth : String = ""):
+func n_ready( var conditions : Dictionary = {}, var Title = "",var CustomDescriptionPath : String = "", var TmpPlaylistCvrPth : String = ""):
 	var _err = Scroll.get_v_scrollbar().connect("value_changed", self, "OnScrollValueChanged")
 	SongHighlighter = $SongHighlighter
 	PlaylistOptions = $HBoxContainer/VBoxContainer/Header/HBoxContainer/PlaylistOptions
@@ -33,24 +33,24 @@ func n_ready( var Conditions : Dictionary = {}, var Title = "",var CustomDescrip
 	songs = SongVBox 
 	TempPlaylistCoverPath = TmpPlaylistCvrPth
 	ConnectScrollContainer()
-	if Conditions.empty():
-		playlist_idx = Global.PlaylistPressed
-		PlaylistTitle = SongLists.SmartPlaylists[ -playlist_idx - 3 ]
-		Conditions = LoadPlaylistConditions()
+	if conditions.empty():
+		playlist_idx = Global.pressed_playlist_idx
+		PlaylistTitle = SongLists.smart_playlists[ -playlist_idx - 3 ]
+		conditions = LoadPlaylistConditions()
 	else:
 		PlaylistTitle = Title
 		playlist_idx = -2
 		
 	SmartPlaylistTitleLabel.set_text( PlaylistTitle )
 	if TempPlaylistCoverPath == "":
-		SmartPlaylistCover.set_texture( ImageLoader.get_cover(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + PlaylistTitle + ".png") )
+		SmartPlaylistCover.set_texture( ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + PlaylistTitle + ".png") )
 	else:
 		SmartPlaylistCover.set_texture( ImageLoader.get_cover(TempPlaylistCoverPath))
-	var SongIdxs : PoolIntArray = GetSmartPlaylistSongs(Conditions)
+	var SongIdxs : PoolIntArray = GetSmartPlaylistSongs(conditions)
 	if SongIdxs.size() > 0:
 		LoadSongs(SongIdxs)
 	if CustomDescriptionPath == "":
-		DescriptionPath = Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Metadata/Descriptions/" + PlaylistTitle + ".txt"
+		DescriptionPath = Global.get_current_user_data_folder() + "/Songs/Playlists/Metadata/Descriptions/" + PlaylistTitle + ".txt"
 	else:
 		#Used when Displaying Artists
 		DescriptionPath = CustomDescriptionPath
@@ -67,17 +67,17 @@ func n_ready( var Conditions : Dictionary = {}, var Title = "",var CustomDescrip
 		CreationDate.text = ""
 	
 	#Setting Current Song
-	root.update_highlighted_song(SongLists.CurrentSong)
+	root.update_highlighted_song(SongLists.current_song)
 
 
 func LoadPlaylistConditions() -> Dictionary:
-	var Temp = SaveData.load_data(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/SmartPlaylists/Conditions/" + PlaylistTitle + ".dat")
+	var Temp = SaveData.load_data(Global.get_current_user_data_folder() + "/Songs/Playlists/SmartPlaylists/Conditions/" + PlaylistTitle + ".dat")
 	if Temp:
 		return Temp
 	return Dictionary()
 
 
-func GetSmartPlaylistSongs(var Conditions : Dictionary) -> PoolIntArray:
+func GetSmartPlaylistSongs(var conditions : Dictionary) -> PoolIntArray:
 	var ConditionFunctions : SmartPlaylistConditions = SmartPlaylistConditions.new()
 	var ValidSong : bool = true
 	var TempSongPath : String = ""
@@ -89,12 +89,12 @@ func GetSmartPlaylistSongs(var Conditions : Dictionary) -> PoolIntArray:
 		ValidSong = true
 		TempSongPath = SongLists.AllSongs.keys()[x]
 		#Checking Conditions
-		for y in Conditions.size():
-			#print("Condition Function: ", Conditions.keys()[y])
-			#print("Condition: ",Conditions.values()[y])
+		for y in conditions.size():
+			#print("Condition Function: ", conditions.keys()[y])
+			#print("Condition: ",conditions.values()[y])
 			###!!!!!!!!!!!!!!!!!The [0] must be changed when dealing with multiple genres/albums/artists/...
-			for z in Conditions.values()[y].size():
-				if !ConditionFunctions.call( Conditions.keys()[y], TempSongPath, Conditions.values()[y][z]):
+			for z in conditions.values()[y].size():
+				if !ConditionFunctions.call( conditions.keys()[y], TempSongPath, conditions.values()[y][z]):
 					ValidSong = false
 					break;
 		
@@ -105,7 +105,7 @@ func GetSmartPlaylistSongs(var Conditions : Dictionary) -> PoolIntArray:
 	
 	#Setting the Currently "created" Playlist in a Global Dictionary
 	#the Playlist has only been loaded, but is not the one currently playing
-	SongLists.PressedTempSmartPlaylist = TempSmartPlaylist
+	SongLists.pressed_temporary_playlist = TempSmartPlaylist
 	
 	#Returning All Songs that fit the Current Description
 	return SongIdxs;
@@ -113,13 +113,13 @@ func GetSmartPlaylistSongs(var Conditions : Dictionary) -> PoolIntArray:
 
 func LoadSongs(var SongIdxs : PoolIntArray) -> void:
 	var x : SongLoader = SongLoader.new()
-	x.CreateSongsSpaces(SongVBox, SongIdxs, Global.PlaylistPressed )
+	x.CreateSongsSpaces(SongVBox, SongIdxs, Global.pressed_playlist_idx )
 
 
 func OnDeleteSmartPlaylistpressed():
-	SongLists.SmartPlaylists.erase( PlaylistTitle )
-	ExtendedDirectory.delete_file(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + PlaylistTitle + ".png")
-	ExtendedDirectory.delete_file(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Metadata/Descriptions/" + PlaylistTitle + ".txt")
+	SongLists.smart_playlists.erase( PlaylistTitle )
+	ExtendedDirectory.delete_file(Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + PlaylistTitle + ".png")
+	ExtendedDirectory.delete_file(Global.get_current_user_data_folder() + "/Songs/Playlists/Metadata/Descriptions/" + PlaylistTitle + ".txt")
 	UnloadPlaylist()
 
    

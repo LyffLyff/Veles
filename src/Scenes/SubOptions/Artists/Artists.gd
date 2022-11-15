@@ -23,16 +23,16 @@ func _ready():
 
 func LoadArtistContainers(var SelectMethod : String) -> void:
 	var x : PanelContainer = null
-	var Artists : PoolStringArray = []
-	for i in SongLists.Artists.size():
+	var artists : PoolStringArray = []
+	for i in SongLists.artists.size():
 		x = MovableContainerScene.instance()
 		MovableContainerVBox.add_child( x )
 		var _err = x.connect("MovingContainerPressed", self, SelectMethod)
 		_err = x.connect("HoldingMovableContainer",self,"OnHoldingMovableContainer")
 		_err = x.connect("ReleasedMovableContainer",self,"OnMovableContainerReleased")
-		Artists.resize(0)
-		Artists = SongLists.Artists[i]
-		x.InitArtistSpace( Artists, "Producer/Songer/Artist" )
+		artists.resize(0)
+		artists = SongLists.artists[i]
+		x.InitArtistSpace( artists, "Producer/Songer/Artist" )
 
 
 func OnMovableContainerReleased() -> void:
@@ -47,7 +47,7 @@ func OnMovableContainerReleased() -> void:
 	var NewChildIdxI : int = int(NewChildIdxF)
 	if false:	#Combining artists blocked for a bit
 		CombineArtists(OldIdx,NewChildIdxI)
-		MovableContainerVBox.get_child(NewChildIdxI).InitArtistSpace(SongLists.Artists[NewChildIdxI],"")
+		MovableContainerVBox.get_child(NewChildIdxI).InitArtistSpace(SongLists.artists[NewChildIdxI],"")
 		MovableContainerVBox.remove_child(MovableContainerRef)
 		MovableContainerRef.queue_free()
 	else:
@@ -58,29 +58,29 @@ func OnMovableContainerReleased() -> void:
 
 
 func OnArtistSelected(var ArtistNames : PoolStringArray) -> void:
-	SongLists.TempPlaylistConditions = {
+	SongLists.temporary_playlist_conditions = {
 		"includes_either_artist" : [ArtistNames]
 	}
 	
 	#Passes the Title of Playlist -> Main Artists Name
 	Global.root.load_temporary_playlist(
 		ArtistNames.join(", "),
-		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Descriptions/" + ArtistNames.join("") + ".txt",
-		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Covers/" + ArtistNames.join("") + ".png",
+		Global.get_current_user_data_folder() + "/Songs/Artists/Descriptions/" + ArtistNames.join("") + ".txt",
+		Global.get_current_user_data_folder() + "/Songs/Artists/Covers/" + ArtistNames.join("") + ".png",
 		3
 	)
 
 
 func MoveArtistFrom(var OldArtistIdx : int, var NewIdx : int) -> void:
-	var Artists : PoolStringArray = SongLists.Artists[OldArtistIdx]
-	SongLists.Artists.remove(OldArtistIdx)
-	if NewIdx < SongLists.Artists.size():
-		SongLists.Artists.insert(NewIdx,Artists)
+	var artists : PoolStringArray = SongLists.artists[OldArtistIdx]
+	SongLists.artists.remove(OldArtistIdx)
+	if NewIdx < SongLists.artists.size():
+		SongLists.artists.insert(NewIdx,artists)
 	else:
-		SongLists.Artists.push_back(Artists)
+		SongLists.artists.push_back(artists)
 
 
 func CombineArtists(var OldArtistIdx : int, var NewIdx : int) -> void:
-	var Artists : PoolStringArray = SongLists.Artists[OldArtistIdx]
-	SongLists.Artists.remove(OldArtistIdx)
-	SongLists.AppendArtists(NewIdx, Artists)
+	var artists : PoolStringArray = SongLists.artists[OldArtistIdx]
+	SongLists.artists.remove(OldArtistIdx)
+	SongLists.append_artists(NewIdx, artists)

@@ -1,10 +1,8 @@
 extends TextureButton
 
-
 var ref : Control = null
 
-
-func OnDisplayOptionsPressed() -> void:
+func on_song_options_pressed() -> void:
 	if !ref:
 		ref = load( "res://src/scenes/Main/MainSongOptions.tscn" ).instance()
 		var _err = ref.connect("tree_exited",self,"set",["ref",null])
@@ -13,5 +11,5 @@ func OnDisplayOptionsPressed() -> void:
 		ref.rect_global_position.x -= ref.rect_size.x
 		ref.rect_global_position.y -= ref.rect_size.y
 	else:
-		ref.ExitPlayerOption()
+		ref.exit_player_option()
 

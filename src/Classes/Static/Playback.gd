@@ -6,7 +6,7 @@ func is_song_playable() -> bool:
 
 
 func stop_playback() -> void:
-	SongLists.CurrentSong = ""
+	SongLists.current_song = ""
 	MainStream.set_stream_paused(true)
 	MainStream.set_stream(null)
 	MainStream.ReloadStreamTimer(true)

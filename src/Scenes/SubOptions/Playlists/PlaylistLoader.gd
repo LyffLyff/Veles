@@ -95,9 +95,9 @@ func UnHighlightSong(var idx : int) -> void:
 
 func FreeHighlightedSongs() -> void:
 	#Clearing CTRL highlighted songs
-	for HighlightedSong in SongLists.HighlightedSongs:
+	for HighlightedSong in SongLists.highlighted_songs:
 		songs.get_child( SongListHasThis(HighlightedSong) ).modulate = Color("ffffff")
-	SongLists.HighlightedSongs = []
+	SongLists.highlighted_songs = []
 
 
 func OnSongSpaceOptions(var idx : int) -> void:
@@ -111,7 +111,7 @@ func OnSongSpaceOptions(var idx : int) -> void:
 		x.rect_position.y -= 150
 	if get_global_mouse_position().x + 200 > OS.get_window_size().x: 
 		x.rect_position.x -= 100
-	x.SongIdx = idx
+	x.song_idx = idx
 	root.add_child(x)
 
 
@@ -124,13 +124,13 @@ func OnLeftMouseButtonClicked(var idx : int) -> void:
 			var main_idx : int = song_.main_index
 			var playlist_idx : int = song_.playlist_idx
 			#unhighlights the highlighted song when another one has been pressed
-			var highlighted_song : int = SongListHasThis(SongLists.CurrentSong)
+			var highlighted_song : int = SongListHasThis(SongLists.current_song)
 			if highlighted_song != idx:
 				if highlighted_song != -1:
 					UnHighlightSong(highlighted_song)
 			#highlighting the current song if it has not been already
 			HighlightSong(song_)
-			SongLists.CurrentPlayList = song_.playlist_idx
+			SongLists.current_playlist_idx = song_.playlist_idx
 			root.playback_song(
 				main_idx,
 				true,
@@ -138,7 +138,7 @@ func OnLeftMouseButtonClicked(var idx : int) -> void:
 			)
 			root.player.set_repeat(false)
 		else:
-			SongLists.AddHighlightedSongs(songs, idx)
+			SongLists.add_highlighted_song(songs, idx)
 
 
 func  _on_SongScroller_resized():
@@ -148,10 +148,10 @@ func  _on_SongScroller_resized():
 func GetPlaylistSongAmount() -> int:
 	if playlist_idx >= 0:
 		#Normal Playlists
-		return SongLists.Playlists.values()[playlist_idx].size();
+		return SongLists.normal_playlists.values()[playlist_idx].size();
 	elif playlist_idx <= -2:
 		#Temporary and Smart Playlists
-		return SongLists.PressedTempSmartPlaylist.size();
+		return SongLists.pressed_temporary_playlist.size();
 	elif playlist_idx == -1:
 		#All Songs
 		return SongLists.AllSongs.size();
@@ -160,7 +160,7 @@ func GetPlaylistSongAmount() -> int:
 
 func GetPlaylistCreationDate() -> String:
 	var playlist_name : String = Playlist.get_playlist_name(playlist_idx)
-	var TempDate = SaveData.get_key_from_file(SongLists.AddUserToFilepath(SongLists.FilePaths[9]),playlist_name,0)
+	var TempDate = SaveData.get_key_from_file(SongLists.add_user_to_filepath(SongLists.file_paths[9]),playlist_name,0)
 	if TempDate:
 		var TimeFormat : TimeFormatter = TimeFormatter.new()
 		var Daytime : String = TimeFormat.format_daytime(TempDate.hour, TempDate.minute, TempDate.second)
@@ -199,8 +199,8 @@ func rename_playlist() -> void:
 	Global.root.toggle_songlist_input(false)
 	var x : Node = load("res://src/Scenes/General/TextInputDialogue.tscn").instance()
 	root.add_child(x)
-	x.SetTopic("New Playlist Title")
-	var _err = x.connect("TextSave",Playlist,"rename_playlist",[playlist_idx])
+	x.set_topic("New Playlist Title")
+	var _err = x.connect("text_saved",Playlist,"rename_playlist",[playlist_idx])
 	_err = x.connect("tree_exited",self,"UnloadPlaylist")
 	_err = x.connect("tree_exited",Global.root,"toggle_songlist_input",[true])
 
@@ -208,7 +208,7 @@ func rename_playlist() -> void:
 func ExportPlaylist() -> void:
 	var PlaylistExportMenu : Node = load("res://src/Scenes/Export/PlaylistExportMenu.tscn").instance()
 	Global.root.top_ui.add_child(PlaylistExportMenu)
-	PlaylistExportMenu.InitPlaylistExportMenu(playlist_idx)
+	PlaylistExportMenu.init_export_menu(playlist_idx)
 
 
 #Header Expanding/Contracting
@@ -276,7 +276,7 @@ func OnSetCoverPressed():
 		"OnCoverSelected",
 		[],
 		"Image",
-		Global.SupportedImgFormats,
+		Global.supported_img_extensions,
 		true,
 		"Select New Playlist Cover"
 	)

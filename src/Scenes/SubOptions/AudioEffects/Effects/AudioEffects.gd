@@ -47,8 +47,8 @@ func _ready():
 func SaveCurrentAsPreset() -> void:
 	var x = load("res://src/Scenes/General/TextInputDialogue.tscn").instance()
 	Global.root.top_ui.add_child(x)
-	x.connect("TextSave",self,"SavePreset")
-	x.SetTopic("Preset Title")
+	x.connect("text_saved",self,"SavePreset")
+	x.set_topic("Preset Title")
 
 
 func SavePreset(var preset_name : String) -> void:
@@ -58,9 +58,9 @@ func SavePreset(var preset_name : String) -> void:
 		return
 	
 	#Saving the Preset with the Main enabled -> will be replaced on Load
-	var NewPreset : Array = SongLists.AudioEffects
+	var NewPreset : Array = SongLists.audio_effects
 	SaveData.save(
-		Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets/" + preset_name + ".epr",
+		Global.get_current_user_data_folder() + "/Settings/AudioEffects/Presets/" + preset_name + ".epr",
 		NewPreset
 	)
 	
@@ -69,9 +69,9 @@ func SavePreset(var preset_name : String) -> void:
 
 
 func LoadPreset(var PresetIdx : int) -> void:
-	var main_enabled : bool = SongLists.AudioEffects[SongLists.AudioEffects.size() - 1]["main_enabled"]
+	var main_enabled : bool = SongLists.audio_effects[SongLists.audio_effects.size() - 1]["main_enabled"]
 	var PresetTitle : String = Header.PresetSelection.get_popup().get_item_text(PresetIdx)
-	var PresetData = SaveData.load_data(Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets/" + PresetTitle)
+	var PresetData = SaveData.load_data(Global.get_current_user_data_folder() + "/Settings/AudioEffects/Presets/" + PresetTitle)
 	
 	if !PresetData:
 		Global.root.message("LOADING PRESET: " + PresetTitle,  SaveData.MESSAGE_ERROR)
@@ -80,7 +80,7 @@ func LoadPreset(var PresetIdx : int) -> void:
 	#Setting Preset as Current Audio Effect
 	
 	PresetData[PresetData.size() - 1]["main_enabled"] = main_enabled
-	SongLists.AudioEffects = PresetData
+	SongLists.audio_effects = PresetData
 	
 	#Updating the Effects
 	var EffectIdx : int = -1
@@ -90,7 +90,7 @@ func LoadPreset(var PresetIdx : int) -> void:
 			#!= null must be -> else thinks 0 is false
 			EffectIdx = Effects.get_child(i).EffectIdx
 			Effects.get_child(i).CallEffectContainers("UpdateEffectContainer")
-			Effects.get_child(i).EffectSwitch.OnEffectToggled(SongLists.AudioEffects[EffectIdx]["enabled"])
+			Effects.get_child(i).EffectSwitch.OnEffectToggled(SongLists.audio_effects[EffectIdx]["enabled"])
 
 
 func FreeAudioEffects() -> void:

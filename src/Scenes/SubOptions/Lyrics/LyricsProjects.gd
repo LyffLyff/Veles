@@ -14,7 +14,7 @@ func _ready():
 
 func LoadLyricsProjects() -> void:
 	var dir : Directory = Directory.new()
-	if dir.open(Global.GetCurrentUserDataFolder() + "/Lyrics/Projects/") != OK:	return
+	if dir.open(Global.get_current_user_data_folder() + "/Lyrics/Projects/") != OK:	return
 	if dir.list_dir_begin(true,false) != OK:	return;
 	
 	#Loading All Projects
@@ -28,7 +28,7 @@ func LoadLyricsProjects() -> void:
 		AllProjects.add_child(x)
 		x.rect_min_size.y = 30
 		x.set_text(y)
-		x.connect("pressed",Global.root,"load_lyric_editor",[Global.GetCurrentUserDataFolder() + "/Lyrics/Projects/" + y])
+		x.connect("pressed",Global.root,"load_lyric_editor",[Global.get_current_user_data_folder() + "/Lyrics/Projects/" + y])
 		x.size_flags_horizontal = SIZE_EXPAND_FILL
 	
 	#Loading Last Edited
@@ -36,13 +36,13 @@ func LoadLyricsProjects() -> void:
 	#1.) An Already existing Project has been opened
 	#2.) A new Project gets saved
 	#3.) Every Saved As Project
-	var LastProjects : PoolStringArray = SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects")
+	var LastProjects : PoolStringArray = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects")
 	for i in LastProjects.size():
 		if !Directory.new().file_exists(LastProjects[i]):
 			#if the File doesn't exist it will be removed from the Last Edited ones
-			var Temp : PoolStringArray = SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects")
+			var Temp : PoolStringArray = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects")
 			Temp.remove(i)
-			SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects",Temp)
+			SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects",Temp)
 			continue;
 		var x = Button.new()
 		x.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND

@@ -7,9 +7,9 @@ onready var Cover : HBoxContainer = $Panel/HBoxContainer/VBoxContainer/HBoxConta
 onready var Folder : HBoxContainer = $Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/FolderPath
 
 
-func OnSavePressed() -> void:
-	var PFolder : String = Folder.InputEdit.get_text()
-	var PTitle : String = Title.InputEdit.get_text()
-	var PCoverPath : String = Cover.InputEdit.get_text()
+func on_save_pressed() -> void:
+	var PFolder : String = Folder.input_edit.get_text()
+	var PTitle : String = Title.input_edit.get_text()
+	var PCoverPath : String = Cover.input_edit.get_text()
 	emit_signal("Save",PTitle,PCoverPath,PFolder,{})
-	ExitPopup()
+	exit_popup()

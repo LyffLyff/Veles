@@ -11,7 +11,7 @@ func _ready():
 
 
 func InitProfileBox():
-	if Global.CurrentProfileIdx != -1:
-		var Username : String = Global.UserProfiles[Global.CurrentProfileIdx]
+	if Global.current_profile_idx != -1:
+		var Username : String = Global.user_profiles[Global.current_profile_idx]
 		UsernameLabel.set_text(Username)
 		ProfileImage.set_texture( ImageLoader.get_cover("user://GlobalSettings/UserImages/" + Username + ".png") )

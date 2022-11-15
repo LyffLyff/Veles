@@ -1,4 +1,5 @@
 extends Control
+# script handling the container shown when an error or message must be displayed to the user
 
 const DURATION : float = 0.3
 
@@ -7,14 +8,14 @@ onready var message_label : Label = $VBoxContainer/message/Label
 
 func _ready():
 	self.rect_position.y = 150
-	message_label.set_text("  " + Global.DisplayedMessage + "  ")
-	Global.RequestFPSChange(60)
+	message_label.set_text("  " + Global.displayed_message + "  ")
+	Global.request_fps_change(60)
 	message_tween(0, 1.0)
 	yield(get_tree().create_timer(1.5),"timeout")
-	Global.RequestFPSChange(60)
+	Global.request_fps_change(60)
 	message_tween(150, 0.0)
 	yield(get_tree().create_timer(DURATION),"timeout")
-	Global.RequestFPSChange(4)
+	Global.request_fps_change(4)
 	self.queue_free()
 
 

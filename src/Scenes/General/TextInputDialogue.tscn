@@ -117,5 +117,5 @@ margin_bottom = 275.0
 rect_min_size = Vector2( 10, 0 )
 size_flags_vertical = 3
 
-[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Close" to="." method="OnClosePressed"]
-[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Save" to="." method="OnSavePressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Close" to="." method="_on_Close_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Save" to="." method="_on_Save_pressed"]

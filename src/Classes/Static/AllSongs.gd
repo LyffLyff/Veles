@@ -41,7 +41,7 @@ static func get_song_liked(var main_idx : int) -> bool:
 
 
 static func get_song_cover_path(var main_idx : int) -> String:
-	return Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + get_song_coverhash(main_idx) + ".png"
+	return Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + get_song_coverhash(main_idx) + ".png"
 
 
 static func get_song_amount() -> int:
@@ -73,7 +73,7 @@ static func set_coverhash(var path : String, var new_coverhash : String) -> void
 
 
 static func song_title(var main_idx : int) -> String:
-	match SettingsData.GetSetting(SettingsData.SONG_SETTINGS,"DisplayNameMode"):
+	match SettingsData.get_setting(SettingsData.SONG_SETTINGS,"DisplayNameMode"):
 		0:
 			return get_song_filename(main_idx)
 		1:

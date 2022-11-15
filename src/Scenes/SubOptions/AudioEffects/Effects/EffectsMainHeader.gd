@@ -18,12 +18,12 @@ func _ready():
 
 
 func InitColor() -> void:
-	self.get_stylebox("panel").set_bg_color( SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS, "AudioEffectsHeaderBackground") )
+	self.get_stylebox("panel").set_bg_color( SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "AudioEffectsHeaderBackground") )
 
 
 func InitPresetSelection() -> void:
 	var dir : Directory = Directory.new()
-	if dir.open(Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets") != OK:
+	if dir.open(Global.get_current_user_data_folder() + "/Settings/AudioEffects/Presets") != OK:
 		Global.root.message("OPENING PRESETS FOLDER",  SaveData.MESSAGE_ERROR)
 		return;
 	

@@ -16,4 +16,4 @@ const LanguagesInISO6391Notation : Array =[
 
 
 func _enter_tree():
-	MenuButtonSelections = LanguagesInISO6391Notation;
+	menu_button_selections = LanguagesInISO6391Notation;

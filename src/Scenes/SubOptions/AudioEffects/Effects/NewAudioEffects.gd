@@ -30,14 +30,14 @@ func _ready():
 
 
 func InitColor() -> void:
-	self.get_stylebox("panel").set_bg_color( SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS, "AudioEffectsBackground") )
+	self.get_stylebox("panel").set_bg_color( SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "AudioEffectsBackground") )
 
 
 func SetAudioEffect(var PropertyIdx : int, var NewValue : float) -> void:
 	var Effect : AudioEffect = AudioServer.get_bus_effect(0, EffectIdx)
 	var Property : String = Properties[PropertyIdx]
 	Effect.set_deferred(Property, NewValue)
-	SongLists.AudioEffects[EffectIdx][Property] = NewValue
+	SongLists.audio_effects[EffectIdx][Property] = NewValue
 
 
 func CallEffectContainers(var Method : String) -> void:
@@ -53,14 +53,14 @@ func CallEffectContainers(var Method : String) -> void:
 
 
 func InitEffectContainer(var EffectContainer : Control) -> void:
-	var NewValue : float = SongLists.AudioEffects[ EffectIdx ][ Properties[EffectContainer.PropertyIdx] ]
+	var NewValue : float = SongLists.audio_effects[ EffectIdx ][ Properties[EffectContainer.PropertyIdx] ]
 	EffectContainer.SetValue(NewValue)
 	var _err = EffectContainer.connect("AudioEffectSubValueChanged", self,"SetAudioEffect")
 	SetAudioEffect(EffectContainer.PropertyIdx, NewValue)
 
 
 func UpdateEffectContainer(var EffectContainer : Control) -> void:
-	var NewValue : float = SongLists.AudioEffects[ EffectIdx ][ Properties[EffectContainer.PropertyIdx] ]
+	var NewValue : float = SongLists.audio_effects[ EffectIdx ][ Properties[EffectContainer.PropertyIdx] ]
 	EffectContainer.SetValue( 
 		NewValue
 	)

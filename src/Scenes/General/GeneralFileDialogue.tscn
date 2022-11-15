@@ -26,4 +26,4 @@ show_hidden_files = true
 [connection signal="dir_selected" from="FileDialog" to="." method="SelectionMade"]
 [connection signal="file_selected" from="FileDialog" to="." method="SelectionMade"]
 [connection signal="files_selected" from="FileDialog" to="." method="SelectionMade"]
-[connection signal="popup_hide" from="FileDialog" to="." method="OnFileDialogHidden"]
+[connection signal="popup_hide" from="FileDialog" to="." method="_on_FileDialog_popup_hide"]

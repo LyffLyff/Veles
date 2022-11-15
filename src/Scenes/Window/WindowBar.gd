@@ -27,7 +27,7 @@ func _ready():
 	
 	# initialising color
 	self.get_stylebox("panel").set_bg_color(
-		SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS,"WindowBarColor")
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS,"WindowBarColor")
 	)
 	
 	# setting up all the side Maximizing
@@ -147,7 +147,7 @@ func _on_Maximise_pressed(var type : int = 0):
 					OS.window_position = Vector2(screen_sides[screen_side_idx],0)
 				OS.window_size = Vector2(OS.get_screen_size().x/2,OS.get_screen_size().y - 40)
 		emit_signal("window_changed")
-		Global.WindowChanged(true)
+		Global.window_changed(true)
 			
 	else:
 		unmaximize()
@@ -163,4 +163,4 @@ func unmaximize()-> void:
 	maximized = false
 	OS.set_window_size(last_size)
 	OS.set_window_position(last_position)
-	Global.WindowChanged(false)
+	Global.window_changed(false)

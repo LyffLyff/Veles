@@ -14,7 +14,7 @@ onready var SongLength : LineEdit = $VBoxContainer/SongLength/LineEdit
 onready var Language : MenuButton = $VBoxContainer/ISO6391LanguageSelection/ISO6391LanguageSelection
 onready var CreatorOfFile : LineEdit = $VBoxContainer/CreatorOfFile/LineEdit
 onready var TagVBox : VBoxContainer = $VBoxContainer
-onready var Pointer : TextureRect = $LRCTags/HBoxContainer/Pointer
+onready var pointer : TextureRect = $LRCTags/HBoxContainer/Pointer
 
 
 #VARIABLES
@@ -38,12 +38,12 @@ func OnLRCTagsPressed():
 	IsTweening = true
 	if !IsExpanded:
 		var ptw : PropertyTweener = tw.tween_property(self, "rect_min_size:y", MinY * TagVBox.get_child_count(), EXPAND_DURATION)
-		ptw = tw.parallel().tween_property(Pointer,"rect_rotation", 180.0, EXPAND_DURATION)
+		ptw = tw.parallel().tween_property(pointer,"rect_rotation", 180.0, EXPAND_DURATION)
 		yield(tw,"finished")
 		TagVBox.visible = true
 	else:
 		var ptw : PropertyTweener = tw.tween_property(self, "rect_min_size:y", MinY, EXPAND_DURATION)
-		ptw = tw.parallel().tween_property(Pointer,"rect_rotation", 0.0, EXPAND_DURATION)
+		ptw = tw.parallel().tween_property(pointer,"rect_rotation", 0.0, EXPAND_DURATION)
 		TagVBox.visible = false
 		yield(tw,"finished")
 

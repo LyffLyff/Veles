@@ -1,5 +1,4 @@
 extends Button
 
-#NODES
-onready var OptionLabel : Label = $HBoxContainer/Label
-onready var OptionIcon : TextureRect = $HBoxContainer/TextureRect
+onready var option_label : Label = $HBoxContainer/Label
+onready var option_icon : TextureRect = $HBoxContainer/TextureRect

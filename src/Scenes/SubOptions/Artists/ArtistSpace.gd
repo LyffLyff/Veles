@@ -14,13 +14,13 @@ const normal_clr : Color = Color("222222")
 const TW_DURATION : float = 0.15
 
 #VARIABLES
-var Artists : PoolStringArray = []
+var artists : PoolStringArray = []
 
 
 func InitArtistSpace(var ArtistNames : PoolStringArray, var ArtistProfession : String) -> void:
 	self.get_stylebox("panel").set_bg_color(normal_clr)
-	Artists = ArtistNames
-	ArtistCover.set_texture( ImageLoader.get_cover(Global.GetCurrentUserDataFolder() + "/Songs/Artists/Covers/" + ArtistNames.join("") + ".png") )
+	artists = ArtistNames
+	ArtistCover.set_texture( ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/Artists/Covers/" + ArtistNames.join("") + ".png") )
 	ArtistNameLabel.set_text( ArtistNames.join(", ") )
 	ArtistProfessionLabel.set_text( ArtistProfession )
 	HoldThresholdTimer.set_wait_time(HoldThreshold)
@@ -28,7 +28,7 @@ func InitArtistSpace(var ArtistNames : PoolStringArray, var ArtistProfession : S
 
 func OnArtistButtonButtonUp():
 	if !Holding:
-		emit_signal("MovingContainerPressed", Artists )
+		emit_signal("MovingContainerPressed", artists )
 
 
 func OnArtistButtonButtonDown():

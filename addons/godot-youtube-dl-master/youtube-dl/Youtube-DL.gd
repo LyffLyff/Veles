@@ -140,7 +140,7 @@ func _thread_finished():
 	print("download_completed")
 	_thread.wait_to_finish()
 	emit_signal("download_completed")
-	Global.DownloadFromQueue(true)
+	Global.download_from_queue(true)
 	
 	# Decrement the reference count once the thread is done
 	unreference()

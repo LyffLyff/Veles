@@ -2,4 +2,4 @@ extends VBoxContainer
 
 
 #VARIABLES
-export var SettingTypeIdx : int = -1
+export var setting_type_idx : int = -1

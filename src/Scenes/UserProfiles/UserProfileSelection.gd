@@ -18,14 +18,14 @@ func _ready():
 
 func LoadUserProfiles() -> void:
 	FreeUserProfiles()
-	Global.PriorUser = Global.GetCurrentUser()
-	for i in Global.UserProfiles.size():
+	Global.last_loaded_user = Global.get_current_user()
+	for i in Global.user_profiles.size():
 		var x = load("res://src/Scenes/UserProfiles/UserProfileContainer.tscn").instance()
 		x.connect("RightClicked",self,"LoadUserOptions",[i])
 		x.connect("pressed",self,"OnUserProfileSelected",[i])
 		ProfileHBox.add_child(x)
-		x.Username.set_text(Global.UserProfiles[i])
-		x.ProfileImg.set_texture( ImageLoader.get_cover("user://GlobalSettings/UserImages/" + Global.UserProfiles[i] + ".png") )
+		x.Username.set_text(Global.user_profiles[i])
+		x.ProfileImg.set_texture( ImageLoader.get_cover("user://GlobalSettings/UserImages/" + Global.user_profiles[i] + ".png") )
 		ProfileHBox.move_child(x,0)
 
 
@@ -35,16 +35,16 @@ func FreeUserProfiles() -> void:
 		ProfileHBox.get_child(i).queue_free()
 
 
-func OnUserProfileSelected(var UserIdx : int) -> void:
+func OnUserProfileSelected(var user_idx : int) -> void:
 	#Saving the Data of the Previous user then loading the one from the new one
 	var Paths : PoolStringArray = []
-	for i in SongLists.FilePaths.size():
-		Paths.push_back( SongLists.AddUserToFilepath(SongLists.FilePaths[i]) )
+	for i in SongLists.file_paths.size():
+		Paths.push_back( SongLists.add_user_to_filepath(SongLists.file_paths[i]) )
 	SongLists.saveUserSpecificData(Paths)
-	Global.CurrentProfileIdx = UserIdx
-	Global.InitializeSongs = true
-	SongLists.ResetUserdata()
-	SongLists.LoadUserSpecificData(SongLists.FilePaths)
+	Global.current_profile_idx = user_idx
+	Global.init_songs = true
+	SongLists.reset_userdata()
+	SongLists.load_user_specific_data(SongLists.file_paths)
 	
 	# initialising user profile
 	var init : VelesInit = VelesInit.new()
@@ -55,8 +55,8 @@ func OnUserProfileSelected(var UserIdx : int) -> void:
 	init.init_volume()
 	
 	#Setting Std Download Folder
-	if !SaveData.load_data(SongLists.AddUserToFilepath(SongLists.FilePaths[0])):
-		SongLists.AddFolder(Global.GetCurrentUserDataFolder() + "/Downloads")
+	if !SaveData.load_data(SongLists.add_user_to_filepath(SongLists.file_paths[0])):
+		SongLists.add_folder(Global.get_current_user_data_folder() + "/Downloads")
 	
 	self.queue_free()
 
@@ -67,7 +67,7 @@ func OnAddUserPressed() -> void:
 	self.add_child(x)
 
 
-func LoadUserOptions(var UserIdx : int) -> void:
+func LoadUserOptions(var user_idx : int) -> void:
 	var x : Node = load("res://src/Scenes/UserProfiles/UserProfileOptions.tscn").instance()
 	Global.root.add_child(x)
 	x.rect_global_position = get_global_mouse_position()
@@ -75,35 +75,35 @@ func LoadUserOptions(var UserIdx : int) -> void:
 	x.rect_global_position.x -= (x.rect_size.x / 2)
 	
 	#Profile Options
-	var _err = x.Delete.connect("pressed",self,"OnDeleteUser",[UserIdx])
+	var _err = x.Delete.connect("pressed",self,"OnDeleteUser",[user_idx])
 	_err = x.Delete.connect("pressed",x,"queue_free")
-	_err = x.Rename.connect("pressed",self,"OnRenameUser",[UserIdx])
-	_err = x.ChangeCover.connect("pressed",self,"OnChangeCover",[UserIdx])
+	_err = x.Rename.connect("pressed",self,"OnRenameUser",[user_idx])
+	_err = x.ChangeCover.connect("pressed",self,"OnChangeCover",[user_idx])
 
 
-func OnChangeCover(var UserIdx : int) -> void:
+func OnChangeCover(var user_idx : int) -> void:
 	var x : Node = load("res://src/Scenes/General/TextInputDialogue.tscn").instance()
-	var _err = x.connect("TextSave",Global,"ChangeUserCover",[UserIdx])
+	var _err = x.connect("text_saved",Global,"change_user_cover",[user_idx])
 	_err = x.connect("tree_exited",self,"LoadUserProfiles")
 	Global.root.add_child(x)
-	x.SetTopic("Change User Profile Image")
-	x.InitDialogueButton(FileDialog.MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, "Cover", Global.SupportedImgFormats)
+	x.set_topic("Change User Profile Image")
+	x.init_dialogue_button(FileDialog.MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, "Cover", Global.supported_img_extensions)
 
 
-func OnRenameUser(var UserIdx : int) -> void:
+func OnRenameUser(var user_idx : int) -> void:
 	var x : Node = load("res://src/Scenes/General/TextInputDialogue.tscn").instance()
-	var _err = x.connect("TextSave",Global,"RenameUser",[UserIdx])
+	var _err = x.connect("text_saved",Global,"rename_user",[user_idx])
 	_err = x.connect("tree_exited",self,"LoadUserProfiles")
 	Global.root.add_child(x)
-	x.SetTopic("Rename User Profile")
+	x.set_topic("Rename User Profile")
 
 
-func OnDeleteUser(var UserIdx : int) -> void:
-	var Username : String = Global.UserProfiles[UserIdx]
+func OnDeleteUser(var user_idx : int) -> void:
+	var Username : String = Global.user_profiles[user_idx]
 	
 	#Removing Folders Containing the Users specific data
-	Global.RemoveUser(UserIdx)
-	ExtendedDirectory.remove_folder_recursive( Global.GetCurrentUserDataFolder() )
+	Global.remove_user(user_idx)
+	ExtendedDirectory.remove_folder_recursive( Global.get_current_user_data_folder() )
 	
 	#Removing the users profile image
 	var dir : Directory = Directory.new()
@@ -112,9 +112,9 @@ func OnDeleteUser(var UserIdx : int) -> void:
 		var _err = dir.remove(user_img)
 	
 	#If the Deleted is the Current User
-	if Username == Global.PriorUser:
-		Global.PriorUser = ""
-		Global.CurrentProfileIdx = -1
+	if Username == Global.last_loaded_user:
+		Global.last_loaded_user = ""
+		Global.current_profile_idx = -1
 		Global.root.player.init_player()
 		if MainStream.stream:
 			MainStream.set_stream(null)

@@ -50,15 +50,15 @@ static func get_cover(var path : String, var playlist_name : String = "", var Im
 		#if the given path to an image doesn't exist
 		if playlist_name == "AllSongs" or playlist_name == "":
 			#if no playlist was specifed on function call
-			var std_cover_path : String = SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "StandardSongCover")
+			var std_cover_path : String = SettingsData.get_setting(SettingsData.SONG_SETTINGS, "StandardSongCover")
 			if std_cover_path != "" and Directory.new().file_exists(std_cover_path):
 				#Loads the std Cover Image Specified in the Settings
-				texture = get_cover( SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "StandardSongCover") )
+				texture = get_cover( SettingsData.get_setting(SettingsData.SONG_SETTINGS, "StandardSongCover") )
 			else:
 				#Loads the true std cover -> when no std cover was selected
 				texture = load("res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png")
 		else:
-			var playlist_cover_path : String = Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + playlist_name + ".png"
+			var playlist_cover_path : String = Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + playlist_name + ".png"
 			texture = get_cover(playlist_cover_path)
 	return texture
 
@@ -101,12 +101,12 @@ static func get_image_mime_type(var cover_path : String) -> String:
 
 
 static func get_covercache_texture(var coverhash : String, var playlist_name : String = ""):
-	var data : PoolByteArray = SaveData.load_buffer( Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + coverhash + ".png")
+	var data : PoolByteArray = SaveData.load_buffer( Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + coverhash + ".png")
 	var img : Image = create_image_from_data(data)
 	
 	if !img:
 		if playlist_name != "":
-			return get_cover(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + playlist_name + ".png")
+			return get_cover(Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + playlist_name + ".png")
 		return load("res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png")
 	else:
 		img = squarify_image(img)

@@ -1,26 +1,23 @@
 extends PanelContainer
+# a general dialogue that asks a question and can either receive yes or no as a user input
 
+signal conformation
+signal agreed
+signal disagreed
 
-#SIGNALS
-signal Conformation
-signal Yes
-signal No
-
-#NODES
-onready var QuestionLabel : Label = $PanelContainer/HBoxContainer/VBoxContainer/Question
-
+onready var question_label : Label = $PanelContainer/HBoxContainer/VBoxContainer/Question
 
 func n_ready(var Question : String) -> void:
-	QuestionLabel.set_text(Question)
+	question_label.set_text(Question)
 
 
-func No():
-	emit_signal("No")
-	emit_signal("Conformation")
+func disagreed():
+	emit_signal("disagreed")
+	emit_signal("conformation")
 	self.queue_free()
 
 
-func Yes():
-	emit_signal("Yes")
-	emit_signal("Conformation")
+func agreed():
+	emit_signal("agreed")
+	emit_signal("conformation")
 	self.queue_free()

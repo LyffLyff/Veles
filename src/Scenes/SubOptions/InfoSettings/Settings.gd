@@ -96,9 +96,9 @@ func OnColorChangerShown(var ChildIdx : int) -> void:
 
 func OnColorChangerFreed() -> void:
 	if ChangingStyleBox:
-		SettingsData.SetSetting(SettingsData.DESIGN_SETTINGS, SettingsKey, ChangingStyleBox.get(StyleBoxProperty) )
+		SettingsData.set_setting(SettingsData.DESIGN_SETTINGS, SettingsKey, ChangingStyleBox.get(StyleBoxProperty) )
 	else:
-		SettingsData.SetSetting(SettingsData.DESIGN_SETTINGS, SettingsKey, PickerColor)
+		SettingsData.set_setting(SettingsData.DESIGN_SETTINGS, SettingsKey, PickerColor)
 	PickerColor = null
 	DesignSetter = null
 	ChangingStyleBox = null
@@ -112,7 +112,7 @@ func OnColorChanged(var clr : Color) -> void:
 		PickerColor = clr
 
 
-func OnFilesDropped(var FilePaths : PoolStringArray, var _ScreenIdx : int) -> void:
+func OnFilesDropped(var file_paths : PoolStringArray, var _ScreenIdx : int) -> void:
 	#A function that finds the Closest Reference of a Node inside of an Array,
 	#relative to the Mouse Position
 	#the Dropped File will then be entered automatically
@@ -132,8 +132,8 @@ func OnFilesDropped(var FilePaths : PoolStringArray, var _ScreenIdx : int) -> vo
 			ClosestDistance = MousePos.distance_to( CurrentFileEdits[i].rect_global_position )
 	
 	
-	CurrentFileEdits[ ClosestFileEditIdx ].FileEdit.set_text( FilePaths[0] )
-	CurrentFileEdits[ ClosestFileEditIdx ].FileEdit.emit_signal("text_entered",FilePaths[0])
+	CurrentFileEdits[ ClosestFileEditIdx ].FileEdit.set_text( file_paths[0] )
+	CurrentFileEdits[ ClosestFileEditIdx ].FileEdit.emit_signal("text_entered",file_paths[0])
 
 
 func InitCurrentFileEdits() -> void:

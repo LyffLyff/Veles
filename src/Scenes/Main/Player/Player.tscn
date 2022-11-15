@@ -448,7 +448,7 @@ autostart = true
 
 [connection signal="mouse_entered" from="Main/SongInfo/Info/Cover/Cover" to="Main/SongInfo/Info/Cover/Cover" method="_on_Cover_mouse_entered"]
 [connection signal="pressed" from="Main/SongInfo/Info/Cover/Cover" to="." method="_on_Cover_pressed"]
-[connection signal="pressed" from="Main/SongInfo/Info/Cover/Cover" to="Main/SongInfo/Info/Cover/Cover" method="OnCoverPressed"]
+[connection signal="pressed" from="Main/SongInfo/Info/Cover/Cover" to="Main/SongInfo/Info/Cover/Cover" method="_on_Cover_pressed"]
 [connection signal="resized" from="Main/SongInfo/Info/Infos" to="Main/SongInfo/Info/Infos/Artist" method="_on_Parent_Resized"]
 [connection signal="resized" from="Main/SongInfo/Info/Infos" to="Main/SongInfo/Info/Infos/Playlist" method="_on_Parent_Resized"]
 [connection signal="pressed" from="Main/SongInfo/Info/Infos/Artist" to="." method="_on_Artist_pressed"]
@@ -460,5 +460,5 @@ autostart = true
 [connection signal="pressed" from="Main/Additional/Volume/Volume" to="." method="_on_Volume_pressed"]
 [connection signal="pressed" from="Main/Additional/OutputDevice" to="." method="_on_OutputDevice_pressed"]
 [connection signal="pressed" from="Main/Additional/Effects" to="." method="_on_Effects_pressed"]
-[connection signal="pressed" from="Main/Additional/SongOptions" to="Main/Additional/SongOptions" method="OnDisplayOptionsPressed"]
+[connection signal="pressed" from="Main/Additional/SongOptions" to="Main/Additional/SongOptions" method="on_song_options_pressed"]
 [connection signal="timeout" from="PlaybackTimer" to="." method="_on_PlaybackTimer_timeout"]

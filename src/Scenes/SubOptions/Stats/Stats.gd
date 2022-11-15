@@ -106,9 +106,9 @@ func get_stream_dict(var StreamTypeFlag : int) -> Dictionary:
 		1:
 			return SongLists.Streams
 		2:
-			return SongLists.PlaylistStreams
+			return SongLists.playlist_streams
 		0:
-			return SongLists.ArtistStreams
+			return SongLists.artist_streams
 	return  {}
 
 
@@ -159,4 +159,4 @@ func OnExportPressed():
 		)
 	var StatsExportMenu : Control = load("res://src/Scenes/Export/StatsExportMenu.tscn").instance() 
 	Global.root.top_ui.add_child( StatsExportMenu )
-	StatsExportMenu.InitStatsExportMenu(SortedStreamList)
+	StatsExportMenu.init_export_menu(SortedStreamList)

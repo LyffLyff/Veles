@@ -1,25 +1,23 @@
 extends MenuButton
 
-
-#VARIABLES
-var MenuButtonSelections : Array = []
+var menu_button_selections : Array = []
 
 
 func _ready():
-	var _err = self.get_popup().connect("id_pressed",self,"OnMenuIdPressed")
+	var _err = self.get_popup().connect("id_pressed",self,"_on_menu_id_pressed")
 	self.get_popup().allow_search = true
-	#Adding the Option to always select an Empty Option
-	MenuButtonSelections.push_front("")
+	# adding the Option to always select an Empty Option
+	menu_button_selections.push_front("")
 	
-	#Adding the Items that are inside the MenuButtons Array
-	for i in MenuButtonSelections.size():
+	# adding the Items that are inside the MenuButtons Array
+	for i in menu_button_selections.size():
 		self.get_popup().add_item(
-			MenuButtonSelections[i],
+			menu_button_selections[i],
 			i
 		)
 
 
-func OnMenuIdPressed(var id : int) -> void:
+func _on_menu_id_pressed(var id : int) -> void:
 	self.set_text(
 		self.get_popup().get_item_text(id)
 	)

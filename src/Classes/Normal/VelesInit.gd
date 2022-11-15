@@ -18,8 +18,8 @@ func init_random_settings() -> void:
 	#var _err = ProjectSettings.save()
 	
 	# init Random
-	if AudioServer.get_device_list().has(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS, "AudioOutputDevice")):
-		AudioServer.set_device( SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS, "AudioOutputDevice") )
+	if AudioServer.get_device_list().has(SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "AudioOutputDevice")):
+		AudioServer.set_device( SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "AudioOutputDevice") )
 	else:
 		# if the Saved Audio Output Device cannot be found anymore
 		# the default will be selected 
@@ -72,39 +72,39 @@ func create_folders():
 			"Songs/Artists/Covers",
 			"Songs/Artists/Names"
 		]
-		for username in Global.UserProfiles:
+		for username in Global.user_profiles:
 			for n in user_specific_folders.size():
-				if !dir.dir_exists(Global.GetCurrentUserDataFolder() + user_specific_folders[n]):
+				if !dir.dir_exists(Global.get_current_user_data_folder() + user_specific_folders[n]):
 					if dir.make_dir_recursive("Users/" + username  + "/" + user_specific_folders[n]) != OK:
 						Global.root.message("CREATING" + user_specific_folders[n] + "FOLDER",SaveData.MESSAGE_ERROR)
 
 
 func init_audio_effects() -> void:
-	var main_enabled : bool = SongLists.AudioEffects[SongLists.AudioEffects.size() - 1]["main_enabled"]
-	for i in SongLists.AudioEffects.size() - 1:
+	var main_enabled : bool = SongLists.audio_effects[SongLists.audio_effects.size() - 1]["main_enabled"]
+	for i in SongLists.audio_effects.size() - 1:
 		# setting Effect Enabled
 		# if main is not enabled the effects will be set to off no matter what
 		AudioServer.set_bus_effect_enabled(
 			0,
 			i,
-			SongLists.AudioEffects[i]["enabled"] and main_enabled
+			SongLists.audio_effects[i]["enabled"] and main_enabled
 		)
 		
 		# setting Effect Values
 		var x : AudioEffect = AudioServer.get_bus_effect(0,i)
-		for j in range(1, SongLists.AudioEffects[i].size()):
-			x.set_deferred( SongLists.AudioEffects[i].keys()[j], SongLists.AudioEffects[i].values()[j] )
+		for j in range(1, SongLists.audio_effects[i].size()):
+			x.set_deferred( SongLists.audio_effects[i].keys()[j], SongLists.audio_effects[i].values()[j] )
 
 
 func init_volume() -> void:
 	MainStream.set_volume(
-		db2linear(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS, "Volume"))
+		db2linear(SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "Volume"))
 	)
 
 
 func copy_std_audio_presets() -> void:
 	# copying Standard Presets from project to userdata, on first time
-	if !Directory.new().file_exists( SongLists.AddUserToFilepath( SongLists.FilePaths[17] ) ):
+	if !Directory.new().file_exists( SongLists.add_user_to_filepath( SongLists.file_paths[17] ) ):
 		var dir : Directory = Directory.new()
 		if dir.open("res://src/Ressources/StdAudioPresets") == OK:
 			if dir.list_dir_begin(true,true) == OK:
@@ -114,9 +114,9 @@ func copy_std_audio_presets() -> void:
 					if temp_std_audio_preset == "":
 						break;
 					if dir.file_exists("res://src/Ressources/StdAudioPresets/" + temp_std_audio_preset):
-						if dir.copy("res://src/Ressources/StdAudioPresets/" + temp_std_audio_preset,Global.GetCurrentUserDataFolder() + "/Settings/AudioEffects/Presets/" + temp_std_audio_preset.get_file() ) != OK:
+						if dir.copy("res://src/Ressources/StdAudioPresets/" + temp_std_audio_preset,Global.get_current_user_data_folder() + "/Settings/AudioEffects/Presets/" + temp_std_audio_preset.get_file() ) != OK:
 							Global.root.message("COPYING STANDARD PRESET FILE TO USERDATA",SaveData.MESSAGE_ERROR, false, Color() )
-				SaveData.save(SongLists.AddUserToFilepath( SongLists.FilePaths[17] ),true)
+				SaveData.save(SongLists.add_user_to_filepath( SongLists.file_paths[17] ),true)
 		else:
 			Global.root.message("StdAudioPresets couldn't be loaded", SaveData.MESSAGE_ERROR) 
 
@@ -131,7 +131,7 @@ func copy_export_templates() -> void:
 
 
 func init_std_covers() -> void:
-	var std_cover_path : String = SettingsData.GetSetting( SettingsData.SONG_SETTINGS, "StandardSongCover")
+	var std_cover_path : String = SettingsData.get_setting( SettingsData.SONG_SETTINGS, "StandardSongCover")
 	Global.std_cover = ImageLoader.get_cover( std_cover_path )
 	Global.std_music_cover = ImageLoader.get_cover( std_cover_path )
 

@@ -1,8 +1,7 @@
 extends Control
-
+# a script that handles the animation of some possible options that can appear on screen
 
 var is_tweening : bool = false
-
 
 func _ready():
 	self.modulate.a = 0.0
@@ -17,7 +16,7 @@ func _ready():
 	is_tweening = false
 
 
-func ExitPlayerOption() -> void:
+func exit_player_option() -> void:
 	if is_tweening:
 		return;
 
@@ -28,6 +27,7 @@ func ExitPlayerOption() -> void:
 		0.0,
 		0.1
 	)
+	
 	is_tweening = true
 	yield(tw,"finished")
 	is_tweening = false

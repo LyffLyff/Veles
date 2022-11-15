@@ -38,8 +38,8 @@ func _input(event):
 
 
 func LoadFolders() -> void:
-	for n in SongLists.Folders.size():
-		AddFolder(SongLists.Folders[n])
+	for n in SongLists.folders.size():
+		add_folder(SongLists.folders[n])
 
 
 func SetCurrentFolder(var FolderIdx : int) -> void:
@@ -61,7 +61,7 @@ func GetValidSongAmount(var FolderPath : String) -> String:
 	return "Songs: 0"
 
 
-func AddFolder(var Folder : String):
+func add_folder(var Folder : String):
 	var NewLabel : PanelContainer = NewFolderSpace()
 	if NewLabel.connect("SetFolder",self,"SetCurrentFolder"):
 		Global.root.message("CONNECTING FOLDER SPACE WITH SET CURRENT FOLDER FUNCTION",  SaveData.MESSAGE_ERROR)
@@ -101,13 +101,13 @@ func _on_FileDialog_dir_selected(var NewFolders : PoolStringArray,var _screen : 
 		if !dir.dir_exists(folder):
 			Global.root.message("Folder not found", SaveData.MESSAGE_WARNING, true)
 			continue
-		if SongLists.Folders.has(folder):
+		if SongLists.folders.has(folder):
 			Global.root.message("Folders can only be added once", SaveData.MESSAGE_WARNING, true)
 			continue
 		
 		# adding the folder
-		SongLists.AddFolder(folder)
-		AddFolder(folder)
+		SongLists.add_folder(folder)
+		add_folder(folder)
 		print(SongLists.Folders)
 
 
@@ -115,13 +115,13 @@ func _on_Remove_pressed():
 	if FolderSelection != -1:
 		#Able to remove after the child index because they are loaded in the correct order already
 		var dir_to_remove : String = FolderControl.get_child(FolderSelection).FolderLabel.get_text()
-		SongLists.RemoveFolder(dir_to_remove)
+		SongLists.remove_folder(dir_to_remove)
 		FolderControl.get_child(FolderSelection).queue_free()
 		FolderSelection = -1
 		CurrentFolder = -1
-		Global.InitializeSongs = true
-		if SongLists.CurrentSong.get_base_dir() == dir_to_remove:
-			SongLists.CurrentSong = ""
+		Global.init_songs = true
+		if SongLists.current_song.get_base_dir() == dir_to_remove:
+			SongLists.current_song = ""
 			Global.root.init_main()
 			#Playback.new().stop_playback()
 		root.message("Removed selected folder", SaveData.MESSAGE_NOTICE, true)

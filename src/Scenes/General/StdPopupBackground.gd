@@ -1,14 +1,13 @@
 extends PanelContainer
-
-#Standard Background Panel for Popups
+# standard Background Panel for Popups
 
 
 func _ready():
 	self.modulate.a = 0.0
-	var _tw : SceneTreeTween = TweenBackground(1.0)
+	var _tw : SceneTreeTween = tween_background(1.0)
 
 
-func TweenBackground(var alpha : float) -> SceneTreeTween:
+func tween_background(var alpha : float) -> SceneTreeTween:
 	var tw : SceneTreeTween = get_tree().create_tween()
 	tw = tw.set_trans(Tween.TRANS_LINEAR)
 	var _ptw = tw.tween_property(
@@ -20,7 +19,7 @@ func TweenBackground(var alpha : float) -> SceneTreeTween:
 	return tw
 
 
-func ExitPopup() -> void:
+func exit_popup() -> void:
 	self.set_process(false)
-	yield(TweenBackground(0.0),"finished")
+	yield(tween_background(0.0), "finished")
 	self.queue_free()

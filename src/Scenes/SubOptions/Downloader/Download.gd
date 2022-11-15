@@ -8,12 +8,12 @@ onready var DstFolder : LineEdit = $ScrollContainer/VBoxContainer/HboxContainer/
 onready var AudioVideo : OptionButton = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/AudioVideo/OptionButton
 onready var Audioformat : OptionButton = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Audioformat/OptionButton
 onready var Videoformat : OptionButton = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Videoformat/OptionButton
-onready var IsPlaylist : OptionButton = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Playlist/OptionButton
+onready var is_playlist : OptionButton = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Playlist/OptionButton
 onready var CurrentDownload : VBoxContainer = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/CurrentDownload
 onready var QueuedDownloads : VBoxContainer = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/ScrollContainer/QueuedDownloads
 
 #VARIABLES
-var StdDownloadFolder : String = Global.GetCurrentUserDataFolder() + "/Downloads/"
+var StdDownloadFolder : String = Global.get_current_user_data_folder() + "/Downloads/"
 
 #PRELOADS
 const DownloadContainer : PackedScene = preload("res://src/Scenes/SubOptions/Downloader/QueuedDownloadContainer.tscn")
@@ -21,8 +21,8 @@ const DownloadContainer : PackedScene = preload("res://src/Scenes/SubOptions/Dow
 
 func _ready():
 	DstFolder.set_text(StdDownloadFolder)
-	var _err = Global.DownloaderRef.connect("download_completed",self,"UpdateDownloads")
-	_err = Global.DownloaderRef._downloader.connect("download_failed",self,"UpdateDownloads")
+	var _err = Global.downloader_ref.connect("download_completed",self,"UpdateDownloads")
+	_err = Global.downloader_ref._downloader.connect("download_failed",self,"UpdateDownloads")
 	_err = get_tree().connect("files_dropped",self,"_on_files_dropped")
 	UpdateDownloads()
 
@@ -43,18 +43,18 @@ func UpdateDownloads() -> void:
 	
 	
 	#Adding the Updated Downloads
-	for i in Global.CurrentDownloads.size():
+	for i in Global.current_downloads.size():
 		var NewDownloadContainer : Control = DownloadContainer.instance()
 		var _err
 		if i == 0:
 			CurrentDownload.add_child( NewDownloadContainer )
-			_err = NewDownloadContainer.Stop.connect("pressed",Global,"DownloadFromQueue",[true])
+			_err = NewDownloadContainer.Stop.connect("pressed",Global,"download_from_queue",[true])
 		else:
 			QueuedDownloads.add_child(NewDownloadContainer)
-			_err = NewDownloadContainer.Stop.connect("pressed",Global,"StopQueuedDownload",[i])
+			_err = NewDownloadContainer.Stop.connect("pressed",Global,"stop_queued_download",[i])
 		_err = NewDownloadContainer.Stop.connect("pressed",self,"UpdateDownloads")
 		#_err = NewDownloadContainer.Stop.connect("pressed",NewDownloadContainer,"queue_free")
-		NewDownloadContainer.InitDownloadContainer(Global.CurrentDownloads[i])
+		NewDownloadContainer.InitDownloadContainer(Global.current_downloads[i])
 
 
 func CheckSetup() -> bool:
@@ -86,14 +86,14 @@ func OnDownloadAdded():
 		Global.root.message("No Download link entered",  SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )
 		return
 	
-	Global.PushNewDownload(
+	Global.push_new_download(
 		URL.get_text(),
 		Title.get_text(),
 		DstFolder.get_text().get_base_dir(),
 		AudioVideo.selected,
 		Videoformat.selected,
 		Audioformat.selected,
-		IsPlaylist.selected
+		is_playlist.selected
 	)
 	URL.clear()
 	Title.clear()

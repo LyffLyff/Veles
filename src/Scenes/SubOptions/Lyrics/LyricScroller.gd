@@ -1,12 +1,11 @@
 extends VBoxContainer
 
 
-#NODES
 onready var LyricVBox : VBoxContainer = $Background/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/Lyrics
 onready var Scroll : ScrollContainer = $Background/HBoxContainer/ScrollContainer
 onready var UpdateSecondsPassed : Timer = $UpdateSecondsPassed
 onready var Resync : TextureButton = $Background/VBoxContainer/HBoxContainer/Resync
-onready var BottomBuffer : Control = $Background/HBoxContainer/ScrollContainer/VBoxContainer/BottomBuffer
+onready var bottom_buffer : Control = $Background/HBoxContainer/ScrollContainer/VBoxContainer/BottomBuffer
 
 #CONSTANTS
 const FONT_CHANGE_STEP : int = 2
@@ -30,7 +29,7 @@ const VerseContainer : PackedScene = preload("res://src/Scenes/SubOptions/Lyrics
 
 func _ready():
 	LoadLyrics()
-	SetFontSize( SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS, "LyricsFontSize") )
+	SetFontSize( SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "LyricsFontSize") )
 
 
 func _exit_tree():
@@ -38,7 +37,7 @@ func _exit_tree():
 	if CurrentFontSize < MIN_FONT_SIZE:
 		CurrentFontSize = MIN_FONT_SIZE
 	
-	SettingsData.SetSetting(
+	SettingsData.set_setting(
 		SettingsData.GENERAL_SETTINGS,
 		"LyricsFontSize",
 		CurrentFontSize
@@ -98,7 +97,7 @@ func LoadLyrics() -> void:
 	Resync.set_visible( false )
 	
 	#Setting Lyrics
-	var Lyrics : Array = Tags.get_lyrics( SongLists.CurrentSong )
+	var Lyrics : Array = Tags.get_lyrics( SongLists.current_song )
 	if Lyrics.size() == 2 and Lyrics[0].size() > 1:
 		#SYNCHED
 		#0: PoolStringArray of Verses
@@ -108,8 +107,8 @@ func LoadLyrics() -> void:
 			for i in Lyrics[0].size():
 				var NewVerse = VerseContainer.instance()
 				LyricVBox.add_child( NewVerse )
-				NewVerse.get_child(0).set_align( SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "LyricsTextAlignment") )
-				NewVerse.get_child(1).set_visible( SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "LyricsVisibleTimestamps") )
+				NewVerse.get_child(0).set_align( SettingsData.get_setting(SettingsData.SONG_SETTINGS, "LyricsTextAlignment") )
+				NewVerse.get_child(1).set_visible( SettingsData.get_setting(SettingsData.SONG_SETTINGS, "LyricsVisibleTimestamps") )
 				NewVerse.modulate = NormalModulate
 				NewVerse.connect("gui_input",self,"OnVerseInputEvent",[i])
 				NewVerse.get_child(0).set_text( Lyrics[0][i] )
@@ -128,8 +127,8 @@ func LoadLyrics() -> void:
 		
 		var x = VerseContainer.instance()
 		LyricVBox.add_child(x)
-		x.get_child(0).set_align( SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "LyricsTextAlignment") )
-		x.get_child(1).set_visible( SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "LyricsVisibleTimestamps") )
+		x.get_child(0).set_align( SettingsData.get_setting(SettingsData.SONG_SETTINGS, "LyricsTextAlignment") )
+		x.get_child(1).set_visible( SettingsData.get_setting(SettingsData.SONG_SETTINGS, "LyricsVisibleTimestamps") )
 		x.get_child(0).set_text(UnsynchedLyrics)
 		x.get_child(1).hide()
 	else:
@@ -180,12 +179,12 @@ func UpdateLyricsPosition() -> void:
 func MoveLyricsTo(var ChildIdx : int) -> void:
 	if ChildIdx < LyricVBox.get_child_count():
 		if FollowLyrics:
-			Global.RequestFPSChange(60)
+			Global.request_fps_change(60)
 			var tw : SceneTreeTween = create_tween()
-			var DstValue : float = LyricVBox.get_child(ChildIdx).rect_position.y - ( TopBuffer * self.get_rect().size.y / OS.get_screen_size().y )  + BottomBuffer.rect_size.y
+			var DstValue : float = LyricVBox.get_child(ChildIdx).rect_position.y - ( TopBuffer * self.get_rect().size.y / OS.get_screen_size().y )  + bottom_buffer.rect_size.y
 			var _ptw : PropertyTweener = tw.tween_property(Scroll.get_v_scrollbar(), "value", DstValue, 0.3)
 			yield(tw,"finished")
-			Global.RequestFPSChange(4)
+			Global.request_fps_change(4)
 
 
 func GetTimeStampSeconds(var ChildIdx : int) -> float:

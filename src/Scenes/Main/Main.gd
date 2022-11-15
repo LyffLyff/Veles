@@ -5,7 +5,7 @@ extends Control
 # all the possible options that can be selected in the left sidebar menu
 const all_songs : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/AllSongs/SongsNew.tscn")
 const playlists : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/PlaylistGrid.tscn")
-const AddFolder : PackedScene = preload("res://src/Scenes/SubOptions/Folders/SelectFolder.tscn")
+const add_folder : PackedScene = preload("res://src/Scenes/SubOptions/Folders/SelectFolder.tscn")
 const infos : PackedScene = preload("res://src/Scenes/SubOptions/InfoSettings/Infos.tscn")
 const download : PackedScene = preload("res://src/Scenes/SubOptions/Downloader/Download.tscn")
 const settings : PackedScene  = preload("res://src/Scenes/SubOptions/InfoSettings/NewSettings.tscn")
@@ -46,12 +46,12 @@ func _notification(what):
 		# CPU -> 1,5 - 3% -> 0% [without audio effects, with them way higher but still way lower]
 		toggle_songlist_input(false)
 		get_tree().get_root().set_disable_input(true)
-		Global.LowFPS = true
+		Global.is_low_fps = true
 		Engine.set_target_fps(4)
 		#Engine.set_iterations_per_second(1)
 	elif what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
 		# resetting the engine frame rate to 60 fps
-		Global.LowFPS = false
+		Global.is_low_fps = false
 		Engine.set_target_fps(60)
 		toggle_songlist_input(true)
 		get_tree().get_root().set_disable_input(false)
@@ -112,7 +112,7 @@ func _unhandled_key_input(event):
 
 
 func init_main(var load_current_song : bool = false) -> void:
-	if Global.CurrentProfileIdx != -1:
+	if Global.current_profile_idx != -1:
 		
 		# connecting User Profile Box
 		sidebar.user_profile_container.InitProfileBox()
@@ -129,17 +129,17 @@ func init_main(var load_current_song : bool = false) -> void:
 				message("CONNECTING WINDOW MAXIMIZED SIGNAL TO RESIZE HANDLE TOGGLE", SaveData.MESSAGE_ERROR)
 		
 		# only Resets if the selected Profiles is NOT the one used before
-		if Global.GetCurrentUser() != Global.PriorUser or load_current_song:
+		if Global.get_current_user() != Global.last_loaded_user or load_current_song:
 			
 			# loading all songs suboption
 			load_option(0, true)
 			
 			# loading current sing
-			if SongLists.CurrentSong != "":
+			if SongLists.current_song != "":
 				playback_song(
-					AllSongs.get_main_idx(SongLists.CurrentSong),
+					AllSongs.get_main_idx(SongLists.current_song),
 					false,
-					Playlist.get_playlist_name(SongLists.CurrentPlayList)
+					Playlist.get_playlist_name(SongLists.current_playlist_idx)
 				)
 			else:
 				# resetting
@@ -151,7 +151,7 @@ func init_main(var load_current_song : bool = false) -> void:
 func playback_song(var main_idx : int, var play : bool = false, var _PlaylistName : String = ""):
 	# function that handles the replay of a given file 
 	# only plays if play is true, otherwise just prepares and pauses
-	if SongLists.CurrentPlayList == Playlist.get_playlist_index(_PlaylistName) and AllSongs.get_song_path(main_idx) == SongLists.CurrentSong:
+	if SongLists.current_playlist_idx == Playlist.get_playlist_index(_PlaylistName) and AllSongs.get_song_path(main_idx) == SongLists.current_song:
 		# if the song that was just presed is the same that was playing
 		# the AudioPlayer justs seeks the start instead of loading the song from scratch
 		MainStream.seek(0.0)
@@ -227,7 +227,7 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 			Global.first_skipped_path = ""
 			
 			#Updating Current Song
-			SongLists.SetCurrentSong(AllSongs.get_song_path(main_idx))
+			SongLists.set_current_song(AllSongs.get_song_path(main_idx))
 			
 			#Update Player Infos
 			update_player_infos()
@@ -236,7 +236,7 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 			MainStream.play(0)
 			if !play:
 				player.set_playback_button(0)
-				MainStream.seek(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"PlaybackPosition"))
+				MainStream.seek(SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"PlaybackPosition"))
 				MainStream.set_stream_paused(true)
 				#pauses the stream timer on start
 				MainStream.ReloadStreamTimer(true)
@@ -254,12 +254,12 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 
 
 func change_song(var direction : int) -> void:
-	if !SongLists.AllSongs.has(SongLists.CurrentSong):
+	if !SongLists.AllSongs.has(SongLists.current_song):
 		return;
 	
 	var next_main_idx : int =  0 
-	var curr_main_idx : int = SongLists.AllSongs.get(SongLists.CurrentSong)[2]
-	if SongLists.CurrentPlayList == -1:
+	var curr_main_idx : int = SongLists.AllSongs.get(SongLists.current_song)[2]
+	if SongLists.current_playlist_idx == -1:
 		if SongLists.AllSongs.size() -1 > curr_main_idx and curr_main_idx + direction > 0:
 			next_main_idx = curr_main_idx + direction
 		else:
@@ -269,22 +269,22 @@ func change_song(var direction : int) -> void:
 	else:
 		var playlist_n : Dictionary
 		
-		if SongLists.CurrentPlayList >= 0:
-			playlist_n = SongLists.Playlists.values()[SongLists.CurrentPlayList]
+		if SongLists.current_playlist_idx >= 0:
+			playlist_n = SongLists.normal_playlists.values()[SongLists.current_playlist_idx]
 		
-		elif SongLists.CurrentPlayList <= -2:
-			playlist_n = SongLists.CurrentTempSmartPlaylist
+		elif SongLists.current_playlist_idx <= -2:
+			playlist_n = SongLists.current_temporary_playlist
 		
 		else:
 			#if playlist that is currently playing has been deleted
 			#redirects to AllSongs
 			playlist_n = SongLists.AllSongs
-			SongLists.CurrentPlayList = -1
+			SongLists.current_playlist_idx = -1
 		
 		var idx_in_playlist : int = -1
 		for n in playlist_n.size():
 			#finding the index of the current song inside the playlist
-			if playlist_n.keys()[n] == SongLists.CurrentSong:
+			if playlist_n.keys()[n] == SongLists.current_song:
 				if playlist_n.size()  >  n + direction and n + direction >= 0:
 					idx_in_playlist = n + direction
 				else:
@@ -302,7 +302,7 @@ func change_song(var direction : int) -> void:
 	playback_song(
 		next_main_idx,
 		true,
-		Playlist.get_playlist_name(SongLists.CurrentPlayList)
+		Playlist.get_playlist_name(SongLists.current_playlist_idx)
 	)
 
 
@@ -310,27 +310,27 @@ func random_song() -> void:
 	randomize()
 	var random_song_idx : int = 0
 
-	if SongLists.CurrentPlayList == -1:
+	if SongLists.current_playlist_idx == -1:
 		#AllSongs
 		random_song_idx = randi() % SongLists.AllSongs.size()
 	
-	elif SongLists.CurrentPlayList >= 0:
+	elif SongLists.current_playlist_idx >= 0:
 		#Normal Playlist
-		var playlist_idx : int = SongLists.CurrentPlayList
-		var temp = randi() % SongLists.Playlists.values()[playlist_idx].size()
+		var playlist_idx : int = SongLists.current_playlist_idx
+		var temp = randi() % SongLists.normal_playlists.values()[playlist_idx].size()
 		
-		var random_song_path : String  = SongLists.Playlists.values()[playlist_idx].keys()[temp]
+		var random_song_path : String  = SongLists.normal_playlists.values()[playlist_idx].keys()[temp]
 		random_song_idx = AllSongs.get_main_idx(random_song_path)
 	
 	else:
 		#Smart Playlist/Automaticly Created
-		var temp = randi() % SongLists.CurrentTempSmartPlaylist.size()
-		random_song_idx = AllSongs.get_main_idx( SongLists.CurrentTempSmartPlaylist.keys()[temp] )
+		var temp = randi() % SongLists.current_temporary_playlist.size()
+		random_song_idx = AllSongs.get_main_idx( SongLists.current_temporary_playlist.keys()[temp] )
 	update_highlighted_song(AllSongs.get_song_path(random_song_idx))
 	playback_song(
 		random_song_idx,
 		true,
-		Playlist.get_playlist_name(SongLists.CurrentPlayList)
+		Playlist.get_playlist_name(SongLists.current_playlist_idx)
 	)
 
 
@@ -342,7 +342,7 @@ func skip_song(var main_idx : int) -> void:
 	if Global.first_skipped_path == path:
 		# only skips if the first song that was skipped does is not the one that wants to be skipped
 		# -> prevents an endless loop if EVERY song is invalid
-		SongLists.SetCurrentSong("")
+		SongLists.set_current_song("")
 		MainStream.set_stream_paused(true)
 		return
 	else:
@@ -353,16 +353,16 @@ func skip_song(var main_idx : int) -> void:
 		to_next = true
 	
 	if to_next:
-		SongLists.SetCurrentSong(path)
+		SongLists.set_current_song(path)
 		change_song(Global.last_direction)
 
 
 func load_option(var index : int, var ignore_same : bool = false):
 	var del : bool = true
 	# if there isn't an option loaded it won't try to free it
-	if sidebar.sub_options.CurrentOptionIdx == -1:
+	if sidebar.sub_options.current_option_idx == -1:
 		del = false
-	if sidebar.sub_options.CurrentOptionIdx != index or ignore_same:
+	if sidebar.sub_options.current_option_idx != index or ignore_same:
 		var option : Control
 		match index:
 			0:
@@ -370,7 +370,7 @@ func load_option(var index : int, var ignore_same : bool = false):
 			1:
 				option = playlists.instance()
 			2:
-				option = AddFolder.instance()
+				option = add_folder.instance()
 			3:
 				option = artists.instance()
 			4:
@@ -408,7 +408,7 @@ func delete_current_option() -> void:
 
 
 func reload_option() -> void:
-	load_option(sidebar.sub_options.CurrentOptionIdx,true)
+	load_option(sidebar.sub_options.current_option_idx,true)
 
 
 func free_option() -> void:
@@ -423,7 +423,7 @@ func free_option() -> void:
 func update_highlighted_song(var NextHighlighted : String) -> void:
 	#checks first if either AllSongs or a Playlist are shown
 	if options.get_child(0).get("songs") != null:
-		var highlighted_song : int = options.get_child(0).SongListHasThis(SongLists.CurrentSong)
+		var highlighted_song : int = options.get_child(0).SongListHasThis(SongLists.current_song)
 		if  options.get_child(0).get("songs").get_child_count() < highlighted_song:
 			#if a song is next from another Playlist  that is bigger
 			return
@@ -440,7 +440,7 @@ func message(var message : String,var message_type : int, var display : bool = f
 	message = message.to_upper()
 	SaveData.log_message(message,message_type)
 	if display:
-		Global.DisplayedMessage = message;
+		Global.displayed_message = message;
 		var MessageRef : Control = MESSAGE_CONTAINER.instance()
 		self.add_child(MessageRef)
 		MessageRef.set_background_color(bg_clr)
@@ -459,27 +459,27 @@ func toggle_songlist_input(var x : bool) -> void:
 		
 		if !x:
 			input_disable_counter += 1;
-			Global.InputToggler(ref,false)
+			Global.set_node_input(ref,false)
 		else:
 			input_disable_counter -= 1;
 			if input_disable_counter < 0:
 				input_disable_counter = 0;
 				message("PROCESS INPUT DISABLER FOR SONG SCROLLER DISABLED MULTIPLE TIMES", SaveData.MESSAGE_WARNING)
 			if input_disable_counter == 0:
-				Global.InputToggler(ref,true)
+				Global.set_node_input(ref,true)
 
 
 func reset_input_disabler() -> void:
 	input_disable_counter = 0
 	if options.get_child(0).get("songs"):
-		Global.InputToggler(options.get_child(0).songs.get_parent(),true)
+		Global.set_node_input(options.get_child(0).songs.get_parent(),true)
 
 
 func load_user_profile_selection() -> void:
 	# loads the user profiles selection to change the current user
 	
 	# saving user specific data
-	SongLists.saveUserSpecificData( SongLists.AddUsersToFilepaths(SongLists.FilePaths) )
+	SongLists.saveUserSpecificData( SongLists.add_users_to_fiie_paths(SongLists.file_paths) )
 	
 	var x = load("res://src/Scenes/UserProfiles/UserProfileSelection.tscn").instance()
 	var _err = x.connect("tree_exited",self,"init_main")
@@ -496,7 +496,7 @@ func load_general_file_dialogue(var ref : Object, var open_mode : int, var file_
 	top_ui.add_child(dialog)
 	
 	# connecting given mehod to selection_made signal
-	if dialog.connect("SelectionMade", ref, method, method_args):
+	if dialog.connect("selection_made", ref, method, method_args):
 		message("Couldn't not connect Folder Selection to General File Dialogue", SaveData.MESSAGE_ERROR)
 	
 	# initialising file dialogue
@@ -525,8 +525,8 @@ func load_playlist(var playlist_idx : int) -> void:
 
 func load_temporary_playlist(var temp_playlist_title : String, var description_path : String, var cover_path : String, var option_idx : int) -> void:
 	delete_current_option()
-	Global.PlaylistPressed = -2
-	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS, "TempPlaylistTitle", temp_playlist_title)
+	Global.pressed_playlist_idx = -2
+	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "TempPlaylistTitle", temp_playlist_title)
 	
 	# setting sidebar to playlist suboption
 	sidebar.sub_options.set_sidebar_option(option_idx)
@@ -534,7 +534,7 @@ func load_temporary_playlist(var temp_playlist_title : String, var description_p
 	# loading temporary playlist from given arguments
 	var new_temp_playlist : Control = SMART_PLAYLIST_TEMPLATE.instance()
 	options.add_child( new_temp_playlist )
-	new_temp_playlist.n_ready( SongLists.TempPlaylistConditions,temp_playlist_title,description_path, cover_path )
+	new_temp_playlist.n_ready( SongLists.temporary_playlist_conditions,temp_playlist_title,description_path, cover_path )
 
 
 func load_lyric_editor(var ProjectPath : String = "") -> void:
@@ -545,7 +545,7 @@ func load_lyric_editor(var ProjectPath : String = "") -> void:
 
 
 func update_player_infos() -> void:
-	var main_idx : int = AllSongs.get_main_idx(SongLists.CurrentSong)
+	var main_idx : int = AllSongs.get_main_idx(SongLists.current_song)
 	
 	# title
 	player.song_title.set_text( AllSongs.song_title(main_idx) )
@@ -555,15 +555,15 @@ func update_player_infos() -> void:
 	
 	# playlist Label
 	var playlist_name : String
-	if SettingsData.GetSetting(SettingsData.PLAYLIST_ALBUM_SETTINGS,"PlaylistSpaceText") == 0:
-		playlist_name = Playlist.get_playlist_name( SongLists.CurrentPlayList )
+	if SettingsData.get_setting(SettingsData.PLAYLIST_ALBUM_SETTINGS,"PlaylistSpaceText") == 0:
+		playlist_name = Playlist.get_playlist_name( SongLists.current_playlist_idx )
 	else:
-		playlist_name = Tags.get_album(SongLists.CurrentSong)
+		playlist_name = Tags.get_album(SongLists.current_song)
 	player.song_playlist.set_text("in " +  playlist_name )
 	
 	#Covers
 	player.update_player_covers(
 		Playlist.get_playlist_name(
-			SongLists.CurrentPlayList
+			SongLists.current_playlist_idx
 		)
 	)

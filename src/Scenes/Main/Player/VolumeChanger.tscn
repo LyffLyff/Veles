@@ -85,4 +85,4 @@ margin_right = 30.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 0, 3 )
 
-[connection signal="value_changed" from="MarginContainer/Volume/VBoxContainer/Volume" to="." method="OnVolumeChanged"]
+[connection signal="value_changed" from="MarginContainer/Volume/VBoxContainer/Volume" to="." method="_on_Volume_value_changed"]

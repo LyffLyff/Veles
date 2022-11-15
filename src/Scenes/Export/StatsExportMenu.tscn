@@ -34,53 +34,53 @@ margin_bottom = 250.0
 rect_min_size = Vector2( 10, 0 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
-margin_left = 14.0
-margin_right = 386.0
+margin_left = 18.0
+margin_right = 382.0
 margin_bottom = 250.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TopBuffer" type="Control" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_right = 372.0
+margin_right = 364.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="Label" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_top = 14.0
-margin_right = 372.0
-margin_bottom = 30.0
+margin_top = 18.0
+margin_right = 364.0
+margin_bottom = 34.0
 text = "Export Playlist:"
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_top = 34.0
-margin_right = 372.0
-margin_bottom = 38.0
+margin_top = 42.0
+margin_right = 364.0
+margin_bottom = 50.0
 
 [node name="ExportTypes" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_top = 42.0
-margin_right = 372.0
-margin_bottom = 236.0
+margin_top = 58.0
+margin_right = 364.0
+margin_bottom = 232.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ToFolder" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/ExportTypes"]
-margin_right = 372.0
+margin_right = 364.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 text = "To HTML"
 
 [node name="ToHTML" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/ExportTypes"]
-margin_top = 34.0
-margin_right = 372.0
-margin_bottom = 64.0
+margin_top = 38.0
+margin_right = 364.0
+margin_bottom = 68.0
 rect_min_size = Vector2( 0, 30 )
 text = "To CSV"
 
 [node name="Close" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/ExportTypes"]
-margin_left = 302.0
-margin_top = 174.0
-margin_right = 372.0
-margin_bottom = 194.0
+margin_left = 294.0
+margin_top = 154.0
+margin_right = 364.0
+margin_bottom = 174.0
 rect_min_size = Vector2( 70, 20 )
 size_flags_horizontal = 10
 size_flags_vertical = 10
@@ -88,7 +88,7 @@ text = "Close"
 
 [node name="BottomBuffer" type="Control" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 margin_top = 240.0
-margin_right = 372.0
+margin_right = 364.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 0, 10 )
 

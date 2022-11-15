@@ -14,11 +14,11 @@ static func add_song_stream(var key : String, var difference : int) -> void:
 
 static func add_playlist_stream(var playlist_name : String, var difference : int) -> void:
 	if playlist_name != "" and playlist_name != "AllSongs":
-		if SongLists.PlaylistStreams.has(playlist_name):
-			SongLists.PlaylistStreams[playlist_name][0] = SongLists.PlaylistStreams.get(playlist_name)[0] + difference
+		if SongLists.playlist_streams.has(playlist_name):
+			SongLists.playlist_streams[playlist_name][0] = SongLists.playlist_streams.get(playlist_name)[0] + difference
 		else:
 			# will be creating a key when adding the first lyff
-			SongLists.PlaylistStreams[playlist_name] = [1]
+			SongLists.playlist_streams[playlist_name] = [1]
 	
 		# daily Streams
 		add_daily_stream("DailyPlaylistStreams.dat", playlist_name, difference)
@@ -29,18 +29,18 @@ static func add_artist_stream(var artist : String, var difference : int) -> void
 	var artists : PoolStringArray = divide_artists(artist)
 	if artists[0] != "":
 		for contributor in artists:
-			if SongLists.ArtistStreams.has(contributor):
-				SongLists.ArtistStreams[contributor][0] = SongLists.ArtistStreams.get(contributor)[0] + difference
+			if SongLists.artist_streams.has(contributor):
+				SongLists.artist_streams[contributor][0] = SongLists.artist_streams.get(contributor)[0] + difference
 			else:
 				# will be creating a key when adding the first lyff
-				SongLists.ArtistStreams[contributor] = [1]
+				SongLists.artist_streams[contributor] = [1]
 	
 	# daily Streams
 	add_daily_stream("DailyArtistStreams.dat", artist, difference)
 
 
 static func add_daily_stream(var filename : String, var key : String, var difference : int) -> void:
-	var daily_streams_file : String = Global.GetCurrentUserDataFolder() + "/Songs/Streams/DailyStreams/" + filename
+	var daily_streams_file : String = Global.get_current_user_data_folder() + "/Songs/Streams/DailyStreams/" + filename
 	var temp = SaveData.load_data(daily_streams_file)
 	var daily_streams : Dictionary = {}
 	if temp:

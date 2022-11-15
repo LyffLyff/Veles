@@ -10,5 +10,5 @@ var idx : int = -1
 
 
 func _on_Playlist_pressed():
-	Global.PlaylistPressed = idx
+	Global.pressed_playlist_idx = idx
 	Global.root.load_playlist(idx)

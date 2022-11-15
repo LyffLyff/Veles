@@ -44,4 +44,4 @@ texture_focused = ExtResource( 3 )
 expand = true
 stretch_mode = 5
 
-[connection signal="pressed" from="Dialogue" to="." method="OnDialoguePressed"]
+[connection signal="pressed" from="Dialogue" to="." method="_on_Dialogue_pressed"]

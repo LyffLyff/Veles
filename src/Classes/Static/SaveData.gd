@@ -115,7 +115,7 @@ static func log_message(var message : String, var message_type : int) -> void:
 	# message start defines the type of message given
 	
 	var message_start : String = ""
-	var path : String = Global.GetCurrentUserDataFolder() + "/Settings/CoreSettings/Logs.txt"
+	var path : String = Global.get_current_user_data_folder() + "/Settings/CoreSettings/Logs.txt"
 	var file : File = File.new()
 	
 	# READ_WRITE will not create a file

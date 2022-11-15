@@ -3,7 +3,7 @@
 [ext_resource path="res://src/Scenes/Song/SongOptions/Main/SongOptionsMain.gd" type="Script" id=1]
 [ext_resource path="res://src/Themes/Panels/StdBackgroundPanel.tres" type="StyleBox" id=2]
 
-[node name="MainSongOptions" type="VBoxContainer"]
+[node name="MainSongOptions3" type="VBoxContainer"]
 margin_right = 200.0
 margin_bottom = 250.0
 mouse_filter = 2

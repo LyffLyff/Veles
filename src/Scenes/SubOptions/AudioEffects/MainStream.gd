@@ -13,22 +13,22 @@ func _ready():
 	self.add_child(StreamTimer)
 	############################
 	self.set_volume(
-		db2linear(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Volume"))
+		db2linear(SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"Volume"))
 	)
 
 
 func _exit_tree():
-	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"PlaybackPosition",self.get_playback_position())
+	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"PlaybackPosition",self.get_playback_position())
 
 
 func _on_MainStream_finished() -> void: 
-	if Global.CurrentProfileIdx == -1:
+	if Global.current_profile_idx == -1:
 		#prevents the next song from being played when deleting a user profile
 		return
 	
 	#Repeat Has thee highest Priority
 	#before -> Queue and Shuffle
-	if !SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Repeat"):
+	if !SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"Repeat"):
 		Global.root.player.prior_next_song(+1)
 	else:
 		self.play(0)
@@ -62,7 +62,7 @@ func set_volume(var volume_linear : float) -> void:
 	MainStream.set_volume_db(volume_db)
 	
 	# saving db value to settings
-	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Volume",volume_db)
+	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"Volume",volume_db)
 	
 	#checking if stream needs to be muted/unmuted
 	if volume_linear <= mute_threshold:
@@ -75,7 +75,7 @@ func set_volume(var volume_linear : float) -> void:
 
 
 func ReloadStreamTimer(var is_paused : bool = false) -> void:
-	var main_idx : int = AllSongs.get_main_idx(SongLists.CurrentSong)
+	var main_idx : int = AllSongs.get_main_idx(SongLists.current_song)
 	StreamTimer.set_wait_time(stream_goals[0])
 	if StreamTimer.is_connected("timeout",self,"StreamTimerTimeout"):
 		StreamTimer.disconnect("timeout",self,"StreamTimerTimeout")
@@ -88,7 +88,7 @@ func ReloadStreamTimer(var is_paused : bool = false) -> void:
 func StreamTimerTimeout(var timer_idx : int, var main_idx):
 	#adds one to the stream of the current song
 	Streams.add_song_stream(AllSongs.get_song_path(main_idx),+1)
-	Streams.add_playlist_stream(Playlist.get_playlist_name(SongLists.CurrentPlayList),+1)
+	Streams.add_playlist_stream(Playlist.get_playlist_name(SongLists.current_playlist_idx),+1)
 	Streams.add_artist_stream(AllSongs.get_song_artist(main_idx),+1)
 	#disconnect the stream timer so the argument can be changed
 	StreamTimer.disconnect("timeout",self,"StreamTimerTimeout")

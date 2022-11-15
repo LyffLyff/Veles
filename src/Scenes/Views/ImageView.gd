@@ -38,10 +38,10 @@ var LastOption : int = 0
 
 func _ready():
 	Options.get_parent().get_stylebox("panel").set_bg_color(
-		SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS, "ImageViewOption")
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "ImageViewOption")
 	)
-	LastOption = SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS, "ImageViewLastOption")
-	ToggleFocusCover( SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS, "ImageViewCoverFocused"), 0.0 )
+	LastOption = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "ImageViewLastOption")
+	ToggleFocusCover( SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "ImageViewCoverFocused"), 0.0 )
 	SetImageViewBackgroundColor()
 	anim_player.play("start")
 	if self.connect("resized",self,"OnImageViewResized"):
@@ -54,7 +54,7 @@ func _enter_tree():
 
 
 func _exit_tree():
-	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS, "ImageViewLastOption", LastOption)
+	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "ImageViewLastOption", LastOption)
 	Global.root.toggle_songlist_input(true)
 
 
@@ -79,7 +79,7 @@ func GetUnfocusedCoverSize() -> Vector2:
 
 
 func SetImageViewBackgroundColor() -> void:
-	match SettingsData.GetSetting(SettingsData.SONG_SETTINGS, "ImageViewBackground"):
+	match SettingsData.get_setting(SettingsData.SONG_SETTINGS, "ImageViewBackground"):
 		0:
 			#var BackgroundTile : ImageTexture = ImageTexture.new()
 			#var Img : Image = ImageViewCover.get_normal_texture().get_data()
@@ -88,7 +88,7 @@ func SetImageViewBackgroundColor() -> void:
 			#Background.material.set_shader_param("pattern",BackgroundTile)
 		1:
 			Background.set_material( load("res://src/Ressources/Shaders/DirectionalFadeWithColor.tres") )
-			var BackgroundClr : Color = SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS, "ImageViewStandardBackgroundColor")
+			var BackgroundClr : Color = SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "ImageViewStandardBackgroundColor")
 			Background.material.set_shader_param("color", BackgroundClr)
 		2:
 			Background.set_material( load("res://src/Ressources/Shaders/DirectionalFadeWithColor.tres") )
@@ -187,7 +187,7 @@ func ToggleFocusCover(var Focus : bool, var Duration : float = 0.3) -> void:
 		CoverCurrentlyResizing = false
 		#So that cover get resized correctly
 		OnImageViewResized()
-		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS, "ImageViewCoverFocused", Focus)
+		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "ImageViewCoverFocused", Focus)
 
 
 func OnImageViewCoverPressed():

@@ -1,30 +1,27 @@
 extends HBoxContainer
+# a LinedEdit that can receive input via a filedialogue and manually
 
+signal dialogue_pressed
 
-#SIGNALS
-signal DialoguePressed
-
-#NODES
-onready var InputLabel : Label = $InputLabel
-onready var InputEdit : LineEdit = $InputEdit
+onready var input_label : Label = $InputLabel
+onready var input_edit : LineEdit = $InputEdit
 onready var Dialogue : TextureButton = $Dialogue
 
-#VARIABLES
-export var InputeLabelText : String = ""
-export var OpenMode : int = 0
-export var FileType : String = ""
-export var ShowGeneralFileDialogue : bool = false
+export var input_label_text : String = ""
+export var open_mode : int = 0
+export var file_type : String = ""
+export var show_file_dialogue : bool = false
 
 
 func _ready():
-	InputLabel.text = InputeLabelText
-	if !ShowGeneralFileDialogue:
+	input_label.text = input_label_text
+	if !show_file_dialogue:
 		Dialogue.hide()
 
 
 func get_text() -> String:
-	return InputEdit.get_text()
+	return input_edit.get_text()
 
 
-func OnDialoguePressed():
-	emit_signal("DialoguePressed")
+func _on_Dialogue_pressed():
+	emit_signal("dialogue_pressed")

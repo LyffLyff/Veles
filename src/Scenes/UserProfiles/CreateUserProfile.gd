@@ -6,38 +6,38 @@ onready var Username : HBoxContainer = $PanelContainer/HBoxContainer/VBoxContain
 
 
 func _ready():
-	var _err = ProfileImgSelection.connect("DialoguePressed",self,"LoadDialogue")
+	var _err = ProfileImgSelection.connect("dialogue_pressed",self,"LoadDialogue")
 
 
 func LoadDialogue() -> void:
 	var _dialog = Global.root.load_general_file_dialogue(
-		ProfileImgSelection.InputEdit,
+		ProfileImgSelection.input_edit,
 		FileDialog.MODE_OPEN_FILE,
 		FileDialog.ACCESS_FILESYSTEM,
 		"set_text",
 		[],
 		"Cover",
-		Global.SupportedImgFormats,
+		Global.supported_img_extensions,
 		true
 	)
 
 
 func OnSaveProfile() -> void:
-	var new_username : String = Username.InputEdit.get_text()
+	var new_username : String = Username.input_edit.get_text()
 	
 	if !Global.is_username_valid(new_username):
 		Global.root.message("Invalid Username", SaveData.MESSAGE_ERROR, true)
-		ExitPopup()
+		exit_popup()
 		return;
 	
 	var dir : Directory = Directory.new()
-	var CoverSrc : String = ProfileImgSelection.InputEdit.get_text()
+	var CoverSrc : String = ProfileImgSelection.input_edit.get_text()
 	if dir.file_exists(CoverSrc):
 		var _err = dir.copy( 
 			CoverSrc,
-			"user://GlobalSettings/UserImages/" + Username.InputEdit.get_text() + ".png"
+			"user://GlobalSettings/UserImages/" + Username.input_edit.get_text() + ".png"
 		)
 	
-	Global.NewUserProfile(Username.InputEdit.get_text())
-	Global.UserProfiles.push_back(Username.InputEdit.get_text())
-	ExitPopup()
+	Global.new_user_profile(Username.input_edit.get_text())
+	Global.user_profiles.push_back(Username.input_edit.get_text())
+	exit_popup()

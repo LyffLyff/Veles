@@ -28,17 +28,17 @@ func Update() -> void:
 
 func InitSongInfos() -> void:
 	#Retrieving Infos
-	Infos["Title"] = Tags.get_title(SongLists.CurrentSong)
-	Infos["Artist/s"] = Tags.get_artist(SongLists.CurrentSong)
-	Infos["Album"] = Tags.get_album(SongLists.CurrentSong)
-	Infos["Filetype"] = FormatChecker.get_music_file_extension(SongLists.CurrentSong)
-	Infos["Filepath"] = SongLists.CurrentSong
-	Infos["Song Duration"] = TimeFormatter.format_seconds( float( Tags.get_song_duration(SongLists.CurrentSong) ) ) + "min"
+	Infos["Title"] = Tags.get_title(SongLists.current_song)
+	Infos["Artist/s"] = Tags.get_artist(SongLists.current_song)
+	Infos["Album"] = Tags.get_album(SongLists.current_song)
+	Infos["Filetype"] = FormatChecker.get_music_file_extension(SongLists.current_song)
+	Infos["Filepath"] = SongLists.current_song
+	Infos["Song Duration"] = TimeFormatter.format_seconds( float( Tags.get_song_duration(SongLists.current_song) ) ) + "min"
 	
 	var x : Tagging = Tagging.new()
-	Infos["Sample Rate"] = str( x.GetSongSampleRate(SongLists.CurrentSong) ) + "Hz"
-	Infos["Bitrate"] = str( x.GetSongBitrate(SongLists.CurrentSong) ) + "kb/s"
-	Infos["Channels"] = str( x.GetSongChannels(SongLists.CurrentSong) )
+	Infos["Sample Rate"] = str( x.GetSongSampleRate(SongLists.current_song) ) + "Hz"
+	Infos["Bitrate"] = str( x.GetSongBitrate(SongLists.current_song) ) + "kb/s"
+	Infos["Channels"] = str( x.GetSongChannels(SongLists.current_song) )
 	
 	#Setting Data on Info Spaces
 	for i in range(1, InfoSpace.get_child_count()):

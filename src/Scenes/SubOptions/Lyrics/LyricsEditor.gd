@@ -207,25 +207,25 @@ func OnSaveLyricsProject(var SaveAs : bool = false):
 		var general_file_dialogue = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
 		Global.root.top_ui.add_child(general_file_dialogue)
 		general_file_dialogue.n_ready(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_USERDATA, "Lyrics",["*.vlp"], true, "Save Project As",Title)
-		general_file_dialogue.Dialog.current_dir = Global.GetCurrentUserDataFolder() + "/Lyrics/Projects"
-		var _err = general_file_dialogue.connect("SelectionMade", SaveData, "Save", [VLPFiledata])
+		general_file_dialogue.dialogue.current_dir = Global.get_current_user_data_folder() + "/Lyrics/Projects"
+		var _err = general_file_dialogue.connect("selection_made", SaveData, "Save", [VLPFiledata])
 		
 		# changing current project path if save as is true
 		if SaveAs:
-			_err = general_file_dialogue.connect("SelectionMade", self, "set_project_path")
+			_err = general_file_dialogue.connect("selection_made", self, "set_project_path")
 		
-		_err = general_file_dialogue.connect("SelectionMade", self, "AddProjectAsEdited")
-		_err = general_file_dialogue.connect("Saved", self, "set", ["ProjectUpToDate",true])
+		_err = general_file_dialogue.connect("selection_made", self, "AddProjectAsEdited")
+		_err = general_file_dialogue.connect("saved", self, "set", ["ProjectUpToDate",true])
 
 
 func AddProjectAsEdited(var NewProjectPath : String) -> void:
-	var EditedProjects : Array = SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects")
+	var EditedProjects : Array = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects")
 	if !EditedProjects.has(NewProjectPath):
 		EditedProjects.push_back(NewProjectPath)
 	else:
 		EditedProjects.remove(EditedProjects.find(NewProjectPath))
 		EditedProjects.push_front(NewProjectPath)
-	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects",EditedProjects)
+	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects",EditedProjects)
 
 
 func ExportToLRC() -> void:
@@ -315,7 +315,7 @@ func OnReturnPressed():
 		var x : Node = load("res://src/Scenes/General/QuestionDialog.tscn").instance()
 		Global.root.add_child(x)
 		x.n_ready( "Leave Project without Saving?" )
-		var _err = x.connect("Yes",Global.root,"load_option",[6,true])
+		var _err = x.connect("agreed",Global.root,"load_option",[6,true])
 	else:
 		#If Porject is up to Date it won't display Notice
 		Global.root.load_option(6,true)

@@ -8,6 +8,6 @@ func _notification(what):
 
 func _ready():
 	$PanelContainer.get_stylebox("panel").set_bg_color(
-		SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS,"SongHighlighterColor")
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS,"SongHighlighterColor")
 	)
 	self.hide()

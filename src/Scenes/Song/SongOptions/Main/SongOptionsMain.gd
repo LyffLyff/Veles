@@ -1,46 +1,44 @@
 extends "res://src/Scenes/Song/SongOptions/SongOptions.gd"
+# a script hadnling the song options menu called from the player
 
-
-#NODES
-onready var BottomBuffer : Control = $BottomEmpty
-
+onready var bottom_buffer : Control = $BottomEmpty
 
 func _ready():
-	#Background Color
+	# background Color
 	$PanelContainer.get_stylebox("panel").set_bg_color(
-		SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS,"MainSongOptionsBackground")
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS,"MainSongOptionsBackground")
 	)
 	
-	#Remove From Playlist
-	var MainRemoveFromPLaylist : Button = get_node("PanelContainer/HBoxContainer/VBoxContainer/RemoveFromPlaylist");
-	if MainRemoveFromPLaylist:
-		if SongLists.CurrentPlayList >= 0:
-			#Only showing option to remove song from playlist, if the song
-			#is from a normal playlist
-			MainRemoveFromPLaylist.show()
+	# remove From Playlist, only visible when inside of playlist
+	var main_remove_from_playlist : Button = get_node("PanelContainer/HBoxContainer/VBoxContainer/remove_from_playlist");
+	if main_remove_from_playlist:
+		if SongLists.current_playlist_idx >= 0:
+			# only showing option to remove song from playlist, if the song
+			# is from a normal playlist
+			main_remove_from_playlist.show()
 		else:
-			MainRemoveFromPLaylist.hide()
+			main_remove_from_playlist.hide()
 
 
 func _on_AddToPlaylistMain_pressed():
-	_on_AddToPlaylist_pressed(AllSongs.get_main_idx(SongLists.CurrentSong))
+	_on_AddToPlaylist_pressed(AllSongs.get_main_idx(SongLists.current_song))
 
 
 func _on_ChangeTagMain_pressed():
-	_on_ChangeTag_pressed(AllSongs.get_main_idx(SongLists.CurrentSong))
+	_on_ChangeTag_pressed(AllSongs.get_main_idx(SongLists.current_song))
 
 
 func _on_ShowInFilesystemMain_pressed():
-	_on_ShowInFilesystem_pressed(AllSongs.get_main_idx(SongLists.CurrentSong))
+	_on_ShowInFilesystem_pressed(AllSongs.get_main_idx(SongLists.current_song))
 
 
 func _on_QueueSongMain_pressed():
-	_on_QueueSong_pressed(AllSongs.get_main_idx(SongLists.CurrentSong))
+	_on_QueueSong_pressed(AllSongs.get_main_idx(SongLists.current_song))
 
 
 func _on_RemoveFromPlaylist_pressed():
-	RemoveFromPlaylist(AllSongs.get_main_idx(SongLists.CurrentSong))
+	remove_from_playlist(AllSongs.get_main_idx(SongLists.current_song))
 
 
 func _on_ExtractCurrentCover_pressed():
-	ExtractSongCover(AllSongs.get_main_idx(SongLists.CurrentSong))
+	extract_cover(AllSongs.get_main_idx(SongLists.current_song))

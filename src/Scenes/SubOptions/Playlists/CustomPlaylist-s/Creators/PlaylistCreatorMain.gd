@@ -5,7 +5,7 @@ signal Close
 signal Save
 
 
-func OnClosePressed() -> void:
+func on_close_pressed() -> void:
 	emit_signal("Close")
-	ExitPopup()
+	exit_popup()
 

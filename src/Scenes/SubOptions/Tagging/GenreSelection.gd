@@ -14,4 +14,4 @@ func LoadAllMusicGenres() -> void:
 
 func _enter_tree():
 	LoadAllMusicGenres()
-	MenuButtonSelections = AllMusicGenres
+	menu_button_selections = AllMusicGenres

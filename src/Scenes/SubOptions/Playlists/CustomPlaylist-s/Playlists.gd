@@ -50,23 +50,23 @@ func LoadPlaylistGrid() -> void:
 	playlists.get_parent().get_v_scrollbar()._ready()
 	
 	#Normal Playlist
-	for Idx in SongLists.Playlists.size():
+	for Idx in SongLists.normal_playlists.size():
 		var playlist : Control = playlist_container.instance()
 		#playlist.set_owner(self)
 		playlist.idx = Idx
 		playlists.add_child(playlist)
 		playlist.set_owner(self)
-		playlist.Title.set_text(SongLists.Playlists.keys()[Idx])
+		playlist.Title.set_text(SongLists.normal_playlists.keys()[Idx])
 		playlist.Cover.set_texture( Playlist.get_playlist_cover(Idx) )
 	
 	#Smart Playlists
-	for n in SongLists.SmartPlaylists.size():
+	for n in SongLists.smart_playlists.size():
 		var playlist : Control = playlist_container.instance()
 		playlist.idx = - 3 - n
-		playlist.find_node("Cover").set_texture( ImageLoader.get_cover(Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + SongLists.SmartPlaylists[n] + ".png") )
+		playlist.find_node("Cover").set_texture( ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + SongLists.smart_playlists[n] + ".png") )
 		playlists.add_child(playlist)
 		playlist.set_owner(self)
-		playlist.Title.set_text( SongLists.SmartPlaylists[n] )
+		playlist.Title.set_text( SongLists.smart_playlists[n] )
 
 
 func CreateNewPlaylistPressed(var NewPlaylistType : int) -> void:
@@ -77,15 +77,15 @@ func CreateNewPlaylistPressed(var NewPlaylistType : int) -> void:
 		PlaylistType.NORMAL_FROM_SCRATCH:
 			PlaylistCreator = PLAYLIST_FROM_SCRATCH.instance()
 			Global.root.top_ui.add_child(PlaylistCreator)
-			if PlaylistCreator.Cover.connect("DialoguePressed",main,"load_general_file_dialogue",[PlaylistCreator.Cover.InputEdit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",Global.SupportedImgFormats,true]):
+			if PlaylistCreator.Cover.connect("dialogue_pressed",main,"load_general_file_dialogue",[PlaylistCreator.Cover.input_edit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",Global.supported_img_extensions,true]):
 				Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
 		
 		PlaylistType.NORMAL_FROM_FOLDER:
 			PlaylistCreator = PLAYLIST_FROM_FOLDER.instance()
 			Global.root.top_ui.add_child(PlaylistCreator)
-			if PlaylistCreator.Cover.connect("DialoguePressed",main,"load_general_file_dialogue",[PlaylistCreator.Cover.InputEdit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",Global.SupportedImgFormats,true]):
+			if PlaylistCreator.Cover.connect("dialogue_pressed",main,"load_general_file_dialogue",[PlaylistCreator.Cover.input_edit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",Global.supported_img_extensions,true]):
 				Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
-			if PlaylistCreator.Folder.connect("DialoguePressed",main,"load_general_file_dialogue",[PlaylistCreator.Folder.InputEdit,FileDialog.MODE_OPEN_DIR,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Song",[],true]):
+			if PlaylistCreator.Folder.connect("dialogue_pressed",main,"load_general_file_dialogue",[PlaylistCreator.Folder.input_edit,FileDialog.MODE_OPEN_DIR,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Song",[],true]):
 				Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
 		
 		PlaylistType.SMART_FROM_SCRATCH:
@@ -95,26 +95,26 @@ func CreateNewPlaylistPressed(var NewPlaylistType : int) -> void:
 	var _err = PlaylistCreator.connect("Save",self,"SaveNewPlaylist",[NewPlaylistType])
 
 
-func SaveNewPlaylist(var PlaylistTitle : String, var PlaylistCoverPath : String, var Folder : String, var Conditions : Dictionary ,var NewPlaylistType : int) -> void:
+func SaveNewPlaylist(var PlaylistTitle : String, var PlaylistCoverPath : String, var Folder : String, var conditions : Dictionary ,var NewPlaylistType : int) -> void:
 	if !Playlist.is_valid_playlist_title(PlaylistTitle):
 		main.message("Illegal Title!!\n Title Can't be Empty or the same as another Playlist", SaveData.MESSAGE_ERROR)
 	
 	match NewPlaylistType:
 		
 		PlaylistType.NORMAL_FROM_SCRATCH:
-			SongLists.NewPlaylist(PlaylistTitle)
+			SongLists.new_playlist(PlaylistTitle)
 		
 		PlaylistType.NORMAL_FROM_FOLDER:
 			var dir : Directory = Directory.new()
 			if dir.open(Folder) != OK:
 				Global.root.message("Selected Folder Could not be opened", SaveData.MESSAGE_ERROR, true)
 			var InFolders : bool = false
-			if Folder in SongLists.Folders:
+			if Folder in SongLists.folders:
 				#Checking if New Folder has already been added
 				InFolders = true
 			else:
-				SongLists.AddFolder(Folder)
-			SongLists.NewPlaylist(PlaylistTitle)
+				SongLists.add_folder(Folder)
+			SongLists.new_playlist(PlaylistTitle)
 			
 			#Adding the Songs from folder to Playlist
 			var counter : int = AllSongs.get_song_amount()
@@ -132,12 +132,12 @@ func SaveNewPlaylist(var PlaylistTitle : String, var PlaylistCoverPath : String,
 								main_idx = counter
 								counter += 1
 							#Adding to Playlist
-							SongLists.Playlists.values()[SongLists.Playlists.size() - 1][song_path] = [main_idx]
+							SongLists.normal_playlists.values()[SongLists.normal_playlists.size() - 1][song_path] = [main_idx]
 					else:
 						break;
 		
 		PlaylistType.SMART_FROM_SCRATCH:
-			SongLists.NewSmartPlaylist(PlaylistTitle,Conditions)
+			SongLists.new_smart_playlist(PlaylistTitle,conditions)
 	
 	Playlist.copy_playlist_cover(PlaylistCoverPath, Playlist.get_playlist_index(PlaylistTitle) )
 	Global.root.reload_option()
@@ -149,12 +149,12 @@ func AddNewPlaylistToGrid(var IsSmart : bool, var PlaylistCoverPath : String) ->
 	var playlist_idx : int
 	
 	if IsSmart:
-		var SmartPlaylistIdx : int = SongLists.SmartPlaylists.size() - 1
+		var SmartPlaylistIdx : int = SongLists.smart_playlists.size() - 1
 		playlist_idx = -3 - SmartPlaylistIdx
-		PlaylistTitle = SongLists.SmartPlaylists[ SmartPlaylistIdx ]
+		PlaylistTitle = SongLists.smart_playlists[ SmartPlaylistIdx ]
 	else:
-		playlist_idx = SongLists.Playlists.size() - 1
-		PlaylistTitle = SongLists.Playlists.keys()[playlist_idx]
+		playlist_idx = SongLists.normal_playlists.size() - 1
+		PlaylistTitle = SongLists.normal_playlists.keys()[playlist_idx]
 	
 	playlists.add_child(NewPlaylistContainer)
 	NewPlaylistContainer.set_owner(self)

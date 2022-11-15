@@ -18,7 +18,7 @@ func _ready():
 	# initialising color
 	self.get_stylebox("bg").set(
 		"bg_color",
-		SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS,"MainOptionsBackground")
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS,"MainOptionsBackground")
 	)
 	
 	# hiding Scrollbar
@@ -26,7 +26,7 @@ func _ready():
 
 
 func update_sidebar(var duration : float = 0.3) -> void:
-	match SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS, "SidebarMode"):
+	match SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "SidebarMode"):
 		0:
 			#Automatic
 			if Global.root.get_rect().size.x < ICON_TOGGLE_WIDTH:
@@ -44,7 +44,7 @@ func update_sidebar(var duration : float = 0.3) -> void:
 			#Contracted
 			if !icons_visible:
 				contract_sidebar(duration)
-	sub_options.ToggleIcons(icons_visible)
+	sub_options.toggle_icons(icons_visible)
 
 
 func contract_sidebar(var duration : float) -> void:

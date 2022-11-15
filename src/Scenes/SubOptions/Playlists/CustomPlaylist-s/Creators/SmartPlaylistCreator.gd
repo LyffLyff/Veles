@@ -19,20 +19,20 @@ const ConditionFunctions : Array = [
 ]
 
 func _ready():
-	var _err = Cover.connect("DialoguePressed",Global.root, "load_general_file_dialogue",[
-		Cover.InputEdit,
+	var _err = Cover.connect("dialogue_pressed",Global.root, "load_general_file_dialogue",[
+		Cover.input_edit,
 		FileDialog.MODE_OPEN_FILE,
 		FileDialog.ACCESS_FILESYSTEM,
 		"set_text",
 		[],
 		"Image",
-		Global.SupportedImgFormats,
+		Global.supported_img_extensions,
 		true
 	])
 
 
-func OnSavePressed() -> void:
-	var Conditions : Dictionary = {}
+func on_save_pressed() -> void:
+	var conditions : Dictionary = {}
 	var ConditionValues : PoolStringArray = []
 	var TempCondVal : String = ""
 	
@@ -43,6 +43,6 @@ func OnSavePressed() -> void:
 			TempCondVal = ConditionVBox.get_child(i).get_node("VBoxContainer").get_child(y).get_node("LineEdit").get_text()
 			if TempCondVal != "":
 				ConditionValues.push_back( TempCondVal )
-		Conditions[ConditionFunctions[i]] = ConditionValues
-	emit_signal( "Save",Title.get_text(),Cover.InputEdit.get_text(),"",Conditions )
-	OnClosePressed()
+		conditions[ConditionFunctions[i]] = ConditionValues
+	emit_signal( "Save",Title.get_text(),Cover.input_edit.get_text(),"",conditions )
+	on_close_pressed()

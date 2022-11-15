@@ -45,12 +45,12 @@ func _ready():
 			
 			#Sets the Info Container to the Current Setting
 			x.select(-1)
-			x.select( SettingsData.GetSetting( get_parent().SettingTypeIdx, NormalSettingKey ) )
+			x.select( SettingsData.get_setting( get_parent().setting_type_idx, NormalSettingKey ) )
 			
 		"Color":
 			var x : ColorPickerButton = load("res://src/Scenes/SubOptions/InfoSettings/ColorSetting.tscn").instance()
 			self.add_child(x)
-			x.set_pick_color( SettingsData.GetSetting(get_parent().SettingTypeIdx,ColorSettingKey) )
+			x.set_pick_color( SettingsData.get_setting(get_parent().setting_type_idx,ColorSettingKey) )
 			
 		"File":
 			var x : HBoxContainer = load("res://src/Scenes/SubOptions/InfoSettings/SingleFileSetting.tscn").instance()

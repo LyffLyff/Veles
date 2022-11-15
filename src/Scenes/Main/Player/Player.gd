@@ -39,9 +39,9 @@ onready var song_options : TextureButton = $Main/Additional/SongOptions
 
 func _ready():
 	init_player()
-	#initialising background Color
+	# initialising background Color
 	self.get_stylebox("panel").set_bg_color(
-		SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS,"PlayerBackground")
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS,"PlayerBackground")
 	)
 
 
@@ -58,10 +58,10 @@ func init_player() -> void:
 	info_cover.set_normal_texture(Global.std_music_cover)
 	
 	# setting the saved values
-	set_repeat(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Repeat"))
-	set_shuffle(SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Shuffle"))
-	if SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"ImageViewActivated"):
-		#Waits for the root function to be ready before loadiung the image view on startup :/
+	set_repeat(SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"Repeat"))
+	set_shuffle(SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"Shuffle"))
+	if SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"ImageViewActivated"):
+		# waits for the root function to be ready before loadiung the image view on startup :/
 		yield(get_owner(),"ready")
 		_on_Cover_pressed()
 	
@@ -128,33 +128,33 @@ func _on_PlaybackSlider_value_changed(value):
 
 
 func _on_RepeatMode_pressed():
-	if !SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Repeat"):
+	if !SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"Repeat"):
 		var _tw : PropertyTweener = create_tween().tween_property(repeat_button, "modulate:a", 1.0, TW_DURATION )
-		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Repeat",true)
+		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"Repeat",true)
 	else:
 		var _tw : PropertyTweener = create_tween().tween_property(repeat_button, "modulate:a", 0.5, TW_DURATION )
-		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Repeat",false)
+		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"Repeat",false)
 
 
 func _on_Shuffle_pressed():
 	if shuffle_button.modulate.a == 0.5:
 		var _tw : PropertyTweener = create_tween().tween_property(shuffle_button, "modulate:a", 1.0, TW_DURATION )
-		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Shuffle",true)
+		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"Shuffle",true)
 	else:
-		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Shuffle",false)
+		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"Shuffle",false)
 		var _tw : PropertyTweener = create_tween().tween_property(shuffle_button, "modulate:a", 0.5, TW_DURATION )
 
 
 func _on_Cover_pressed():
 	if view == ViewMode.NORMAL_VIEW:
 		#root.middle_part.get_child(0).hide()
-		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"ImageViewActivated",true)
+		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"ImageViewActivated",true)
 		viewer_control = IMAGE_VIEW.instance()
 		view = ViewMode.COVER_VIEW
 		Global.root.middle_part.add_child(viewer_control)
-		update_player_covers( Playlist.get_playlist_name(SongLists.CurrentPlayList) )
+		update_player_covers( Playlist.get_playlist_name(SongLists.current_playlist_idx) )
 	else:
-		SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"ImageViewActivated",false)
+		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"ImageViewActivated",false)
 		viewer_control.end()
 		view = ViewMode.NORMAL_VIEW
 
@@ -179,7 +179,7 @@ func _on_Volume_pressed():
 		volume_change_ref = Volume
 		Volume.rect_global_position = Vector2(volume_button.rect_global_position.x,self.get_global_position().y - (self.rect_size.y / 1.2))
 	else:
-		volume_change_ref.ExitPlayerOption()
+		volume_change_ref.exit_player_option()
 		volume_change_ref = null
 
 
@@ -196,7 +196,7 @@ func _on_OutputDevice_pressed():
 		output_device_ref.rect_global_position.x = output_device.rect_global_position.x - (output_device_ref.rect_size.x / 2) + (output_device.rect_size.x / 2)
 	else:
 		output_device_visible = false
-		output_device_ref.ExitPlayerOption()
+		output_device_ref.exit_player_option()
 
 
 func _on_PlaybackTimer_timeout() -> void:
@@ -207,20 +207,20 @@ func _on_PlaybackTimer_timeout() -> void:
 
 func _on_Playlist_pressed():
 	# updating playback position every timeout
-	Global.PlaylistPressed =  Playlist.get_playlist_index( song_playlist.get_text().replace("in ","") )
-	if Global.PlaylistPressed >= 0 or Global.PlaylistPressed <= -3:
-		Global.root.load_playlist(Global.PlaylistPressed)
+	Global.pressed_playlist_idx =  Playlist.get_playlist_index( song_playlist.get_text().replace("in ","") )
+	if Global.pressed_playlist_idx >= 0 or Global.pressed_playlist_idx <= -3:
+		Global.root.load_playlist(Global.pressed_playlist_idx)
 
 
 func _on_Artist_pressed():
 	var Artist : String = song_artist.get_text().substr(3)
-	SongLists.TempPlaylistConditions = {
+	SongLists.temporary_playlist_conditions = {
 		"includes_artist" : [ Artist ]
 		}
 	Global.root.load_temporary_playlist( 
 		Artist,
-		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Descriptions/" + Artist + ".txt",
-		Global.GetCurrentUserDataFolder() + "/Songs/Artists/Covers/" + Artist + ".png",
+		Global.get_current_user_data_folder() + "/Songs/Artists/Descriptions/" + Artist + ".txt",
+		Global.get_current_user_data_folder() + "/Songs/Artists/Covers/" + Artist + ".png",
 		3
 	)
 	disable_image_view()
@@ -237,20 +237,20 @@ func prior_next_song(var direction : int) -> void:
 			return;
 	
 	if SongLists.AllSongs.size() > 0:
-		if SongLists.SongFromQueue:
-			SongLists.QueueSongPassed()
-		if SongLists.SongQueue.empty() and SongLists.LastRegularSong == "":
+		if SongLists.is_song_from_queue:
+			SongLists.queue_song_finished()
+		if SongLists.song_queue.empty() and SongLists.last_non_queued_song == "":
 			set_repeat(false)
-			if !SettingsData.GetSetting(SettingsData.GENERAL_SETTINGS,"Shuffle"):
+			if !SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"Shuffle"):
 				Global.root.change_song(direction)
 			else:
 				Global.root.random_song()
 		else:
-			if !SongLists.SongQueue.empty():
-				var path : String = SongLists.SongQueue.keys()[0]
-				var playlist_idx : int = SongLists.SongQueue.get(path)
+			if !SongLists.song_queue.empty():
+				var path : String = SongLists.song_queue.keys()[0]
+				var playlist_idx : int = SongLists.song_queue.get(path)
 				var main_idx : int = AllSongs.get_main_idx(path)
-				SongLists.SongFromQueue = true
+				SongLists.is_song_from_queue = true
 				Global.root.update_highlighted_song(path)
 				Global.root.playback_song(
 					main_idx,
@@ -259,10 +259,10 @@ func prior_next_song(var direction : int) -> void:
 				)
 			else:
 				#plays the next song from the last on the was NOT in the queue
-				Global.root.update_highlighted_song(SongLists.LastRegularSong)
-				SongLists.CurrentSong = SongLists.LastRegularSong
+				Global.root.update_highlighted_song(SongLists.last_non_queued_song)
+				SongLists.current_song = SongLists.last_non_queued_song
 				Global.root.change_song(+1)
-				SongLists.LastRegularSong = ""
+				SongLists.last_non_queued_song = ""
 		set_playback_button(1)
 
 
@@ -273,8 +273,8 @@ func disable_image_view() -> void:
 
 
 func update_player_covers(var playlist_name : String = "") -> void:
-	if AllSongs.get_main_idx(SongLists.CurrentSong) != -1:
-		var CoverHash : String =  AllSongs.get_song_coverhash(AllSongs.get_main_idx(SongLists.CurrentSong))
+	if AllSongs.get_main_idx(SongLists.current_song) != -1:
+		var CoverHash : String =  AllSongs.get_song_coverhash(AllSongs.get_main_idx(SongLists.current_song))
 		var CacheImg = ImageLoader.get_covercache_texture(CoverHash, playlist_name)
 		info_cover.set_deferred("texture_normal",CacheImg)
 		set_image_view_cover( CacheImg )
@@ -299,7 +299,7 @@ func set_repeat(var x : bool) ->void:
 		var _tw : PropertyTweener = create_tween().tween_property(repeat_button, "modulate:a", 0.5, TW_DURATION )
 	else:
 		var _tw : PropertyTweener = create_tween().tween_property(repeat_button, "modulate:a", 1.0, TW_DURATION )
-	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Repeat",x)
+	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"Repeat",x)
 
 
 func set_shuffle(var x : bool) -> void:
@@ -307,4 +307,4 @@ func set_shuffle(var x : bool) -> void:
 		var _tw : PropertyTweener = create_tween().tween_property(shuffle_button, "modulate:a", 0.5, TW_DURATION )
 	else:
 		var _tw : PropertyTweener = create_tween().tween_property(shuffle_button, "modulate:a", 1.0, TW_DURATION )
-	SettingsData.SetSetting(SettingsData.GENERAL_SETTINGS,"Shuffle",x)
+	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"Shuffle",x)

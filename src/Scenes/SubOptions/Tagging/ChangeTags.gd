@@ -58,14 +58,14 @@ func _ready():
 	#when loading this section it checks
 	#if a Global path has been set to
 	#automatically set the  path without searching
-	#if Global.TagPaths.size() != 0:
-	#	for i in Global.TagPaths.size():
-	#		PathEdit.set_text(Global.TagPaths[i])
-	#		MultiplePaths.push_back(Global.TagPaths[i])
-	#		if i + 1 != Global.TagPaths.size():
+	#if Global.temp_tag_paths.size() != 0:
+	#	for i in Global.temp_tag_paths.size():
+	#		PathEdit.set_text(Global.temp_tag_paths[i])
+	#		MultiplePaths.push_back(Global.temp_tag_paths[i])
+	#		if i + 1 != Global.temp_tag_paths.size():
 	#			_on_AddPath_pressed()
-	SetSongPaths( Global.TagPaths )
-	Global.TagPaths = []
+	SetSongPaths( Global.temp_tag_paths )
+	Global.temp_tag_paths = []
 
 
 func OnFilesDropped(var Files : PoolStringArray,var _Screen : int) -> void:
@@ -124,8 +124,8 @@ func _on_SetTag_pressed():
 				Tags.set_artist(NewArtist, MultiplePaths[ PathIdx ])
 				if UpdateValuesInAllSongs:
 					#Adding the Changed Artist if not there
-					if !SongLists.Artists.has([NewArtist]):
-						SongLists.Artists.push_back([NewArtist])
+					if !SongLists.artists.has([NewArtist]):
+						SongLists.artists.push_back([NewArtist])
 					
 					#Setting in AllSongs
 					AllSongs.set_song_artist(NewArtist,TempMainIdx)
@@ -188,7 +188,7 @@ func _on_SetTag_pressed():
 					var CoverHash : String = str(MultiplePaths[ PathIdx ].hash())
 					var x : CoverLoader = CoverLoader.new()
 					var y : Directory = Directory.new()
-					if y.copy(cover_path,Global.GetCurrentUserDataFolder() + "/Songs/AllSongs/Covers/" + CoverHash + ".png") == OK:
+					if y.copy(cover_path,Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + CoverHash + ".png") == OK:
 						x.FilteringDuplicateCovers({CoverHash : MultiplePaths[ PathIdx ]})
 					else:
 						Global.root.message("COULD NOT COPY NEW COVER",  SaveData.MESSAGE_ERROR )
@@ -216,7 +216,7 @@ func _on_SelectSong_pressed():
 		"Select Song"
 	)
 	$ScrollContainer.set_process_input(false)
-	var _err = dialog.connect("Exit",$ScrollContainer,"set_process_input", [true])
+	var _err = dialog.connect("exited",$ScrollContainer,"set_process_input", [true])
 
 
 func _on_SelectCover_pressed():
@@ -227,12 +227,12 @@ func _on_SelectCover_pressed():
 		"SetCoverPath",
 		[],
 		"Image",
-		Global.SupportedImgFormats,
+		Global.supported_img_extensions,
 		false,
 		"Select Image"
 	)
 	$ScrollContainer.set_process_input(false)
-	var _err = dialog.connect("Exit",$ScrollContainer,"set_process_input", [true])
+	var _err = dialog.connect("exited",$ScrollContainer,"set_process_input", [true])
 
 
 
@@ -246,8 +246,8 @@ func RenameSong(var old_path : String, var new_path : String, var new_title : St
 		
 		# Current Song
 		MultiplePaths[ PathIdx ] = new_path
-		if old_path == SongLists.CurrentSong:
-			SongLists.CurrentSong = new_path
+		if old_path == SongLists.current_song:
+			SongLists.current_song = new_path
 		
 		# replacing key in AllSongs
 		if SongLists.AllSongs.has(old_path):
@@ -259,12 +259,12 @@ func RenameSong(var old_path : String, var new_path : String, var new_title : St
 				root.message("PATH THAT YOU WANTED TO ERASE FROM ALLSONGS IS NOT EXISTENT IN IT: " + old_path, SaveData.MESSAGE_ERROR)
 		
 		# replacing in Playlists
-		for n in SongLists.Playlists.size():
-			if SongLists.Playlists.values()[n].has(old_path):
-				var value : Array = SongLists.Playlists.values()[n].get(old_path)
-				if SongLists.Playlists.values()[n].erase(old_path):
+		for n in SongLists.normal_playlists.size():
+			if SongLists.normal_playlists.values()[n].has(old_path):
+				var value : Array = SongLists.normal_playlists.values()[n].get(old_path)
+				if SongLists.normal_playlists.values()[n].erase(old_path):
 					value[0] = AllSongs.get_song_amount() -1
-					SongLists.Playlists.values()[n][new_path] = value
+					SongLists.normal_playlists.values()[n][new_path] = value
 				else:
 					root.message("COULD NOT ERASE KEY IN THE PLAYLISTS", SaveData.MESSAGE_ERROR)
 		

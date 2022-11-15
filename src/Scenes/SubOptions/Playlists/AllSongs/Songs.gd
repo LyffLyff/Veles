@@ -6,7 +6,7 @@ onready var SongFilter : Control = $HBoxContainer/VBoxContainer/SongFilters
 
 
 func _ready():
-	Global.PlaylistPressed = -1
+	Global.pressed_playlist_idx = -1
 	if SongFilter.connect("filter_status",SongScroller,"SetFilterStatus"):
 		Global.root.message("Connecting Song filters with ScrollContainer",  SaveData.MESSAGE_ERROR )
 	#Child one and two of ScrollContainer are the Scrollbars
@@ -16,10 +16,10 @@ func _ready():
 	var _err = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller.connect("SpeedThresholdExceeded",self,"set_deferred", ["ScrollingFast",true])
 	_err = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller.connect("SpeedThresholdSubceeded",self,"set_deferred", ["ScrollingFast",false])
 	ConnectScrollContainer()
-	#if Global.InitializeSongs:
+	#if Global.init_songs:
 	var x : SongLoader = SongLoader.new()
-	if Global.InitializeSongs:
+	if Global.init_songs:
 		x.Reload()
-		Global.InitializeSongs = false
+		Global.init_songs = false
 	x.CreateSongsSpaces(songs)
-	root.update_highlighted_song(SongLists.CurrentSong)
+	root.update_highlighted_song(SongLists.current_song)

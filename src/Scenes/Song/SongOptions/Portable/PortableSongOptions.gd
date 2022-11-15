@@ -6,5 +6,5 @@ extends "res://src/Scenes/Song/SongOptions/SongOptions.gd"
 
 func _ready():
 	self.get_stylebox("panel").set_bg_color(
-		SettingsData.GetSetting(SettingsData.DESIGN_SETTINGS,"PortableSongOptionsBackground")
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS,"PortableSongOptionsBackground")
 	)

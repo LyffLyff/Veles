@@ -10,7 +10,7 @@ onready var Runtime : Label = $HBoxContainer/VBoxContainer/Header/HBoxContainer/
 
 func _ready():
 	var _err = Scroll.get_v_scrollbar().connect("value_changed",self,"OnScrollValueChanged")
-	playlist_idx = Global.PlaylistPressed
+	playlist_idx = Global.pressed_playlist_idx
 	PlaylistOptions = $HBoxContainer/VBoxContainer/Header/HBoxContainer/PlaylistOptions
 	songs = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller/Songs
 	SongHighlighter = $SongHighlighter
@@ -23,8 +23,8 @@ func _ready():
 	var IdxsToSet : PoolIntArray = []
 	var TempPath : String = ""
 	var TempMainIdx : int = 0
-	for n in SongLists.Playlists.values()[playlist_idx].size():
-		TempPath = SongLists.Playlists.values()[playlist_idx].keys()[n]
+	for n in SongLists.normal_playlists.values()[playlist_idx].size():
+		TempPath = SongLists.normal_playlists.values()[playlist_idx].keys()[n]
 		TempMainIdx = AllSongs.get_main_idx(TempPath)
 		IdxsToSet.push_back(TempMainIdx)
 	if IdxsToSet.size() > 0:
@@ -40,7 +40,7 @@ func _ready():
 	#SongLoader = playlist_name
 	
 	#Setting the Header Cover
-	var playlist_cover_path : String = Global.GetCurrentUserDataFolder() + "/Songs/Playlists/Covers/" + Playlist.get_playlist_name(playlist_idx) + ".png"
+	var playlist_cover_path : String = Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + Playlist.get_playlist_name(playlist_idx) + ".png"
 	HeaderCover.texture = ImageLoader.get_cover(playlist_cover_path,playlist_name)
 	
 	#Setting Header Info
@@ -55,15 +55,15 @@ func OnCoverSelected(var ImgSrc : String):
 
 
 func OnDeletePressed():
-	var playlist_key : String = SongLists.Playlists.keys()[playlist_idx]
-	if !SongLists.Playlists.erase(playlist_key):
+	var playlist_key : String = SongLists.normal_playlists.keys()[playlist_idx]
+	if !SongLists.normal_playlists.erase(playlist_key):
 		Global.root.message("DELETIING PLAYLIST COVER FROM USER DATA",  SaveData.MESSAGE_ERROR )
 	ExtendedDirectory.delete_file(OS.get_user_data_dir() + "/Songs/Playlists/Covers/" + playlist_key + ".png")
-	SaveData.erase_key_from_file(SongLists.FilePaths[9],playlist_key)
+	SaveData.erase_key_from_file(SongLists.file_paths[9],playlist_key)
 	UnloadPlaylist()
 
 
 func OnQueuePlaylistPressed() -> void:
 	#Queueing all the Songs in trhe Current Playlist
-	for n in SongLists.Playlists.values()[playlist_idx].size():
-		SongLists.QueueSong( SongLists.Playlists.values()[playlist_idx].keys()[n] )
+	for n in SongLists.normal_playlists.values()[playlist_idx].size():
+		SongLists.queue_song( SongLists.normal_playlists.values()[playlist_idx].keys()[n] )

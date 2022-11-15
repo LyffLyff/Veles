@@ -1,12 +1,16 @@
-#This Script will hold all Settings that Can be changed in Veles.
-
 extends Node
+# this Script will hold all Settings that can be changed in Veles.
 
-#ENUMS
-enum {GENERAL_SETTINGS,SONG_SETTINGS,PLAYLIST_ALBUM_SETTINGS,DESIGN_SETTINGS,STATISTIC_SETTINGS}
+enum {
+	GENERAL_SETTINGS,
+	SONG_SETTINGS,
+	PLAYLIST_ALBUM_
+	SETTINGS,
+	DESIGN_SETTINGS,
+	STATISTIC_SETTINGS,
+}
 
-
-var GeneralSettings : Dictionary = {
+var general_settings : Dictionary = {
 	"Volume" : 0,
 	"Shuffle" : false,
 	"Repeat" : false,
@@ -31,7 +35,7 @@ var GeneralSettings : Dictionary = {
 	#Path Used prior ot get Images
 	"ImagePath" : "",
 	#Path Used Prior to get Folder/Music
-	"song_path" : "",
+	"SongPath" : "",
 	
 	"CoverExportPath" : "",
 	
@@ -51,8 +55,7 @@ var GeneralSettings : Dictionary = {
 	
 	"LastEditedVLPProjects" : []
 }
-
-var SongSettings : Dictionary = {
+var song_settings : Dictionary = {
 	#0 = File Explorer with Extension, 1 w.o extension, 2 = Tag Title
 	"DisplayNameMode" : 0,
 	"StandardSongCover" : "",
@@ -72,12 +75,11 @@ var SongSettings : Dictionary = {
 	#1 = Yes
 	"LyricsVisibleTimestamps" : 1
 }
-
-var PlaylistAlbumSettings : Dictionary = {
+var playlist_settings : Dictionary = {
 	#0 = Veles Playlist, 1 = ALbum Tag
 	"PlaylistSpaceText" : 0,
 }
-var DesignSettings : Dictionary = {
+var design_settings : Dictionary = {
 	"MainBackgroundColor" : Color("242424"),
 	"WindowBarColor" : Color("121212"),
 	"ImageViewStandardBackgroundColor" : Color("171717"),
@@ -92,19 +94,24 @@ var DesignSettings : Dictionary = {
 	"AudioEffectsHeaderBackground" : Color("202020"),
 	"PlaylistHeader" : Color("202020")
 }
-var StatisticSettings : Dictionary = {
+var statistic_settings : Dictionary = {
 	
 }
+var settings : Array = [
+	general_settings,
+	song_settings,
+	playlist_settings,
+	design_settings,
+	statistic_settings
+]
 
-var Settings : Array = [GeneralSettings,SongSettings,PlaylistAlbumSettings,DesignSettings,StatisticSettings]
+
+func set_setting(var setting_type_idx : int,var key : String, var new_value) -> void:
+	if settings[setting_type_idx].has(key):
+		settings[setting_type_idx][key] = new_value
 
 
-func SetSetting(var SettingTypeIdx : int,var key : String, var value) -> void:
-	if Settings[SettingTypeIdx].has(key):
-		Settings[SettingTypeIdx][key] = value
-
-
-func GetSetting(var SettingTypeIdx : int, var key : String):
-	if !Settings[SettingTypeIdx].has(key):
+func get_setting(var setting_type_idx : int, var key : String):
+	if !settings[setting_type_idx].has(key):
 		return null
-	return Settings[SettingTypeIdx][key]
+	return settings[setting_type_idx][key]
