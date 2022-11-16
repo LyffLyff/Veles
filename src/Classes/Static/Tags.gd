@@ -59,6 +59,9 @@ static func get_embedded_covers(var src_path : String) -> Array:
 
 static func copy_embedded_covers(var src_paths : PoolStringArray, var dst_paths : PoolStringArray) -> PoolByteArray:
 	var cpp = Tagging.new()
+	print("HERE: ", src_paths)
+	print("DESTINATIONS: ", dst_paths)
+	print(cpp.CopyAllCovers(src_paths, dst_paths))
 	return cpp.CopyAllCovers(src_paths, dst_paths)
 
 

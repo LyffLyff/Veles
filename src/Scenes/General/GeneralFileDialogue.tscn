@@ -23,7 +23,7 @@ size_flags_vertical = 4
 dialog_autowrap = true
 show_hidden_files = true
 
-[connection signal="dir_selected" from="FileDialog" to="." method="SelectionMade"]
-[connection signal="file_selected" from="FileDialog" to="." method="SelectionMade"]
-[connection signal="files_selected" from="FileDialog" to="." method="SelectionMade"]
+[connection signal="dir_selected" from="FileDialog" to="." method="selection_made"]
+[connection signal="file_selected" from="FileDialog" to="." method="selection_made"]
+[connection signal="files_selected" from="FileDialog" to="." method="selection_made"]
 [connection signal="popup_hide" from="FileDialog" to="." method="_on_FileDialog_popup_hide"]

@@ -40,7 +40,7 @@ func OnUserProfileSelected(var user_idx : int) -> void:
 	var Paths : PoolStringArray = []
 	for i in SongLists.file_paths.size():
 		Paths.push_back( SongLists.add_user_to_filepath(SongLists.file_paths[i]) )
-	SongLists.saveUserSpecificData(Paths)
+	SongLists.save_user_specific_data(Paths)
 	Global.current_profile_idx = user_idx
 	Global.init_songs = true
 	SongLists.reset_userdata()

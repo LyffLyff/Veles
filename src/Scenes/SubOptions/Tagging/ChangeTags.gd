@@ -189,7 +189,7 @@ func _on_SetTag_pressed():
 					var x : CoverLoader = CoverLoader.new()
 					var y : Directory = Directory.new()
 					if y.copy(cover_path,Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + CoverHash + ".png") == OK:
-						x.FilteringDuplicateCovers({CoverHash : MultiplePaths[ PathIdx ]})
+						x.filter_duplicate_cover({CoverHash : MultiplePaths[ PathIdx ]})
 					else:
 						Global.root.message("COULD NOT COPY NEW COVER",  SaveData.MESSAGE_ERROR )
 		else:

@@ -92,7 +92,7 @@ func CreateNewPlaylistPressed(var NewPlaylistType : int) -> void:
 			PlaylistCreator = SMART_PLAYLIST_CREATOR.instance()
 			Global.root.top_ui.add_child(PlaylistCreator)
 	
-	var _err = PlaylistCreator.connect("Save",self,"SaveNewPlaylist",[NewPlaylistType])
+	var _err = PlaylistCreator.connect("save",self,"SaveNewPlaylist",[NewPlaylistType])
 
 
 func SaveNewPlaylist(var PlaylistTitle : String, var PlaylistCoverPath : String, var Folder : String, var conditions : Dictionary ,var NewPlaylistType : int) -> void:

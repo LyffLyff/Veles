@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "CoverLoader",
 "language": "GDScript",
-"path": "res://src/Scenes/Song/ImageThread.gd"
+"path": "res://src/Classes/Normal/ImageThread.gd"
 }, {
 "base": "Reference",
 "class": "DesignPaths",

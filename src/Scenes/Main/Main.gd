@@ -479,7 +479,7 @@ func load_user_profile_selection() -> void:
 	# loads the user profiles selection to change the current user
 	
 	# saving user specific data
-	SongLists.saveUserSpecificData( SongLists.add_users_to_fiie_paths(SongLists.file_paths) )
+	SongLists.save_user_specific_data( SongLists.add_users_to_fiie_paths(SongLists.file_paths) )
 	
 	var x = load("res://src/Scenes/UserProfiles/UserProfileSelection.tscn").instance()
 	var _err = x.connect("tree_exited",self,"init_main")
@@ -555,7 +555,7 @@ func update_player_infos() -> void:
 	
 	# playlist Label
 	var playlist_name : String
-	if SettingsData.get_setting(SettingsData.PLAYLIST_ALBUM_SETTINGS,"PlaylistSpaceText") == 0:
+	if SettingsData.get_setting(SettingsData.PLAYLIST_SETTINGS,"PlaylistSpaceText") == 0:
 		playlist_name = Playlist.get_playlist_name( SongLists.current_playlist_idx )
 	else:
 		playlist_name = Tags.get_album(SongLists.current_song)

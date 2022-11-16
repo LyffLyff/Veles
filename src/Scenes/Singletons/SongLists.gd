@@ -351,6 +351,7 @@ func init_cached_covers() -> void:
 
 
 func add_folder(var dir : String):
+	print(dir)
 	folders.push_back(dir)
 	var x : SongLoader = SongLoader.new()
 	x.Reload()

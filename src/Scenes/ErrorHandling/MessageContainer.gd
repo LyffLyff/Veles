@@ -3,8 +3,8 @@ extends Control
 
 const DURATION : float = 0.3
 
-onready var message_panel : PanelContainer = $VBoxContainer/message
-onready var message_label : Label = $VBoxContainer/message/Label
+onready var message_panel : PanelContainer = $VBoxContainer/Message
+onready var message_label : Label = $VBoxContainer/Message/Label
 
 func _ready():
 	self.rect_position.y = 150

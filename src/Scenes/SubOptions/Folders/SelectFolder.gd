@@ -95,7 +95,8 @@ func _on_FileDialog_dir_selected(var NewFolders : PoolStringArray,var _screen : 
 
 	var dir : Directory = Directory.new()
 	for folder in NewFolders:
-		folder = folder.get_base_dir()
+		if !dir.dir_exists(folder):
+			folder = folder.get_base_dir()
 		
 		# checking validity of folder
 		if !dir.dir_exists(folder):
@@ -108,7 +109,6 @@ func _on_FileDialog_dir_selected(var NewFolders : PoolStringArray,var _screen : 
 		# adding the folder
 		SongLists.add_folder(folder)
 		add_folder(folder)
-		print(SongLists.Folders)
 
 
 func _on_Remove_pressed():

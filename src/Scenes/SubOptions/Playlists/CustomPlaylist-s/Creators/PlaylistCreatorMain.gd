@@ -1,11 +1,11 @@
 extends "res://src/Scenes/General/StdPopupBackground.gd"
 
 #SIGNALS
-signal Close
-signal Save
+signal close
+signal save
 
 
 func on_close_pressed() -> void:
-	emit_signal("Close")
+	emit_signal("close")
 	exit_popup()
 

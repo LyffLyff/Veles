@@ -9,7 +9,7 @@ onready var VerseVBox : VBoxContainer = $VBoxContainer/ScrollContainer/HBoxConta
 onready var ProjectTitle : LineEdit = $VBoxContainer/Title
 onready var LRCTags : VBoxContainer = $VBoxContainer/LRCTags
 	#DOCUMENT OPTIONS
-onready var Save : TextureButton = $VBoxContainer/PanelContainer/DocOptions/Save
+onready var save : TextureButton = $VBoxContainer/PanelContainer/DocOptions/Save
 onready var SaveAsButton : TextureButton = $VBoxContainer/PanelContainer/DocOptions/SaveAs
 onready var EmbedInSong : TextureButton = $VBoxContainer/PanelContainer/DocOptions/EmbedInFile
 
@@ -208,7 +208,7 @@ func OnSaveLyricsProject(var SaveAs : bool = false):
 		Global.root.top_ui.add_child(general_file_dialogue)
 		general_file_dialogue.n_ready(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_USERDATA, "Lyrics",["*.vlp"], true, "Save Project As",Title)
 		general_file_dialogue.dialogue.current_dir = Global.get_current_user_data_folder() + "/Lyrics/Projects"
-		var _err = general_file_dialogue.connect("selection_made", SaveData, "Save", [VLPFiledata])
+		var _err = general_file_dialogue.connect("selection_made", SaveData, "save", [VLPFiledata])
 		
 		# changing current project path if save as is true
 		if SaveAs:

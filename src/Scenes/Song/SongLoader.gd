@@ -9,10 +9,10 @@ signal SongsReloaded
 func Reload() -> void:
 	
 	#Variables
-	var Title : String = ""
+	var filename : String = ""
 	var song_path : String = ""
 	var MainIndex : int = 0
-	var NewSongs : PoolStringArray = []
+	var new_songs : PoolStringArray = []
 	var NewAllSongs : Dictionary = {}
 	
 	#Checking and Deleting Invalif Paths
@@ -23,57 +23,57 @@ func Reload() -> void:
 				Global.root.message("COULD NOT ERASE INDEX " + str(n) + "FROM ALLSONGS DICTIONARY", SaveData.MESSAGE_ERROR)
 	
 	#Loading New Songs from Folder if any
-	for FolderIdx in SongLists.folders.size():
-		
+	for folder_idx in SongLists.folders.size():
 		var dir = Directory.new()
-		if dir.open(SongLists.folders[FolderIdx]) == OK:
+	
+		if dir.open(SongLists.folders[folder_idx]) == OK:
 			if dir.list_dir_begin(true,true) == OK:
-					while true:
-						
-						Title  = dir.get_next()
-						if Title == "":
-							#End of folder
-							break;
-						
-						if FormatChecker.get_music_filename_extension(Title) != -1:
-							song_path = dir.get_current_dir()+ "/" + Title
-							if SongLists.AllSongs.has(song_path):
-								AllSongs.set_main_idx(song_path,MainIndex)
-								NewAllSongs[song_path] = SongLists.AllSongs.get(song_path)
+				
+				while true:
+					filename  = dir.get_next()
+					if filename == "":
+						#End of folder
+						break;
+					
+					if FormatChecker.get_music_filename_extension(filename) != -1:
+						song_path = dir.get_current_dir()+ "/" + filename
+						if SongLists.AllSongs.has(song_path):
+							AllSongs.set_main_idx(song_path,MainIndex)
+							NewAllSongs[song_path] = SongLists.AllSongs.get(song_path)
+							
+						else:
+							#Adding all Artists to List
+							var Artist : String = Tags.get_artist(song_path)
+							var DividedArtists : PoolStringArray = Streams.divide_artists(Artist)
+							for n in DividedArtists.size():
 								
-							else:
-								#Adding all Artists to List
-								var Artist : String = Tags.get_artist(song_path)
-								var DividedArtists : PoolStringArray = Streams.divide_artists(Artist)
-								for n in DividedArtists.size():
+								if DividedArtists[n] == "":
+									continue;
+								if SongLists.artists.has( [ DividedArtists[n] ] ):
+									continue;
 									
-									if DividedArtists[n] == "":
-										continue;
-									if SongLists.artists.has( [ DividedArtists[n] ] ):
-										continue;
-										
-									SongLists.artists.push_back( 
-										[ DividedArtists[n] ] 
-									);
-								
-								NewAllSongs[song_path] = [
-									Title,
-									Artist,
-									MainIndex,
-									0,
-									str(song_path.hash()),
-									Tags.get_title(song_path),
-									Tags.get_song_duration(song_path),
-									false
-								]
-								#the new Song in the folder that has just been added will be at the end of the Dictionary
-								#should be loaded with the other songs from its folder
-								#SongLists.PushAllSongIdx(SongLists.AllSongs.size() - 1)
-								NewSongs.push_back(song_path)
-							MainIndex += 1
+								SongLists.artists.push_back( 
+									[ DividedArtists[n] ] 
+								);
+							
+							NewAllSongs[song_path] = [
+								filename,
+								Artist,
+								MainIndex,
+								0,
+								str(song_path.hash()),
+								Tags.get_title(song_path),
+								Tags.get_song_duration(song_path),
+								false
+							]
+							#the new Song in the folder that has just been added will be at the end of the Dictionary
+							#should be loaded with the other songs from its folder
+							#SongLists.PushAllSongIdx(SongLists.AllSongs.size() - 1)
+							new_songs.push_back(song_path)
+						MainIndex += 1
 	SongLists.AllSongs = NewAllSongs
 	var x : CoverLoader = CoverLoader.new()
-	x.NewSongCovers(NewSongs)
+	x.NewSongCovers(new_songs)
 	emit_signal("SongsReloaded")
 
 

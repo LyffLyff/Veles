@@ -11,5 +11,5 @@ func on_save_pressed() -> void:
 	var PFolder : String = Folder.input_edit.get_text()
 	var PTitle : String = Title.input_edit.get_text()
 	var PCoverPath : String = Cover.input_edit.get_text()
-	emit_signal("Save",PTitle,PCoverPath,PFolder,{})
+	emit_signal("save",PTitle,PCoverPath,PFolder,{})
 	exit_popup()

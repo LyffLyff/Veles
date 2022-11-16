@@ -43,7 +43,7 @@ func _ready():
 			for Idx in Items.size():
 				x.add_item(Items[Idx],Idx )
 			
-			#Sets the Info Container to the Current Setting
+			# sets the Info Container to the Current Setting
 			x.select(-1)
 			x.select( SettingsData.get_setting( get_parent().setting_type_idx, NormalSettingKey ) )
 			

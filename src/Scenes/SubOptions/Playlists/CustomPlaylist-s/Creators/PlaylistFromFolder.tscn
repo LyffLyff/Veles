@@ -64,10 +64,6 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 582.0
 margin_bottom = 25.0
-InputeLabelText = "Folder:"
-OpenMode = 2
-FileType = "Song"
-ShowGeneralFileDialogue = true
 
 [node name="Title" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -75,7 +71,6 @@ anchor_bottom = 0.0
 margin_top = 40.0
 margin_right = 582.0
 margin_bottom = 65.0
-InputeLabelText = "Title:"
 
 [node name="Cover" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -83,9 +78,6 @@ anchor_bottom = 0.0
 margin_top = 80.0
 margin_right = 582.0
 margin_bottom = 105.0
-InputeLabelText = "Cover:"
-FileType = "Image"
-ShowGeneralFileDialogue = true
 
 [node name="Buttons" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer"]
 margin_top = 302.0
@@ -122,5 +114,5 @@ margin_right = 600.0
 margin_bottom = 350.0
 rect_min_size = Vector2( 10, 0 )
 
-[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/Buttons/Save" to="." method="OnSavePressed"]
-[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/Buttons/CloseFromFolder" to="." method="ExitPopup"]
+[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/Buttons/Save" to="." method="on_save_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/VBoxContainer/Buttons/CloseFromFolder" to="." method="exit_popup"]

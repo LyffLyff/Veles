@@ -20,7 +20,6 @@ func _enter_tree():
 
 
 func _exit_tree():
-	Global.general_dialogue_visible = false
 	Global.root.toggle_songlist_input(true)
 
 
@@ -82,8 +81,8 @@ func n_ready(var mode_flag : int = 0, var access_flag : int = 0, var type : Stri
 func selection_made(var args) -> void:
 	# the function that gets called when any the action of the dialogue was done
 	# saving, open dir, open file/s,....
+	Global.general_dialogue_visible = false
 	emit_signal("saved")
-	
 	if return_as_string:
 		if typeof(args) == TYPE_STRING:
 			save_last_folder(args)

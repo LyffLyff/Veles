@@ -51,7 +51,6 @@ anchor_bottom = 0.0
 margin_top = 64.0
 margin_right = 450.0
 margin_bottom = 89.0
-InputeLabelText = "Name"
 
 [node name="SelectProfileImg" parent="PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -59,9 +58,6 @@ anchor_bottom = 0.0
 margin_top = 97.0
 margin_right = 450.0
 margin_bottom = 122.0
-InputeLabelText = "Image"
-FileType = "Cover"
-ShowGeneralFileDialogue = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 margin_top = 207.0
@@ -92,5 +88,5 @@ margin_right = 450.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 0, 5 )
 
-[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Close" to="." method="ExitPopup"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Close" to="." method="exit_popup"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Save" to="." method="OnSaveProfile"]

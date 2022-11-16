@@ -4,7 +4,7 @@ extends Control
 #NODES
 onready var URL : LineEdit = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/URL/LineEdit
 onready var Title : LineEdit = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Title/LineEdit
-onready var DstFolder : LineEdit = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/DstFolder/LineEdit
+onready var dst_folder : LineEdit = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/DstFolder/LineEdit
 onready var AudioVideo : OptionButton = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/AudioVideo/OptionButton
 onready var Audioformat : OptionButton = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Audioformat/OptionButton
 onready var Videoformat : OptionButton = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Videoformat/OptionButton
@@ -20,7 +20,7 @@ const DownloadContainer : PackedScene = preload("res://src/Scenes/SubOptions/Dow
 
 
 func _ready():
-	DstFolder.set_text(StdDownloadFolder)
+	dst_folder.set_text(StdDownloadFolder)
 	var _err = Global.downloader_ref.connect("download_completed",self,"UpdateDownloads")
 	_err = Global.downloader_ref._downloader.connect("download_failed",self,"UpdateDownloads")
 	_err = get_tree().connect("files_dropped",self,"_on_files_dropped")
@@ -29,7 +29,7 @@ func _ready():
 
 func _on_files_dropped(var files : Array , var _screen : int) -> void:
 	if Global.general_dialogue_visible: return;
-	DstFolder.set_text( files[0].replace("\\","/") )
+	dst_folder.set_text( files[0].replace("\\","/") )
 
 
 func UpdateDownloads() -> void:
@@ -71,7 +71,7 @@ func OnDownloadAdded():
 		Global.root.message("Download setup is NOT complete -> see Infos",  SaveData.MESSAGE_ERROR, true, Color(ColorN("dark_red")) )
 		return
 	
-	if !Directory.new().dir_exists( DstFolder.get_text().get_base_dir() ):
+	if !Directory.new().dir_exists( dst_folder.get_text().get_base_dir() ):
 		Global.root.message("Destination Folder not found",  SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )
 		return
 	
@@ -89,7 +89,7 @@ func OnDownloadAdded():
 	Global.push_new_download(
 		URL.get_text(),
 		Title.get_text(),
-		DstFolder.get_text().get_base_dir(),
+		dst_folder.get_text().get_base_dir(),
 		AudioVideo.selected,
 		Videoformat.selected,
 		Audioformat.selected,

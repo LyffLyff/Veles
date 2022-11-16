@@ -53,9 +53,6 @@ anchor_bottom = 0.0
 margin_top = 68.0
 margin_right = 587.0
 margin_bottom = 93.0
-InputeLabelText = "Name:"
-OpenMode = 1
-FileType = "Song"
 
 [node name="Cover" parent="Panel/VBoxContainer2/Main" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -63,9 +60,6 @@ anchor_bottom = 0.0
 margin_top = 103.0
 margin_right = 587.0
 margin_bottom = 128.0
-InputeLabelText = "Cover:"
-FileType = "Image"
-ShowGeneralFileDialogue = true
 
 [node name="Buffer" type="Control" parent="Panel/VBoxContainer2/Main"]
 margin_top = 138.0
@@ -106,5 +100,5 @@ margin_right = 600.0
 margin_bottom = 350.0
 rect_min_size = Vector2( 5, 0 )
 
-[connection signal="pressed" from="Panel/VBoxContainer2/Main/ClosingButtons/Save" to="." method="OnSavePressed"]
-[connection signal="pressed" from="Panel/VBoxContainer2/Main/ClosingButtons/Close" to="." method="ExitPopup"]
+[connection signal="pressed" from="Panel/VBoxContainer2/Main/ClosingButtons/Save" to="." method="on_save_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer2/Main/ClosingButtons/Close" to="." method="exit_popup"]
