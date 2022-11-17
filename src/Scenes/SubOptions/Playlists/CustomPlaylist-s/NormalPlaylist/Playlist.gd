@@ -15,7 +15,7 @@ func _ready():
 	songs = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller/Songs
 	SongHighlighter = $SongHighlighter
 	HeaderCover = $HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer2/Cover
-	Infos = [
+	infos = [
 		$HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Creation,
 		$HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Songs,
 		$HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Length

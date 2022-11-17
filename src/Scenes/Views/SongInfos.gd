@@ -1,12 +1,6 @@
 extends PanelContainer
 
-
-#NODES
-onready var scroll : ScrollContainer = $HBoxContainer/ScrollContainer
-onready var InfoSpace : VBoxContainer = $HBoxContainer/ScrollContainer/HBoxContainer/InfoSpaces
-
-#VARIABLES
-var Infos : Dictionary = {
+var infos : Dictionary = {
 	"Title" : "",
 	"Artist/s" : "",
 	"Album" : "",
@@ -17,32 +11,35 @@ var Infos : Dictionary = {
 	"Bitrate" : "",
 	"Channels" : ""
 }
-  
+
+onready var scroll : ScrollContainer = $HBoxContainer/ScrollContainer
+onready var info_space : VBoxContainer = $HBoxContainer/ScrollContainer/HBoxContainer/InfoSpaces
+
 func _ready():
-	InitSongInfos()
+	init_song_infos()
 
 
-func Update() -> void:
-	InitSongInfos()
+func update() -> void:
+	init_song_infos()
 
 
-func InitSongInfos() -> void:
-	#Retrieving Infos
-	Infos["Title"] = Tags.get_title(SongLists.current_song)
-	Infos["Artist/s"] = Tags.get_artist(SongLists.current_song)
-	Infos["Album"] = Tags.get_album(SongLists.current_song)
-	Infos["Filetype"] = FormatChecker.get_music_file_extension(SongLists.current_song)
-	Infos["Filepath"] = SongLists.current_song
-	Infos["Song Duration"] = TimeFormatter.format_seconds( float( Tags.get_song_duration(SongLists.current_song) ) ) + "min"
+func init_song_infos() -> void:
+	# retrieving Infos
+	infos["Title"] = Tags.get_title(SongLists.current_song)
+	infos["Artist/s"] = Tags.get_artist(SongLists.current_song)
+	infos["Album"] = Tags.get_album(SongLists.current_song)
+	infos["Filetype"] = FormatChecker.get_music_file_extension(SongLists.current_song)
+	infos["Filepath"] = SongLists.current_song
+	infos["Song Duration"] = TimeFormatter.format_seconds( float( Tags.get_song_duration(SongLists.current_song) ) ) + "min"
 	
-	var x : Tagging = Tagging.new()
-	Infos["Sample Rate"] = str( x.GetSongSampleRate(SongLists.current_song) ) + "Hz"
-	Infos["Bitrate"] = str( x.GetSongBitrate(SongLists.current_song) ) + "kb/s"
-	Infos["Channels"] = str( x.GetSongChannels(SongLists.current_song) )
+	var native : Tagging = Tagging.new()
+	infos["Sample Rate"] = str( native.GetSongSampleRate(SongLists.current_song) ) + "Hz"
+	infos["Bitrate"] = str( native.GetSongBitrate(SongLists.current_song) ) + "kb/s"
+	infos["Channels"] = str( native.GetSongChannels(SongLists.current_song) )
 	
-	#Setting Data on Info Spaces
-	for i in range(1, InfoSpace.get_child_count()):
-		InfoSpace.get_child(i).InitInfoSpace(
-			Infos.keys()[i - 1],
-			Infos.values()[i - 1]
+	# setting Data on Info Spaces
+	for i in range(1, info_space.get_child_count()):
+		info_space.get_child(i).init_info_space(
+			infos.keys()[i - 1],
+			infos.values()[i - 1]
 		)

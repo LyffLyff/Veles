@@ -14,8 +14,8 @@ func InitInfos() -> void:
 	var SubInfosCounter : int = 0
 	for i  in InfoVBox.get_child_count():
 		if InfoVBox.get_child(i) is VBoxContainer:
-			InfoVBox.get_child(i).set("SubInfos",InfoTextSpace.Infos.values()[SubInfosCounter].size())
-			InfoVBox.get_child(i).set("SubInfoTitles",InfoTextSpace.Infos.values()[SubInfosCounter].keys())
+			InfoVBox.get_child(i).set("SubInfos",InfoTextSpace.infos.values()[SubInfosCounter].size())
+			InfoVBox.get_child(i).set("SubInfoTitles",InfoTextSpace.infos.values()[SubInfosCounter].keys())
 			if InfoVBox.get_child(i).connect("SubInfoPressed",InfoTextSpace,"SetInfoText",[SubInfosCounter]):
 				Global.root.message("CANNOT connect Signal SubInfoPressed to InfoTextSpace's SetInfoText function",  SaveData.MESSAGE_ERROR )
 			SubInfosCounter += 1

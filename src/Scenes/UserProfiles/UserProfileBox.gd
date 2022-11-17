@@ -1,17 +1,15 @@
 extends PanelContainer
 
-#NODES
-onready var ProfileImage : TextureRect = $HBoxContainer/ProfileImg
-onready var LoadUserSelect : Button = $LoadUserSelect
-onready var UsernameLabel : Label = $HBoxContainer/Username
-
+onready var profile_img : TextureRect = $HBoxContainer/ProfileImg
+onready var load_user_select : Button = $LoadUserSelect
+onready var username_label : Label = $HBoxContainer/Username
 
 func _ready():
-	InitProfileBox()
+	init_profile_box()
 
 
-func InitProfileBox():
+func init_profile_box():
 	if Global.current_profile_idx != -1:
-		var Username : String = Global.user_profiles[Global.current_profile_idx]
-		UsernameLabel.set_text(Username)
-		ProfileImage.set_texture( ImageLoader.get_cover("user://GlobalSettings/UserImages/" + Username + ".png") )
+		var username : String = Global.user_profiles[Global.current_profile_idx]
+		username_label.set_text(username)
+		profile_img.set_texture( ImageLoader.get_cover("user://GlobalSettings/UserImages/" + username + ".png") )

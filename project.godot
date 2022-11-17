@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Classes/Static/CSV.gd"
 }, {
-"base": "",
+"base": "Reference",
 "class": "CheckString",
 "language": "NativeScript",
 "path": "res://addons/GDNative/CheckString.gdns"
@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "DesignPaths",
 "language": "GDScript",
-"path": "res://src/Scenes/Design/DesignSetter.gd"
+"path": "res://src/scenes/Design/DesignSetter.gd"
 }, {
 "base": "Object",
 "class": "Exporter",
@@ -200,6 +200,7 @@ gdscript/warnings/standalone_ternary=false
 [display]
 
 window/size/width=1120
+window/size/borderless=true
 window/dpi/allow_hidpi=true
 window/per_pixel_transparency/allowed=true
 window/per_pixel_transparency/enabled=true

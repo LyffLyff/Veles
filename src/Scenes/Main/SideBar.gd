@@ -50,7 +50,7 @@ func update_sidebar(var duration : float = 0.3) -> void:
 func contract_sidebar(var duration : float) -> void:
 	var tw : SceneTreeTween = get_tree().create_tween()
 	icons_visible = true
-	user_profile_container.UsernameLabel.hide()
+	user_profile_container.username_label.hide()
 	var ptw : PropertyTweener = tw.tween_property(
 		self,
 		"rect_min_size:x",
@@ -69,4 +69,4 @@ func expand_sidebar(var duration : float) -> void:
 	duration
 	)
 	yield(tw,"finished")
-	user_profile_container.UsernameLabel.show()
+	user_profile_container.username_label.show()

@@ -10,5 +10,5 @@ func _ready():
 
 func SetInfoText(var SubInfoIdx : int, var SubInfoTypeIdx : int) -> void:
 	self.set_bbcode(
-		Infos.values()[ SubInfoTypeIdx ].values()[ SubInfoIdx ]
+		infos.values()[ SubInfoTypeIdx ].values()[ SubInfoIdx ]
 	)

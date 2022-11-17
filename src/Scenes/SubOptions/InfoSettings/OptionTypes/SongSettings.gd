@@ -1,7 +1,7 @@
 extends "res://src/Scenes/SubOptions/InfoSettings/OptionTypes/SettingType.gd"
 
 
-var Infos : Dictionary = {
+var infos : Dictionary = {
 	"Display Name" : 
 """
 File Explorer + Extension:

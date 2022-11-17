@@ -64,7 +64,7 @@ margin_right = 630.0
 margin_bottom = 225.0
 rect_min_size = Vector2( 140, 0 )
 
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/ScrollContainer/VBoxContainer/ProfileHBox/AddUserProfile"]
+[node name="AddUser" type="TextureButton" parent="VBoxContainer/ScrollContainer/VBoxContainer/ProfileHBox/AddUserProfile"]
 margin_left = 20.0
 margin_right = 120.0
 margin_bottom = 225.0
@@ -88,4 +88,4 @@ margin_right = 1120.0
 margin_bottom = 338.0
 rect_min_size = Vector2( 0, 20 )
 
-[connection signal="pressed" from="VBoxContainer/ScrollContainer/VBoxContainer/ProfileHBox/AddUserProfile/TextureButton" to="." method="OnAddUserPressed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/VBoxContainer/ProfileHBox/AddUserProfile/AddUser" to="." method="_on_AddUser_pressed"]

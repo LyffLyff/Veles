@@ -272,7 +272,7 @@ var Shortcuts : Dictionary = {
 """
 }
 
-var Infos : Dictionary = {
+var infos : Dictionary = {
 	"GeneralInfos" : GeneralInfos,
 	"Shortcuts" : Shortcuts,
 	"PlayingMusic" : PlayingMusic,

@@ -1,7 +1,7 @@
 extends "res://src/Scenes/SubOptions/InfoSettings/OptionTypes/SettingType.gd"
 
 
-const Infos : Dictionary = {
+const infos : Dictionary = {
 	"Playlist Text [3rd Label in Player]" :
 """
 Veles Playlist:

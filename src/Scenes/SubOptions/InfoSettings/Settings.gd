@@ -69,8 +69,8 @@ func LoadOption(var OptionIdx : int) -> void:
 
 func OnMouseEntered(var idx : int) -> void:
 	SettingAnimations.play("InfoInOut")
-	InfoTitle.text = OptionRef.get_child(0).Infos.keys()[idx]
-	InfoText.set_bbcode( OptionRef.get_child(0).Infos.values()[idx] )
+	InfoTitle.text = OptionRef.get_child(0).infos.keys()[idx]
+	InfoText.set_bbcode( OptionRef.get_child(0).infos.values()[idx] )
 
 
 func OnMouseExited() -> void:

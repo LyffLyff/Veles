@@ -115,12 +115,12 @@ func init_main(var load_current_song : bool = false) -> void:
 	if Global.current_profile_idx != -1:
 		
 		# connecting User Profile Box
-		sidebar.user_profile_container.InitProfileBox()
+		sidebar.user_profile_container.init_profile_box()
 		sidebar.update_sidebar()
 		if !self.is_connected("resized",sidebar,"update_sidebar"):
 			var _err = self.connect("resized",sidebar,"update_sidebar")
-		if !sidebar.user_profile_container.LoadUserSelect.is_connected("pressed",self,"load_user_profile_selection"):
-			var _err = sidebar.user_profile_container.LoadUserSelect.connect("pressed",self,"load_user_profile_selection")
+		if !sidebar.user_profile_container.load_user_select.is_connected("pressed",self,"load_user_profile_selection"):
+			var _err = sidebar.user_profile_container.load_user_select.connect("pressed",self,"load_user_profile_selection")
 		
 		# connecting a Signal form the Windowbar when the Window gets maximized or unmaximized
 		# hides the resize handles on a true signal
@@ -229,7 +229,7 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 			#Updating Current Song
 			SongLists.set_current_song(AllSongs.get_song_path(main_idx))
 			
-			#Update Player Infos
+			#update Player Infos
 			update_player_infos()
 			
 			#Play
@@ -436,7 +436,7 @@ func update_highlighted_song(var NextHighlighted : String) -> void:
 			options.get_child(0).HighlightSong(options.get_child(0).songs.get_child( NextHighlightedIdx ) )
 
 
-func message(var message : String,var message_type : int, var display : bool = false, var bg_clr : Color = Color("9d9d9d")) -> void:
+func message(var message : String,var message_type : int, var display : bool = false, var bg_clr : Color = Color("1f1f1f")) -> void:
 	message = message.to_upper()
 	SaveData.log_message(message,message_type)
 	if display:

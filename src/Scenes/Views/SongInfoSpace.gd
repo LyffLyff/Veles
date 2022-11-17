@@ -1,11 +1,9 @@
 extends VBoxContainer
 
+onready var title_label : Label = $Title
+onready var info_label : Label = $Info
 
-#NODES
-onready var Title : Label = $Title
-onready var Info : Label = $Info
-
-
-func InitInfoSpace(var TitleText: String, var InfoText : String) -> void:
-	Title.set_deferred("text", TitleText + ":")
-	Info.set_deferred("text", InfoText)
+func init_info_space(var title: String, var info : String) -> void:
+	self.title_label.set_deferred("text", title + ":")
+	self.info_label.set_deferred("text", info)
+	self.info_label.set_deferred("text", info)

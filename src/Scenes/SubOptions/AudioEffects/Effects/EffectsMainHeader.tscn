@@ -94,4 +94,4 @@ margin_right = 1120.0
 margin_bottom = 52.0
 size_flags_vertical = 8
 
-[connection signal="toggled" from="VBoxContainer/HBoxContainer/MainSwitch" to="VBoxContainer/HBoxContainer/MainSwitch" method="OnMainSwitchToggled"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/MainSwitch" to="VBoxContainer/HBoxContainer/MainSwitch" method="on_main_switch_toggled"]

@@ -112,7 +112,7 @@ func LoadLyrics() -> void:
 				NewVerse.modulate = NormalModulate
 				NewVerse.connect("gui_input",self,"OnVerseInputEvent",[i])
 				NewVerse.get_child(0).set_text( Lyrics[0][i] )
-				NewVerse.get_child(1).set_text( str( Lyrics[1][i] ) )
+				NewVerse.get_child(1).set_text( str( Lyrics[1][i] ).pad_decimals(2) )
 		FindCurrentVerse()
 		UpdateSecondsPassed.start(0.0)
 		MoveLyricsTo(CurrentVerseIdx)
@@ -138,7 +138,7 @@ func LoadLyrics() -> void:
 	LyricVBox.update()
 
 
-func Update() -> void:
+func update() -> void:
 	for i in LyricVBox.get_child_count():
 		LyricVBox.get_child(i).queue_free()
 	LoadLyrics()

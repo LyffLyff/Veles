@@ -282,7 +282,7 @@ func update_player_covers(var playlist_name : String = "") -> void:
 
 func set_image_view_cover(var img : Texture) -> void:
 	if view == ViewMode.COVER_VIEW:
-		viewer_control.ImageViewCover.set_normal_texture(img)
+		viewer_control.image_view_cover.set_normal_texture(img)
 		viewer_control.UpdateOption()
 		viewer_control.SetImageViewBackgroundColor()
 

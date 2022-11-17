@@ -22,7 +22,6 @@ var screen_sides : PoolRealArray = []
 
 onready var buttons : Array = [$Options/Quit,$Options/Minimize,$Options/Maximise]
 
-
 func _ready():
 	
 	# initialising color

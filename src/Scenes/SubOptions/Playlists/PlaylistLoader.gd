@@ -15,7 +15,7 @@ onready var SongHighlighter : HBoxContainer = null
 onready var title : Label = null
 onready var PlaylistOptions : TextureButton
 onready var HeaderCover : TextureRect = null
-onready var Infos : Array = []
+onready var infos : Array = []
 
 #VARIABLES
 var HighLightedSong : Resource = preload("res://src/Ressources/Themes/Song/HighlightedSong.tres")
@@ -255,7 +255,7 @@ func OnScrollValueChanged(var val : float) -> void:
 
 
 func ToggleHeaderInfos(var toggle : bool, var min_height : int = -1) -> void:
-	for x in Infos:
+	for x in infos:
 		for i in x.get_children():
 			if i.has_method("set_visible"):
 				i.set_visible(toggle)
@@ -264,7 +264,7 @@ func ToggleHeaderInfos(var toggle : bool, var min_height : int = -1) -> void:
 
 
 func SetHeaderInfosHeight(var new_height : float) -> void:
-	for i in Infos:
+	for i in infos:
 		i.rect_min_size.y = new_height
 
 

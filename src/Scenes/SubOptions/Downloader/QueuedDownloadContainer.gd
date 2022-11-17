@@ -5,7 +5,7 @@ onready var QTitle : Label = $HBoxContainer/VBoxContainer/HBoxContainer/Left/Tit
 onready var QURL : Label = $HBoxContainer/VBoxContainer/HBoxContainer/Left/URL
 onready var QSoundVideo : Label = $HBoxContainer/VBoxContainer/HBoxContainer/Right/AudioVideo
 onready var QFileformat : Label = $HBoxContainer/VBoxContainer/HBoxContainer/Right/Format
-onready var dst_folder : LinkButton = $HBoxContainer/VBoxContainer/HBoxContainer2/dst_folder
+onready var dst_folder : LinkButton = $HBoxContainer/VBoxContainer/HBoxContainer2/DstFolder
 onready var Stop : TextureButton = $HBoxContainer/Stop
 
 

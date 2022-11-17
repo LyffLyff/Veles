@@ -24,7 +24,7 @@ func n_ready( var conditions : Dictionary = {}, var Title = "",var CustomDescrip
 	SongHighlighter = $SongHighlighter
 	PlaylistOptions = $HBoxContainer/VBoxContainer/Header/HBoxContainer/PlaylistOptions
 	HeaderCover = $HBoxContainer/VBoxContainer/Header/HBoxContainer/HeaderCover/Cover
-	Infos = [
+	infos = [
 		$HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Creation,
 		$HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Songs,
 		$HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Length,
@@ -90,9 +90,6 @@ func GetSmartPlaylistSongs(var conditions : Dictionary) -> PoolIntArray:
 		TempSongPath = SongLists.AllSongs.keys()[x]
 		#Checking Conditions
 		for y in conditions.size():
-			#print("Condition Function: ", conditions.keys()[y])
-			#print("Condition: ",conditions.values()[y])
-			###!!!!!!!!!!!!!!!!!The [0] must be changed when dealing with multiple genres/albums/artists/...
 			for z in conditions.values()[y].size():
 				if !ConditionFunctions.call( conditions.keys()[y], TempSongPath, conditions.values()[y][z]):
 					ValidSong = false

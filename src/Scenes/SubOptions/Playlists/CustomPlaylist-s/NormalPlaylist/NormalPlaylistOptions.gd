@@ -1,12 +1,10 @@
 extends "res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/GeneralPlaylistOptions.gd"
 
-
-#NODES
 onready var PlaylistCover : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/SetPlaylistCover
 onready var QueuePlaylist : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/QueuePlaylist
 onready var DeletePlaylist : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/DeletePlaylist
 onready var ExportPlaylist : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Export
-onready var Rename : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Rename
+onready var rename : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Rename
 onready var Return : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/ToPlaylists
 onready var Close : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Close
 
@@ -20,6 +18,6 @@ func ConnectOptionSignals() -> void:
 	_err = QueuePlaylist.connect("pressed",self,"UnloadPlaylistOptions")
 	
 	_err = ExportPlaylist.connect("pressed",self.get_owner(),"ExportPlaylist")
-	_err = Rename.connect("pressed", self.get_owner(), "rename_playlist")
+	_err = rename.connect("pressed", self.get_owner(), "rename_playlist")
 	_err = DeletePlaylist.connect("pressed",self.get_owner(),"OnDeletePressed")
 	_err = Close.connect("pressed",self,"UnloadPlaylistOptions")

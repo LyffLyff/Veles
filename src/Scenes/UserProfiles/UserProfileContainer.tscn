@@ -35,4 +35,4 @@ align = 1
 valign = 1
 autowrap = true
 
-[connection signal="gui_input" from="." to="." method="OnUserProfileContainerGUIInput"]
+[connection signal="gui_input" from="." to="." method="_on_UserProfileContainer_gui_input"]
