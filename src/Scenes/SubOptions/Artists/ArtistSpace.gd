@@ -23,33 +23,33 @@ func InitArtistSpace(var ArtistNames : PoolStringArray, var ArtistProfession : S
 	ArtistCover.set_texture( ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/Artists/Covers/" + ArtistNames.join("") + ".png") )
 	ArtistNameLabel.set_text( ArtistNames.join(", ") )
 	ArtistProfessionLabel.set_text( ArtistProfession )
-	HoldThresholdTimer.set_wait_time(HoldThreshold)
+	HoldThresholdTimer.set_wait_time(HOLD_THRESHOLD)
 
 
 func OnArtistButtonButtonUp():
-	if !Holding:
-		emit_signal("MovingContainerPressed", artists )
+	if !is_holding:
+		emit_signal("moving_container_pressed", artists )
 
 
 func OnArtistButtonButtonDown():
-	Holding = false
+	is_holding = false
 	HoldThresholdTimer.start()
 	yield(HoldThresholdTimer,"timeout")
 	if ArtistButton.is_pressed():
 		#if the Button is still Down after threshold period it counts as holding this button
-		Holding = true
+		is_holding = true
 		
 		#Getting Index in Parent here since it can change
-		emit_signal("HoldingMovableContainer", self.get_index() )
+		emit_signal("moving_container_held", self.get_index() )
 
 
 func _input(event):
 	if event is InputEventMouseButton:
 			if !event.is_pressed():
 				if event.button_index == BUTTON_LEFT:
-					if Holding:
-						Holding = false
-						emit_signal("ReleasedMovableContainer")
+					if is_holding:
+						is_holding = false
+						emit_signal("moving_container_released")
 
 
 func _on_ArtistSpace_mouse_entered():

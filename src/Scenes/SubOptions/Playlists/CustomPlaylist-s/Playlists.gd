@@ -97,8 +97,9 @@ func CreateNewPlaylistPressed(var NewPlaylistType : int) -> void:
 
 func SaveNewPlaylist(var PlaylistTitle : String, var PlaylistCoverPath : String, var Folder : String, var conditions : Dictionary ,var NewPlaylistType : int) -> void:
 	if !Playlist.is_valid_playlist_title(PlaylistTitle):
-		main.message("Illegal Title!!\n Title Can't be Empty or the same as another Playlist", SaveData.MESSAGE_ERROR)
-	
+		main.message("Illegal Title!!\nTitle Can't be empty or the same as another Playlist", SaveData.MESSAGE_ERROR, true)
+		return
+
 	match NewPlaylistType:
 		
 		PlaylistType.NORMAL_FROM_SCRATCH:

@@ -84,8 +84,8 @@ func SongListHasThis(var path : String) -> int:
 	return -1;
 
 
-func HighlightSong(var SongSpace : HBoxContainer) ->  void:
-	SongSpace.get_child(0).set_deferred("custom_styles/panel",HighLightedSong)
+func HighlightSong(var songspace : HBoxContainer) ->  void:
+	songspace.get_child(0).set_deferred("custom_styles/panel",HighLightedSong)
 
 
 func UnHighlightSong(var idx : int) -> void:

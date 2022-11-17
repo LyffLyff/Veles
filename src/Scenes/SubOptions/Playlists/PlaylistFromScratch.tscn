@@ -53,6 +53,7 @@ anchor_bottom = 0.0
 margin_top = 68.0
 margin_right = 587.0
 margin_bottom = 93.0
+input_label_text = "Title:"
 
 [node name="Cover" parent="Panel/VBoxContainer2/Main" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -60,6 +61,9 @@ anchor_bottom = 0.0
 margin_top = 103.0
 margin_right = 587.0
 margin_bottom = 128.0
+input_label_text = "Cover:"
+file_type = "0"
+show_file_dialogue = true
 
 [node name="Buffer" type="Control" parent="Panel/VBoxContainer2/Main"]
 margin_top = 138.0

@@ -16,7 +16,7 @@ margin_bottom = 194.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 2 )
-SettingTypeIdx = 1
+setting_type_idx = 1
 
 [node name="DisplayName" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0

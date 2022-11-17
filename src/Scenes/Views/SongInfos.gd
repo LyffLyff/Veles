@@ -2,7 +2,7 @@ extends PanelContainer
 
 
 #NODES
-onready var Scroll : ScrollContainer = $HBoxContainer/ScrollContainer
+onready var scroll : ScrollContainer = $HBoxContainer/ScrollContainer
 onready var InfoSpace : VBoxContainer = $HBoxContainer/ScrollContainer/HBoxContainer/InfoSpaces
 
 #VARIABLES

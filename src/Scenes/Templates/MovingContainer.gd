@@ -1,12 +1,9 @@
 extends Control
 
-#SIGNALS
-signal MovingContainerPressed
-signal HoldingMovableContainer
-signal ReleasedMovableContainer
+signal moving_container_pressed
+signal moving_container_held
+signal moving_container_released
 
-#CONSTANTS
-const HoldThreshold : float = 0.3
+const HOLD_THRESHOLD : float = 0.3
 
-#VARIABLES
-var Holding : bool = false
+var is_holding : bool = false

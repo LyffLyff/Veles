@@ -15,7 +15,7 @@ signal OverwriteProject
 const StaticURL : String = "https://api.textyl.co/api/lyrics?q="
 
 #NODES
-onready var Scroll : ScrollContainer = $Lyrics/HBoxContainer/ScrollContainer
+onready var scroll : ScrollContainer = $Lyrics/HBoxContainer/ScrollContainer
 onready var Lyrics : VBoxContainer = $Lyrics/HBoxContainer/ScrollContainer/VBoxContainer
 onready var ArtistEdit : LineEdit = $Options/HBoxContainer/Keywords/Artist/LineEdit
 onready var AlbumEdit : LineEdit = $Options/HBoxContainer/Keywords/Album/LineEdit
@@ -30,7 +30,7 @@ var CurrentLyrics : Array = []
 
 func _ready():
 	#Init
-	Scroll.get_v_scrollbar().rect_min_size.x = 5
+	scroll.get_v_scrollbar().rect_min_size.x = 5
 	
 	#API
 	var req = HTTPRequest.new()

@@ -1,7 +1,7 @@
 extends "res://src/Scenes/SubOptions/Playlists/PlaylistLoader.gd"
 
 #NODES
-onready var Scroll : ScrollContainer = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller
+onready var scroll : ScrollContainer = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller
 onready var Header : PanelContainer = $HBoxContainer/VBoxContainer/Header
 onready var SongAmount : Label = $HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Songs/Amount
 onready var CreationDate : Label = $HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Creation/Date
@@ -9,7 +9,7 @@ onready var Runtime : Label = $HBoxContainer/VBoxContainer/Header/HBoxContainer/
 
 
 func _ready():
-	var _err = Scroll.get_v_scrollbar().connect("value_changed",self,"OnScrollValueChanged")
+	var _err = scroll.get_v_scrollbar().connect("value_changed",self,"OnScrollValueChanged")
 	playlist_idx = Global.pressed_playlist_idx
 	PlaylistOptions = $HBoxContainer/VBoxContainer/Header/HBoxContainer/PlaylistOptions
 	songs = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller/Songs
@@ -30,7 +30,7 @@ func _ready():
 	if IdxsToSet.size() > 0:
 		#Calling this function with empty Array would load all songs
 		var x : SongLoader = SongLoader.new()
-		x.CreateSongsSpaces(songs, IdxsToSet, playlist_idx)
+		x.create_songspaces(songs, IdxsToSet, playlist_idx)
 	ConnectScrollContainer()
 	title = $HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Title
 	var playlist_name : String = Playlist.get_playlist_name(playlist_idx)

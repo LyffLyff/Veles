@@ -1,7 +1,6 @@
-#Portable Song Options
-#These Song Options will be revealed as soon as a song is right clicked
-
 extends "res://src/Scenes/Song/SongOptions/SongOptions.gd"
+# portable Song Options
+# these Song Options will be revealed as soon as a song is right clicked
 
 
 func _ready():

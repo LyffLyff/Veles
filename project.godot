@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Classes/Static/CSV.gd"
 }, {
+"base": "",
+"class": "CheckString",
+"language": "NativeScript",
+"path": "res://addons/GDNative/CheckString.gdns"
+}, {
 "base": "Reference",
 "class": "CoverLoader",
 "language": "GDScript",
@@ -92,7 +97,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "SongLoader",
 "language": "GDScript",
-"path": "res://src/Scenes/Song/SongLoader.gd"
+"path": "res://src/Classes/Normal/SongLoader.gd"
 }, {
 "base": "Reference",
 "class": "Streams",
@@ -102,7 +107,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "Tagging",
 "language": "NativeScript",
-"path": "res://addons/GDNative/tagging.gdns"
+"path": "res://addons/GDNative/Tagging.gdns"
 }, {
 "base": "Reference",
 "class": "Tags",
@@ -133,6 +138,7 @@ _global_script_class_icons={
 "AllSongs": "",
 "Binary": "",
 "CSV": "",
+"CheckString": "",
 "CoverLoader": "",
 "DesignPaths": "",
 "Exporter": "",

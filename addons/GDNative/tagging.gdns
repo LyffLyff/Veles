@@ -1,9 +1,9 @@
 [gd_resource type="NativeScript" load_steps=2 format=2]
 
-[ext_resource path="res://addons/GDNative/tagging.gdnlib" type="GDNativeLibrary" id=1]
+[ext_resource path="res://addons/GDNative/Veles.gdnlib" type="GDNativeLibrary" id=1]
 
 [resource]
-resource_name = "tagging"
+resource_name = "Tagging"
 class_name = "Tagging"
 library = ExtResource( 1 )
 script_class_name = "Tagging"

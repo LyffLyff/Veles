@@ -2,7 +2,7 @@ extends VBoxContainer
 
 
 onready var LyricVBox : VBoxContainer = $Background/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/Lyrics
-onready var Scroll : ScrollContainer = $Background/HBoxContainer/ScrollContainer
+onready var scroll : ScrollContainer = $Background/HBoxContainer/ScrollContainer
 onready var UpdateSecondsPassed : Timer = $UpdateSecondsPassed
 onready var Resync : TextureButton = $Background/VBoxContainer/HBoxContainer/Resync
 onready var bottom_buffer : Control = $Background/HBoxContainer/ScrollContainer/VBoxContainer/BottomBuffer
@@ -55,10 +55,10 @@ func _input(event):
 					ChangeFontSize(+1)
 			else:
 				if event.button_index == BUTTON_WHEEL_DOWN:
-					Scroll.get_v_scrollbar().value += SCROLL_SPEED
+					scroll.get_v_scrollbar().value += SCROLL_SPEED
 					SetFollowLyrics(false)
 				elif event.button_index == BUTTON_WHEEL_UP:
-					Scroll.get_v_scrollbar().value -= SCROLL_SPEED
+					scroll.get_v_scrollbar().value -= SCROLL_SPEED
 					SetFollowLyrics(false)
 
 
@@ -92,7 +92,7 @@ func FindCurrentVerse() -> void:
 
 func LoadLyrics() -> void:
 	#Resetting Values
-	Scroll.get_v_scrollbar().value = 0.0
+	scroll.get_v_scrollbar().value = 0.0
 	SecondsPassed = 0.0
 	Resync.set_visible( false )
 	
@@ -182,7 +182,7 @@ func MoveLyricsTo(var ChildIdx : int) -> void:
 			Global.request_fps_change(60)
 			var tw : SceneTreeTween = create_tween()
 			var DstValue : float = LyricVBox.get_child(ChildIdx).rect_position.y - ( TopBuffer * self.get_rect().size.y / OS.get_screen_size().y )  + bottom_buffer.rect_size.y
-			var _ptw : PropertyTweener = tw.tween_property(Scroll.get_v_scrollbar(), "value", DstValue, 0.3)
+			var _ptw : PropertyTweener = tw.tween_property(scroll.get_v_scrollbar(), "value", DstValue, 0.3)
 			yield(tw,"finished")
 			Global.request_fps_change(4)
 

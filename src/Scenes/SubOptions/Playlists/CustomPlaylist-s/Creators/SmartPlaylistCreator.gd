@@ -44,5 +44,5 @@ func on_save_pressed() -> void:
 			if TempCondVal != "":
 				ConditionValues.push_back( TempCondVal )
 		conditions[ConditionFunctions[i]] = ConditionValues
-	emit_signal( "save",Title.get_text(),Cover.input_edit.get_text(),"",conditions )
+	emit_signal("save",Title.get_text(),Cover.input_edit.get_text(),"",conditions)
 	on_close_pressed()

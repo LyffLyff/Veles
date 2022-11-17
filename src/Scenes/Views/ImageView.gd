@@ -185,7 +185,7 @@ func ToggleFocusCover(var Focus : bool, var Duration : float = 0.3) -> void:
 			LeftBuffer.set_h_size_flags(SIZE_FILL)
 		
 		CoverCurrentlyResizing = false
-		#So that cover get resized correctly
+		# so that cover get resized correctly
 		OnImageViewResized()
 		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "ImageViewCoverFocused", Focus)
 

@@ -75,7 +75,17 @@ func new_user_profile(var NewUsername : String) -> void:
 
 func is_username_valid( var new_username : String ) -> bool:
 	# checks if a given username is valid
-	if !new_username.is_valid_filename() or new_username == "" or user_profiles.has(new_username) or new_username.length() > 100:
+	if !new_username.is_valid_filename():
+		return false
+	if new_username.to_ascii().get_string_from_ascii() != new_username:
+		return false
+	if new_username == "":
+		return false
+	if user_profiles.has(new_username):
+		return false
+	if new_username.length() > 100:
+		return false
+	if new_username.length() > 100:
 		return false
 	return true
 

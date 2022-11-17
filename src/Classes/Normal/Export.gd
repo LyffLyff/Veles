@@ -5,15 +5,15 @@ class_name Exporter extends Object
 func to_folder(var dst_folder : String, var song_paths : PoolStringArray, var playlist_idx : int = -1) -> bool:
 	var Title : String = Playlist.get_playlist_name(playlist_idx)
 	var dir : Directory = Directory.new()
-	var Tempdst_folder : String = ""
+	var temp_dst_folder : String = ""
 
 	if dir.make_dir_recursive(dst_folder + "/" + Title) != OK:
 		return false;
 
 	for i in song_paths.size():
-		Tempdst_folder = dst_folder + "/" + Title + "/" + song_paths[i].get_file()
+		temp_dst_folder = dst_folder + "/" + Title + "/" + song_paths[i].get_file()
 		if dir.copy(song_paths[i], dst_folder + "/" + Title + "/" + song_paths[i].get_file() ) != OK:
-			Global.root.message("COPYING FILE: " + song_paths[i] + "TO: " + Tempdst_folder,SaveData.MESSAGE_ERROR)
+			Global.root.message("COPYING FILE: " + song_paths[i] + "TO: " + temp_dst_folder,SaveData.MESSAGE_ERROR)
 
 	return true;
 

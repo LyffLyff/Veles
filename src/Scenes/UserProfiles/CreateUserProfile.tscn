@@ -51,6 +51,7 @@ anchor_bottom = 0.0
 margin_top = 64.0
 margin_right = 450.0
 margin_bottom = 89.0
+input_label_text = "Username:"
 
 [node name="SelectProfileImg" parent="PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -58,6 +59,9 @@ anchor_bottom = 0.0
 margin_top = 97.0
 margin_right = 450.0
 margin_bottom = 122.0
+input_label_text = "Image:"
+file_type = "0"
+show_file_dialogue = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 margin_top = 207.0

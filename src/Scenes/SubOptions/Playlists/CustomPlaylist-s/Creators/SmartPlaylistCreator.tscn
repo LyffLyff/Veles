@@ -52,6 +52,7 @@ anchor_bottom = 0.0
 margin_top = 64.0
 margin_right = 587.0
 margin_bottom = 89.0
+input_label_text = "Title:"
 
 [node name="Cover" parent="Panel/VBoxContainer2/Main" instance=ExtResource( 2 )]
 anchor_right = 0.0
@@ -59,6 +60,9 @@ anchor_bottom = 0.0
 margin_top = 97.0
 margin_right = 587.0
 margin_bottom = 122.0
+input_label_text = "Cover:"
+file_type = "0"
+show_file_dialogue = true
 
 [node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer2/Main"]
 margin_top = 130.0

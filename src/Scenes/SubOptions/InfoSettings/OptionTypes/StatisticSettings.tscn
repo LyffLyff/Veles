@@ -13,7 +13,7 @@ margin_bottom = 50.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
-SettingTypeIdx = 4
+setting_type_idx = 4
 
 [node name="BottomBuffer" type="Control" parent="VBoxContainer" groups=["Buffer"]]
 margin_right = 22.0

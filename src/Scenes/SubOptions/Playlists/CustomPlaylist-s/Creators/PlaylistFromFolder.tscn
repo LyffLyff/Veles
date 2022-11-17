@@ -64,6 +64,9 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 582.0
 margin_bottom = 25.0
+input_label_text = "Folder:"
+file_type = "2"
+show_file_dialogue = true
 
 [node name="Title" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -71,6 +74,7 @@ anchor_bottom = 0.0
 margin_top = 40.0
 margin_right = 582.0
 margin_bottom = 65.0
+input_label_text = "Title:"
 
 [node name="Cover" parent="Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -78,6 +82,9 @@ anchor_bottom = 0.0
 margin_top = 80.0
 margin_right = 582.0
 margin_bottom = 105.0
+input_label_text = "Cover:"
+file_type = "0"
+show_file_dialogue = true
 
 [node name="Buttons" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer"]
 margin_top = 302.0

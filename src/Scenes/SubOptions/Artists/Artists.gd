@@ -1,35 +1,32 @@
-#An Option where all artists do have "playlists" with all their songs
-#Created on: 25/06/22
-
 extends "res://src/Scenes/Templates/MovableContainers.gd"
+# An Option where all artists do have "playlists" with all their songs
+# Created on: 25/06/22
 
-#NODES
 onready var Header : PanelContainer = $HBoxContainer/ScrollContainer/VBoxContainer/PanelContainer
 
+
+func _ready():
+	MOVABLE_CONTAINER_SEPARATION = movable_container_vbox.get("custom_constants/separation")
+	HEADER_HEIGHT = Header.rect_size.y
+	LoadArtistContainers("OnArtistSelected")
 
 
 func _enter_tree():
 	MOVABLE_CONTAINER_HEIGHT = 80
-	Scroll = $HBoxContainer/ScrollContainer
-	MovableContainerVBox = $HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/ArtistSpace
-	MovableContainerScene = preload("res://src/Scenes/SubOptions/Artists/ArtistSpace.tscn")
-
-
-func _ready():
-	MOVABLE_CONTAINER_SEPARATION = MovableContainerVBox.get("custom_constants/separation")
-	HEADER_HEIGHT = Header.rect_size.y
-	LoadArtistContainers("OnArtistSelected")
+	scroll = $HBoxContainer/ScrollContainer
+	movable_container_vbox = $HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/ArtistSpace
+	movable_container_scene = preload("res://src/Scenes/SubOptions/Artists/ArtistSpace.tscn")
 
 
 func LoadArtistContainers(var SelectMethod : String) -> void:
 	var x : PanelContainer = null
 	var artists : PoolStringArray = []
 	for i in SongLists.artists.size():
-		x = MovableContainerScene.instance()
-		MovableContainerVBox.add_child( x )
-		var _err = x.connect("MovingContainerPressed", self, SelectMethod)
-		_err = x.connect("HoldingMovableContainer",self,"OnHoldingMovableContainer")
-		_err = x.connect("ReleasedMovableContainer",self,"OnMovableContainerReleased")
+		x = movable_container_scene.instance()
+		movable_container_vbox.add_child( x )
+		var _err = x.connect("moving_container_pressed", self, SelectMethod)
+		_err = x.connect("moving_container_held",self,"on_holding_movable_container")
+		_err = x.connect("moving_container_released",self,"OnMovableContainerReleased")
 		artists.resize(0)
 		artists = SongLists.artists[i]
 		x.InitArtistSpace( artists, "Producer/Songer/Artist" )
@@ -37,24 +34,24 @@ func LoadArtistContainers(var SelectMethod : String) -> void:
 
 func OnMovableContainerReleased() -> void:
 	self.set_process(false)
-	MovableContainerVBox.set_process(true)
-	self.remove_child(MovableContainerRef)
-	MovableContainerVBox.add_child(MovableContainerRef)
-	MovableContainerRef.modulate.a = 1.0
-	MovableContainerVBox.remove_child(SeparatorRef)
-	SeparatorRef.queue_free()
-	var NewChildIdxF : float = GetNewChildIdxAsFloat()
+	movable_container_vbox.set_process(true)
+	self.remove_child(movable_container_ref)
+	movable_container_vbox.add_child(movable_container_ref)
+	movable_container_ref.modulate.a = 1.0
+	movable_container_vbox.remove_child(separator_ref)
+	separator_ref.queue_free()
+	var NewChildIdxF : float = get_new_child_idx_as_float()
 	var NewChildIdxI : int = int(NewChildIdxF)
 	if false:	#Combining artists blocked for a bit
-		CombineArtists(OldIdx,NewChildIdxI)
-		MovableContainerVBox.get_child(NewChildIdxI).InitArtistSpace(SongLists.artists[NewChildIdxI],"")
-		MovableContainerVBox.remove_child(MovableContainerRef)
-		MovableContainerRef.queue_free()
+		CombineArtists(old_idx,NewChildIdxI)
+		movable_container_vbox.get_child(NewChildIdxI).InitArtistSpace(SongLists.artists[NewChildIdxI],"")
+		movable_container_vbox.remove_child(movable_container_ref)
+		movable_container_ref.queue_free()
 	else:
-		MovableContainerVBox.move_child(MovableContainerRef,NewChildIdxI)
-		MoveArtistFrom(OldIdx,NewChildIdxI)
-	MovableContainerRef = null
-	SeparatorRef.queue_free()
+		movable_container_vbox.move_child(movable_container_ref,NewChildIdxI)
+		MoveArtistFrom(old_idx,NewChildIdxI)
+	movable_container_ref = null
+	separator_ref.queue_free()
 
 
 func OnArtistSelected(var ArtistNames : PoolStringArray) -> void:
@@ -62,7 +59,7 @@ func OnArtistSelected(var ArtistNames : PoolStringArray) -> void:
 		"includes_either_artist" : [ArtistNames]
 	}
 	
-	#Passes the Title of Playlist -> Main Artists Name
+	# passes the Title of Playlist -> Main Artists Name
 	Global.root.load_temporary_playlist(
 		ArtistNames.join(", "),
 		Global.get_current_user_data_folder() + "/Songs/Artists/Descriptions/" + ArtistNames.join("") + ".txt",

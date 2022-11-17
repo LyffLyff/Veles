@@ -90,8 +90,11 @@ func _on_SetTag_pressed():
 	
 	#Retrieving Paths of Songs
 	MultiplePaths.resize(0)
+	var path_candidate : String = ""
 	for n in PathVBOX.get_children():
-		MultiplePaths.push_back( n.get_node("LineEdit").get_text() )
+		path_candidate = n.get_node("LineEdit").get_text()
+		if path_candidate != "":
+			MultiplePaths.push_back(path_candidate)
 	
 	#Setting the Changed Tags
 	for PathIdx in MultiplePaths.size():
@@ -196,7 +199,7 @@ func _on_SetTag_pressed():
 			root.message("Cannot Set Tags on this Fileformat", SaveData.MESSAGE_ERROR, true)
 	
 	var x : SongLoader = SongLoader.new()
-	x.Reload()
+	x.reload()
 	ResetLineEditChanged()
 	SetSongPaths(MultiplePaths)
 	InitTags(MultiplePaths)
@@ -326,13 +329,13 @@ func ResetLineEditChanged() -> void:
 
 func SetArtistLineEdits(var Artist_s : String) -> void:
 	FreeingArtistLabels()
-	var DividedArtists : PoolStringArray = Streams.divide_artists(Artist_s)
-	for n in DividedArtists.size():
+	var divided_artists : PoolStringArray = Streams.divide_artists(Artist_s)
+	for n in divided_artists.size():
 		if n == 0:
-			Artist.set_text(DividedArtists[n])
+			Artist.set_text(divided_artists[n])
 		else:
 			_on_AddArtist_pressed()
-			ArtistVBOX.get_child(n).get_node("LineEdit").set_text(DividedArtists[n])
+			ArtistVBOX.get_child(n).get_node("LineEdit").set_text(divided_artists[n])
 			
 
 

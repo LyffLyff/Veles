@@ -249,6 +249,8 @@ func load_user_specific_data(var paths : PoolStringArray) -> void:
 					audio_effects = temp
 				16:
 					Global.current_downloads = temp
+		else:
+			print(add_user_to_filepath(paths[i]))
 	is_song_from_queue = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"SongFromQueue")
 
 
@@ -351,10 +353,9 @@ func init_cached_covers() -> void:
 
 
 func add_folder(var dir : String):
-	print(dir)
 	folders.push_back(dir)
 	var x : SongLoader = SongLoader.new()
-	x.Reload()
+	x.reload()
 
 
 func remove_folder(var dir : String):

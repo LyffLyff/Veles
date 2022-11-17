@@ -2,7 +2,7 @@ extends "res://src/Scenes/SubOptions/Playlists/PlaylistLoader.gd"
 
 
 #NODES
-onready var Scroll : ScrollContainer = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller
+onready var scroll : ScrollContainer = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller
 onready var Header : PanelContainer = $HBoxContainer/VBoxContainer/Header
 onready var SongVBox : VBoxContainer = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller/Songs
 onready var SmartPlaylistTitleLabel : Label = $HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Title
@@ -20,7 +20,7 @@ var TempPlaylistCoverPath : String = ""
 
 
 func n_ready( var conditions : Dictionary = {}, var Title = "",var CustomDescriptionPath : String = "", var TmpPlaylistCvrPth : String = ""):
-	var _err = Scroll.get_v_scrollbar().connect("value_changed", self, "OnScrollValueChanged")
+	var _err = scroll.get_v_scrollbar().connect("value_changed", self, "OnScrollValueChanged")
 	SongHighlighter = $SongHighlighter
 	PlaylistOptions = $HBoxContainer/VBoxContainer/Header/HBoxContainer/PlaylistOptions
 	HeaderCover = $HBoxContainer/VBoxContainer/Header/HBoxContainer/HeaderCover/Cover
@@ -113,7 +113,7 @@ func GetSmartPlaylistSongs(var conditions : Dictionary) -> PoolIntArray:
 
 func LoadSongs(var SongIdxs : PoolIntArray) -> void:
 	var x : SongLoader = SongLoader.new()
-	x.CreateSongsSpaces(SongVBox, SongIdxs, Global.pressed_playlist_idx )
+	x.create_songspaces(SongVBox, SongIdxs, Global.pressed_playlist_idx )
 
 
 func OnDeleteSmartPlaylistpressed():

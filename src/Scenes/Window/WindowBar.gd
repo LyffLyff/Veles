@@ -67,37 +67,37 @@ func _on_WindowBar_gui_input(event):
 		if event.button_index == BUTTON_LEFT:
 			dragging_start_position = get_local_mouse_position()
 			if offset.x > 0:
-				#resets the offset if it was bigger than 0
-				#to get normal behaviour when moving the window normally
+				# resets the offset if it was bigger than 0
+				# to get normal behaviour when moving the window normally
 				offset = Vector2.ZERO
 			if maximized:
-				#adding offset since the window will be far away from the mouse
-				#when the window was maximized
+				# adding offset since the window will be far away from the mouse
+				# when the window was maximized
 				offset = get_global_mouse_position() / 2
 				unmaximize()
 			if half_maxed:
-				#no need for the offset here
+				# no need for the offset here
 				unmaximize()
 			following = !following
 			
-			#only checking for theoretical maximizing of the window when the MOUSE LEFT Button for following has been released
+			# only checking for theoretical maximizing of the window when the MOUSE LEFT Button for following has been released
 			if !following:
-				#Maximizing on the Sides of the Screen
+				# maximizing on the Sides of the Screen
 				var horizontal_mouse_screen_pos : float = OS.window_position.x + get_global_mouse_position().x
 				half_maximize_on_loss = false
 				for n in screen_sides.size():
-					#checking if the user mouse is in range of the monitor edges
+					# checking if the user mouse is in range of the monitor edges
 					if horizontal_mouse_screen_pos < screen_sides[n] + MAXIMIZE_INACCURACY and horizontal_mouse_screen_pos > screen_sides[n] - MAXIMIZE_INACCURACY:
 						
-						#tells if the user has multiple Monitors they can half maximize in the middle on BOTH sides
+						# tells if the user has multiple Monitors they can half maximize in the middle on BOTH sides
 						if horizontal_mouse_screen_pos < screen_sides[n] + MAXIMIZE_INACCURACY and horizontal_mouse_screen_pos > screen_sides[n]:
 							screen_side_idx = n + 1
 						else:
 							screen_side_idx = n
 						half_maximize_on_loss = true
 						break;
-				#Maximizing on Top of the Screen
-				#Theoretically possible 
+				# maximizing on Top of the Screen
+				# theoretically possible 
 				if OS.window_position.y < 0 :
 					maximize_on_loss = true
 				else:
