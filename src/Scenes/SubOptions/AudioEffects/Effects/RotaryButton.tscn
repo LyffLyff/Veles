@@ -34,8 +34,6 @@ mouse_filter = 2
 size_flags_horizontal = 7
 size_flags_vertical = 7
 script = ExtResource( 3 )
-MinValue = -10.0
-MaxValue = 10.0
 
 [node name="Title" type="Label" parent="."]
 margin_right = 72.0
@@ -75,7 +73,7 @@ custom_styles/normal = SubResource( 3 )
 align = 1
 script = ExtResource( 4 )
 
-[connection signal="button_down" from="RotaryButton" to="RotaryButton" method="OnRotaryButtonButtonDown"]
-[connection signal="button_up" from="RotaryButton" to="RotaryButton" method="OnRotaryButtonButtonUp"]
-[connection signal="item_rect_changed" from="RotaryButton" to="RotaryButton" method="OnRotaryButtonItemRectChanged"]
+[connection signal="button_down" from="RotaryButton" to="RotaryButton" method="_on_RotaryButton_button_down"]
+[connection signal="button_up" from="RotaryButton" to="RotaryButton" method="_on_RotaryButton_button_up"]
+[connection signal="item_rect_changed" from="RotaryButton" to="RotaryButton" method="_on_RotaryButton_item_rect_changed"]
 [connection signal="text_entered" from="RotaryEdit" to="." method="OnRotaryEditTextEntered"]

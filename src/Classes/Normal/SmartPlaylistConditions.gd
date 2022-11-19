@@ -13,7 +13,7 @@ func is_shorter_than(var song_path : String, var length_in_seconds : String) -> 
 
 
 func genre(var song_path : String, var genre : String) -> bool:
-	# returns true if the given Genre is equal to the Genre specified in the Songs Tag
+	# returns true if the given genre_menu is equal to the Genre specified in the Songs Tag
 	return Tags.get_genre( song_path ) == genre;
 
 

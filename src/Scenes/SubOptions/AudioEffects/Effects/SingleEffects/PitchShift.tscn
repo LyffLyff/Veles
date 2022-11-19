@@ -22,8 +22,8 @@ custom_constants/separation = 0
 [node name="EffectsHeader" parent="VBoxContainer" instance=ExtResource( 1 )]
 margin_right = 1120.0
 margin_bottom = 28.0
-EffectTitle = "Pitch"
-EffectIdx = 2
+effect_title = "Pitch"
+effect_idx = 2
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 28.0
@@ -49,6 +49,6 @@ custom_constants/separation = 10
 [node name="PitchScale" parent="VBoxContainer/VBoxContainer/Pitch" instance=ExtResource( 6 )]
 margin_right = 48.0
 size_flags_horizontal = 0
-Title = "pitch"
-MinValue = 0.01
-MaxValue = 3.0
+title = "Pitch"
+min_value = 0.2
+max_value = 3.0

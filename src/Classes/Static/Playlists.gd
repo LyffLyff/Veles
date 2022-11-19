@@ -74,12 +74,12 @@ static func is_valid_playlist_title(var new_title : String) -> bool:
 	# checks if a new playlist name is valid and can be used
 	
 	# comparing to other playlist titles
-	for Title in SongLists.normal_playlists.keys():
-		if Title == new_title:
+	for title in SongLists.normal_playlists.keys():
+		if title == new_title:
 			return false;
 	
-	for Title in SongLists.smart_playlists:
-		if Title == new_title:
+	for title in SongLists.smart_playlists:
+		if title == new_title:
 			return false;
 
 	# checking if Invalid in other ways

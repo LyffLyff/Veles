@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/zoom out_72px.png-026b780669c32928dd8a0b27843c72ac.stex"
+path="res://.import/zoom out_72px.png-716902915ebfc1e311e8afc1c0ce2897.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Assets/Icons/White/WindowBar/zoom out_72px.png"
-dest_files=[ "res://.import/zoom out_72px.png-026b780669c32928dd8a0b27843c72ac.stex" ]
+source_file="res://src/assets/Icons/White/WindowBar/zoom out_72px.png"
+dest_files=[ "res://.import/zoom out_72px.png-716902915ebfc1e311e8afc1c0ce2897.stex" ]
 
 [params]
 

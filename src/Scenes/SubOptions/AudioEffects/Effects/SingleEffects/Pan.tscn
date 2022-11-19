@@ -22,8 +22,8 @@ custom_constants/separation = 0
 [node name="EffectsHeader" parent="VBoxContainer" instance=ExtResource( 1 )]
 margin_right = 1120.0
 margin_bottom = 28.0
-EffectTitle = "Pan"
-EffectIdx = 4
+effect_title = "Pan"
+effect_idx = 4
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 28.0
@@ -49,6 +49,6 @@ custom_constants/separation = 10
 [node name="Pan" parent="VBoxContainer/VBoxContainer/Pitch" instance=ExtResource( 5 )]
 margin_right = 48.0
 size_flags_horizontal = 0
-Title = "pan"
-MinValue = -1.0
-MaxValue = 1.0
+title = "Pan"
+min_value = -1.0
+max_value = 1.0

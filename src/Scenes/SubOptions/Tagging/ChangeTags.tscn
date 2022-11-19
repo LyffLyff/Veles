@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png" type="Texture" id=1]
 [ext_resource path="res://src/Assets/Icons/White/General/add_1_72px.png" type="Texture" id=2]
 [ext_resource path="res://src/Assets/Icons/White/Folder/add folder_72px.png" type="Texture" id=3]
-[ext_resource path="res://src/Scenes/SubOptions/Tagging/TagScrollContainer.gd" type="Script" id=4]
 [ext_resource path="res://src/Scenes/SubOptions/Tagging/ChangeTags.gd" type="Script" id=5]
 [ext_resource path="res://src/Scenes/SubOptions/Tagging/GenreSelection.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=7]
@@ -33,11 +32,10 @@ __meta__ = {
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 margin_right = 1107.0
 margin_bottom = 600.0
-mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
-script = ExtResource( 4 )
+script = ExtResource( 7 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -567,7 +565,7 @@ margin_bottom = 600.0
 rect_min_size = Vector2( 5, 0 )
 
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/Values/HBoxContainer/AddPath" to="." method="_on_AddPath_pressed"]
-[connection signal="text_entered" from="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/Values/HBoxContainer/LineEdit" to="." method="OnSongPathManuallyEntered"]
+[connection signal="text_entered" from="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/Values/HBoxContainer/LineEdit" to="." method="on_song_path_manually_entered"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/Values/HBoxContainer/SelectSong" to="." method="_on_SelectSong_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Artist/VBoxContainer/HBoxContainer/AddArtist" to="." method="_on_AddArtist_pressed"]
 [connection signal="pressed" from="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Cover/Cover/SelectCover" to="." method="_on_SelectCover_pressed"]

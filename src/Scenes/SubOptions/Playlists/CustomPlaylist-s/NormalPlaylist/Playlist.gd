@@ -2,7 +2,7 @@ extends "res://src/Scenes/SubOptions/Playlists/PlaylistLoader.gd"
 
 #NODES
 onready var scroll : ScrollContainer = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller
-onready var Header : PanelContainer = $HBoxContainer/VBoxContainer/Header
+onready var header : PanelContainer = $HBoxContainer/VBoxContainer/Header
 onready var SongAmount : Label = $HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Songs/Amount
 onready var CreationDate : Label = $HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Creation/Date
 onready var Runtime : Label = $HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Length/Time
@@ -22,11 +22,11 @@ func _ready():
 	]
 	var IdxsToSet : PoolIntArray = []
 	var TempPath : String = ""
-	var TempMainIdx : int = 0
+	var temp_main_idx : int = 0
 	for n in SongLists.normal_playlists.values()[playlist_idx].size():
 		TempPath = SongLists.normal_playlists.values()[playlist_idx].keys()[n]
-		TempMainIdx = AllSongs.get_main_idx(TempPath)
-		IdxsToSet.push_back(TempMainIdx)
+		temp_main_idx = AllSongs.get_main_idx(TempPath)
+		IdxsToSet.push_back(temp_main_idx)
 	if IdxsToSet.size() > 0:
 		#Calling this function with empty Array would load all songs
 		var x : SongLoader = SongLoader.new()
@@ -39,11 +39,11 @@ func _ready():
 	#Setting playlist name in Thread so Song without Cover will be overriden with Playlist Cover
 	#SongLoader = playlist_name
 	
-	#Setting the Header Cover
+	#Setting the header Cover
 	var playlist_cover_path : String = Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + Playlist.get_playlist_name(playlist_idx) + ".png"
 	HeaderCover.texture = ImageLoader.get_cover(playlist_cover_path,playlist_name)
 	
-	#Setting Header Info
+	#Setting header Info
 	SongAmount.text = str( GetPlaylistSongAmount() )
 	CreationDate.text = GetPlaylistCreationDate()
 	Runtime.text = GetPlaylistRuntime()

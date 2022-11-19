@@ -1,11 +1,10 @@
 extends "res://src/Scenes/SubOptions/AudioEffects/Effects/NewAudioEffects.gd"
 
-
 func _ready():
-	Properties = [
+	properties = [
 		"pan_pullout",
 		"time_pullout_ms",
 		"surround"
 	]
-	EffectIdx = 1
-	CallEffectContainers("InitEffectContainer")
+	effect_idx = 1
+	call_effect_containers("init_effect_container")

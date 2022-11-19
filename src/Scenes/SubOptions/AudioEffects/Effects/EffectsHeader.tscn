@@ -39,4 +39,4 @@ theme = ExtResource( 4 )
 align = 1
 script = ExtResource( 2 )
 
-[connection signal="toggled" from="EffectSwitch" to="EffectSwitch" method="OnEffectToggled"]
+[connection signal="toggled" from="EffectSwitch" to="EffectSwitch" method="on_effect_toggled"]

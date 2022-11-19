@@ -1,42 +1,37 @@
 extends PanelContainer
 
-#SIGNALS
-signal SetFolder 
+signal set_folder_space_idx 
 
-#NODES
-onready var FolderLabel : Label = $HBoxContainer/VBoxContainer/FolderSpace
-onready var SongAmountLabel : Label = $HBoxContainer/VBoxContainer/SongAmount
-
-#CONSTANTS
-const highlight_clr : Color = Color("161616")
-const normal_clr : Color = Color("222222")
+const HIGHLIGHT_CLR : Color = Color("161616")
+const NORMAL_CLR : Color = Color("222222")
 const TW_DURATION : float = 0.15
 
-#VARIABLES
-var highlighted : bool = false
+var is_highlighted : bool = false
 
+onready var folder_space_label : Label = $HBoxContainer/VBoxContainer/FolderSpace
+onready var song_amount_label : Label = $HBoxContainer/VBoxContainer/SongAmount
 
 func _ready():
-	self.get_stylebox("panel").set("bg_color",normal_clr)
+	self.get_stylebox("panel").set("bg_color", NORMAL_CLR)
 
 
 func _on_FolderSpace_mouse_entered():
-	if !highlighted:
-		var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", highlight_clr, TW_DURATION)
-		emit_signal("SetFolder",self.get_index())
+	if !is_highlighted:
+		var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", HIGHLIGHT_CLR, TW_DURATION)
+		emit_signal("set_folder_space_idx",self.get_index())
 
 
 func _on_FolderSpace_mouse_exited():
-	if !highlighted:
-		var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", normal_clr, TW_DURATION )
-		emit_signal("SetFolder",-1)
+	if !is_highlighted:
+		var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", NORMAL_CLR, TW_DURATION )
+		emit_signal("set_folder_space_idx",-1)
 
 
-func Pressed() -> void:
-	highlighted = true
-	var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", highlight_clr, TW_DURATION)
+func pressed() -> void:
+	is_highlighted = true
+	var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", HIGHLIGHT_CLR, TW_DURATION)
 
 
-func Unhighlight() -> void:
-	highlighted = false
-	var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", normal_clr, TW_DURATION )
+func unhighlight() -> void:
+	is_highlighted = false
+	var _tw : PropertyTweener = create_tween().tween_property( self.get_stylebox("panel"), "bg_color", NORMAL_CLR, TW_DURATION )

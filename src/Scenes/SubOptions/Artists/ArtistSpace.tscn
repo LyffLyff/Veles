@@ -108,7 +108,7 @@ custom_constants/separation = 10
 
 [node name="HoldThresholdTimer" type="Timer" parent="."]
 
-[connection signal="button_down" from="ArtistButton" to="." method="OnArtistButtonButtonDown"]
-[connection signal="button_up" from="ArtistButton" to="." method="OnArtistButtonButtonUp"]
+[connection signal="button_down" from="ArtistButton" to="." method="_on_ArtistButton_button_down"]
+[connection signal="button_up" from="ArtistButton" to="." method="_on_ArtistButton_button_up"]
 [connection signal="mouse_entered" from="ArtistButton" to="." method="_on_ArtistSpace_mouse_entered"]
 [connection signal="mouse_exited" from="ArtistButton" to="." method="_on_ArtistSpace_mouse_exited"]

@@ -22,8 +22,8 @@ custom_constants/separation = 0
 [node name="EffectsHeader" parent="VBoxContainer" instance=ExtResource( 1 )]
 margin_right = 1120.0
 margin_bottom = 28.0
-EffectTitle = "EQ21"
-EffectIdx = 6
+effect_title = "EQ-21"
+effect_idx = 6
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 28.0
@@ -57,79 +57,79 @@ columns = 7
 margin_right = 72.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "22Hz"
-MinValue = -20.0
-MaxValue = 1.0
+title = "22Hz"
+min_value = -10.0
+max_value = 0.5
 
 [node name="32Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 82.0
 margin_right = 154.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "32Hz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 1
+title = "32Hz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 1
 
 [node name="44Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 164.0
 margin_right = 236.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "44Hz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 2
+title = "44Hz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 2
 
 [node name="63Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 246.0
 margin_right = 318.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "63Hz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 3
+title = "63Hz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 3
 
 [node name="90Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 328.0
 margin_right = 400.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "90Hz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 4
+title = "90Hz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 4
 
 [node name="125Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 410.0
 margin_right = 482.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "125Hz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 5
+title = "125Hz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 5
 
 [node name="175Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 492.0
 margin_right = 564.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "175Hz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 6
+title = "175Hz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 6
 
 [node name="250Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_top = 96.0
 margin_right = 72.0
 margin_bottom = 184.0
 size_flags_horizontal = 0
-Title = "250Hz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 7
+title = "250Hz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 7
 
 [node name="350Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 82.0
@@ -137,10 +137,10 @@ margin_top = 96.0
 margin_right = 154.0
 margin_bottom = 184.0
 size_flags_horizontal = 0
-Title = "350Hz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 8
+title = "350Hz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 8
 
 [node name="500Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 164.0
@@ -148,10 +148,10 @@ margin_top = 96.0
 margin_right = 236.0
 margin_bottom = 184.0
 size_flags_horizontal = 0
-Title = "500Hz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 9
+title = "500Hz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 9
 
 [node name="700Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 246.0
@@ -159,10 +159,10 @@ margin_top = 96.0
 margin_right = 318.0
 margin_bottom = 184.0
 size_flags_horizontal = 0
-Title = "700Hz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 10
+title = "700Hz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 10
 
 [node name="1000Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 328.0
@@ -170,10 +170,10 @@ margin_top = 96.0
 margin_right = 400.0
 margin_bottom = 184.0
 size_flags_horizontal = 0
-Title = "1kHz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 11
+title = "1kHz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 11
 
 [node name="1400Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 410.0
@@ -181,10 +181,10 @@ margin_top = 96.0
 margin_right = 482.0
 margin_bottom = 184.0
 size_flags_horizontal = 0
-Title = "1,4kHz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 12
+title = "1.4kHz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 12
 
 [node name="2000Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 492.0
@@ -192,20 +192,20 @@ margin_top = 96.0
 margin_right = 564.0
 margin_bottom = 184.0
 size_flags_horizontal = 0
-Title = "2kHz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 13
+title = "2kHz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 13
 
 [node name="2800Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_top = 192.0
 margin_right = 72.0
 margin_bottom = 280.0
 size_flags_horizontal = 0
-Title = "2,8kHz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 14
+title = "2.8kHz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 14
 
 [node name="4000Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 82.0
@@ -213,10 +213,10 @@ margin_top = 192.0
 margin_right = 154.0
 margin_bottom = 280.0
 size_flags_horizontal = 0
-Title = "4kHz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 15
+title = "4kHz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 15
 
 [node name="5600Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 164.0
@@ -224,10 +224,10 @@ margin_top = 192.0
 margin_right = 236.0
 margin_bottom = 280.0
 size_flags_horizontal = 0
-Title = "5,6kHz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 16
+title = "5.6kHz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 16
 
 [node name="8000Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 246.0
@@ -235,10 +235,10 @@ margin_top = 192.0
 margin_right = 318.0
 margin_bottom = 280.0
 size_flags_horizontal = 0
-Title = "8kHz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 17
+title = "8kHz"
+min_value = -10.0
+max_value = -10.0
+property_idx = 17
 
 [node name="11000Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 328.0
@@ -246,10 +246,10 @@ margin_top = 192.0
 margin_right = 400.0
 margin_bottom = 280.0
 size_flags_horizontal = 0
-Title = "11kHz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 18
+title = "11kHz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 18
 
 [node name="16000Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 410.0
@@ -257,10 +257,10 @@ margin_top = 192.0
 margin_right = 482.0
 margin_bottom = 280.0
 size_flags_horizontal = 0
-Title = "16kHz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 19
+title = "16kHz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 19
 
 [node name="22000Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]
 margin_left = 492.0
@@ -268,7 +268,7 @@ margin_top = 192.0
 margin_right = 564.0
 margin_bottom = 280.0
 size_flags_horizontal = 0
-Title = "22kHz"
-MinValue = -20.0
-MaxValue = 1.0
-PropertyIdx = 20
+title = "22kHz"
+min_value = -10.0
+max_value = 0.5
+property_idx = 20

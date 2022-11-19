@@ -112,8 +112,17 @@ func rename_user(var new_username : String, var user_idx : int) -> void:
 		"user://Users/" + new_username
 	)
 	
+	# renaming std download folder if stll in folders
+	#var old_std_download_folder : String = get_user_data_folder(user_idx) + "/Downloads"
+	#if SongLists.folders.has(old_std_download_folder):
+	#	var idx : int = SongLists.folders.find(old_std_download_folder)
+	#	SongLists.folders[idx] = OS.get_user_data_dir() + "/Users/" + new_username + "/Downloads"
+	
+	
+	
 	# replacing the Old Username with new s
 	user_profiles[user_idx] = new_username
+	Global.init_songs = true
  
 
 func remove_user(var user_idx : int) -> void:
@@ -134,6 +143,10 @@ func get_current_user() -> String:
 
 func get_current_user_data_folder() -> String:
 	return OS.get_user_data_dir() + "/Users/" + Global.get_current_user()
+
+
+func get_user_data_folder(var idx : int) -> String:
+	return OS.get_user_data_dir() + "/Users/" + user_profiles[idx]
 
 
 func add_to_playlist(var playlist_selector, var playlist_idx : int, var main_idxs : PoolIntArray):

@@ -2,14 +2,14 @@ extends HBoxContainer
 
 const expandable_line_edit : PackedScene = preload("res://src/scenes/Templates/SingleExpandableLineEdit.tscn")
 
-export var Title : String = "Title"
+export var title : String = "Title"
 
 onready var path_edit_vbox : VBoxContainer = $VBoxContainer
 onready var title_label : Label = $Title/Title
 
 
 func _ready():
-	title_label.set_text( Title + ":" )
+	title_label.set_text( title + ":" )
 	add_selection()
 
 

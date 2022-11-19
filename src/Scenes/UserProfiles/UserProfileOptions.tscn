@@ -36,6 +36,7 @@ rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 3
 
 [node name="Rename" type="Button" parent="HBoxContainer/VBoxContainer"]
+visible = false
 margin_top = 12.0
 margin_right = 149.0
 margin_bottom = 42.0
@@ -44,17 +45,17 @@ custom_styles/normal = ExtResource( 3 )
 text = "Rename"
 
 [node name="ChangeCover" type="Button" parent="HBoxContainer/VBoxContainer"]
-margin_top = 44.0
+margin_top = 12.0
 margin_right = 149.0
-margin_bottom = 74.0
+margin_bottom = 42.0
 rect_min_size = Vector2( 0, 30 )
 custom_styles/normal = ExtResource( 3 )
 text = "Change Cover"
 
 [node name="Delete" type="Button" parent="HBoxContainer/VBoxContainer"]
-margin_top = 76.0
+margin_top = 44.0
 margin_right = 149.0
-margin_bottom = 106.0
+margin_bottom = 74.0
 rect_min_size = Vector2( 0, 30 )
 custom_styles/normal = ExtResource( 3 )
 text = "Delete"

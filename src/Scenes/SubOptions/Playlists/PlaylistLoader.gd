@@ -122,7 +122,6 @@ func OnLeftMouseButtonClicked(var idx : int) -> void:
 			#Playing pressed song
 			var song_ : Control = songs.get_child(idx)
 			var main_idx : int = song_.main_index
-			var playlist_idx : int = song_.playlist_idx
 			#unhighlights the highlighted song when another one has been pressed
 			var highlighted_song : int = SongListHasThis(SongLists.current_song)
 			if highlighted_song != idx:
@@ -134,7 +133,7 @@ func OnLeftMouseButtonClicked(var idx : int) -> void:
 			root.playback_song(
 				main_idx,
 				true,
-				Playlist.get_playlist_name(playlist_idx)
+				Playlist.get_playlist_name(song_.playlist_idx)
 			)
 			root.player.set_repeat(false)
 		else:
@@ -211,7 +210,7 @@ func ExportPlaylist() -> void:
 	PlaylistExportMenu.init_export_menu(playlist_idx)
 
 
-#Header Expanding/Contracting
+#header Expanding/Contracting
 func OnScrollValueChanged(var val : float) -> void:
 	val /= 2.0
 	var NewHeight : float

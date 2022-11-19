@@ -2,7 +2,7 @@ extends Control
 
 
 #NODES
-onready var Title : Label = $HBoxContainer/VBoxContainer/Title
+onready var title : Label = $HBoxContainer/VBoxContainer/Title
 onready var Cover : TextureRect = $HBoxContainer/VBoxContainer/Cover
 
 #VARIABLES

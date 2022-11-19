@@ -7,8 +7,8 @@ const EXPAND_DURATION : float = 0.2
 
 #NODES 
 onready var Artist : LineEdit = $VBoxContainer/Artist/LineEdit
-onready var Album : LineEdit = $VBoxContainer/Album/LineEdit
-onready var Title : LineEdit = $VBoxContainer/Title/LineEdit
+onready var album_edit : LineEdit = $VBoxContainer/Album/LineEdit
+onready var title : LineEdit = $VBoxContainer/Title/LineEdit
 onready var Author : LineEdit = $VBoxContainer/Author/LineEdit
 onready var SongLength : LineEdit = $VBoxContainer/SongLength/LineEdit
 onready var Language : MenuButton = $VBoxContainer/ISO6391LanguageSelection/ISO6391LanguageSelection

@@ -20,13 +20,14 @@ size_flags_vertical = 3
 
 [node name="EffectsHeader" parent="VBoxContainer" instance=ExtResource( 1 )]
 margin_right = 1120.0
+margin_bottom = 28.0
 EffectTitle = "Low Pass Filter"
-EffectIdx = 3
+effect_idx = 3
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 35.0
+margin_top = 36.0
 margin_right = 1120.0
-margin_bottom = 45.0
+margin_bottom = 46.0
 custom_constants/separation = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
@@ -53,22 +54,13 @@ columns = 5
 
 [node name="CutoffHz" parent="VBoxContainer/VBoxContainer/Reverb" instance=ExtResource( 5 )]
 size_flags_horizontal = 0
-Title = "Cutoff Hz"
-MinValue = 1.0
-MaxValue = 20500.0
 
 [node name="Resonance" parent="VBoxContainer/VBoxContainer/Reverb" instance=ExtResource( 5 )]
 margin_left = 50.0
 margin_right = 90.0
 size_flags_horizontal = 0
-Title = "Resonance"
-MaxValue = 1.0
-PropertyIdx = 1
 
 [node name="dB" parent="VBoxContainer/VBoxContainer/Reverb" instance=ExtResource( 5 )]
 margin_left = 50.0
 margin_right = 90.0
 size_flags_horizontal = 0
-Title = "dB"
-MaxValue = 1.0
-PropertyIdx = 2

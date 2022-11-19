@@ -22,8 +22,8 @@ custom_constants/separation = 0
 
 [node name="EffectsHeader" parent="VBoxContainer" instance=ExtResource( 1 )]
 margin_bottom = 28.0
-EffectTitle = "Stereo Enhance"
-EffectIdx = 1
+effect_title = "Stereo Enhance"
+effect_idx = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 28.0
@@ -50,23 +50,23 @@ columns = 5
 [node name="PanPullout" parent="VBoxContainer/VBoxContainer/StereoEnhance" instance=ExtResource( 3 )]
 margin_bottom = 80.0
 size_flags_horizontal = 0
-Title = "pullout"
-MaxValue = 4.0
+title = "PanPull"
+max_value = 4.0
 
 [node name="TimePulloutMs" parent="VBoxContainer/VBoxContainer/StereoEnhance" instance=ExtResource( 3 )]
 margin_left = 50.0
 margin_right = 90.0
 margin_bottom = 80.0
 size_flags_horizontal = 0
-Title = "pullout t/ms"
-MaxValue = 50.0
-PropertyIdx = 1
+title = "TimePull"
+max_value = 50.0
+property_idx = 1
 
 [node name="Surround" parent="VBoxContainer/VBoxContainer/StereoEnhance" instance=ExtResource( 3 )]
 margin_left = 100.0
 margin_right = 140.0
 margin_bottom = 80.0
 size_flags_horizontal = 0
-Title = "surround"
-MaxValue = 1.0
-PropertyIdx = 2
+title = "Surround"
+max_value = 1.0
+property_idx = 2

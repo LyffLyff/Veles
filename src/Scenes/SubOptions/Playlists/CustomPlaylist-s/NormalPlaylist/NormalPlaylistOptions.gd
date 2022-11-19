@@ -6,7 +6,7 @@ onready var DeletePlaylist : Button = $NormalPlaylistOptions/HBoxContainer/Optio
 onready var ExportPlaylist : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Export
 onready var rename : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Rename
 onready var Return : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/ToPlaylists
-onready var Close : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Close
+onready var close : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/Close
 
 
 func ConnectOptionSignals() -> void:
@@ -20,4 +20,4 @@ func ConnectOptionSignals() -> void:
 	_err = ExportPlaylist.connect("pressed",self.get_owner(),"ExportPlaylist")
 	_err = rename.connect("pressed", self.get_owner(), "rename_playlist")
 	_err = DeletePlaylist.connect("pressed",self.get_owner(),"OnDeletePressed")
-	_err = Close.connect("pressed",self,"UnloadPlaylistOptions")
+	_err = close.connect("pressed",self,"UnloadPlaylistOptions")

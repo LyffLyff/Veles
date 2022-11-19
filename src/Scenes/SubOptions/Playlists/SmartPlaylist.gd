@@ -3,7 +3,7 @@ extends "res://src/Scenes/SubOptions/Playlists/PlaylistLoader.gd"
 
 #NODES
 onready var scroll : ScrollContainer = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller
-onready var Header : PanelContainer = $HBoxContainer/VBoxContainer/Header
+onready var header : PanelContainer = $HBoxContainer/VBoxContainer/Header
 onready var SongVBox : VBoxContainer = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller/Songs
 onready var SmartPlaylistTitleLabel : Label = $HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Title
 onready var SmartPlaylistCover : TextureRect = $HBoxContainer/VBoxContainer/Header/HBoxContainer/HeaderCover/Cover
@@ -19,7 +19,7 @@ var TempPlaylistCoverPath : String = ""
 
 
 
-func n_ready( var conditions : Dictionary = {}, var Title = "",var CustomDescriptionPath : String = "", var TmpPlaylistCvrPth : String = ""):
+func n_ready( var conditions : Dictionary = {}, var title = "",var CustomDescriptionPath : String = "", var TmpPlaylistCvrPth : String = ""):
 	var _err = scroll.get_v_scrollbar().connect("value_changed", self, "OnScrollValueChanged")
 	SongHighlighter = $SongHighlighter
 	PlaylistOptions = $HBoxContainer/VBoxContainer/Header/HBoxContainer/PlaylistOptions
@@ -38,7 +38,7 @@ func n_ready( var conditions : Dictionary = {}, var Title = "",var CustomDescrip
 		PlaylistTitle = SongLists.smart_playlists[ -playlist_idx - 3 ]
 		conditions = LoadPlaylistConditions()
 	else:
-		PlaylistTitle = Title
+		PlaylistTitle = title
 		playlist_idx = -2
 		
 	SmartPlaylistTitleLabel.set_text( PlaylistTitle )
@@ -56,7 +56,7 @@ func n_ready( var conditions : Dictionary = {}, var Title = "",var CustomDescrip
 		DescriptionPath = CustomDescriptionPath
 	Description.LoadDescription(DescriptionPath)
 	
-	#Header Info
+	#header Info
 	var playlist_idx : int = Playlist.get_playlist_index(PlaylistTitle) 
 	SongAmount.text = str( SongIdxs.size() )
 	Runtime.text = GetPlaylistRuntime()

@@ -112,11 +112,11 @@ func _on_Playback_pressed():
 		if !MainStream.get_stream_paused():
 			set_playback_button(0)
 			MainStream.set_stream_paused(true)
-			MainStream.StreamTimer.set_deferred("paused",true)
+			MainStream.stream_timer.set_deferred("paused",true)
 		else:
 			set_playback_button(1)
 			MainStream.set_stream_paused(false)
-			MainStream.StreamTimer.set_deferred("paused",false)
+			MainStream.stream_timer.set_deferred("paused",false)
 
 
 func _on_PlaybackSlider_value_changed(value):
@@ -166,7 +166,7 @@ func _on_Effects_pressed():
 		var _err = effects_ref.connect("tree_exited",self,"set",["effects_visible",false])
 		Global.root.middle_part.add_child(effects_ref)
 	else:
-		effects_ref.FreeAudioEffects()
+		effects_ref.free_audio_effects()
 
 
 func _on_Volume_pressed():
@@ -274,8 +274,8 @@ func disable_image_view() -> void:
 
 func update_player_covers(var playlist_name : String = "") -> void:
 	if AllSongs.get_main_idx(SongLists.current_song) != -1:
-		var CoverHash : String =  AllSongs.get_song_coverhash(AllSongs.get_main_idx(SongLists.current_song))
-		var CacheImg = ImageLoader.get_covercache_texture(CoverHash, playlist_name)
+		var coverhash : String =  AllSongs.get_song_coverhash(AllSongs.get_main_idx(SongLists.current_song))
+		var CacheImg = ImageLoader.get_covercache_texture(coverhash, playlist_name)
 		info_cover.set_deferred("texture_normal",CacheImg)
 		set_image_view_cover( CacheImg )
 

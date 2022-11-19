@@ -56,7 +56,7 @@ func LoadPlaylistGrid() -> void:
 		playlist.idx = Idx
 		playlists.add_child(playlist)
 		playlist.set_owner(self)
-		playlist.Title.set_text(SongLists.normal_playlists.keys()[Idx])
+		playlist.title.set_text(SongLists.normal_playlists.keys()[Idx])
 		playlist.Cover.set_texture( Playlist.get_playlist_cover(Idx) )
 	
 	#Smart Playlists
@@ -66,7 +66,7 @@ func LoadPlaylistGrid() -> void:
 		playlist.find_node("Cover").set_texture( ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + SongLists.smart_playlists[n] + ".png") )
 		playlists.add_child(playlist)
 		playlist.set_owner(self)
-		playlist.Title.set_text( SongLists.smart_playlists[n] )
+		playlist.title.set_text( SongLists.smart_playlists[n] )
 
 
 func CreateNewPlaylistPressed(var NewPlaylistType : int) -> void:
@@ -159,6 +159,6 @@ func AddNewPlaylistToGrid(var IsSmart : bool, var PlaylistCoverPath : String) ->
 	
 	playlists.add_child(NewPlaylistContainer)
 	NewPlaylistContainer.set_owner(self)
-	NewPlaylistContainer.Title.set_text(PlaylistTitle)
+	NewPlaylistContainer.title.set_text(PlaylistTitle)
 	NewPlaylistContainer.Cover.set_texture( ImageLoader.get_cover(PlaylistCoverPath) )
 	NewPlaylistContainer.idx = playlist_idx

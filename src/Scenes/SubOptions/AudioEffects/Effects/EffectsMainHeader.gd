@@ -1,27 +1,26 @@
 extends PanelContainer
 
-
-#NODES
-onready var AddPreset : TextureButton = $VBoxContainer/HBoxContainer/AddPreset
-onready var Close : TextureButton = $VBoxContainer/HBoxContainer/Close
-onready var PresetSelection : MenuButton = $VBoxContainer/HBoxContainer/PresetSelection
-
-#PRESET NAMES
 var presets : PoolStringArray = []
 
-func _enter_tree():
-	InitColor()
-
+onready var add_preset : TextureButton = $VBoxContainer/HBoxContainer/AddPreset
+onready var close : TextureButton = $VBoxContainer/HBoxContainer/Close
+onready var preset_menu : MenuButton = $VBoxContainer/HBoxContainer/PresetSelection
 
 func _ready():
-	InitPresetSelection()
+	init_preset_selection()
 
 
-func InitColor() -> void:
-	self.get_stylebox("panel").set_bg_color( SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "AudioEffectsHeaderBackground") )
+func _enter_tree():
+	init_color()
 
 
-func InitPresetSelection() -> void:
+func init_color() -> void:
+	self.get_stylebox("panel").set_bg_color(
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "AudioEffectsHeaderBackground")
+	)
+
+
+func init_preset_selection() -> void:
 	var dir : Directory = Directory.new()
 	if dir.open(Global.get_current_user_data_folder() + "/Settings/AudioEffects/Presets") != OK:
 		Global.root.message("OPENING PRESETS FOLDER",  SaveData.MESSAGE_ERROR)
@@ -30,24 +29,24 @@ func InitPresetSelection() -> void:
 	if dir.list_dir_begin(true,true) != OK:
 		return
 	
-	var PresetPopup : PopupMenu = PresetSelection.get_popup()
+	var preset_popup : PopupMenu = preset_menu.get_popup()
 	
-	#Deleting all prior items
-	PresetPopup.clear()
+	# deleting all prior items
+	preset_popup.clear()
 	
 	
-	var ItemIdx : int = 0
-	var TempFilename : String = ""
+	var item_idx : int = 0
+	var temp_filename : String = ""
 	
 	while true:
-		TempFilename = dir.get_next()
-		if TempFilename == "":
+		temp_filename = dir.get_next()
+		if temp_filename == "":
 			break;
-		if TempFilename.get_extension() != "epr":
+		if temp_filename.get_extension() != "epr":
 			#filtering invalid files -> everything not preset
 			continue;
 		
-		presets.push_back(TempFilename.trim_suffix(".epr"))
-		PresetPopup.add_item( TempFilename , ItemIdx)
-		PresetPopup.set_item_text(ItemIdx, TempFilename)
-		ItemIdx += 1
+		presets.push_back(temp_filename.trim_suffix(".epr"))
+		preset_popup.add_item(temp_filename, item_idx)
+		preset_popup.set_item_text(item_idx, temp_filename)
+		item_idx += 1

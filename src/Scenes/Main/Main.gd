@@ -155,7 +155,7 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 		# if the song that was just presed is the same that was playing
 		# the AudioPlayer justs seeks the start instead of loading the song from scratch
 		MainStream.seek(0.0)
-		MainStream.ReloadStreamTimer()
+		MainStream.reload_stream_timer()
 	
 	var file = File.new()
 	var song_path : String = AllSongs.get_song_path(main_idx)
@@ -179,15 +179,15 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 			2:
 				stream = AudioStreamSample.new()
 				
-				#Set WAV Properties
+				#Set WAV properties
 				var WavProperties : WAV = WAV.new()
 				var FmtOffset : int = WavProperties.find_fmt_in_file(song_data)
-				var Header : PoolByteArray = song_data.subarray(0,45 + FmtOffset)
+				var header : PoolByteArray = song_data.subarray(0,45 + FmtOffset)
 				if FmtOffset == -1:
 					#if a the "fmt " specifier could not be found the song will be skipped
 					RealFormatFlag = -1
 					
-				var FormatType : int = WavProperties.get_format_type(Header, FmtOffset)
+				var FormatType : int = WavProperties.get_format_type(header, FmtOffset)
 				if FormatType <= 2:
 					stream.format = FormatType
 				else:
@@ -195,10 +195,10 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 					RealFormatFlag = -1
 				
 				song_data = song_data.subarray( 128 * 10, song_data.size() - 1 )
-				stream.stereo = WavProperties.is_channel_stereo(Header, FmtOffset)
-				stream.mix_rate = WavProperties.get_mix_rate(Header, FmtOffset)
+				stream.stereo = WavProperties.is_channel_stereo(header, FmtOffset)
+				stream.mix_rate = WavProperties.get_mix_rate(header, FmtOffset)
 				
-				var BitsPerSample : int = WavProperties.get_bits_per_sample(Header, FmtOffset)
+				var BitsPerSample : int = WavProperties.get_bits_per_sample(header, FmtOffset)
 				if BitsPerSample > 16:
 					#24Bit, 32Bits per sample 
 					#song_data = WavProperties.convert_32_and_24_to_16_bits(song_data, BitsPerSample)
@@ -239,11 +239,11 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 				MainStream.seek(SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"PlaybackPosition"))
 				MainStream.set_stream_paused(true)
 				#pauses the stream timer on start
-				MainStream.ReloadStreamTimer(true)
+				MainStream.reload_stream_timer(true)
 			else:
 				player.set_playback_button(1)
 				MainStream.set_stream_paused(false)
-				MainStream.ReloadStreamTimer()
+				MainStream.reload_stream_timer()
 		else:
 			message("Unsupported Fileformat: " + song_path, SaveData.MESSAGE_ERROR)
 			skip_song(main_idx)
@@ -335,7 +335,7 @@ func random_song() -> void:
 
 
 func skip_song(var main_idx : int) -> void:
-	# skips to the next Song if the Header FileFormat is not supported or the path couldn't be opened
+	# skips to the next Song if the header FileFormat is not supported or the path couldn't be opened
 	# when loading Veles checks for the Filename extension not the "REAL" format
 	var path : String = AllSongs.get_song_path(main_idx)
 	var to_next : bool = false

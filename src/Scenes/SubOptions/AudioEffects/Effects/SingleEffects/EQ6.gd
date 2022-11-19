@@ -1,8 +1,7 @@
 extends "res://src/Scenes/SubOptions/AudioEffects/Effects/NewAudioEffects.gd"
 
-
 func _ready():
-	Properties = [
+	properties = [
 		"band_db/32_hz",
 		"band_db/100_hz",
 		"band_db/320_hz",
@@ -10,5 +9,5 @@ func _ready():
 		"band_db/3200_hz",
 		"band_db/10000_hz"
 	]
-	EffectIdx = 5
-	CallEffectContainers("InitEffectContainer")
+	effect_idx = 5
+	call_effect_containers("init_effect_container")

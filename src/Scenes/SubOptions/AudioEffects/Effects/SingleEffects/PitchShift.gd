@@ -1,9 +1,8 @@
 extends "res://src/Scenes/SubOptions/AudioEffects/Effects/NewAudioEffects.gd"
 
-
 func _ready():
-	Properties = [
+	properties = [
 		"pitch_scale"
 	]
-	EffectIdx = 2
-	CallEffectContainers("InitEffectContainer")
+	effect_idx = 2
+	call_effect_containers("init_effect_container")

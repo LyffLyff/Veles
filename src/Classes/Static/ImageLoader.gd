@@ -52,7 +52,7 @@ static func get_cover(var path : String, var playlist_name : String = "", var Im
 			#if no playlist was specifed on function call
 			var std_cover_path : String = SettingsData.get_setting(SettingsData.SONG_SETTINGS, "StandardSongCover")
 			if std_cover_path != "" and Directory.new().file_exists(std_cover_path):
-				#Loads the std Cover Image Specified in the Settings
+				#Loads the std cover_edit Image Specified in the Settings
 				texture = get_cover( SettingsData.get_setting(SettingsData.SONG_SETTINGS, "StandardSongCover") )
 			else:
 				#Loads the true std cover -> when no std cover was selected
@@ -114,7 +114,7 @@ static func get_covercache_texture(var coverhash : String, var playlist_name : S
 
 
 static func squarify_image(var img : Image) -> Image:
-	# squarifying the Cover
+	# squarifying the cover_edit
 	# extracting the biggest square out of the given image
 	var new_rect : Rect2 = Rect2()
 	new_rect.size = Vector2(img.get_width() / img.get_size().aspect(), img.get_height())

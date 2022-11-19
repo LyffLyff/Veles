@@ -88,8 +88,8 @@ func LoadProject() -> void:
 	
 	#LRC Tags
 	LRCTags.Artist.set_text(ProjectData[3][0])
-	LRCTags.Album.set_text(ProjectData[3][1])
-	LRCTags.Title.set_text(ProjectData[3][2])
+	LRCTags.album_edit.set_text(ProjectData[3][1])
+	LRCTags.title.set_text(ProjectData[3][2])
 	LRCTags.Author.set_text(ProjectData[3][3])
 	LRCTags.SongLength.set_text(ProjectData[3][4])
 	LRCTags.Language.set_text(ProjectData[3][5])
@@ -129,8 +129,8 @@ func CreateFromLRC(var LRCFilePath : String) -> void:
 	#Info
 	ProjectTitle.set_text( ProjectPath.get_file().replace(".lrc","") )
 	LRCTags.Artist.set_text(decoded_lrc_file[0].values()[0])
-	LRCTags.Album.set_text(decoded_lrc_file[0].values()[1])
-	LRCTags.Title.set_text(decoded_lrc_file[0].values()[2])
+	LRCTags.album_edit.set_text(decoded_lrc_file[0].values()[1])
+	LRCTags.title.set_text(decoded_lrc_file[0].values()[2])
 	LRCTags.Author.set_text(decoded_lrc_file[0].values()[3])
 	LRCTags.SongLength.set_text(decoded_lrc_file[0].values()[4])
 	LRCTags.Language.set_text(decoded_lrc_file[0].values()[5])
@@ -182,15 +182,15 @@ func OnSaveLyricsProject(var SaveAs : bool = false):
 	# VLP = Veles Lyrics Project
 	# structure = Array
 	# [Title, Verses, Timestamps, [Artist, Album, Title, Author, Length, Language, Creator of File] ]
-	var Title : String = ProjectTitle.get_text()
+	var title : String = ProjectTitle.get_text()
 	var VLPFiledata : Array = [
-		Title,
+		title,
 		GetAllVerses(),
 		GetAllTimeStamps(),
 		[
 			LRCTags.Artist.get_text(),
-			LRCTags.Album.get_text(),
-			LRCTags.Title.get_text(),
+			LRCTags.album_edit.get_text(),
+			LRCTags.title.get_text(),
 			LRCTags.Author.get_text(),
 			LRCTags.SongLength.get_text(),
 			LRCTags.Language.get_text(),
@@ -206,7 +206,7 @@ func OnSaveLyricsProject(var SaveAs : bool = false):
 	else:
 		var general_file_dialogue = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
 		Global.root.top_ui.add_child(general_file_dialogue)
-		general_file_dialogue.n_ready(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_USERDATA, "Lyrics",["*.vlp"], true, "Save Project As",Title)
+		general_file_dialogue.n_ready(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_USERDATA, "Lyrics",["*.vlp"], true, "Save Project As",title)
 		general_file_dialogue.dialogue.current_dir = Global.get_current_user_data_folder() + "/Lyrics/Projects"
 		var _err = general_file_dialogue.connect("selection_made", SaveData, "save", [VLPFiledata])
 		
@@ -229,14 +229,14 @@ func AddProjectAsEdited(var NewProjectPath : String) -> void:
 
 
 func ExportToLRC() -> void:
-	var Title : String = ProjectTitle.get_text()
+	var title : String = ProjectTitle.get_text()
 	
 	var LRCFileData : String = LRC.new().encode_lrc_file(
 		GetAllVerses(),
 		GetAllTimeStamps(),
 		LRCTags.Artist.get_text(),
-		LRCTags.Album.get_text(),
-		LRCTags.Title.get_text(),
+		LRCTags.album_edit.get_text(),
+		LRCTags.title.get_text(),
 		LRCTags.Author.get_text(),
 		LRCTags.SongLength.get_text(),
 		LRCTags.Language.get_text(),
@@ -320,8 +320,8 @@ func OnReturnPressed():
 		#If Porject is up to Date it won't display Notice
 		Global.root.load_option(6,true)
 
-func GetLyricsProjectPath(var Title : String) -> String:
-	return OS.get_user_data_dir() + "/Lyrics/Projects/" + Title + VPLFileExtension
+func GetLyricsProjectPath(var title : String) -> String:
+	return OS.get_user_data_dir() + "/Lyrics/Projects/" + title + VPLFileExtension
 
 
 func GetAllVerses() -> PoolStringArray:

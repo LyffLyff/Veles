@@ -88,7 +88,7 @@ func create_songspaces(var songspace_vbox : VBoxContainer, var main_idxs : PoolI
 		new_songspace = songspace_scene.instance()
 		songspace_vbox.add_child(new_songspace)
 		
-		# init song Space Properties
+		# init song Space properties
 		new_songspace.main_index = n
 		new_songspace.playlist_idx = playlist_idx
 		new_songspace.path = AllSongs.get_song_path(n)

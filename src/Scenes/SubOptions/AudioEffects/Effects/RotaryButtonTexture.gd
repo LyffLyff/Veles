@@ -1,78 +1,68 @@
 extends Button
 
+signal rotation_changed
 
-#SIGNAL
-signal RotationChanged
+# the smaller this value the more the Button rotates with smaller mouse position changes
+const ROTATION_STEP_PIXELS : float = 0.5
+const ROTATION_RANGE : Vector2 = Vector2(0,360)
 
+var mouse_start_pos : Vector2 = Vector2.ZERO
+var current_rotation_degrees : float = 0.0
+var new_rotation_degrees : float = 0.0
+var y_mouse_offset : float = 0.0
+var real_value : float = -1.0
+var max_value : float = -1.0
+var min_value : float = -1.0
 
-#CONSTANTS
-#the smaller this value the more the Button rotates with smaller mouse position changes
-const RotationStepInPixels : float = 0.5
-
-
-#NODES
-onready var RotatingSprite : Sprite = get_child(0)
-
-
-#VARIABLES
-const RotationRange : Vector2 = Vector2(0,360)
-var MouseStartPos : Vector2 = Vector2.ZERO
-var CurrentButtonRotationDegrees : float = 0.0
-var NewRotationDegrees : float = 0.0
-var YMouseOffset : float = 0.0
-var RealValue : float = -1.0
-var MaxValue : float = -1.0
-var MinValue : float = -1.0
-
+onready var rotating_sprite : Sprite = get_child(0)
 
 func _ready():
 	self.set_process(false)
-	OnRotaryButtonItemRectChanged()
+	_on_RotaryButton_item_rect_changed()
 
 
 func _process(_delta):
-	YMouseOffset = MouseStartPos.y - get_global_mouse_position().y
-	NewRotationDegrees = ( YMouseOffset / RotationStepInPixels ) + CurrentButtonRotationDegrees
-	NewRotationDegrees = CheckRange(NewRotationDegrees);
-	RotatingSprite.rotation_degrees = NewRotationDegrees
-	#Calculating the Real Value from the Rotation
-	RealValue = ( ( MaxValue - MinValue ) * NewRotationDegrees / RotationRange.y ) + MinValue
-	
-	emit_signal( "RotationChanged", RealValue)
+	y_mouse_offset = mouse_start_pos.y - get_global_mouse_position().y
+	new_rotation_degrees = ( y_mouse_offset / ROTATION_STEP_PIXELS ) + current_rotation_degrees
+	new_rotation_degrees = check_range(new_rotation_degrees);
+	rotating_sprite.rotation_degrees = new_rotation_degrees
+	# calculating the Real Value from the Rotation
+	real_value = ((max_value - min_value) * new_rotation_degrees / ROTATION_RANGE.y) + min_value
+	emit_signal("rotation_changed", real_value)
 
 
-func OnRotaryButtonButtonDown() -> void:
-	MouseStartPos = get_global_mouse_position()
+func _on_RotaryButton_button_down() -> void:
+	mouse_start_pos = get_global_mouse_position()
 	self.set_process(true)
 
 
-func OnRotaryButtonButtonUp() -> void:
-	CurrentButtonRotationDegrees = RotatingSprite.rotation_degrees
+func _on_RotaryButton_button_up() -> void:
+	current_rotation_degrees = rotating_sprite.rotation_degrees
 	self.set_process(false)
 
 
-func OnRotaryButtonItemRectChanged():
-	#So the texture will always be rotated from the center
-	RotatingSprite.position = self.rect_size / 2
+func _on_RotaryButton_item_rect_changed():
+	# makes it so the texture will always be rotated from the center
+	rotating_sprite.position = self.rect_size / 2
 
 
-func CheckRange(var RotationDegrees : float) -> float:
-	if RotationDegrees > RotationRange.y:
-		return RotationRange.y;
-	elif RotationDegrees < RotationRange.x:
-		return RotationRange.x;
-	return RotationDegrees;
+func check_range(var rotation_degrees : float) -> float:
+	if rotation_degrees > ROTATION_RANGE.y:
+		return ROTATION_RANGE.y;
+	elif rotation_degrees < ROTATION_RANGE.x:
+		return ROTATION_RANGE.x;
+	return rotation_degrees;
 
 
-func SetRotation(var NewRotation : float) -> void:
-	CurrentButtonRotationDegrees = NewRotation
-	RotatingSprite.rotation_degrees = NewRotation
+func set_rotation(var new_rotation : float) -> void:
+	current_rotation_degrees = new_rotation
+	rotating_sprite.rotation_degrees = new_rotation
 
 
-func ValueToRotation(var NewValue : float) -> float:
+func value_to_rotation(var new_value : float) -> float:
 	# converting a value to the buttons rotations
 	# does this by multiplying a ratio of the currents value from the absolute distance
 	# between the min./max. value and then multiplying with the maximum rotation
-	var diff : float = abs(MinValue) + abs(MaxValue)
-	var linear_range_of_value : float = abs(MinValue) + NewValue
-	return (linear_range_of_value / diff) * RotationRange.y
+	var diff : float = abs(min_value) + abs(max_value)
+	var linear_range_of_value : float = abs(min_value) + new_value
+	return (linear_range_of_value / diff) * ROTATION_RANGE.y

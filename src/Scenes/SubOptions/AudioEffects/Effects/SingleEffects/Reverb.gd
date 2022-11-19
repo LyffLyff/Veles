@@ -1,8 +1,7 @@
 extends "res://src/Scenes/SubOptions/AudioEffects/Effects/NewAudioEffects.gd"
 
-
 func _ready():
-	Properties = [
+	properties = [
 		"room_size",
 		"damping",
 		"spread",
@@ -12,5 +11,5 @@ func _ready():
 		"predelay_msec",
 		"predelay_feedback"
 	]
-	EffectIdx = 0
-	CallEffectContainers("InitEffectContainer")
+	effect_idx = 0
+	call_effect_containers("init_effect_container")

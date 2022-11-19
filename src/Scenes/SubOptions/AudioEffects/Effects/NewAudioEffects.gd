@@ -1,96 +1,90 @@
 extends Control
 
-#PRELOADS
 const plus_texture : StreamTexture = preload("res://src/Assets/Icons/White/General/add_1_72px.png")
 const minus_texture : StreamTexture = preload("res://src/Assets/Icons/White/General/remove_1_72px.png")
-
-#CONSTANT
 const shrinked_y : float = 42.0
 const tw_speed : float = 550.0
 
-#NODES
-onready var EffectTypeVBox : VBoxContainer = $VBoxContainer/VBoxContainer
-onready var EffectSwitch : CheckButton = $VBoxContainer/EffectsHeader/EffectSwitch
-onready var EffectExpand : TextureButton = $VBoxContainer/EffectsHeader/Expand
+var effect_idx : int = -1
+var is_effect_expanded : bool = false
+var is_expanding : bool = false
+var properties : Array = []
 
-#VARIABLES
-var EffectIdx : int = -1
-var IsEffectExpanded : bool = false
-var IsExpanding : bool = false
-var Properties : Array = []
-onready var expanded_y : float = EffectTypeVBox.rect_size.y + 60
+onready var effect_type_vbox : VBoxContainer = $VBoxContainer/VBoxContainer
+onready var effect_switch : CheckButton = $VBoxContainer/EffectsHeader/EffectSwitch
+onready var effect_expand : TextureButton = $VBoxContainer/EffectsHeader/Expand
+onready var expanded_y : float = effect_type_vbox.rect_size.y + 60
+
+func _ready():
+	var _err = effect_expand.connect("pressed", self,"expand_effect")
 
 
 func _enter_tree():
-	InitColor()
+	init_color()
 
 
-func _ready():
-	var _err = EffectExpand.connect("pressed", self,"ExpandEffect")
-
-
-func InitColor() -> void:
+func init_color() -> void:
 	self.get_stylebox("panel").set_bg_color( SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "AudioEffectsBackground") )
 
 
-func SetAudioEffect(var PropertyIdx : int, var NewValue : float) -> void:
-	var Effect : AudioEffect = AudioServer.get_bus_effect(0, EffectIdx)
-	var Property : String = Properties[PropertyIdx]
-	Effect.set_deferred(Property, NewValue)
-	SongLists.audio_effects[EffectIdx][Property] = NewValue
+func set_audio_effect(var property_idx : int, var new_value : float) -> void:
+	var effect : AudioEffect = AudioServer.get_bus_effect(0, effect_idx)
+	var Property : String = properties[property_idx]
+	effect.set_deferred(Property, new_value)
+	SongLists.audio_effects[effect_idx][Property] = new_value
 
 
-func CallEffectContainers(var Method : String) -> void:
-	#Looping through all effect property containers and calling a method on them
-	#because, since they are not simply structured in a Vbox
-	for i in EffectTypeVBox.get_child_count():
-		if EffectTypeVBox.get_child(i) is Label:
-			#Skipping the Label that Describe the SubEffect
+func call_effect_containers(var method : String) -> void:
+	# looping through all effect property containers and calling a method on them
+	# because, since they are not simply structured in a Vbox
+	for i in effect_type_vbox.get_child_count():
+		if effect_type_vbox.get_child(i) is Label:
+			# skipping the Label that Describe the SubEffect
 			continue;
 			
-		for j in  EffectTypeVBox.get_child(i).get_child_count():
-			self.call(Method, EffectTypeVBox.get_child(i).get_child(j))
+		for j in effect_type_vbox.get_child(i).get_child_count():
+			self.call(method, effect_type_vbox.get_child(i).get_child(j))
 
 
-func InitEffectContainer(var EffectContainer : Control) -> void:
-	var NewValue : float = SongLists.audio_effects[ EffectIdx ][ Properties[EffectContainer.PropertyIdx] ]
-	EffectContainer.SetValue(NewValue)
-	var _err = EffectContainer.connect("AudioEffectSubValueChanged", self,"SetAudioEffect")
-	SetAudioEffect(EffectContainer.PropertyIdx, NewValue)
+func init_effect_container(var effect_container : Control) -> void:
+	var new_value : float = SongLists.audio_effects[effect_idx][properties[effect_container.property_idx]]
+	effect_container.set_value(new_value)
+	var _err = effect_container.connect("audio_effect_sub_value_changed", self,"set_audio_effect")
+	set_audio_effect(effect_container.property_idx, new_value)
 
 
-func UpdateEffectContainer(var EffectContainer : Control) -> void:
-	var NewValue : float = SongLists.audio_effects[ EffectIdx ][ Properties[EffectContainer.PropertyIdx] ]
-	EffectContainer.SetValue( 
-		NewValue
+func update_effect_container(var effect_container : Control) -> void:
+	var new_value : float = SongLists.audio_effects[effect_idx ][properties[effect_container.property_idx]]
+	effect_container.set_value( 
+		new_value
 	)
 
 
 func get_expand_height() -> float:
-	for i in EffectTypeVBox.get_children():
+	for i in effect_type_vbox.get_children():
 		if i is GridContainer:
 			return i.rect_size.y
 	return 350.0
 
 
-func ExpandEffect() -> void:
-	if IsExpanding:
+func expand_effect() -> void:
+	if is_expanding:
 		return;
 	
-	IsExpanding = true
+	is_expanding = true
 	var tw : SceneTreeTween = create_tween()
 	tw = tw.set_trans(Tween.TRANS_CUBIC)
-	var _err = tw.connect("finished",self,"set",["IsExpanding",false])
+	var _err = tw.connect("finished",self,"set",["is_expanding",false])
 	var dis : float = 0.0
 	var height : float = 0.0
-	if !IsEffectExpanded:
-		EffectExpand.texture_normal = minus_texture
-		_err = tw.connect("finished",self.EffectTypeVBox,"set_visible",[true])
-		dis = EffectTypeVBox.rect_size.y + 60 - self.rect_min_size.y
+	if !is_effect_expanded:
+		effect_expand.texture_normal = minus_texture
+		_err = tw.connect("finished",self.effect_type_vbox,"set_visible",[true])
+		dis = effect_type_vbox.rect_size.y + 60 - self.rect_min_size.y
 		height = expanded_y
 	else:
-		self.EffectTypeVBox.set_visible(false)
-		EffectExpand.texture_normal = plus_texture
+		self.effect_type_vbox.set_visible(false)
+		effect_expand.texture_normal = plus_texture
 		dis = self.rect_min_size.y - shrinked_y
 		height = shrinked_y
 	
@@ -104,4 +98,4 @@ func ExpandEffect() -> void:
 		duration
 	)
 	
-	IsEffectExpanded = !IsEffectExpanded
+	is_effect_expanded = !is_effect_expanded

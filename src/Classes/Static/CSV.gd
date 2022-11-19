@@ -7,7 +7,6 @@ func encode_songlist(var song_paths : PoolStringArray) -> String:
 	encoded_csv_file += "Title;Artist;Album;Genre;Track;Year;Fileformat;Filename\n"
 	
 	# song Tags
-	var TempTags : PoolStringArray = []
 	for i in song_paths.size():
 		for tag in Tags.get_text_tags(song_paths[i],[1,0,2,3,6,5]):
 			encoded_csv_file += tag + ";"

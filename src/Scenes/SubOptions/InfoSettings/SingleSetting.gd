@@ -1,7 +1,7 @@
 extends HBoxContainer
 
 #Nodes
-onready var Title : Label = $Label
+onready var title : Label = $Label
 
 
 #General Setting
@@ -17,7 +17,7 @@ export var ColorChangeRealtime : bool = true
 
 #Normal Setting
 export var NormalSettingKey : String = ""
-export var Items : PoolStringArray = [] #Title : Idx
+export var Items : PoolStringArray = [] #title : Idx
 
 
 #File Setting
@@ -33,7 +33,7 @@ export var PropertyKey : String = ""
 
 
 func _ready():
-	Title.set_text(SettingLabel + ": ")
+	title.set_text(SettingLabel + ": ")
 	
 	match SettingType:
 		"Options":

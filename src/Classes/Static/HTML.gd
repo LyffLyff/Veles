@@ -21,7 +21,7 @@ const songlist_row_template : String = """
 
 
 func format_html_header(var html_file  : String, var title : String = "", var headline : String = "") -> String:
-	#Title
+	#title
 	html_file = html_file.format(
 		[title],
 		"TITLE"

@@ -79,7 +79,7 @@ static func set_genre(var data : String, var path : String) -> void:
 
 
 static func set_comment(var data : String, var path : String) -> void:
-	#New Comment using ID3v2 will be located at the end of the file 
+	#New comment_edit using ID3v2 will be located at the end of the file 
 	set_text_tag(4,data,path)
 
 

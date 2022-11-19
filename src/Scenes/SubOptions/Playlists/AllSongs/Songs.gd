@@ -9,7 +9,7 @@ func _ready():
 	Global.pressed_playlist_idx = -1
 	if SongFilter.connect("is_filtering",SongScroller,"SetFilterStatus"):
 		Global.root.message("Connecting Song filters with ScrollContainer",  SaveData.MESSAGE_ERROR )
-	#Child one and two of ScrollContainer are the Scrollbars
+	#child one and two of ScrollContainer are the Scrollbars
 	songs = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller/Songs
 	SongScroller = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller
 	SongHighlighter = $SongHighlighter

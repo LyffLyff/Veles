@@ -23,8 +23,8 @@ custom_constants/separation = 0
 [node name="EffectsHeader" parent="VBoxContainer" instance=ExtResource( 3 )]
 margin_right = 1120.0
 margin_bottom = 28.0
-EffectTitle = "Reverb"
-EffectIdx = 0
+effect_title = "Reverb"
+effect_idx = 0
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 margin_top = 28.0
@@ -59,59 +59,53 @@ columns = 5
 margin_right = 72.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "room"
-MinValue = 0.0
-MaxValue = 0.6
+title = "Room"
+max_value = 1.0
 
 [node name="Damping" parent="VBoxContainer/VBoxContainer/Reverb" instance=ExtResource( 2 )]
 margin_left = 82.0
 margin_right = 154.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "damp"
-MinValue = 0.0
-MaxValue = 1.0
-PropertyIdx = 1
+title = "Damp"
+max_value = 1.0
+property_idx = 1
 
 [node name="Spread" parent="VBoxContainer/VBoxContainer/Reverb" instance=ExtResource( 2 )]
 margin_left = 164.0
 margin_right = 236.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "spread"
-MinValue = 0.0
-MaxValue = 1.0
-PropertyIdx = 2
+title = "Spread"
+max_value = 1.0
+property_idx = 2
 
 [node name="HiPass" parent="VBoxContainer/VBoxContainer/Reverb" instance=ExtResource( 2 )]
 margin_left = 246.0
 margin_right = 318.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "hiPass"
-MinValue = 0.0
-MaxValue = 1.0
-PropertyIdx = 3
+title = "HiPass"
+max_value = 1.0
+property_idx = 3
 
 [node name="Dry" parent="VBoxContainer/VBoxContainer/Reverb" instance=ExtResource( 2 )]
 margin_left = 328.0
 margin_right = 400.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "dry"
-MinValue = 0.0
-MaxValue = 1.0
-PropertyIdx = 4
+title = "Dry"
+max_value = 1.0
+property_idx = 4
 
 [node name="Wet" parent="VBoxContainer/VBoxContainer/Reverb" instance=ExtResource( 2 )]
 margin_top = 96.0
 margin_right = 72.0
 margin_bottom = 184.0
 size_flags_horizontal = 0
-Title = "wet"
-MinValue = 0.0
-MaxValue = 1.0
-PropertyIdx = 5
+title = "Wet"
+max_value = 1.0
+property_idx = 5
 
 [node name="PreDelayHeader" type="Label" parent="VBoxContainer/VBoxContainer"]
 margin_top = 220.0
@@ -131,19 +125,12 @@ custom_constants/separation = 10
 margin_right = 72.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "PreDelay Msecs"
-MinValue = 20.0
-MaxValue = 500.0
-PropertyIdx = 6
 
 [node name="FeedBack" parent="VBoxContainer/VBoxContainer/PreDelay" instance=ExtResource( 2 )]
 margin_left = 82.0
 margin_right = 154.0
 margin_bottom = 88.0
 size_flags_horizontal = 0
-Title = "PreDelay Feedback"
-MaxValue = 0.98
-PropertyIdx = 7
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer/VBoxContainer"]
 margin_top = 344.0

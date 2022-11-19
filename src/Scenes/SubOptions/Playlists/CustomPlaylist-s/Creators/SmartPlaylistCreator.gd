@@ -3,7 +3,7 @@ extends "res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Creators/Playlis
 
 #NODES
 onready var ConditionVBox : VBoxContainer = $Panel/VBoxContainer2/Main/Conditions/HBoxContainer/VBoxContainer
-onready var Title : LineEdit = $Panel/VBoxContainer2/Main/Title/InputEdit
+onready var title : LineEdit = $Panel/VBoxContainer2/Main/Title/InputEdit
 onready var Cover : HBoxContainer = $Panel/VBoxContainer2/Main/Cover
 
 #CONDITIONS
@@ -44,5 +44,5 @@ func on_save_pressed() -> void:
 			if TempCondVal != "":
 				ConditionValues.push_back( TempCondVal )
 		conditions[ConditionFunctions[i]] = ConditionValues
-	emit_signal("save",Title.get_text(),Cover.input_edit.get_text(),"",conditions)
+	emit_signal("save",title.get_text(),Cover.input_edit.get_text(),"",conditions)
 	on_close_pressed()

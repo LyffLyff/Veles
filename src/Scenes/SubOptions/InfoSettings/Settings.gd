@@ -25,7 +25,7 @@ var OptionRef : HBoxContainer = null
 
 func _ready():
 	LoadOption(0)
-	var _err = get_tree().connect("files_dropped", self, "OnFilesDropped")
+	var _err = get_tree().connect("files_dropped", self, "_on_files_dropped")
 
 func LoadOption(var OptionIdx : int) -> void:
 	if Settings.get_child_count() > 2:		
@@ -112,7 +112,7 @@ func OnColorChanged(var clr : Color) -> void:
 		PickerColor = clr
 
 
-func OnFilesDropped(var file_paths : PoolStringArray, var _ScreenIdx : int) -> void:
+func _on_files_dropped(var file_paths : PoolStringArray, var _ScreenIdx : int) -> void:
 	#A function that finds the Closest Reference of a Node inside of an Array,
 	#relative to the Mouse Position
 	#the Dropped File will then be entered automatically
