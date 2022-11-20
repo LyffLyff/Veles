@@ -30,7 +30,6 @@ onready var resize_handles : HBoxContainer = $MarginContainer/ResizeHandles
 onready var mouse_stopper : Control = $MarginContainer/VBoxContainer/MiddlePart/MouseStopper
 onready var top_ui : Control = $TopUI
 
-
 func _ready():
 	init_main(true)
 
@@ -161,15 +160,15 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 	var song_path : String = AllSongs.get_song_path(main_idx)
 	if file.open(song_path, File.READ) == OK:
 		
-		#GET DATA
+		# GET DATA
 		var song_data : PoolByteArray = file.get_buffer(file.get_len())
 		
-		#CHECK MUSIC FORMAT WITH HEADER
+		# CHECK MUSIC FORMAT WITH HEADER
 		var RealFormatFlag : int = FormatChecker.get_music_format_from_data(song_data.subarray(0,1024).hex_encode())
 		if RealFormatFlag == -1:
 			RealFormatFlag = FormatChecker.get_music_filename_extension(song_path) 
 		
-		#CREATE STREAM
+		# CREATE STREAM
 		var stream = null
 		match RealFormatFlag:
 			0:
@@ -423,17 +422,17 @@ func free_option() -> void:
 func update_highlighted_song(var NextHighlighted : String) -> void:
 	#checks first if either AllSongs or a Playlist are shown
 	if options.get_child(0).get("songs") != null:
-		var highlighted_song : int = options.get_child(0).SongListHasThis(SongLists.current_song)
+		var highlighted_song : int = options.get_child(0).get_index_from_songlist(SongLists.current_song)
 		if  options.get_child(0).get("songs").get_child_count() < highlighted_song:
 			#if a song is next from another Playlist  that is bigger
 			return
 		#if a song is currently highlighted
 		if highlighted_song != -1:
-			options.get_child(0).UnHighlightSong(highlighted_song)
-			var NextHighlightedIdx : int = options.get_child(0).SongListHasThis(NextHighlighted)
+			options.get_child(0).unhighlight_song(highlighted_song)
+			var NextHighlightedIdx : int = options.get_child(0).get_index_from_songlist(NextHighlighted)
 			if NextHighlightedIdx == -1:
 				return
-			options.get_child(0).HighlightSong(options.get_child(0).songs.get_child( NextHighlightedIdx ) )
+			options.get_child(0).highlight_song(options.get_child(0).songs.get_child( NextHighlightedIdx ) )
 
 
 func message(var message : String,var message_type : int, var display : bool = false, var bg_clr : Color = Color("1f1f1f")) -> void:
@@ -537,11 +536,11 @@ func load_temporary_playlist(var temp_playlist_title : String, var description_p
 	new_temp_playlist.n_ready( SongLists.temporary_playlist_conditions,temp_playlist_title,description_path, cover_path )
 
 
-func load_lyric_editor(var ProjectPath : String = "") -> void:
+func load_lyric_editor(var project_path : String = "") -> void:
 	delete_current_option()
 	var x = load("res://src/Scenes/SubOptions/Lyrics/LyricsEditor.tscn").instance()
 	options.add_child( x )
-	x.get_child(0).n_ready(ProjectPath)
+	x.get_child(0).n_ready(project_path)
 
 
 func update_player_infos() -> void:

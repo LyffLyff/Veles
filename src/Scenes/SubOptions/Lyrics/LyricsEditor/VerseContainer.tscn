@@ -49,6 +49,6 @@ expand = true
 stretch_mode = 5
 
 [connection signal="item_rect_changed" from="." to="." method="_on_VerseContainer_item_rect_changed"]
-[connection signal="text_changed" from="HBoxContainer/VerseText" to="." method="OnVerseTextChanged"]
-[connection signal="pressed" from="HBoxContainer/MovingUpDown/Up" to="." method="OnUpPressed"]
-[connection signal="pressed" from="HBoxContainer/MovingUpDown/Down" to="." method="onDownPressed"]
+[connection signal="text_changed" from="HBoxContainer/VerseText" to="." method="_on_VerseText_text_changed"]
+[connection signal="pressed" from="HBoxContainer/MovingUpDown/Up" to="." method="_on_Up_pressed"]
+[connection signal="pressed" from="HBoxContainer/MovingUpDown/Down" to="." method="_on_Down_pressed"]

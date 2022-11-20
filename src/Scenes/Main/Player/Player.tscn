@@ -171,6 +171,7 @@ text = "SongTitle"
 valign = 1
 autowrap = true
 clip_text = true
+script = ExtResource( 14 )
 
 [node name="Artist" type="LinkButton" parent="Main/SongInfo/Info/Infos"]
 margin_top = 36.0
@@ -449,6 +450,7 @@ autostart = true
 [connection signal="mouse_entered" from="Main/SongInfo/Info/Cover/Cover" to="Main/SongInfo/Info/Cover/Cover" method="_on_Cover_mouse_entered"]
 [connection signal="pressed" from="Main/SongInfo/Info/Cover/Cover" to="." method="_on_Cover_pressed"]
 [connection signal="pressed" from="Main/SongInfo/Info/Cover/Cover" to="Main/SongInfo/Info/Cover/Cover" method="_on_Cover_pressed"]
+[connection signal="resized" from="Main/SongInfo/Info/Infos" to="Main/SongInfo/Info/Infos/Title" method="_on_Parent_Resized"]
 [connection signal="resized" from="Main/SongInfo/Info/Infos" to="Main/SongInfo/Info/Infos/Artist" method="_on_Parent_Resized"]
 [connection signal="resized" from="Main/SongInfo/Info/Infos" to="Main/SongInfo/Info/Infos/Playlist" method="_on_Parent_Resized"]
 [connection signal="pressed" from="Main/SongInfo/Info/Infos/Artist" to="." method="_on_Artist_pressed"]

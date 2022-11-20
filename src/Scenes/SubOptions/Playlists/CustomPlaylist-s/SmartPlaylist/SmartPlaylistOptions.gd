@@ -1,17 +1,17 @@
 extends "res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/GeneralPlaylistOptions.gd"
 
-onready var OptionVBox : VBoxContainer = $PanelContainer/HBoxContainer/OptionVBox
-onready var Return : Button = $PanelContainer/HBoxContainer/OptionVBox/ToPlaylists
-onready var PlaylistCover : Button = $PanelContainer/HBoxContainer/OptionVBox/SetPlaylistCover
+onready var option_vbox : VBoxContainer = $PanelContainer/HBoxContainer/OptionVBox
+onready var return_to_playlists : Button = $PanelContainer/HBoxContainer/OptionVBox/ToPlaylists
+onready var playlist_cover : Button = $PanelContainer/HBoxContainer/OptionVBox/SetPlaylistCover
 onready var rename : Button = $PanelContainer/HBoxContainer/OptionVBox/Rename
-onready var Export : Button = $PanelContainer/HBoxContainer/OptionVBox/Export
-onready var DeletePlaylist : Button = $PanelContainer/HBoxContainer/OptionVBox/DeletePlaylist
+onready var export_playlist : Button = $PanelContainer/HBoxContainer/OptionVBox/Export
+onready var delete_playlist : Button = $PanelContainer/HBoxContainer/OptionVBox/DeletePlaylist
 onready var close : Button = $PanelContainer/HBoxContainer/OptionVBox/Close
 
-func ConnectOptionSignals() -> void:
-	var _err = Return.connect("pressed",self.get_owner(),"UnloadPlaylist")
-	_err = PlaylistCover.connect("pressed",self.get_owner(),"OnSetCoverPressed")
+func connect_option_signals() -> void:
+	var _err = return_to_playlists.connect("pressed", self.get_owner(), "unload_playlist")
+	_err = playlist_cover.connect("pressed", self.get_owner(), "on_set_cover_pressed")
 	_err = rename.connect("pressed", self.get_owner(), "rename_playlist")
-	_err = Export.connect("pressed", self.get_owner(), "ExportPlaylist")
-	_err = DeletePlaylist.connect("pressed",self.get_owner(),"OnDeleteSmartPlaylistpressed")
-	_err = close.connect("pressed",self,"UnloadPlaylistOptions")
+	_err = export_playlist.connect("pressed", self.get_owner(), "export_playlist")
+	_err = delete_playlist.connect("pressed", self.get_owner(), "on_delete_smart_playlist_pressed")
+	_err = close.connect("pressed" ,self, "unload_playlist_options")

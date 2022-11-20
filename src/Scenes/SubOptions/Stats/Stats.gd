@@ -153,6 +153,6 @@ func _on_Export_pressed():
 				str(sorted_streams[i].x)
 			]
 		)
-	var export_menu : Control = load("res://src/Scenes/Export/export_menu.tscn").instance() 
+	var export_menu : Control = load("res://src/Scenes/Export/StatsExportMenu.tscn").instance() 
 	Global.root.top_ui.add_child(export_menu)
 	export_menu.init_export_menu(sorted_streams_list)

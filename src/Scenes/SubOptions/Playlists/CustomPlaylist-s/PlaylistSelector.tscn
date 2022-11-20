@@ -60,27 +60,27 @@ rect_min_size = Vector2( 15, 0 )
 mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/ScrollContainer/HBoxContainer"]
-margin_left = 19.0
-margin_right = 481.0
+margin_left = 23.0
+margin_right = 477.0
 margin_bottom = 300.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TopEmpty" type="Control" parent="CenterContainer/PanelContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
-margin_right = 462.0
+margin_right = 454.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="Playlists" type="VBoxContainer" parent="CenterContainer/PanelContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
-margin_top = 14.0
-margin_right = 462.0
-margin_bottom = 286.0
+margin_top = 18.0
+margin_right = 454.0
+margin_bottom = 282.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="BottomEmpty" type="Control" parent="CenterContainer/PanelContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
 margin_top = 290.0
-margin_right = 462.0
+margin_right = 454.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 0, 10 )
 mouse_filter = 2
@@ -113,4 +113,4 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 text = "Close"
 
-[connection signal="pressed" from="CenterContainer/HBoxContainer/Close" to="." method="OnCloseButtonPressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/Close" to="." method="_on_Close_pressed"]

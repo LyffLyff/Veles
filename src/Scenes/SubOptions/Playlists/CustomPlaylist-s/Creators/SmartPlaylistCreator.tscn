@@ -95,56 +95,56 @@ size_flags_vertical = 3
 anchor_right = 0.0
 margin_right = 567.0
 margin_bottom = 30.0
-Title = "Genre"
+title = "Genre/s"
 
 [node name="Album" parent="Panel/VBoxContainer2/Main/Conditions/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 38.0
 margin_right = 567.0
 margin_bottom = 68.0
-Title = "Album"
+title = "Album/s"
 
 [node name="IsLongerThan" parent="Panel/VBoxContainer2/Main/Conditions/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 76.0
 margin_right = 567.0
 margin_bottom = 106.0
-Title = "Is Longer Than/s"
+title = "Is longer than"
 
 [node name="IsShorterThan" parent="Panel/VBoxContainer2/Main/Conditions/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 114.0
 margin_right = 567.0
 margin_bottom = 144.0
-Title = "IsShorterThan/s"
+title = "Is Shorter than"
 
 [node name="Artist" parent="Panel/VBoxContainer2/Main/Conditions/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 152.0
 margin_right = 567.0
 margin_bottom = 182.0
-Title = "IncludesArtist[s]"
+title = "Artist/s"
 
 [node name="RatingIs" parent="Panel/VBoxContainer2/Main/Conditions/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 190.0
 margin_right = 567.0
 margin_bottom = 220.0
-Title = "Rating is"
+title = "Rating is"
 
 [node name="RatingIsHigher" parent="Panel/VBoxContainer2/Main/Conditions/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 228.0
 margin_right = 567.0
 margin_bottom = 258.0
-Title = "Rating is Higher"
+title = "Rating is higher"
 
 [node name="RatingIsLower" parent="Panel/VBoxContainer2/Main/Conditions/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_top = 266.0
 margin_right = 567.0
 margin_bottom = 296.0
-Title = "Rating is Lower"
+title = "Rating is lower"
 
 [node name="RightEmpty" type="Control" parent="Panel/VBoxContainer2/Main/Conditions/HBoxContainer"]
 margin_left = 575.0

@@ -6,11 +6,10 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Button
 
-signal CustomPress
+signal custom_press
 
 func _on_StdSelectionButton_pressed():
-	emit_signal(\"CustomPress\")
-	print(\"pressed btich\")
+	emit_signal(\"custom_press\")
 "
 
 [node name="StdSelectionButton" type="Button"]

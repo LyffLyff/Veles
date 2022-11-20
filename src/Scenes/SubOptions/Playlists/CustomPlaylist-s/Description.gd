@@ -1,32 +1,26 @@
 extends VBoxContainer
 
+var file_path : String = ""
+var is_expanded : bool = false
 
-#NODES
-onready var DescriptionEdit : TextEdit = $ScrollContainer/Description
-onready var Animations : AnimationPlayer = $DescriptionAnimations
+onready var description_edit : TextEdit = $ScrollContainer/Description
+onready var animations : AnimationPlayer = $DescriptionAnimations
 
-
-#VARIABLES
-var FilePath : String = ""
-var IsExpanded : bool = false
-
-
-
-func LoadDescription(var DescriptionFilePath : String) -> void:
-	FilePath = DescriptionFilePath
-	var DescriptionText = SaveData.load_data(FilePath)
-	if DescriptionText != null:
-		DescriptionEdit.set_text(DescriptionText)
+func load_description(var file_path : String) -> void:
+	file_path = file_path
+	var description_text = SaveData.load_data(file_path)
+	if description_text != null:
+		description_edit.set_text(description_text)
 
 
-func SaveDescription():
-	#Creates Automatically the given File if used
-	SaveData.save(FilePath, DescriptionEdit.get_text())
+func save_description():
+	# automatically creates the given description file if used
+	SaveData.save(file_path, description_edit.get_text())
 
 
-func OnExpandDescriptionPressed():
-	if !IsExpanded:
-		Animations.play("Expand")
+func _on_Expand_pressed():
+	if !is_expanded:
+		animations.play("Expand")
 	else:
-		Animations.play_backwards("Expand")
-	IsExpanded = !IsExpanded
+		animations.play_backwards("Expand")
+	is_expanded = !is_expanded

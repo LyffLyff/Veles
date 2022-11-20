@@ -1,6 +1,5 @@
 extends PanelContainer
 
-
 func _ready():
 	self.material.set(
 		"shader_param/color",

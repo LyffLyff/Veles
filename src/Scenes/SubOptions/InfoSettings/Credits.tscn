@@ -25,7 +25,7 @@ rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
-margin_top = 24.0
+margin_top = 28.0
 margin_right = 1120.0
 margin_bottom = 600.0
 size_flags_horizontal = 3

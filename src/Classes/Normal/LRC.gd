@@ -103,12 +103,12 @@ func decode_lrc_file(var lrc_data : String) -> Array:
 	
 	# lyrics
 	var Verses : PoolStringArray = []
-	var Timestamps : PoolRealArray = []
+	var timestamps : PoolRealArray = []
 	
 	while true:
 		
 		# retrieving Timestamp
-		Timestamps.push_back(
+		timestamps.push_back(
 			TimeFormatter.lrc_timestamp_to_seconds(
 				lrc_data.substr(open_bracket_idx, close_bracket_idx - open_bracket_idx)
 			)
@@ -134,8 +134,8 @@ func decode_lrc_file(var lrc_data : String) -> Array:
 			close_bracket_idx = lrc_data.find("]",open_bracket_idx + 1)
 	
 	decoded_lrc_file.push_back(Verses)
-	decoded_lrc_file.push_back(Timestamps)
+	decoded_lrc_file.push_back(timestamps)
 	
 	# returning the Decoded LRC Files as Array
-	# [{LRC_TAGS}, Verses, Timestamps]
+	# [{LRC_TAGS}, Verses, timestamps]
 	return decoded_lrc_file;

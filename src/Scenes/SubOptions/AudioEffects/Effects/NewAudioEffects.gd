@@ -1,7 +1,7 @@
 extends Control
 
-const plus_texture : StreamTexture = preload("res://src/Assets/Icons/White/General/add_1_72px.png")
-const minus_texture : StreamTexture = preload("res://src/Assets/Icons/White/General/remove_1_72px.png")
+const PLUS_TEXTURE : StreamTexture = preload("res://src/Assets/Icons/White/General/add_1_72px.png")
+const MINUS_TEXTURE : StreamTexture = preload("res://src/Assets/Icons/White/General/remove_1_72px.png")
 const shrinked_y : float = 42.0
 const tw_speed : float = 550.0
 
@@ -78,13 +78,13 @@ func expand_effect() -> void:
 	var dis : float = 0.0
 	var height : float = 0.0
 	if !is_effect_expanded:
-		effect_expand.texture_normal = minus_texture
+		effect_expand.texture_normal = MINUS_TEXTURE
 		_err = tw.connect("finished",self.effect_type_vbox,"set_visible",[true])
 		dis = effect_type_vbox.rect_size.y + 60 - self.rect_min_size.y
 		height = expanded_y
 	else:
 		self.effect_type_vbox.set_visible(false)
-		effect_expand.texture_normal = plus_texture
+		effect_expand.texture_normal = PLUS_TEXTURE
 		dis = self.rect_min_size.y - shrinked_y
 		height = shrinked_y
 	

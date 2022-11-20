@@ -1,8 +1,8 @@
-extends LinkButton
+extends Control
 # script that limits the label of a link button to display
 # a set maximum amount of characters
 
-const MAX_CHARACTERS : int = 30;
+const MAX_CHARACTERS : int = 50;
 const CHAR_BUFFER : int = 2
 const FONT_RATIO : float = 1.6
 

@@ -1,29 +1,28 @@
 extends HBoxContainer
 
+const LRF_FILE_EXTENSION : String = ".lrc"
+const VPL_FILE_EXTENSION : String = ".vpl"
+const TIMESTAMP_CONTAINER : PackedScene = preload("res://src/Scenes/SubOptions/Lyrics/LyricsEditor/TimeStampContainer.tscn")
+const VERSE_CONTAINER : PackedScene = preload("res://src/Scenes/SubOptions/Lyrics/LyricsEditor/VerseContainer.tscn")
 
-#NODES
-onready var VerseTools : VBoxContainer = $VBoxContainer/ToolPanel/HBoxContainer/VerseTools
-onready var TimeStampTools : VBoxContainer = $VBoxContainer/ToolPanel/HBoxContainer/TimeStampTools
-onready var TimeStampVBox : VBoxContainer = $VBoxContainer/ScrollContainer/HBoxContainer/TimeStampVBox
-onready var VerseVBox : VBoxContainer = $VBoxContainer/ScrollContainer/HBoxContainer/VerseVBox
-onready var ProjectTitle : LineEdit = $VBoxContainer/Title
-onready var LRCTags : VBoxContainer = $VBoxContainer/LRCTags
-	#DOCUMENT OPTIONS
+var project_path : String = ""
+var is_project_up_to_date : bool = true
+
+onready var verse_tools : VBoxContainer = $VBoxContainer/ToolPanel/HBoxContainer/VerseTools
+onready var timestamp_tools : VBoxContainer = $VBoxContainer/ToolPanel/HBoxContainer/TimeStampTools
+onready var timestamp_vbox : VBoxContainer = $VBoxContainer/ScrollContainer/HBoxContainer/TimeStampVBox
+onready var verse_vbox : VBoxContainer = $VBoxContainer/ScrollContainer/HBoxContainer/VerseVBox
+onready var project_title_edit : LineEdit = $VBoxContainer/Title
+onready var lrc_tags : VBoxContainer = $VBoxContainer/LRCTags
 onready var save : TextureButton = $VBoxContainer/PanelContainer/DocOptions/Save
-onready var SaveAsButton : TextureButton = $VBoxContainer/PanelContainer/DocOptions/SaveAs
-onready var EmbedInSong : TextureButton = $VBoxContainer/PanelContainer/DocOptions/EmbedInFile
+onready var save_as : TextureButton = $VBoxContainer/PanelContainer/DocOptions/SaveAs
+onready var embed_in_song : TextureButton = $VBoxContainer/PanelContainer/DocOptions/EmbedInFile
 
-#PRELOADS
-const TimeStampContainer : PackedScene = preload("res://src/Scenes/SubOptions/Lyrics/LyricsEditor/TimeStampContainer.tscn")
-const VerseContainer : PackedScene = preload("res://src/Scenes/SubOptions/Lyrics/LyricsEditor/VerseContainer.tscn")
-
-#CONSTANTS
-const LRCFileExtension : String = ".lrc"
-const VPLFileExtension : String = ".vpl"
-
-#VARIABLES
-var ProjectPath : String = ""
-var ProjectUpToDate : bool = true
+func _ready():
+	var _err = timestamp_tools.add_timestamp.connect("pressed", self, "_on_add_timestamp_pressed")
+	_err = timestamp_tools.cut_timestamp.connect("pressed", self, "_on_cut_timestamp_pressed")
+	_err = verse_tools.add_verse.connect("pressed", self, "_on_add_verse_pressed")
+	_err = verse_tools.cut_verse.connect("pressed", self, "_on_cut_verse_pressed")
 
 
 func _unhandled_key_input(event):
@@ -31,178 +30,171 @@ func _unhandled_key_input(event):
 		if Input.is_key_pressed(KEY_CONTROL):
 			match event.scancode:
 				KEY_S:
-					#Saves the Project, with shift it is "Save As"
-					OnSaveLyricsProject( Input.is_key_pressed(KEY_SHIFT) )
+					# saves the Project, with shift it is "Save As"
+					on_save_lyrics_project(Input.is_key_pressed(KEY_SHIFT))
 		else:
 			if Input.is_key_pressed(KEY_V):
-				#All Actions for Verses
+				# all Actions for Verses
 				match event.scancode:
 					KEY_A:
-						OnAddVersePressed()
+						_on_add_verse_pressed()
 					KEY_D:
-						OnCutVersePressed()
+						_on_cut_verse_pressed()
 			elif Input.is_key_pressed(KEY_T):
-				#All Actions for Timestamps
+				# all Actions for Timestamps
 				match event.scancode:
 					KEY_A:
-						OnAddTimeStampPressed()
+						_on_add_timestamp_pressed()
 					KEY_D:
-						OnCutTimeStampPressed()
+						_on_cut_timestamp_pressed()
 			elif Input.is_key_pressed(KEY_P):
-				OnAddTimeStampPressed()
-				TimeStampVBox.get_child( 
-					TimeStampVBox.get_child_count() - 1
-				).TimeStamp.set_text(
+				_on_add_timestamp_pressed()
+				timestamp_vbox.get_child( 
+					timestamp_vbox.get_child_count() - 1
+				).timestamp_edit.set_text(
 					str( 
 						MainStream.get_playback_position() 
 					).pad_decimals(2)
 				)
 
 
-func _ready():
-	var _err = TimeStampTools.AddTimeStamp.connect("pressed",self,"OnAddTimeStampPressed")
-	_err = TimeStampTools.CutTimeStamp.connect("pressed",self,"OnCutTimeStampPressed")
-	_err = VerseTools.AddVerse.connect("pressed",self,"OnAddVersePressed")
-	_err = VerseTools.CutVerse.connect("pressed",self,"OnCutVersePressed")
-
-
-func n_ready(var PrjctPth : String = "") -> void:
-	if PrjctPth != "":
-		match PrjctPth.get_extension():
+func n_ready(var prjct_path : String = "") -> void:
+	if prjct_path != "":
+		match prjct_path.get_extension():
 			"lrc":
-				CreateFromLRC(PrjctPth)
+				create_from_lrc(prjct_path)
 			"mp3":
-				CreateFromSong( Tags.get_lyrics(PrjctPth) )
+				create_from_song( Tags.get_lyrics(prjct_path) )
 			"vlp":
-				ProjectPath = PrjctPth
-				LoadProject()
-	ProjectUpToDate = true
-	AddProjectAsEdited(ProjectPath)
+				project_path = prjct_path
+				load_project()
+	is_project_up_to_date = true
+	add_project_to_edited(project_path)
 
 
-func LoadProject() -> void:
-	var ProjectData : Array = SaveData.load_data(ProjectPath)
+func load_project() -> void:
+	var project_data : Array = SaveData.load_data(project_path)
 	
-	#title
-	ProjectTitle.set_text( ProjectData[0] )
+	# title
+	project_title_edit.set_text(project_data[0])
 	
-	#LRC Tags
-	LRCTags.Artist.set_text(ProjectData[3][0])
-	LRCTags.album_edit.set_text(ProjectData[3][1])
-	LRCTags.title.set_text(ProjectData[3][2])
-	LRCTags.Author.set_text(ProjectData[3][3])
-	LRCTags.SongLength.set_text(ProjectData[3][4])
-	LRCTags.Language.set_text(ProjectData[3][5])
-	LRCTags.CreatorOfFile.set_text(ProjectData[3][6])
+	# LRC Tags
+	lrc_tags.artist_edit.set_text(project_data[3][0])
+	lrc_tags.album_edit.set_text(project_data[3][1])
+	lrc_tags.title.set_text(project_data[3][2])
+	lrc_tags.author_edit.set_text(project_data[3][3])
+	lrc_tags.song_length_edit.set_text(project_data[3][4])
+	lrc_tags.language_menu.set_text(project_data[3][5])
+	lrc_tags.file_creator_edit.set_text(project_data[3][6])
 	
-	#Verses
-	InitVerses(ProjectData[1])
+	# Verses
+	init_verses(project_data[1])
 	
-	#Timestamps
-	InitTimestamps(ProjectData[2])
+	# Timestamps
+	init_timestamps(project_data[2])
 
 
 func set_project_path(var new_project_path : String) -> void:
-	ProjectPath = new_project_path
+	project_path = new_project_path
 
 
-func InitVerses(var Verses : PoolStringArray) -> void:
-	for i in Verses.size():
-		OnAddVersePressed()
-		VerseVBox.get_child(i).VerseText.set_text( Verses[i] )
+func init_verses(var verses : PoolStringArray) -> void:
+	for i in verses.size():
+		_on_add_verse_pressed()
+		verse_vbox.get_child(i).verse_text_edit.set_text(verses[i])
 		
-		#Resizing the Verse TextEdit if the Verse  is Mutliline
-		VerseVBox.get_child(i).OnVerseTextChanged()
+		# resizing the Verse TextEdit if the Verse  is Mutliline
+		verse_vbox.get_child(i).on_verse_text_changed()
 
 
-func InitTimestamps(var Timestamps : PoolRealArray) -> void:
-	for i in Timestamps.size():
-		OnAddTimeStampPressed()
-		TimeStampVBox.get_child(i).TimeStamp.set_text( str( Timestamps[i] ) )
+func init_timestamps(var timestamps : PoolRealArray) -> void:
+	for i in timestamps.size():
+		_on_add_timestamp_pressed()
+		timestamp_vbox.get_child(i).timestamp_edit.set_text(str(timestamps[i]))
 
 
-func CreateFromLRC(var LRCFilePath : String) -> void:
-	#Retreive Encoded Data
-	var EncodedProjectData : String = SaveData.load_as_text(LRCFilePath)
-	var decoded_lrc_file : Array = LRC.new().decode_lrc_file( EncodedProjectData )
+func create_from_lrc(var lrc_filepath : String) -> void:
+	# retreive Encoded Data
+	var encoded_project_data : String = SaveData.load_as_text(lrc_filepath)
+	var decoded_lrc_file : Array = LRC.new().decode_lrc_file(encoded_project_data)
 	
-	#Info
-	ProjectTitle.set_text( ProjectPath.get_file().replace(".lrc","") )
-	LRCTags.Artist.set_text(decoded_lrc_file[0].values()[0])
-	LRCTags.album_edit.set_text(decoded_lrc_file[0].values()[1])
-	LRCTags.title.set_text(decoded_lrc_file[0].values()[2])
-	LRCTags.Author.set_text(decoded_lrc_file[0].values()[3])
-	LRCTags.SongLength.set_text(decoded_lrc_file[0].values()[4])
-	LRCTags.Language.set_text(decoded_lrc_file[0].values()[5])
-	LRCTags.CreatorOfFile.set_text(decoded_lrc_file[0].values()[6])
+	# info
+	project_title_edit.set_text( project_path.get_file().replace(".lrc","") )
+	lrc_tags.artist_edit.set_text(decoded_lrc_file[0].values()[0])
+	lrc_tags.album_edit.set_text(decoded_lrc_file[0].values()[1])
+	lrc_tags.title.set_text(decoded_lrc_file[0].values()[2])
+	lrc_tags.author_edit.set_text(decoded_lrc_file[0].values()[3])
+	lrc_tags.song_length_edit.set_text(decoded_lrc_file[0].values()[4])
+	lrc_tags.language_menu.set_text(decoded_lrc_file[0].values()[5])
+	lrc_tags.file_creator_edit.set_text(decoded_lrc_file[0].values()[6])
 	
-	#Verses
+	# verses
 	for i in decoded_lrc_file[1].size():
-		OnAddVersePressed()
-		VerseVBox.get_child(i).VerseText.set_text( decoded_lrc_file[1][i] )
+		_on_add_verse_pressed()
+		verse_vbox.get_child(i).verse_text_edit.set_text( decoded_lrc_file[1][i] )
 		
-		#Resizing the Verse TextEdit if the Verse  is Mutliline
-		VerseVBox.get_child(i).OnVerseTextChanged()
-	#TimeStamps
+		# resizing the Verse TextEdit if the Verse  is Mutliline
+		verse_vbox.get_child(i).on_verse_text_changed()
+	# timeStamps
 	for i in decoded_lrc_file[2].size():
-		OnAddTimeStampPressed()
-		TimeStampVBox.get_child(i).TimeStamp.set_text( str( decoded_lrc_file[2][i] ) )
+		_on_add_timestamp_pressed()
+		timestamp_vbox.get_child(i).timestamp_edit.set_text( str( decoded_lrc_file[2][i] ) )
 
 
-func CreateFromAPIResponse(var APIResponse : Array) -> void:
-	#Freeing prior Verses/Timestamps
-	for Verse in VerseVBox.get_children():
-		Verse.queue_free()
-	for Timestamp in TimeStampVBox.get_children():
-		Timestamp.queue_free()
+func create_from_api_response(var api_response : Array) -> void:
+	# freeing prior Verses/Timestamps
+	for verse in verse_vbox.get_children():
+		verse.queue_free()
+	for timestamp in timestamp_vbox.get_children():
+		timestamp.queue_free()
 	
-	#Creating Project from given data
-	for i in APIResponse.size():
-		OnAddVersePressed()
-		OnAddTimeStampPressed()
-		VerseVBox.get_child(i).VerseText.set_text(
-			APIResponse[i]["lyrics"]
+	# creating Project from given data
+	for i in api_response.size():
+		_on_add_verse_pressed()
+		_on_add_timestamp_pressed()
+		verse_vbox.get_child(i).verse_text_edit.set_text(
+			api_response[i]["lyrics"]
 		)
-		VerseVBox.get_child(i).OnVerseTextChanged()
-		TimeStampVBox.get_child(i).TimeStamp.set_text(
-			str( APIResponse[i]["seconds"] )
+		verse_vbox.get_child(i).on_verse_text_changed()
+		timestamp_vbox.get_child(i).timestamp_edit.set_text(
+			str( api_response[i]["seconds"] )
 		)
 
 
-func CreateFromSong(var Lyrics : Array) -> void:
-	match Lyrics.size():
+func create_from_song(var lyrics : Array) -> void:
+	match lyrics.size():
 		1:
-			InitVerses(Lyrics[0])
+			init_verses(lyrics[0])
 		2:
-			InitVerses(Lyrics[0])
-			InitTimestamps(Lyrics[1])
+			init_verses(lyrics[0])
+			init_timestamps(lyrics[1])
 
 
-func OnSaveLyricsProject(var SaveAs : bool = false):
+func on_save_lyrics_project(var save_as : bool = false):
 	# VLP = Veles Lyrics Project
 	# structure = Array
 	# [Title, Verses, Timestamps, [Artist, Album, Title, Author, Length, Language, Creator of File] ]
-	var title : String = ProjectTitle.get_text()
+	var title : String = project_title_edit.get_text()
 	var VLPFiledata : Array = [
 		title,
-		GetAllVerses(),
-		GetAllTimeStamps(),
+		get_verses(),
+		get_timestamps(),
 		[
-			LRCTags.Artist.get_text(),
-			LRCTags.album_edit.get_text(),
-			LRCTags.title.get_text(),
-			LRCTags.Author.get_text(),
-			LRCTags.SongLength.get_text(),
-			LRCTags.Language.get_text(),
-			LRCTags.CreatorOfFile.get_text()
+			lrc_tags.artist_edit.get_text(),
+			lrc_tags.album_edit.get_text(),
+			lrc_tags.title.get_text(),
+			lrc_tags.author_edit.get_text(),
+			lrc_tags.song_length_edit.get_text(),
+			lrc_tags.language_menu.get_text(),
+			lrc_tags.file_creator_edit.get_text()
 		]
 	]
 	
-	if Directory.new().file_exists(ProjectPath) and !SaveAs:
+	if Directory.new().file_exists(project_path) and !save_as:
 		#The Project already exists, the PreExisting File will
 		#be overriden with the new Data
-		SaveData.save(ProjectPath.replace("user://", OS.get_user_data_dir() + "/" ), VLPFiledata )
-		ProjectUpToDate = true
+		SaveData.save(project_path.replace("user://", OS.get_user_data_dir() + "/" ), VLPFiledata )
+		is_project_up_to_date = true
 	else:
 		var general_file_dialogue = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
 		Global.root.top_ui.add_child(general_file_dialogue)
@@ -211,36 +203,54 @@ func OnSaveLyricsProject(var SaveAs : bool = false):
 		var _err = general_file_dialogue.connect("selection_made", SaveData, "save", [VLPFiledata])
 		
 		# changing current project path if save as is true
-		if SaveAs:
+		if save_as:
 			_err = general_file_dialogue.connect("selection_made", self, "set_project_path")
 		
-		_err = general_file_dialogue.connect("selection_made", self, "AddProjectAsEdited")
-		_err = general_file_dialogue.connect("saved", self, "set", ["ProjectUpToDate",true])
+		_err = general_file_dialogue.connect("selection_made", self, "add_project_to_edited")
+		_err = general_file_dialogue.connect("saved", self, "set", ["is_project_up_to_date",true])
 
 
-func AddProjectAsEdited(var NewProjectPath : String) -> void:
-	var EditedProjects : Array = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects")
-	if !EditedProjects.has(NewProjectPath):
-		EditedProjects.push_back(NewProjectPath)
+func add_project_to_edited(var new_project_path : String) -> void:
+	var edited_projects : Array = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects")
+	if !edited_projects.has(new_project_path):
+		edited_projects.push_back(new_project_path)
 	else:
-		EditedProjects.remove(EditedProjects.find(NewProjectPath))
-		EditedProjects.push_front(NewProjectPath)
-	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"LastEditedVLPProjects",EditedProjects)
+		edited_projects.remove(edited_projects.find(new_project_path))
+		edited_projects.push_front(new_project_path)
+	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects", edited_projects)
 
 
-func ExportToLRC() -> void:
-	var title : String = ProjectTitle.get_text()
+func get_lyrics_project_path(var title : String) -> String:
+	return OS.get_user_data_dir() + "/Lyrics/Projects/" + title + VPL_FILE_EXTENSION
+
+
+func get_verses() -> PoolStringArray:
+	var verses : PoolStringArray = []
+	for VERSE_CONTAINER in verse_vbox.get_children():
+		verses.push_back( VERSE_CONTAINER.verse_text_edit.get_text())
+	return verses
+
+
+func get_timestamps() -> PoolRealArray:
+	var timestamps : PoolRealArray = []
+	for TIMESTAMP_CONTAINER in timestamp_vbox.get_children():
+		timestamps.push_back(float(TIMESTAMP_CONTAINER.timestamp_edit.get_text()))
+	return timestamps;
+
+
+func _on_ExportToLRC_pressed() -> void:
+	var title : String = project_title_edit.get_text()
 	
-	var LRCFileData : String = LRC.new().encode_lrc_file(
-		GetAllVerses(),
-		GetAllTimeStamps(),
-		LRCTags.Artist.get_text(),
-		LRCTags.album_edit.get_text(),
-		LRCTags.title.get_text(),
-		LRCTags.Author.get_text(),
-		LRCTags.SongLength.get_text(),
-		LRCTags.Language.get_text(),
-		LRCTags.CreatorOfFile.get_text()
+	var lrc_file_data : String = LRC.new().encode_lrc_file(
+		get_verses(),
+		get_timestamps(),
+		lrc_tags.artist_edit.get_text(),
+		lrc_tags.album_edit.get_text(),
+		lrc_tags.title.get_text(),
+		lrc_tags.author_edit.get_text(),
+		lrc_tags.song_length_edit.get_text(),
+		lrc_tags.language_menu.get_text(),
+		lrc_tags.file_creator_edit.get_text()
 	)
 	
 	Global.root.load_general_file_dialogue(
@@ -248,7 +258,7 @@ func ExportToLRC() -> void:
 		FileDialog.MODE_SAVE_FILE,
 		FileDialog.ACCESS_FILESYSTEM,
 		"to_LRC",
-		[LRCFileData],
+		[lrc_file_data],
 		"ExportLRC",
 		["*.lrc"],
 		true,
@@ -256,61 +266,51 @@ func ExportToLRC() -> void:
 	)
 
 
-func _on_PasteFromClipboard_pressed():
-	#pastes a text from the clipboard and puts each line (divided by newline) in a new verse
-	var clipboard_text : PoolStringArray = OS.get_clipboard().split("\n")
-	for i in clipboard_text.size():
-		OnAddVersePressed()
-		VerseVBox.get_child( VerseVBox.get_child_count() - 1 ).VerseText.text = clipboard_text[i]
-
-
-#TIMESTAMPS
-func OnAddTimeStampPressed() -> void:
-	ProjectUpToDate = false
-	var NewTimeStamp = TimeStampContainer.instance()
-	TimeStampVBox.add_child(NewTimeStamp)
-	var _err = NewTimeStamp.connect("TimestampChanged",self,"set",["ProjectUpToDate",false])
+func _on_add_timestamp_pressed() -> void:
+	is_project_up_to_date = false
+	var NewTimeStamp = TIMESTAMP_CONTAINER.instance()
+	timestamp_vbox.add_child(NewTimeStamp)
+	var _err = NewTimeStamp.connect("timestemp_edited",self,"set",["is_project_up_to_date",false])
 	
-	if VerseVBox.get_child_count() >= TimeStampVBox.get_child_count():
+	if verse_vbox.get_child_count() >= timestamp_vbox.get_child_count():
 		#a new timestamp will be given the height of the Verse on creation if needed
-		NewTimeStamp.rect_min_size.y = VerseVBox.get_child( NewTimeStamp.get_index() ).rect_size.y
+		NewTimeStamp.rect_min_size.y = verse_vbox.get_child( NewTimeStamp.get_index() ).rect_size.y
 
 
-func OnCutTimeStampPressed(var idx : int = -1):
-	ProjectUpToDate = false
+func _on_cut_timestamp_pressed(var idx : int = -1):
+	is_project_up_to_date = false
 	if idx == -1:
 		#if the given index is invalid the lowest timestamp will be deleted
-		if TimeStampVBox.get_child_count() == 0:
+		if timestamp_vbox.get_child_count() == 0:
 			return
-		idx = TimeStampVBox.get_child_count() - 1
-	TimeStampVBox.get_child(idx).queue_free()
+		idx = timestamp_vbox.get_child_count() - 1
+	timestamp_vbox.get_child(idx).queue_free()
 
 
-#VERSES
-func OnAddVersePressed() -> void:
-	ProjectUpToDate = false
-	var NewVerse = VerseContainer.instance()
-	var _err = NewVerse.connect("VerseRectChanged",self,"OnVerseRectChanged")
-	_err = NewVerse.connect("VerseTextChanged",self,"set",["ProjectUpToDate",false])
-	VerseVBox.add_child( NewVerse )
+func _on_add_verse_pressed() -> void:
+	is_project_up_to_date = false
+	var new_verse = VERSE_CONTAINER.instance()
+	var _err = new_verse.connect("verse_rect_changed",self,"_on_verse_rect_changed")
+	_err = new_verse.connect("verse_text_edited",self,"set",["is_project_up_to_date",false])
+	verse_vbox.add_child( new_verse )
 
 
-func OnCutVersePressed(var idx = -1) -> void:
-	ProjectUpToDate = false
+func _on_cut_verse_pressed(var idx = -1) -> void:
+	is_project_up_to_date = false
 	if idx == -1:
-		if VerseVBox.get_child_count() == 0:
+		if verse_vbox.get_child_count() == 0:
 			return
-		idx = VerseVBox.get_child_count() - 1
-	VerseVBox.get_child(idx).queue_free()
+		idx = verse_vbox.get_child_count() - 1
+	verse_vbox.get_child(idx).queue_free()
 
 
-func OnVerseRectChanged(var VerseIdx : int, var NewHeight : int) -> void:
-	if VerseIdx < TimeStampVBox.get_child_count():
-		TimeStampVBox.get_child(VerseIdx).rect_min_size.y = NewHeight
+func _on_verse_rect_changed(var verse_idx : int, var new_height : int) -> void:
+	if verse_idx < timestamp_vbox.get_child_count():
+		timestamp_vbox.get_child(verse_idx).rect_min_size.y = new_height
 
 
-func OnReturnPressed():
-	if !ProjectUpToDate:
+func _on_Return_pressed():
+	if !is_project_up_to_date:
 		#Asking if they want to leave without saving
 		var x : Node = load("res://src/Scenes/General/QuestionDialog.tscn").instance()
 		Global.root.add_child(x)
@@ -320,46 +320,29 @@ func OnReturnPressed():
 		#If Porject is up to Date it won't display Notice
 		Global.root.load_option(6,true)
 
-func GetLyricsProjectPath(var title : String) -> String:
-	return OS.get_user_data_dir() + "/Lyrics/Projects/" + title + VPLFileExtension
+
+func _on_Title_text_entered(var _new_title : String):
+	is_project_up_to_date = false
 
 
-func GetAllVerses() -> PoolStringArray:
-	var Verses : PoolStringArray = []
-	for VerseContainer in VerseVBox.get_children():
-		Verses.push_back( VerseContainer.VerseText.get_text())
-	return Verses
+func _on_DeleteProjectFile_pressed():
+	# deleting the Current Project and returning to the Project Selection screen
+	if Directory.new().remove(project_path) != OK:
+		Global.root.message("REMOVING PROJECT FILE: " + project_path,  SaveData.MESSAGE_ERROR )
+	_on_Return_pressed()
 
 
-func GetAllTimeStamps() -> PoolRealArray:
-	var TimeStamps : PoolRealArray = []
-	for TimeStampContainer in TimeStampVBox.get_children():
-		TimeStamps.push_back( float( TimeStampContainer.TimeStamp.get_text() ) )
-	return TimeStamps;
-
-
-func OnTitleEntered(var _NewTitle : String):
-	ProjectUpToDate = false
-
-
-func OnDeleteProjectFilePressed():
-	#Deleting the Current Project and returning to the Project Selection screen
-	if Directory.new().remove(ProjectPath) != OK:
-		Global.root.message("REMOVING PROJECT FILE: " + ProjectPath,  SaveData.MESSAGE_ERROR )
-	OnReturnPressed()
-
-
-func OnEmbedInFilePressed():
-	var Verses : PoolStringArray = GetAllVerses()
-	var Timestamps : PoolRealArray = GetAllTimeStamps()
-	var IsSynchronized : bool = Verses.size() == Timestamps.size()
+func _on_EmbedInFile_pressed():
+	var verses : PoolStringArray = get_verses()
+	var timestamps : PoolRealArray = get_timestamps()
+	var is_synchronized : bool = verses.size() == timestamps.size()
 	
 	Global.root.load_general_file_dialogue(
 		Tags,
 		FileDialog.MODE_OPEN_FILES,
 		FileDialog.ACCESS_FILESYSTEM,
 		"set_lyrics",
-		[IsSynchronized, Verses, Timestamps],
+		[is_synchronized, verses, timestamps],
 		"",
 		["*.mp3","*.ogg","*.wav"],
 		false,
@@ -367,17 +350,25 @@ func OnEmbedInFilePressed():
 	)
 
 
-func OnOpenInFileManagerPressed():
-	var NPath : String = ProjectPath.replace(ProjectPath.get_file(),"").replace("user://",OS.get_user_data_dir() + "/")
-	if OS.shell_open( 	NPath ) != OK:
-		Global.root.message("OPENING PROJECT DIRECTORY: " + NPath,  SaveData.MESSAGE_ERROR )
+func _on_OpenInFileManager_pressed():
+	var npath : String = project_path.replace(project_path.get_file(),"").replace("user://",OS.get_user_data_dir() + "/")
+	if OS.shell_open( 	npath ) != OK:
+		Global.root.message("OPENING PROJECT DIRECTORY: " + npath,  SaveData.MESSAGE_ERROR )
 
 
-func OnSaveAs() -> void:
-	OnSaveLyricsProject(true)
+func _on_SaveAs_pressed() -> void:
+	on_save_lyrics_project(true)
 
 
-func OnAPIFetchpressed():
-	var APIFetch : Node = load("res://src/Scenes/SubOptions/Lyrics/APIFetch.tscn").instance()
-	var _err = APIFetch.connect("OverwriteProject",self,"CreateFromAPIResponse")
-	get_parent().add_child(APIFetch)
+func _on_API_pressed():
+	var api_fetch : Node = load("res://src/Scenes/SubOptions/Lyrics/APIFetch.tscn").instance()
+	var _err = api_fetch.connect("overwrite_project",self,"create_from_api_response")
+	get_parent().add_child(api_fetch)
+
+
+func _on_PasteFromClipboard_pressed():
+	# pastes a text from the clipboard and puts each line (divided by newline) in a new verse
+	var clipboard_text : PoolStringArray = OS.get_clipboard().split("\n")
+	for i in clipboard_text.size():
+		_on_add_verse_pressed()
+		verse_vbox.get_child( verse_vbox.get_child_count() - 1 ).verse_text_edit.text = clipboard_text[i]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/zom in_72px.png-1d93f10622902454f1785094da0b133c.stex"
+path="res://.import/zom in_72px.png-93501f7be7d73025ff4e0b6e2d2b26e2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/assets/Icons/White/WindowBar/zom in_72px.png"
-dest_files=[ "res://.import/zom in_72px.png-1d93f10622902454f1785094da0b133c.stex" ]
+source_file="res://src/Assets/Icons/White/WindowBar/zom in_72px.png"
+dest_files=[ "res://.import/zom in_72px.png-93501f7be7d73025ff4e0b6e2d2b26e2.stex" ]
 
 [params]
 

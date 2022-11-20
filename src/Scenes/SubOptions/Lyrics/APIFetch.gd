@@ -1,6 +1,5 @@
 extends Control
 
-#ENUMS
 enum {
 	SUCCESS = 200,
 	MISSING_QUERY_PARAMETER = 400,
@@ -8,79 +7,63 @@ enum {
 	NO_RESPONSE
 }
 
-#SIGNALS
-signal OverwriteProject
+signal overwrite_project
 
-#CONSTANTS
-const StaticURL : String = "https://api.textyl.co/api/lyrics?q="
+const STATIC_URL : String = "https://api.textyl.co/api/lyrics?q="
+const VERSE_CONTAINER = preload("res://src/Scenes/SubOptions/Lyrics/VerseContainer.tscn")
 
-#NODES
 onready var scroll : ScrollContainer = $Lyrics/HBoxContainer/ScrollContainer
-onready var Lyrics : VBoxContainer = $Lyrics/HBoxContainer/ScrollContainer/VBoxContainer
-onready var ArtistEdit : LineEdit = $Options/HBoxContainer/Keywords/Artist/LineEdit
-onready var AlbumEdit : LineEdit = $Options/HBoxContainer/Keywords/Album/LineEdit
-onready var TitleEdit : LineEdit = $Options/HBoxContainer/Keywords/SongTitle/LineEdit
+onready var lyrics_vbox : VBoxContainer = $Lyrics/HBoxContainer/ScrollContainer/VBoxContainer
+onready var artist_edit : LineEdit = $Options/HBoxContainer/Keywords/Artist/LineEdit
+onready var album_edit : LineEdit = $Options/HBoxContainer/Keywords/Album/LineEdit
+onready var title_edit : LineEdit = $Options/HBoxContainer/Keywords/SongTitle/LineEdit
 
-#PRELOADS
-const VerseContainer = preload("res://src/Scenes/SubOptions/Lyrics/VerseContainer.tscn")
-
-#Variables
-var CurrentLyrics : Array = []
-
+var current_lyrics : Array = []
 
 func _ready():
-	#Init
+	# Init
 	scroll.get_v_scrollbar().rect_min_size.x = 5
-	
-	#API
+	# API
 	var req = HTTPRequest.new()
 	self.add_child(req)
-	var _err = req.connect("request_completed",self,"APIResponse")
+	var _err = req.connect("request_completed",self,"api_response")
 
 
-func APIResponse(var _result : int, var response_code : int, var _headers : PoolStringArray, var body : PoolByteArray) -> void:
-	#Responses:
-	#200 -> Success
-	#400 -> Missing Query Parameters
-	#404 -> Not found
-	for VerseIdx in Lyrics.get_child_count():
-		Lyrics.get_child(VerseIdx).queue_free()
+func api_response(var _result : int, var response_code : int, var _headers : PoolStringArray, var body : PoolByteArray) -> void:
+	# Responses:
+	# 200 -> Success
+	# 400 -> Missing Query Parameters
+	# 404 -> Not found
+	for verse_idx in lyrics_vbox.get_child_count():
+		lyrics_vbox.get_child(verse_idx).queue_free()
 	
-	print("RES: ",response_code)
 	match response_code:
 		SUCCESS:
 			var parse_res : JSONParseResult = JSON.parse(body.get_string_from_utf8())
-			CurrentLyrics = parse_res.result
-			Lyrics.set_alignment(BoxContainer.ALIGN_BEGIN)
-			for n in CurrentLyrics.size():
-				var x : HBoxContainer = VerseContainer.instance()
-				Lyrics.add_child(x)
-				x.get_child(0).set_text(CurrentLyrics[n]["lyrics"])
-				x.get_child(1).set_text( str(CurrentLyrics[n]["seconds"]) )
+			current_lyrics = parse_res.result
+			lyrics_vbox.set_alignment(BoxContainer.ALIGN_BEGIN)
+			for n in current_lyrics.size():
+				var x : HBoxContainer = VERSE_CONTAINER.instance()
+				lyrics_vbox.add_child(x)
+				x.get_child(0).set_text(current_lyrics[n]["lyrics"])
+				x.get_child(1).set_text(str(current_lyrics[n]["seconds"]))
 		MISSING_QUERY_PARAMETER:
-			var x : HBoxContainer = VerseContainer.instance()
+			var x : HBoxContainer = VERSE_CONTAINER.instance()
 			x.get_child(0).text = "MISSING_QUERY_PARAMETER -> 400"
-			Lyrics.add_child(x)
+			lyrics_vbox.add_child(x)
 		NOT_FOUND:
-			var x : HBoxContainer = VerseContainer.instance()
+			var x : HBoxContainer = VERSE_CONTAINER.instance()
 			x.get_child(0).text = "NOT_FOUND -> 404"
-			Lyrics.set_alignment(BoxContainer.ALIGN_CENTER)
-			Lyrics.add_child(x)
+			lyrics_vbox.set_alignment(BoxContainer.ALIGN_CENTER)
+			lyrics_vbox.add_child(x)
 		NO_RESPONSE:
-			var x : HBoxContainer = VerseContainer.instance()
+			var x : HBoxContainer = VERSE_CONTAINER.instance()
 			x.get_child(0).text = "Check Internet Connection: NO_RESPONSE -> 0"
-			Lyrics.add_child(x)
+			lyrics_vbox.add_child(x)
 
 
-func OnFetchLyrics():
-	var req = HTTPRequest.new()
-	self.add_child(req)
-	req.request(StaticURL + CreateDynamicURL())
-	req.connect("request_completed",self,"APIResponse")
-
-
-func CreateDynamicURL() -> String:
-	var SongInfo : PoolStringArray = [ArtistEdit.get_text(), AlbumEdit.get_text(), TitleEdit.get_text()]
+func create_dynamic_url() -> String:
+	var SongInfo : PoolStringArray = [artist_edit.get_text(), album_edit.get_text(), title_edit.get_text()]
 	var DynURL : String = ""
 	
 	for i in SongInfo.size():
@@ -95,6 +78,13 @@ func CreateDynamicURL() -> String:
 	return DynURL;
 
 
-func OnOverwriteProject():
-	emit_signal("OverwriteProject", CurrentLyrics)
+func _on_Fetch_pressed():
+	var req = HTTPRequest.new()
+	self.add_child(req)
+	req.request(STATIC_URL + create_dynamic_url())
+	req.connect("request_completed", self, "api_response")
+
+
+func _on_OverwriteProject_pressed():
+	emit_signal("overwrite_project", current_lyrics)
 	self.queue_free()

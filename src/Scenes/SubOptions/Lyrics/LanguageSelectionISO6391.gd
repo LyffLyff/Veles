@@ -13,6 +13,5 @@ const languages_ISO6391 : Array =[
 	"uk","ur","uz","ve","vi","wa","wo","xh","yi","yo","za","zh","zu"
 ]
 
-
 func _enter_tree():
 	menu_button_selections = languages_ISO6391;

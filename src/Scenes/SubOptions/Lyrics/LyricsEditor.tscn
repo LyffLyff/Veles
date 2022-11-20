@@ -256,13 +256,13 @@ margin_right = 1120.0
 margin_bottom = 600.0
 rect_min_size = Vector2( 20, 0 )
 
-[connection signal="pressed" from="LyricEditor/VBoxContainer/Return" to="LyricEditor" method="OnReturnPressed"]
-[connection signal="text_entered" from="LyricEditor/VBoxContainer/Title" to="LyricEditor" method="OnTitleEntered"]
-[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/Save" to="LyricEditor" method="OnSaveLyricsProject"]
-[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/SaveAs" to="LyricEditor" method="OnSaveAs"]
-[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/API" to="LyricEditor" method="OnAPIFetchpressed"]
-[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/OpenInFileManager" to="LyricEditor" method="OnOpenInFileManagerPressed"]
-[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/EmbedInFile" to="LyricEditor" method="OnEmbedInFilePressed"]
-[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/ExportToLRC" to="LyricEditor" method="ExportToLRC"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/Return" to="LyricEditor" method="_on_Return_pressed"]
+[connection signal="text_entered" from="LyricEditor/VBoxContainer/Title" to="LyricEditor" method="_on_Title_text_entered"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/Save" to="LyricEditor" method="on_save_lyrics_project"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/SaveAs" to="LyricEditor" method="_on_SaveAs_pressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/API" to="LyricEditor" method="_on_API_pressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/OpenInFileManager" to="LyricEditor" method="_on_OpenInFileManager_pressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/EmbedInFile" to="LyricEditor" method="_on_EmbedInFile_pressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/ExportToLRC" to="LyricEditor" method="_on_ExportToLRC_pressed"]
 [connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/PasteFromClipboard" to="LyricEditor" method="_on_PasteFromClipboard_pressed"]
-[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/DeleteProjectFile" to="LyricEditor" method="OnDeleteProjectFilePressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/DeleteProjectFile" to="LyricEditor" method="_on_DeleteProjectFile_pressed"]

@@ -45,8 +45,8 @@ func reload() -> void:
 							
 						else:
 							# adding all Artists to List
-							var Artist : String = Tags.get_artist(song_path)
-							var divided_artists : PoolStringArray = Streams.divide_artists(Artist)
+							var artist : String = Tags.get_artist(song_path)
+							var divided_artists : PoolStringArray = Streams.divide_artists(artist)
 							for n in divided_artists.size():
 								
 								if divided_artists[n] == "":
@@ -60,7 +60,7 @@ func reload() -> void:
 							
 							new_all_songs[song_path] = [
 								filename,
-								Artist,
+								artist,
 								main_idx,
 								0,
 								str(song_path.hash()),

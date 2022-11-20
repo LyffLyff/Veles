@@ -104,5 +104,5 @@ margin_right = 600.0
 margin_bottom = 350.0
 rect_min_size = Vector2( 5, 0 )
 
-[connection signal="pressed" from="Panel/VBoxContainer2/Main/ClosingButtons/Save" to="." method="on_save_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer2/Main/ClosingButtons/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer2/Main/ClosingButtons/Close" to="." method="exit_popup"]

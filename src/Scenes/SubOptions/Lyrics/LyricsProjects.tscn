@@ -164,5 +164,5 @@ margin_right = 1120.0
 margin_bottom = 600.0
 rect_min_size = Vector2( 20, 0 )
 
-[connection signal="pressed" from="VBoxContainer/PanelContainer/Tools/OpenFromFile" to="." method="OnOpenLRCFilePressed"]
-[connection signal="pressed" from="VBoxContainer/PanelContainer/Tools/NewLyricsProject" to="." method="OnNewLyricsProjectPressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/Tools/OpenFromFile" to="." method="_on_OpenFromFile_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/Tools/NewLyricsProject" to="." method="_on_NewLyricsProject_pressed"]

@@ -169,4 +169,4 @@ margin_right = 1120.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 
-[connection signal="pressed" from="LRCTags" to="." method="OnLRCTagsPressed"]
+[connection signal="pressed" from="LRCTags" to="." method="_on_LRCTags_pressed"]

@@ -23,10 +23,10 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 220.0
 margin_bottom = 16.0
-SettingType = "Options"
-SettingLabel = "Playlist Label"
-NormalSettingKey = "PlaylistSpaceText"
-Items = PoolStringArray( "Veles Playlist", "Album Tag" )
+setting_type = "Options"
+setting_label = "Playlist Label"
+normal_setting_key = "PlaylistSpaceText"
+items = PoolStringArray( "Veles Playlist", "Album Tag" )
 
 [node name="BottomBuffer" type="Control" parent="VBoxContainer" groups=["Buffer"]]
 margin_top = 24.0

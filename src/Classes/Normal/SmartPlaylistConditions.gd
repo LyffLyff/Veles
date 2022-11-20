@@ -59,7 +59,7 @@ func title_includes(var song_path : String, var search_phrase : String) -> bool:
 
 
 func song_rating_is(var song_path : String, var rating_out_of_10 : String) -> bool:
-	#Return if the Song Rating out of 10 given is the same as the Songs Rating
+	#return if the Song Rating out of 10 given is the same as the Songs Rating
 	var song_rating = Tagging.new().GetSongPopularity(song_path)[0]
 	if typeof(song_rating) != TYPE_INT:
 		return false

@@ -7,8 +7,7 @@ const save_types : Array = ["ExportHTML", "ExportCSV"]
 const file_filters : Array = ["*.html", "*.csv"]
 const open_modes : Array = [FileDialog.MODE_SAVE_FILE, FileDialog.MODE_SAVE_FILE]
 
-onready var export_types : VBoxContainer = $PanelContainer/HBoxContainer/VBoxContainer/export_types
-
+onready var export_types : VBoxContainer = $PanelContainer/HBoxContainer/VBoxContainer/ExportTypes
 
 func _enter_tree():
 	Global.root.toggle_songlist_input( false )

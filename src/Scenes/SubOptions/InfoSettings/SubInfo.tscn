@@ -49,4 +49,4 @@ margin_bottom = 16.0
 size_flags_horizontal = 3
 custom_constants/separation = 5
 
-[connection signal="pressed" from="SubInfoMain" to="." method="OnSubInfoMainPressed"]
+[connection signal="pressed" from="SubInfoMain" to="." method="_on_SubInfoMain_pressed"]

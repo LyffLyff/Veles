@@ -75,7 +75,7 @@ margin_bottom = 42.0
 rect_min_size = Vector2( 0, 0 )
 size_flags_horizontal = 1
 size_flags_vertical = 1
-SubInfoTitle = "General"
+subinfo_title = "General"
 
 [node name="Shortcuts" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
 margin_top = 44.0
@@ -83,7 +83,7 @@ margin_right = 170.0
 margin_bottom = 74.0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-SubInfoTitle = "Shortcuts"
+subinfo_title = "Shortcuts"
 
 [node name="PlayingMusic" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
 margin_top = 76.0
@@ -91,7 +91,7 @@ margin_right = 170.0
 margin_bottom = 106.0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-SubInfoTitle = "Play"
+subinfo_title = "Playback"
 
 [node name="Playlists" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
 margin_top = 108.0
@@ -99,7 +99,7 @@ margin_right = 170.0
 margin_bottom = 138.0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-SubInfoTitle = "Playlists"
+subinfo_title = "Playlists"
 
 [node name="Tags" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
 margin_top = 140.0
@@ -107,7 +107,7 @@ margin_right = 170.0
 margin_bottom = 170.0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-SubInfoTitle = "Tagging"
+subinfo_title = "Tags"
 
 [node name="Lyrics" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
 margin_top = 172.0
@@ -115,7 +115,7 @@ margin_right = 170.0
 margin_bottom = 202.0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-SubInfoTitle = "Lyrics"
+subinfo_title = "Lyrics"
 
 [node name="Downloads" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
 margin_top = 204.0
@@ -123,7 +123,7 @@ margin_right = 170.0
 margin_bottom = 234.0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-SubInfoTitle = "Downloads"
+subinfo_title = "Downloads"
 
 [node name="Statistics" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
 margin_top = 236.0
@@ -131,7 +131,7 @@ margin_right = 170.0
 margin_bottom = 266.0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-SubInfoTitle = "Statistics"
+subinfo_title = "Stats"
 
 [node name="Credits" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
 margin_top = 268.0
@@ -139,7 +139,7 @@ margin_right = 170.0
 margin_bottom = 298.0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-SubInfoTitle = "Credits"
+subinfo_title = "Credits"
 
 [node name="Licenses" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
 margin_top = 300.0
@@ -147,7 +147,7 @@ margin_right = 170.0
 margin_bottom = 330.0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-SubInfoTitle = "Licenses"
+subinfo_title = "Licenses"
 
 [node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
 margin_left = 190.0
@@ -202,4 +202,4 @@ margin_bottom = 600.0
 size_flags_vertical = 3
 custom_constants/separation = 15
 
-[connection signal="meta_clicked" from="HBoxContainer/VBoxContainer/PanelContainer/InfoTextSpace" to="." method="OnInfoTextSpaceMetaClicked"]
+[connection signal="meta_clicked" from="HBoxContainer/VBoxContainer/PanelContainer/InfoTextSpace" to="." method="_on_InfoTextSpace_meta_clicked"]

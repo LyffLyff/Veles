@@ -274,5 +274,5 @@ margin_bottom = 410.0
 rect_min_size = Vector2( 5, 0 )
 size_flags_vertical = 3
 
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/Header/HBoxContainer/PlaylistOptions" to="." method="PlaylistOptionspressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Header/HBoxContainer/PlaylistOptions" to="." method="_on_PlaylistOptions_pressed"]
 [connection signal="resized" from="HBoxContainer/VBoxContainer/HBoxContainer/SongScroller" to="." method="_on_SongScroller_resized"]

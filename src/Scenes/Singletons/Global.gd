@@ -97,6 +97,14 @@ func rename_user(var new_username : String, var user_idx : int) -> void:
 	
 	var dir : Directory = Directory.new()
 	var old_username : String = user_profiles[user_idx]
+	print(OS.get_user_data_dir() + "/Users/" + old_username)
+	# renaming the Directory in the Userdata
+	if dir.rename(
+		OS.get_user_data_dir() + "/Users/" + old_username + "/",
+		OS.get_user_data_dir() + "/Users/" + new_username + "/"
+	) != OK:
+		root.message("Could not rename", SaveData.MESSAGE_ERROR, true)
+		return
 	
 	# renaming the user profile image
 	var user_imgs : String = "user://GlobalSettings/UserImages/"
@@ -106,19 +114,15 @@ func rename_user(var new_username : String, var user_idx : int) -> void:
 			user_imgs + new_username + ".png"
 		)
 	
-	# renaming the Directory in the Userdata
-	var _err = dir.rename(
-		"user://Users/" + old_username,
-		"user://Users/" + new_username
-	)
-	
 	# renaming std download folder if stll in folders
-	#var old_std_download_folder : String = get_user_data_folder(user_idx) + "/Downloads"
-	#if SongLists.folders.has(old_std_download_folder):
-	#	var idx : int = SongLists.folders.find(old_std_download_folder)
-	#	SongLists.folders[idx] = OS.get_user_data_dir() + "/Users/" + new_username + "/Downloads"
+	var old_std_download_folder : String = get_user_data_folder(user_idx) + "/Downloads"
+	if SongLists.folders.has(old_std_download_folder):
+		var idx : int = SongLists.folders.find(old_std_download_folder)
+		SongLists.folders[idx] = OS.get_user_data_dir() + "/Users/" + new_username + "/Downloads"
 	
-	
+	# renaming current song path if inside directory
+	if SongLists.current_song.get_base_dir() == old_std_download_folder:
+		SongLists.current_song = OS.get_user_data_dir() + "/Users/" + new_username + "/Downloads/" + SongLists.current_song.get_file()
 	
 	# replacing the Old Username with new s
 	user_profiles[user_idx] = new_username

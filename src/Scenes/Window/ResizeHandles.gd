@@ -58,7 +58,7 @@ func _process(_delta):
 func _on_handle_gui_input(var event) ->void:
 	if event is InputEventMouseButton:
 		if event.get_button_index() == BUTTON_LEFT:
-			if !Global.WindowMaximized:
+			if !Global.window_maximized:
 				mouse_start_pos = get_global_mouse_position()
 				following = !following
 

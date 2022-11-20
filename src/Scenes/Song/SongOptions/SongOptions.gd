@@ -66,15 +66,15 @@ func _on_AddToPlaylist_pressed(var main_idx : int = -1):
 	if main_idx == -1:
 		if get_clicked_song_path() in SongLists.highlighted_songs:
 			var main_idxs : PoolIntArray = []
-			for HighlightedSong in SongLists.highlighted_songs:
-				main_idxs.push_back( AllSongs.get_main_idx(HighlightedSong) )
+			for highlighted_song in SongLists.highlighted_songs:
+				main_idxs.push_back(AllSongs.get_main_idx(highlighted_song))
 			load_playlist_selector(main_idxs)
 		else:
-			#Adding the Current Song need no Argument Passed
+			# adding the Current Song need no Argument Passed
 			var idx : int = AllSongs.get_main_idx( get_clicked_song_path() )
 			load_playlist_selector([idx])
 	else:
-		#Adding a Specific Song need the Main Index
+		# adding a Specific Song need the Main Index
 		load_playlist_selector([main_idx])
 	exit_player_option()
 

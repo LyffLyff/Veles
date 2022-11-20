@@ -1,11 +1,8 @@
 extends RichTextLabel
+# a script that holds texts that are encoded using BBCodes 
+# and are used as the Infotexts in the Info Suboption
 
-
-#A Script that holds texts that are encoded using BBCodes 
-#and are used as the Infotexts in the Info Suboption
-
-
-var GeneralInfos : Dictionary = {
+var general_infos : Dictionary = {
 	"Introduction" : 
 		"""
 	[i]Introduction[/i]
@@ -24,8 +21,7 @@ var GeneralInfos : Dictionary = {
 [cell]	VelesNative:[/cell][cell][url]https://github.com/LyffLyff/VelesNative[/url][/cell]
 """
 }
-
-var PlayingMusic : Dictionary = {
+var playback : Dictionary = {
 	"Supported Formats" : 
 	"""
 	[i]Supported Formats[/i]
@@ -39,8 +35,7 @@ var PlayingMusic : Dictionary = {
 	to be played. For Information on what formats can be tagged, go to the Tagging Subinfos
 	"""
 }
-
-var Playlists : Dictionary = {
+var playlists : Dictionary = {
 	"Playlists" :
 	"""
 	[i]Playlists[/i]
@@ -58,8 +53,7 @@ var Playlists : Dictionary = {
 	Since a smart playlist is created during runtime it may need a bit more of time to load compared to normal playlists.
 	"""
 }
-
-var TaggingInfo : Dictionary = {
+var tagging : Dictionary = {
 	"Supported Formats" : 
 	"""
 	[i]Supported Formats:[/i]
@@ -131,12 +125,10 @@ var TaggingInfo : Dictionary = {
 	The Displayed Cover and Text Tags will be from the first selected song.
 """
 }
-
-var Lyrics : Dictionary = {
+var lyrics : Dictionary = {
 	
 }
-
-var Downloads : Dictionary = {
+var downloads : Dictionary = {
 	"General" :
 		"""
 	[i]General[/i]
@@ -168,8 +160,7 @@ var Downloads : Dictionary = {
 	[url]https://github.com/blackjack4494/yt-dlc/blob/master/docs/supportedsites.md[/url]
 		"""
 }
-
-var Statistics : Dictionary = {
+var statistics : Dictionary = {
 	"General" : 
 		"""
 	[i]General:[/i]
@@ -182,8 +173,7 @@ var Statistics : Dictionary = {
 	3rd: 2min
 """
 }
-
-var Credits : Dictionary = {
+var credits : Dictionary = {
 	"Creator" : 
 """
 	[i]Main Creator:[/i]
@@ -214,8 +204,7 @@ var Credits : Dictionary = {
 	-Copyright 2011 The Montserrat Project Authors (https://github.com/JulietaUla/Montserrat)
 """,
 }
-
-var Licenses : Dictionary = {
+var licenses : Dictionary = {
 	"Godot" : 
 		""" 
 	[i]Godot License:[/i]
@@ -230,8 +219,7 @@ var Licenses : Dictionary = {
 	[url]https://choosealicense.com/licenses/gpl-3.0/[/url]
 		"""
 }
-
-var Shortcuts : Dictionary = {
+var shortcuts : Dictionary = {
 	"Global" : 
 """
 	[i]Global Shortcuts[/i]
@@ -271,16 +259,15 @@ var Shortcuts : Dictionary = {
 [/table]
 """
 }
-
 var infos : Dictionary = {
-	"GeneralInfos" : GeneralInfos,
-	"Shortcuts" : Shortcuts,
-	"PlayingMusic" : PlayingMusic,
-	"Playlists" : Playlists,
-	"Tags" : TaggingInfo,
-	"Lyrics" : Lyrics,
-	"Downloads" : Downloads,
-	"Statistics" : Statistics,
-	"Credits" : Credits,
-	"Licenses" : Licenses,
+	"GeneralInfos" : general_infos,
+	"Shortcuts" : shortcuts,
+	"PlayingMusic" : playback,
+	"Playlists" : playlists,
+	"Tags" : tagging,
+	"Lyrics" : lyrics,
+	"Downloads" : downloads,
+	"Statistics" : statistics,
+	"Credits" : credits,
+	"Licenses" : licenses,
 }

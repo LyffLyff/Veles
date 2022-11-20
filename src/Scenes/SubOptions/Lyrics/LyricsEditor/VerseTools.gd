@@ -1,14 +1,11 @@
 extends VBoxContainer
 
-
-#NODES
-onready var AddVerse : TextureButton = $ToolButtons/Add
-onready var CutVerse : TextureButton = $ToolButtons/Cut
-onready var ToolButtons : HBoxContainer = $ToolButtons
-
+onready var add_verse : TextureButton = $ToolButtons/Add
+onready var cut_verse : TextureButton = $ToolButtons/Cut
+onready var tool_buttons : HBoxContainer = $ToolButtons
 
 func _ready():
-	for i in ToolButtons.get_children():
+	for i in tool_buttons.get_children():
 		var _err = i.connect("button_down", Modulator, "modulate_pressed", [i])
 		_err = i.connect("mouse_exited", Modulator, "modulate_normal", [i])
 		_err = i.connect("button_up", Modulator, "modulate_normal", [i])

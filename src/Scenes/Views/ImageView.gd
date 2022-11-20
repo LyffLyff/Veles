@@ -109,11 +109,11 @@ func UpdateOption() -> void:
 			Option.update()
 
 
-func AddOption(var OptionIdx : int) -> void:
+func AddOption(var option_idx : int) -> void:
 	OptionHeader.get_child( last_option_idx + 1 ).theme = load("res://src/Themes/Buttons/SidebarButtonsUnpressed.tres")
-	last_option_idx = OptionIdx
+	last_option_idx = option_idx
 	OptionHeader.get_child( last_option_idx + 1 ).theme = load("res://src/Themes/Buttons/SidebarButtonsPressed.tres")
-	var NewOption : Control = load(OPTION_SCENES[OptionIdx]).instance()
+	var NewOption : Control = load(OPTION_SCENES[option_idx]).instance()
 	OptionsPlace.add_child( NewOption )
 	NewOption.modulate.a = 0.0
 	var _ptw : PropertyTweener = create_tween().tween_property(

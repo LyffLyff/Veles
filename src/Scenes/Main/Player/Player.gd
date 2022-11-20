@@ -207,20 +207,21 @@ func _on_PlaybackTimer_timeout() -> void:
 
 func _on_Playlist_pressed():
 	# updating playback position every timeout
+	disable_image_view()
 	Global.pressed_playlist_idx =  Playlist.get_playlist_index( song_playlist.get_text().replace("in ","") )
 	if Global.pressed_playlist_idx >= 0 or Global.pressed_playlist_idx <= -3:
 		Global.root.load_playlist(Global.pressed_playlist_idx)
 
 
 func _on_Artist_pressed():
-	var Artist : String = song_artist.get_text().substr(3)
+	var artist : String = song_artist.get_text().substr(3)
 	SongLists.temporary_playlist_conditions = {
-		"includes_artist" : [ Artist ]
+		"includes_artist" : [ artist ]
 		}
 	Global.root.load_temporary_playlist( 
-		Artist,
-		Global.get_current_user_data_folder() + "/Songs/Artists/Descriptions/" + Artist + ".txt",
-		Global.get_current_user_data_folder() + "/Songs/Artists/Covers/" + Artist + ".png",
+		artist,
+		Global.get_current_user_data_folder() + "/Songs/Artists/Descriptions/" + artist + ".txt",
+		Global.get_current_user_data_folder() + "/Songs/Artists/Covers/" + artist + ".png",
 		3
 	)
 	disable_image_view()

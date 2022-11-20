@@ -149,5 +149,5 @@ wait_time = 0.15
 autostart = true
 
 [connection signal="resized" from="." to="." method="_on_LyricScroller_resized"]
-[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/Resync" to="." method="OnResyncPressed"]
-[connection signal="timeout" from="UpdateSecondsPassed" to="." method="OnUpdateSecondsPassedTimeout"]
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/Resync" to="." method="_on_Resync_pressed"]
+[connection signal="timeout" from="UpdateSecondsPassed" to="." method="_on_UpdateSecondsPassed_timeout"]

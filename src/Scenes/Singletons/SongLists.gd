@@ -84,7 +84,7 @@ var artists : Array = []
 var main_enabled : bool = false
 var highlighted_songs : PoolStringArray = []
 var audio_effects : Array = [
-	# effect in this Array == Effect Idx in AudioBus
+	# effect in this Array == Effect idx in AudioBus
 	# index 0 in each dictionary saves if the effect is enabled
 	{
 		"enabled" : false,

@@ -88,5 +88,5 @@ margin_right = 89.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 0, 10 )
 
-[connection signal="pressed" from="Expand" to="." method="OnExpandDescriptionPressed"]
-[connection signal="text_changed" from="ScrollContainer/Description" to="." method="SaveDescription"]
+[connection signal="pressed" from="Expand" to="." method="_on_Expand_pressed"]
+[connection signal="text_changed" from="ScrollContainer/Description" to="." method="save_description"]

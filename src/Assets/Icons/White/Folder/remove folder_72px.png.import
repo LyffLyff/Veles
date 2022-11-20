@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/remove folder_72px.png-f32cf72ff907691c349cccbd5e1b4bba.stex"
+path="res://.import/remove folder_72px.png-d04e85acee8b0d6eb699e4cb5e0ef14a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/assets/Icons/White/Folder/remove folder_72px.png"
-dest_files=[ "res://.import/remove folder_72px.png-f32cf72ff907691c349cccbd5e1b4bba.stex" ]
+source_file="res://src/Assets/Icons/White/Folder/remove folder_72px.png"
+dest_files=[ "res://.import/remove folder_72px.png-d04e85acee8b0d6eb699e4cb5e0ef14a.stex" ]
 
 [params]
 

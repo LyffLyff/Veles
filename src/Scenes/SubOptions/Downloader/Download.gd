@@ -24,7 +24,8 @@ func _ready():
 
 
 func _on_files_dropped(var files : Array , var _screen_idx : int) -> void:
-	if Global.general_dialogue_visible: return;
+	if Global.general_dialogue_visible:
+		return;
 	dst_folder.set_text( files[0].replace("\\","/") )
 
 

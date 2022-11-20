@@ -10,13 +10,13 @@ export var show_file_dialogue : bool = false
 
 onready var input_label : Label = $InputLabel
 onready var input_edit : LineEdit = $InputEdit
-onready var Dialogue : TextureButton = $Dialogue
+onready var dialogue : TextureButton = $Dialogue
 
 
 func _ready():
 	input_label.text = input_label_text
 	if !show_file_dialogue:
-		Dialogue.hide()
+		dialogue.hide()
 
 
 func get_text() -> String:

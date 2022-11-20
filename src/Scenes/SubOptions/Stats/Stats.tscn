@@ -536,4 +536,4 @@ size_flags_vertical = 3
 anims/RESET = SubResource( 9 )
 anims/slide = SubResource( 8 )
 
-[connection signal="pressed" from="VBoxContainer/Panel/VBoxContainer/Title/Options/Export" to="." method="OnExportPressed"]
+[connection signal="pressed" from="VBoxContainer/Panel/VBoxContainer/Title/Options/Export" to="." method="_on_Export_pressed"]

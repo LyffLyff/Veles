@@ -1,17 +1,10 @@
 extends HBoxContainer
 
+signal timestemp_edited
 
-#SIGNAL
-signal TimestampChanged
+onready var move_up : TextureButton = $MovingUpDown/Up
+onready var move_down : TextureButton = $MovingUpDown/Down
+onready var timestamp_edit : LineEdit = $TimeInSeconds
 
-#NODES
-onready var MoveUp : TextureButton = $MovingUpDown/Up
-onready var MoveDown : TextureButton = $MovingUpDown/Down
-onready var TimeStamp : LineEdit = $TimeInSeconds
-
-#SIGNALS
-#signal On
-
-
-func OnTimestampTextChanged(var _NewText : String):
-	emit_signal("TimestampChanged")
+func _on_TimeInSeconds_text_changed(var _new_text : String):
+	emit_signal("timestemp_edited")

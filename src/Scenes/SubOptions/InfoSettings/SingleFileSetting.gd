@@ -1,27 +1,25 @@
 extends HBoxContainer
 
-#NODES
-onready var FileEdit : LineEdit = $LineEdit
-onready var Dialogue : TextureButton = $FileDialog 
-onready var root : Control = get_tree().get_root().get_child(get_tree().get_root().get_child_count()-1)
+onready var file_edit : LineEdit = $LineEdit
+onready var dialogue : TextureButton = $FileDialog 
 
 
 func _ready() -> void:
-	if Dialogue.connect("pressed", root,"load_general_file_dialogue",[FileEdit, FileDialog.MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, "set_text", [], "Image", [], true]):
+	if dialogue.connect("pressed", Global.root,"load_general_file_dialogue",[file_edit, FileDialog.MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, "set_text", [], "Image", [], true]):
 		Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
-	var FilePath : String = SettingsData.get_setting(
+	var file_path : String = SettingsData.get_setting(
 		get_parent().get_parent().setting_type_idx,
-		get_parent().FileSettingKey
+		get_parent().file_setting_key
 		)
-	FileEdit.set_text( FilePath )
+	file_edit.set_text(file_path)
 
 
 func OnLineEditTextEntered(var new_text : String):
-	#Setting Caret Position to the end of Path so the Filename is visible a not just the root folders
-	FileEdit.caret_position = FileEdit.text.length()
+	# setting Caret Position to the end of Path so the Filename is visible a not just the root folders
+	file_edit.caret_position = file_edit.text.length()
 	SettingsData.set_setting(
 		get_parent().get_parent().setting_type_idx,
-		get_parent().FileSettingKey,
+		get_parent().file_setting_key,
 		new_text
 	)
 

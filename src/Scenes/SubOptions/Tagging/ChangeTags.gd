@@ -55,7 +55,8 @@ func _ready():
 
 
 func _on_files_dropped(var files : PoolStringArray,var _screen_idx : int) -> void:
-	if Global.general_dialogue_visible: return;
+	if Global.general_dialogue_visible:
+		return;
 	var dis_2_path_edit : float = get_global_mouse_position().distance_to(path_edit.rect_global_position) 
 	var dis_2_cover_edit : float = get_global_mouse_position().distance_to(cover_edit.rect_global_position)
 	if dis_2_cover_edit < dis_2_path_edit:
