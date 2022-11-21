@@ -285,7 +285,7 @@ func set_image_view_cover(var img : Texture) -> void:
 	if view == ViewMode.COVER_VIEW:
 		viewer_control.image_view_cover.set_normal_texture(img)
 		viewer_control.UpdateOption()
-		viewer_control.SetImageViewBackgroundColor()
+		viewer_control.set_image_view_bg_clr()
 
 
 func set_volume_texture(var is_mute : bool) -> void:

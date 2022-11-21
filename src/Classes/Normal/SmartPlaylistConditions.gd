@@ -3,12 +3,12 @@ class_name SmartPlaylistConditions extends Reference
 
 
 func is_longer_than(var song_path : String, var length_in_seconds : String) -> bool:
-	# returns true if the given Song is Longer than the Given Duration
+	# returns true if the given Song is Longer than the Given duration
 	return AllSongs.get_song_duration( AllSongs.get_main_idx( song_path ) ) >= int( length_in_seconds );
 
 
 func is_shorter_than(var song_path : String, var length_in_seconds : String) -> bool:
-	# returns true if the given Song is Shorter than the Given Duration
+	# returns true if the given Song is Shorter than the Given duration
 	return AllSongs.get_song_duration( AllSongs.get_main_idx( song_path ) ) <= int( length_in_seconds );
 
 

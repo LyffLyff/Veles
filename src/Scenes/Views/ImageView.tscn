@@ -132,7 +132,7 @@ tracks/2/path = NodePath("DynamicBackground:material:shader_param/transparency")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/imported = false
-tracks/2/enabled = true
+tracks/2/enabled = false
 tracks/2/keys = {
 "times": PoolRealArray( 0, 0.45 ),
 "transitions": PoolRealArray( 1, 1 ),
@@ -320,12 +320,13 @@ text = "Infos"
 [node name="OptionPlace" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/Option/Options"]
 margin_top = 72.0
 margin_right = 710.0
-margin_bottom = 516.0
+margin_bottom = 544.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="BottomEmpty" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/Option/Options"]
+visible = false
 margin_top = 524.0
 margin_right = 710.0
 margin_bottom = 544.0
@@ -351,7 +352,7 @@ size_flags_vertical = 3
 anims/RESET = SubResource( 10 )
 anims/start = SubResource( 11 )
 
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Cover" to="." method="OnImageViewCoverPressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Option/Options/HBoxContainer/Cover" to="." method="OnImageViewCoverPressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Option/Options/HBoxContainer/Lyrics" to="." method="OnLyricsPressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Option/Options/HBoxContainer/Infos" to="." method="OnInfosPressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Cover" to="." method="_on_Cover_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Option/Options/HBoxContainer/Cover" to="." method="_on_Cover_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Option/Options/HBoxContainer/Lyrics" to="." method="_on_Lyrics_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Option/Options/HBoxContainer/Infos" to="." method="_on_Infos_pressed"]

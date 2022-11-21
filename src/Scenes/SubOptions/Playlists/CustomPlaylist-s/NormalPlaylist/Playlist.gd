@@ -29,7 +29,7 @@ func _ready():
 		# calling this function with empty Array would load all songs
 		var x : SongLoader = SongLoader.new()
 		x.create_songspaces(songs, idxs_to_set, playlist_idx)
-	ConnectScrollContainer()
+	connect_scroll_container()
 	title = $HBoxContainer/VBoxContainer/Header/HBoxContainer/VBoxContainer/Title
 	var playlist_name : String = Playlist.get_playlist_name(playlist_idx)
 	title.set_text(playlist_name)

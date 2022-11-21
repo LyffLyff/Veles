@@ -31,6 +31,7 @@ onready var mouse_stopper : Control = $MarginContainer/VBoxContainer/MiddlePart/
 onready var top_ui : Control = $TopUI
 
 func _ready():
+	print(OS.get_window_safe_area())
 	init_main(true)
 
 

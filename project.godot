@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "DesignPaths",
 "language": "GDScript",
-"path": "res://src/scenes/Design/DesignSetter.gd"
+"path": "res://src/Scenes/Design/DesignSetter.gd"
 }, {
 "base": "Object",
 "class": "Exporter",

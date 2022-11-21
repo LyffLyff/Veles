@@ -6,6 +6,8 @@ extends Control
 
 signal is_filtering
 
+const HOLD_THRESHOLD : int = 120
+
 onready var filter_edit : LineEdit = $VBoxContainer/Panel/HBoxContainer/Filter
 onready var background : Panel = $VBoxContainer/Panel
 
@@ -15,7 +17,8 @@ func _enter_tree():
 
 
 func _process(var _delta : float):
-	if !self.get_global_rect().has_point(Vector2(self.get_global_rect().position.x, get_global_mouse_position().y)):
+	# checking if the global mouse position is below a max threshold below the filter edit
+	if get_global_mouse_position().y - HOLD_THRESHOLD > self.get_global_position().y:
 		filter_edit.release_focus()
 		self.set_process(false)
 

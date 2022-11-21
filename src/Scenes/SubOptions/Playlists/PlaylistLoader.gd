@@ -35,24 +35,18 @@ func _exit_tree():
 func _process(_delta):
 	temp_idx =  song_scroller.real_index(song_scroller.calc_idx())
 	if !is_scrolling_fast:
-		if song_scroller_rect.has_point(get_global_mouse_position()) and (idx != temp_idx or temp_pos != songs.rect_position.y):
+		if song_scroller_rect.has_point(get_global_mouse_position()):
 			idx = temp_idx
 			if idx >= 0:
-				#song_highlighter.show()
 				temp_pos = songs.rect_position.y
 				song_highlighter.rect_global_position.y = songs.get_child(temp_idx).rect_position.y + song_scroller.rect_global_position.y + temp_pos
-			else:
-				pass
-				# fixing the Issue of the Highlighter being visible when no songs are in a playlist
-				# only will be set on idx Change
-				#song_highlighter.hide()
 	else:
 		if temp_idx >= 0:
 			if song_scroller_rect.has_point(get_global_mouse_position()):
 				song_highlighter.rect_global_position.y = get_global_mouse_position().y
 
 
-func ConnectScrollContainer() -> void:
+func connect_scroll_container() -> void:
 	if songs.get_parent().connect("space_pressed",self,"on_songspace_left_clicked"):
 		Global.root.message("CONNECTING SPACE PRESSED SIGNAL WITH LEFT BUTTON CLICKED FUNCTION",  SaveData.MESSAGE_ERROR )
 	if songs.get_parent().connect("space_rightclick",self,"on_songspace_right_clicked"):

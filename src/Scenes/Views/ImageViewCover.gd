@@ -5,5 +5,3 @@ func _ready():
 		pass
 	else:
 		pass
-
-

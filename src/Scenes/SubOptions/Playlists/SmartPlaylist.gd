@@ -27,7 +27,7 @@ func n_ready( var conditions : Dictionary = {}, var title = "", var custom_descr
 	]
 	songs = song_vbox 
 	temp_playlist_coverpath = cover_path
-	ConnectScrollContainer()
+	connect_scroll_container()
 	if conditions.empty():
 		playlist_idx = Global.pressed_playlist_idx
 		playlist_title = SongLists.smart_playlists[ -playlist_idx - 3 ]

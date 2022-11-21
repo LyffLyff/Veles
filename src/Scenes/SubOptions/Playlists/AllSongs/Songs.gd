@@ -12,7 +12,7 @@ func _ready():
 	song_highlighter = $SongHighlighter
 	var _err = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller.connect("speed_threshold_exceeded",self,"set_deferred", ["is_scrolling_fast",true])
 	_err = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller.connect("speed_threshold_subceeded",self,"set_deferred", ["is_scrolling_fast",false])
-	ConnectScrollContainer()
+	connect_scroll_container()
 	# if Global.init_songs:
 	var x : SongLoader = SongLoader.new()
 	if Global.init_songs:
