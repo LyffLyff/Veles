@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Assets/Fonts/Montserrat/static/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/NormalPlaylist/Playlist.gd" type="Script" id=2]
@@ -8,28 +8,7 @@
 [ext_resource path="res://src/Scenes/SubOptions/Playlists/Header.gd" type="Script" id=6]
 [ext_resource path="res://src/Assets/Icons/White/Settings/full orientation_72px.png" type="Texture" id=7]
 [ext_resource path="res://src/Scenes/SubOptions/Playlists/SongVBox/SongVbox.gd" type="Script" id=8]
-
-[sub_resource type="Shader" id=5]
-code = "shader_type canvas_item;
-
-
-uniform vec4 color : hint_color;
-uniform vec2 direction = vec2(0,1);
-uniform float strength : hint_range(0.0,3.0) = 1.0;
-
-void fragment(){
-	vec4 pixelcolor = texture(TEXTURE,UV);
-	COLOR = color;
-	vec2 NewUV = ((UV / 2.0) + 0.2) * direction;
-	COLOR.a *= (NewUV.x + NewUV.y) * strength;
-}"
-
-[sub_resource type="ShaderMaterial" id=6]
-resource_local_to_scene = true
-shader = SubResource( 5 )
-shader_param/color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
-shader_param/direction = Vector2( 0, 1 )
-shader_param/strength = 3.0
+[ext_resource path="res://src/Ressources/Shaders/direction_fade.tres" type="Material" id=9]
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.254902, 0.254902, 0.254902, 1 )
@@ -74,7 +53,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Header" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
-material = SubResource( 6 )
+material = ExtResource( 9 )
 margin_right = 1115.0
 margin_bottom = 154.0
 mouse_filter = 2

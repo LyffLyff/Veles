@@ -15,7 +15,7 @@ func _ready() -> void:
 
 
 func OnLineEditTextEntered(var new_text : String):
-	# setting Caret Position to the end of Path so the Filename is visible a not just the root folders
+	# setting Caret Position to the exit_image_view of Path so the Filename is visible a not just the root folders
 	file_edit.caret_position = file_edit.text.length()
 	SettingsData.set_setting(
 		get_parent().get_parent().setting_type_idx,

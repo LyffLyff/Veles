@@ -129,5 +129,5 @@ mouse_filter = 2
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/ShowCoverInFilesystem" to="." method="_on_ShowCoverInFilesystem_pressed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/QueueSong" to="." method="_on_QueueSongMain_pressed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/ExtractCurrentCover" to="." method="_on_ExtractCurrentCover_pressed"]
-[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/Close" to="." method="ExitPlayerOption"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/Close" to="." method="exit_player_option"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/RemoveFromPlaylist" to="." method="_on_RemoveFromPlaylist_pressed"]

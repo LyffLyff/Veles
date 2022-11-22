@@ -1,5 +1,5 @@
 extends "res://src/Scenes/Song/SongOptions/SongOptions.gd"
-# a script hadnling the song options menu called from the player
+# a script handling the song options menu called from the player
 
 onready var bottom_buffer : Control = $BottomEmpty
 
@@ -10,7 +10,7 @@ func _ready():
 	)
 	
 	# remove From Playlist, only visible when inside of playlist
-	var main_remove_from_playlist : Button = get_node("PanelContainer/HBoxContainer/VBoxContainer/remove_from_playlist");
+	var main_remove_from_playlist : Button = get_node("PanelContainer/HBoxContainer/VBoxContainer/RemoveFromPlaylist");
 	if main_remove_from_playlist:
 		if SongLists.current_playlist_idx >= 0:
 			# only showing option to remove song from playlist, if the song

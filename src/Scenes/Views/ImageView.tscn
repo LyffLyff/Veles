@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/Scenes/Views/ImageView.gd" type="Script" id=1]
 [ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png" type="Texture" id=2]
+[ext_resource path="res://src/Ressources/Shaders/direction_fade.tres" type="Material" id=3]
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.133333, 0.133333, 0.133333, 1 )
@@ -9,7 +10,7 @@ bg_color = Color( 0.133333, 0.133333, 0.133333, 1 )
 [sub_resource type="StyleBoxFlat" id=3]
 
 [sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.156863, 0.156863, 0.156863, 0 )
+bg_color = Color( 0.156863, 0.156863, 0.156863, 0.631373 )
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -37,145 +38,6 @@ Button/styles/hover = SubResource( 6 )
 Button/styles/normal = SubResource( 7 )
 Button/styles/pressed = SubResource( 8 )
 
-[sub_resource type="Animation" id=10]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer/Cover:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("DynamicBackground:material:shader_param/strength")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 3.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("DynamicBackground:material:shader_param/transparency")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 1.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("StaticBackground:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("DynamicBackground:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=11]
-length = 0.45
-step = 0.05
-tracks/0/type = "value"
-tracks/0/path = NodePath("VBoxContainer/HBoxContainer/Cover:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.45 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("DynamicBackground:material:shader_param/strength")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.45 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 3.0 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("DynamicBackground:material:shader_param/transparency")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.45 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 0.9 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("StaticBackground:modulate")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.45 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/Option/Options:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 0.45 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("DynamicBackground:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.45 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-
 [node name="ImageView" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -189,6 +51,7 @@ custom_styles/panel = SubResource( 4 )
 
 [node name="DynamicBackground" type="PanelContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
+material = ExtResource( 3 )
 margin_right = 1120.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -347,10 +210,6 @@ margin_bottom = 600.0
 rect_min_size = Vector2( 20, 0 )
 mouse_filter = 2
 size_flags_vertical = 3
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 10 )
-anims/start = SubResource( 11 )
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Cover" to="." method="_on_Cover_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Option/Options/HBoxContainer/Cover" to="." method="_on_Cover_pressed"]

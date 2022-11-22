@@ -1,0 +1,15 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform vec4 color : hint_color;
+uniform vec2 direction = vec2(0,1);
+uniform float strength : hint_range(0.0,3.0) = 1.0;
+
+void fragment(){
+	vec4 pixelcolor = texture(TEXTURE,UV);
+	COLOR = color;
+	vec2 NewUV = ((UV / 2.0) + 0.2) * direction;
+	COLOR.a *= (NewUV.x + NewUV.y) * strength;
+}"

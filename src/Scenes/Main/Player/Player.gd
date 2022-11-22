@@ -1,10 +1,6 @@
 extends Control
 # a script controlling the bottom part of the main scene -> player
 
-enum ViewMode {
-	NORMAL_VIEW = 0,
-	COVER_VIEW = 1,
-}
 
 const VOLUME_CHANGER : PackedScene = preload("res://src/Scenes/Main/Player/VolumeChanger.tscn")
 const IMAGE_VIEW : PackedScene = preload("res://src/Scenes/Views/ImageView.tscn")
@@ -17,7 +13,8 @@ var playback_pos : float
 var output_device_visible : bool = false
 var output_device_ref : Control = null
 var volume_change_ref : Control = null
-var viewer_control : Control = null
+var image_view_ref : Control = null
+var is_image_view_active : bool = false
 
 onready var prior_song : TextureButton = $Main/MainPlayer/Middle/HBoxContainer/PriorSong
 onready var next_song : TextureButton = $Main/MainPlayer/Middle/HBoxContainer/NextSong
@@ -146,17 +143,16 @@ func _on_Shuffle_pressed():
 
 
 func _on_Cover_pressed():
-	if view == ViewMode.NORMAL_VIEW:
-		#root.middle_part.get_child(0).hide()
-		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"ImageViewActivated",true)
-		viewer_control = IMAGE_VIEW.instance()
-		view = ViewMode.COVER_VIEW
-		Global.root.middle_part.add_child(viewer_control)
-		update_player_covers( Playlist.get_playlist_name(SongLists.current_playlist_idx) )
+	if !is_image_view_active:
+		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "ImageViewActivated", true)
+		image_view_ref = IMAGE_VIEW.instance()
+		var _err = image_view_ref.connect("tree_exited",self,"set_deferred",["image_view_ref", null])
+		Global.root.middle_part.add_child(image_view_ref)
+		update_player_covers(Playlist.get_playlist_name(SongLists.current_playlist_idx))
 	else:
-		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS,"ImageViewActivated",false)
-		viewer_control.end()
-		view = ViewMode.NORMAL_VIEW
+		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "ImageViewActivated", false)
+		image_view_ref.exit_image_view()
+	is_image_view_active = !is_image_view_active
 
 
 func _on_Effects_pressed():
@@ -171,13 +167,12 @@ func _on_Effects_pressed():
 
 func _on_Volume_pressed():
 	if volume_change_ref == null:
-		var Volume = VOLUME_CHANGER.instance()
-		
-		if Volume.connect("tree_exited",self,"set",["volume_change_ref",null]):
+		var volume = VOLUME_CHANGER.instance()
+		if volume.connect("tree_exited",self,"set",["volume_change_ref",null]):
 			Global.root.message("CONNECTING VOLUME CHANGER IN PLAYER TO TREE EXITED SIGNAL", SaveData.MESSAGE_ERROR)
-		Global.root.top_ui.add_child(Volume)
-		volume_change_ref = Volume
-		Volume.rect_global_position = Vector2(volume_button.rect_global_position.x,self.get_global_position().y - (self.rect_size.y / 1.2))
+		Global.root.top_ui.add_child(volume)
+		volume_change_ref = volume
+		volume.rect_global_position = Vector2(volume_button.rect_global_position.x,self.get_global_position().y - (self.rect_size.y / 1.2))
 	else:
 		volume_change_ref.exit_player_option()
 		volume_change_ref = null
@@ -216,7 +211,7 @@ func _on_Playlist_pressed():
 func _on_Artist_pressed():
 	var artist : String = song_artist.get_text().substr(3)
 	SongLists.temporary_playlist_conditions = {
-		"includes_artist" : [ artist ]
+		"includes_artist" : [artist]
 		}
 	Global.root.load_temporary_playlist( 
 		artist,
@@ -228,9 +223,9 @@ func _on_Artist_pressed():
 
 
 func prior_next_song(var direction : int) -> void:
-	#if the Song that is currently playing is over the 5s mark and
-	#the prior song button is pressed the song will be reset to zero,
-	#without changing the song
+	# if the Song that is currently playing is over the 5s mark and
+	# the prior song button is pressed the song will be reset to zero,
+	# without changing the song
 	if direction == -1:
 		if MainStream.get_playback_position() > 5.0:
 			update_player_covers()
@@ -268,24 +263,24 @@ func prior_next_song(var direction : int) -> void:
 
 
 func disable_image_view() -> void:
-	if view == ViewMode.COVER_VIEW:
-		viewer_control.end()
-		view = ViewMode.NORMAL_VIEW
+	if image_view_ref:
+		image_view_ref.exit_image_view()
+		is_image_view_active = false
 
 
 func update_player_covers(var playlist_name : String = "") -> void:
 	if AllSongs.get_main_idx(SongLists.current_song) != -1:
 		var coverhash : String =  AllSongs.get_song_coverhash(AllSongs.get_main_idx(SongLists.current_song))
-		var CacheImg = ImageLoader.get_covercache_texture(coverhash, playlist_name)
-		info_cover.set_deferred("texture_normal",CacheImg)
-		set_image_view_cover( CacheImg )
+		var cache_img = ImageLoader.get_covercache_texture(coverhash, playlist_name)
+		info_cover.set_deferred("texture_normal", cache_img)
+		set_image_view_cover(cache_img)
 
 
 func set_image_view_cover(var img : Texture) -> void:
-	if view == ViewMode.COVER_VIEW:
-		viewer_control.image_view_cover.set_normal_texture(img)
-		viewer_control.UpdateOption()
-		viewer_control.set_image_view_bg_clr()
+	if image_view_ref:
+		image_view_ref.image_view_cover.set_normal_texture(img)
+		image_view_ref.update_option()
+		image_view_ref.set_image_view_bg_clr()
 
 
 func set_volume_texture(var is_mute : bool) -> void:

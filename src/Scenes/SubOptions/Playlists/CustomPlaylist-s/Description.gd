@@ -6,8 +6,8 @@ var is_expanded : bool = false
 onready var description_edit : TextEdit = $ScrollContainer/Description
 onready var animations : AnimationPlayer = $DescriptionAnimations
 
-func load_description(var file_path : String) -> void:
-	file_path = file_path
+func load_description(var path : String) -> void:
+	file_path = path
 	var description_text = SaveData.load_data(file_path)
 	if description_text != null:
 		description_edit.set_text(description_text)

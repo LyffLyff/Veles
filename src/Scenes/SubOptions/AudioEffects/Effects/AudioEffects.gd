@@ -91,7 +91,7 @@ func load_preset(var preset_idx : int) -> void:
 
 
 func free_audio_effects() -> void:
-	# end Tween
+	# exit_image_view Tween
 	if is_tweening:
 		return;
 	
