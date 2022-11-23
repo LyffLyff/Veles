@@ -202,8 +202,12 @@ func _exit_tree():
 	SaveData.save( global_file_paths[1], Global.user_profiles)
 	SaveData.save( global_file_paths[2], Global.last_loaded_user)
 	
-	# user Specific Data
+	# user specific Data
 	save_user_specific_data( add_users_to_fiie_paths(file_paths) )
+
+
+func rel_to_abs_path(var relative_path : String) -> String:
+	return relative_path.replace("user://", OS.get_user_data_dir() + "/")
 
 
 func load_user_specific_data(var paths : PoolStringArray) -> void:

@@ -19,5 +19,5 @@ func init_infos() -> void:
 
 
 func _on_InfoTextSpace_meta_clicked(var meta : String):
-	meta = meta.replace("user://", OS.get_user_data_dir())
+	meta = SongLists.rel_to_abs_path(meta)
 	var _err = OS.shell_open(str(meta))

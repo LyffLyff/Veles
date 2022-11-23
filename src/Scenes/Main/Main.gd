@@ -27,7 +27,6 @@ onready var player : PanelContainer = $MarginContainer/VBoxContainer/Player
 onready var middle_part : MarginContainer = $MarginContainer/VBoxContainer/MiddlePart
 onready var window_bar : PanelContainer = $MarginContainer/VBoxContainer/WindowBar
 onready var resize_handles : HBoxContainer = $MarginContainer/ResizeHandles
-onready var mouse_stopper : Control = $MarginContainer/VBoxContainer/MiddlePart/MouseStopper
 onready var top_ui : Control = $TopUI
 
 func _ready():
@@ -115,7 +114,7 @@ func init_main(var load_current_song : bool = false) -> void:
 		
 		# connecting User Profile Box
 		sidebar.user_profile_container.init_profile_box()
-		sidebar.update_sidebar()
+		sidebar.update_sidebar(0.0)
 		if !self.is_connected("resized",sidebar,"update_sidebar"):
 			var _err = self.connect("resized",sidebar,"update_sidebar")
 		if !sidebar.user_profile_container.load_user_select.is_connected("pressed",self,"load_user_profile_selection"):

@@ -72,7 +72,10 @@ var song_settings : Dictionary = {
 	
 	#0 = No
 	#1 = Yes
-	"LyricsVisibleTimestamps" : 1
+	"LyricsVisibleTimestamps" : 1,
+	
+	# wether webp images will get embedded as pngs instead of webp
+	"ConverWebPToPNG" : true
 }
 var playlist_settings : Dictionary = {
 	#0 = Veles Playlist, 1 = ALbum Tag

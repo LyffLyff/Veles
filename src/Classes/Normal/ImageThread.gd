@@ -71,9 +71,9 @@ func filter_duplicate_cover(var new_songs : Dictionary) -> void:
 							var value : PoolStringArray = covers.get(new_songs.keys()[x])
 							value.push_back(new_songs.keys()[y])
 							if covers.erase(new_songs.keys()[x]):
-								covers[ new_songs.keys()[x] ] = value
+								covers[new_songs.keys()[x]] = value
 						else:
-							covers[ new_songs.keys()[x] ] = [ new_songs.keys()[y] ]
+							covers[new_songs.keys()[x]] = [new_songs.keys()[y]]
 						
 						# skips the Cover idx since its already marked as a duplicate 
 						idxs_to_skip.push_back(y)

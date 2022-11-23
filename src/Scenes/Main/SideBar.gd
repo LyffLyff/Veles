@@ -13,7 +13,6 @@ onready var user_profile_container : PanelContainer = $HBoxContainer/VBoxContain
 func _ready():
 	# init
 	self.rect_min_size.x = EXPANDED_SIZE
-	update_sidebar(0.0)
 	
 	# initialising color
 	self.get_stylebox("bg").set(
@@ -22,13 +21,14 @@ func _ready():
 	)
 	
 	# hiding Scrollbar
+	# .hide() not working
 	self.get_v_scrollbar().modulate = "00000000"
 
 
 func update_sidebar(var duration : float = 0.3) -> void:
 	match SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "SidebarMode"):
 		0:
-			#Automatic
+			# Automatic
 			if Global.root.get_rect().size.x < ICON_TOGGLE_WIDTH:
 				contract_sidebar(duration)
 			else:
@@ -37,11 +37,11 @@ func update_sidebar(var duration : float = 0.3) -> void:
 				else:
 					return;
 		1:
-			#Expanded
+			# Expanded
 			if icons_visible:
 				expand_sidebar(duration)
 		2:
-			#Contracted
+			# Contracted
 			if !icons_visible:
 				contract_sidebar(duration)
 	sub_options.toggle_icons(icons_visible)

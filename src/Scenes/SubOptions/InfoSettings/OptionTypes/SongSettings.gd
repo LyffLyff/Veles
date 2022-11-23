@@ -45,5 +45,11 @@ Sets the text alignment for Lyrics
 "Lyrics Visible Timestamps" : 
 """
 Sets the visibility of the Timestamps, when playing synchronized Lyrics
+""",
+
+"Convert WebP to PNG" :
+"""
+If this Settings is enabled every image of type .webp will be convert to a .png before embedding in file.
+This is done since most operating systems can display embedded PNG/JPG files but no Webp images.
 """
 }

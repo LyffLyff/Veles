@@ -193,7 +193,7 @@ func on_save_lyrics_project(var save_as : bool = false):
 	if Directory.new().file_exists(project_path) and !save_as:
 		#The Project already exists, the PreExisting File will
 		#be overriden with the new Data
-		SaveData.save(project_path.replace("user://", OS.get_user_data_dir() + "/" ), VLPFiledata )
+		SaveData.save(SongLists.rel_to_abs_path(project_path), VLPFiledata )
 		is_project_up_to_date = true
 	else:
 		var general_file_dialogue = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
@@ -351,7 +351,7 @@ func _on_EmbedInFile_pressed():
 
 
 func _on_OpenInFileManager_pressed():
-	var npath : String = project_path.replace(project_path.get_file(),"").replace("user://",OS.get_user_data_dir() + "/")
+	var npath : String = SongLists.rel_to_abs_path(project_path.replace(project_path.get_file(),""))
 	if OS.shell_open( 	npath ) != OK:
 		Global.root.message("OPENING PROJECT DIRECTORY: " + npath,  SaveData.MESSAGE_ERROR )
 

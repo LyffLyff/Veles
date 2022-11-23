@@ -321,6 +321,16 @@ func _on_SetTag_pressed():
 			# Cover
 			if cover_edit.get_text() != "":
 				var cover_path : String = cover_edit.get_text()
+				
+				# converts a webp image to png to embed in file -> embedded pngs can be shown in OS
+				if cover_path.get_extension() == "webp" and SettingsData.get_setting(SettingsData.SONG_SETTINGS, "ConverWebPToPNG"):
+					var png_data : PoolByteArray = ImageLoader.webp_to_png(SaveData.load_buffer(cover_path))
+					var png_img = ImageLoader.create_image_from_data(png_data)
+					if png_img is Image:
+						var temp_cover_path : String = "user://temp.png"
+						png_img.save_png(temp_cover_path)
+						cover_path = SongLists.rel_to_abs_path(temp_cover_path)
+				
 				Tags.set_cover(
 					cover_path,
 					song_paths[path_idx],

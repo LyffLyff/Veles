@@ -84,17 +84,6 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="MouseStopper" type="Control" parent="MarginContainer/VBoxContainer/MiddlePart"]
-margin_right = 1120.0
-margin_bottom = 457.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
 [node name="Player" parent="MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_top = 478.0
