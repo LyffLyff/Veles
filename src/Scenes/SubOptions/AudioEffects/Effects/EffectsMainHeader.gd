@@ -16,7 +16,7 @@ func _enter_tree():
 
 func init_color() -> void:
 	self.get_stylebox("panel").set_bg_color(
-		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "AudioEffectsHeaderBackground")
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "AudioEffectsBackground")
 	)
 
 

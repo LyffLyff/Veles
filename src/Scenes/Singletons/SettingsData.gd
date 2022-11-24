@@ -93,7 +93,6 @@ var design_settings : Dictionary = {
 	"ImageViewOption" : Color("00282828"),
 	"SidebarMode" : 0,
 	"AudioEffectsBackground" : Color("202020"),
-	"AudioEffectsHeaderBackground" : Color("202020"),
 	"PlaylistHeader" : Color("202020")
 }
 var statistic_settings : Dictionary = {

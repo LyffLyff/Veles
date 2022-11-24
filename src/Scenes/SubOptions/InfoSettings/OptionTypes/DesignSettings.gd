@@ -66,11 +66,6 @@ Sets the color of the Image Views option Background
 Sets the color of the Audio effects Background
 """,
 
-"Audio Effect Header Background" :
-"""
-Sets the color of the Audio Effect header
-""",
-
 "Playlist Header" :
 """
 Sets the color of the Playlist header

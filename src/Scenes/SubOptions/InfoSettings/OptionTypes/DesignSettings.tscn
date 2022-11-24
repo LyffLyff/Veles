@@ -147,32 +147,21 @@ setting_label = "Audio Effects Background"
 color_setting_key = "AudioEffectsBackground"
 change_clr_realtime = false
 
-[node name="AudioEffectsHeaderBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+[node name="PlaylistHeader" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 341.0
 margin_right = 1102.0
 margin_bottom = 357.0
 setting_type = "Color"
-setting_label = "Audio Effects Header Background"
-color_setting_key = "AudioEffectsHeaderBackground"
-change_clr_realtime = false
-
-[node name="PlaylistHeader" parent="VBoxContainer" instance=ExtResource( 2 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 372.0
-margin_right = 1102.0
-margin_bottom = 388.0
-setting_type = "Color"
 setting_label = "Playlist Header"
 color_setting_key = "PlaylistHeader"
 change_clr_realtime = false
 
 [node name="BottomBuffer" type="Control" parent="VBoxContainer" groups=["Buffer"]]
-margin_top = 403.0
+margin_top = 372.0
 margin_right = 1102.0
-margin_bottom = 453.0
+margin_bottom = 422.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 

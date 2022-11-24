@@ -5,18 +5,23 @@ var _err : bool
 var panel_tw : Tween = Tween.new()
 var pointer_tw : Tween = Tween.new()
 
-onready var hover_panel : Panel = get_child(0)
+onready var hover_panel : PanelContainer = get_child(0)
 onready var pointer : TextureRect = get_child(0).get_child(0)
 
 
 func _ready():
 	self.add_child(panel_tw)
 	self.add_child(pointer_tw)
+	
+	# init hover panel
+	var clr : Color = SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "PlayerBackground")
+	clr.a = 0.5
+	hover_panel.material.set_shader_param("color", clr)
 
 
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_MOUSE_EXIT:
-		#Mouse is not being updated when exiting window, so the tween won't be reversed when exiting sometimes
+		# mouse is not being updated when exiting window, so the tween won't be reversed when exiting sometimes
 		tween_hover_panel(false)
 		self.set_process(false)
 

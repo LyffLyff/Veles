@@ -76,4 +76,4 @@ script = ExtResource( 4 )
 [connection signal="button_down" from="RotaryButton" to="RotaryButton" method="_on_RotaryButton_button_down"]
 [connection signal="button_up" from="RotaryButton" to="RotaryButton" method="_on_RotaryButton_button_up"]
 [connection signal="item_rect_changed" from="RotaryButton" to="RotaryButton" method="_on_RotaryButton_item_rect_changed"]
-[connection signal="text_entered" from="RotaryEdit" to="." method="OnRotaryEditTextEntered"]
+[connection signal="text_entered" from="RotaryEdit" to="." method="_on_RotaryEdit_text_entered"]

@@ -178,6 +178,7 @@ var credits : Dictionary = {
 """
 	[i]Main Creator:[/i]
 	
+	Sebastian Hinterberger
 	LyffLyff
 
 	Itch.io: [url]https://lyfflyff.itch.io/[/url]

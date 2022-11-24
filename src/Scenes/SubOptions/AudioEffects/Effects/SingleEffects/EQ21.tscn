@@ -237,7 +237,7 @@ margin_bottom = 280.0
 size_flags_horizontal = 0
 title = "8kHz"
 min_value = -10.0
-max_value = -10.0
+max_value = 0.5
 property_idx = 17
 
 [node name="11000Hz" parent="VBoxContainer/VBoxContainer/EQs" instance=ExtResource( 2 )]

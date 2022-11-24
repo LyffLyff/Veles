@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricScroller.gd" type="Script" id=1]
 [ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=2]
@@ -27,6 +27,34 @@ gradient = SubResource( 4 )
 [sub_resource type="ShaderMaterial" id=3]
 shader = SubResource( 2 )
 shader_param/gradient = SubResource( 5 )
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec4 color : hint_color;
+uniform vec2 direction = vec2(0,1);
+uniform float strength : hint_range(0.0,3.0) = 1.0;
+
+void fragment(){
+	vec4 pixelcolor = texture(TEXTURE,UV);
+	COLOR = color;
+	vec2 NewUV = ((UV / 2.0) + 0.2) * direction;
+	COLOR.a *= (NewUV.x + NewUV.y) * strength;
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 1 )
+shader_param/color = Color( 0.152941, 0.152941, 0.152941, 1 )
+shader_param/direction = Vector2( 0, 1 )
+shader_param/strength = 1.227
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.101961, 0.101961, 0.101961, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 20
 
 [node name="LyricScroller" type="VBoxContainer"]
 anchor_right = 1.0
@@ -120,14 +148,25 @@ margin_right = 1120.0
 margin_bottom = 582.0
 mouse_filter = 2
 
-[node name="Resync" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Background/VBoxContainer/HBoxContainer"]
 visible = false
-margin_left = 1036.0
-margin_right = 1076.0
+material = SubResource( 8 )
+margin_left = 1032.0
+margin_right = 1072.0
 margin_bottom = 40.0
-rect_min_size = Vector2( 50, 30 )
-mouse_default_cursor_shape = 2
+rect_min_size = Vector2( 36, 36 )
 size_flags_horizontal = 10
+custom_styles/panel = SubResource( 7 )
+
+[node name="Resync" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/PanelContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 28, 28 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource( 3 )
 expand = true
 stretch_mode = 5
@@ -149,5 +188,5 @@ wait_time = 0.15
 autostart = true
 
 [connection signal="resized" from="." to="." method="_on_LyricScroller_resized"]
-[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/Resync" to="." method="_on_Resync_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/PanelContainer/Resync" to="." method="_on_Resync_pressed"]
 [connection signal="timeout" from="UpdateSecondsPassed" to="." method="_on_UpdateSecondsPassed_timeout"]

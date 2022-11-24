@@ -18,7 +18,7 @@ var is_synched : bool = false
 onready var lyrics_vbox : VBoxContainer = $Background/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/Lyrics
 onready var scroll : ScrollContainer = $Background/HBoxContainer/ScrollContainer
 onready var update_seconds_passed : Timer = $UpdateSecondsPassed
-onready var resync : TextureButton = $Background/VBoxContainer/HBoxContainer/Resync
+onready var resync : PanelContainer = $Background/VBoxContainer/HBoxContainer/PanelContainer
 onready var bottom_buffer : Control = $Background/HBoxContainer/ScrollContainer/VBoxContainer/BottomBuffer
 
 func _ready():
