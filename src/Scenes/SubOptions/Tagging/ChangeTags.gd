@@ -25,7 +25,7 @@ onready var title : LineEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxConta
 onready var artist_edit : LineEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Artist/VBoxContainer/HBoxContainer/Artist
 onready var artist_vbox : VBoxContainer = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Artist/VBoxContainer
 onready var album_edit : LineEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Album/Album
-onready var genre_menu : MenuButton = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/GenreSelection/GenreSelection
+onready var genre_edit : LineEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/GenreSelection/LineEdit
 onready var cover_edit : LineEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Cover/Cover/LineEdit
 onready var cover_description_edit : TextEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Cover/HBoxContainer/CoverDescription
 onready var comment_edit : TextEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Comment/Comment
@@ -33,7 +33,7 @@ onready var track_num_edit : LineEdit = $ScrollContainer/VBoxContainer/MainTags/
 onready var release_year_edit : LineEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/ReleaseYear/ReleaseYear
 onready var top_covers : HBoxContainer = $ScrollContainer/VBoxContainer/ScrollContainer/Covers
 onready var rating_box : SpinBox = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Popularity/RatingEdit
-onready var tag_edits : Array = [filename_edit, artist_edit, title, album_edit, genre_menu, comment_edit, release_year_edit, track_num_edit, cover_description_edit]
+onready var tag_edits : Array = [filename_edit, artist_edit, title, album_edit, genre_edit, comment_edit, release_year_edit, track_num_edit, cover_description_edit]
 
 func _ready():
 	if get_tree().connect("files_dropped",self,"_on_files_dropped"):
@@ -160,13 +160,13 @@ func init_tags(var valid_paths : PoolStringArray) -> void:
 		all_tags = ["","","","","","",""]
 	
 	filename_edit.set_text(valid_paths[0].get_file().get_basename())
-	set_artist_line_edits( all_tags[0] )
-	title.set_text( all_tags[1] )
-	album_edit.set_text( all_tags[2] )
-	genre_menu.set_text( all_tags[3] )
-	comment_edit.set_text( all_tags[4] )
-	release_year_edit.set_text( all_tags[5])
-	track_num_edit.set_text( all_tags[6])
+	set_artist_line_edits( all_tags[0])
+	title.set_text(all_tags[1])
+	album_edit.set_text(all_tags[2])
+	genre_edit.set_text(all_tags[3])
+	comment_edit.set_text(all_tags[4])
+	release_year_edit.set_text(all_tags[5])
+	track_num_edit.set_text(all_tags[6])
 	
 	# song Popularity -> [Rating, Counter, Email]
 	var song_rating = Tagging.new().GetSongPopularity(valid_paths[0])
@@ -284,7 +284,7 @@ func _on_SetTag_pressed():
 				Tags.set_album(album_edit.get_text(),song_paths[ path_idx ])
 			
 			# GENRE
-			Tags.set_genre(genre_menu.get_text(),song_paths[ path_idx ])
+			Tags.set_genre(genre_edit.get_text(),song_paths[ path_idx ])
 			
 			# TRACK NUMBER
 			if line_edits_edited[ TRACK_NUMBER ]:
@@ -362,7 +362,7 @@ func _on_SelectSong_pressed():
 		FileDialog.ACCESS_FILESYSTEM,
 		"set_song_paths",
 		[],
-		"Song",
+		UsedFilepaths.TAG_PATH,
 		dialogue_song_formats,
 		false,
 		"Select Song"
@@ -378,7 +378,7 @@ func _on_SelectCover_pressed():
 		FileDialog.ACCESS_FILESYSTEM,
 		"set_cover_path",
 		[],
-		"Image",
+		UsedFilepaths.TAG_COVER,
 		Global.supported_img_extensions,
 		false,
 		"Select Image"

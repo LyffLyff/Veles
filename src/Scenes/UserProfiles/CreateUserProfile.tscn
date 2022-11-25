@@ -51,7 +51,7 @@ anchor_bottom = 0.0
 margin_top = 64.0
 margin_right = 450.0
 margin_bottom = 89.0
-input_label_text = "Username:"
+input_label_text = "Name:"
 
 [node name="SelectProfileImg" parent="PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0

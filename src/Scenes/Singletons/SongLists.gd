@@ -41,6 +41,7 @@ const file_paths : Array = [
 	"user://Users/USERNAME/Settings/AudioEffects/AudioEffects.dat",
 	"user://Users/USERNAME/Settings/CoreSettings/DownloadQueue.dat",
 	"user://Users/USERNAME/Settings/CoreSettings/StdAudioPresets.dat",
+	"user://Users/USERNAME/Settings/CoreSettings/UsedFilepaths.dat",
 ]
 const global_file_paths : Array = [
 	"user://GlobalSettings/UserProfileIdx.dat",
@@ -203,7 +204,7 @@ func _exit_tree():
 	SaveData.save( global_file_paths[2], Global.last_loaded_user)
 	
 	# user specific Data
-	save_user_specific_data( add_users_to_fiie_paths(file_paths) )
+	save_user_specific_data( add_users_to_filepaths(file_paths) )
 
 
 func rel_to_abs_path(var relative_path : String) -> String:
@@ -256,7 +257,7 @@ func load_user_specific_data(var paths : PoolStringArray) -> void:
 	is_song_from_queue = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"SongFromQueue")
 
 
-func add_users_to_fiie_paths(var user_paths : PoolStringArray) -> PoolStringArray:
+func add_users_to_filepaths(var user_paths : PoolStringArray) -> PoolStringArray:
 	var formatted_paths : PoolStringArray = []
 	for i in user_paths.size():
 		formatted_paths.push_back(add_user_to_filepath(user_paths[i]))

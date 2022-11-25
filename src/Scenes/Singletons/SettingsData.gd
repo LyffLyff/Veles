@@ -91,7 +91,7 @@ var design_settings : Dictionary = {
 	"MainSongOptionsBackground" : Color("202020"),
 	"PortableSongOptionsBackground" : Color("202020"),
 	"ImageViewOption" : Color("00282828"),
-	"SidebarMode" : 0,
+	"SidebarMode" : 2,
 	"AudioEffectsBackground" : Color("202020"),
 	"PlaylistHeader" : Color("202020")
 }

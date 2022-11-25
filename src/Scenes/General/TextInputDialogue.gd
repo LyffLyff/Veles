@@ -8,7 +8,7 @@ onready var input_edit : LineEdit = $PanelContainer/HBoxContainer/VBoxContainer/
 onready var dialogue_button : TextureButton = $PanelContainer/HBoxContainer/VBoxContainer/Input/FileDialogue
 
 
-func init_dialogue_button(var open_mode : int = FileDialog.MODE_OPEN_FILE, var file_access : int = FileDialog.ACCESS_FILESYSTEM, file_type : String = "Cover", file_filters : PoolStringArray = []) -> void:
+func init_dialogue_button(var open_mode : int = FileDialog.MODE_OPEN_FILE, var file_access : int = FileDialog.ACCESS_FILESYSTEM, file_type : int = UsedFilepaths.DESKTOP, file_filters : PoolStringArray = []) -> void:
 	dialogue_button.show()
 	var _err = dialogue_button.connect("pressed",Global.root,"load_general_file_dialogue",[
 		input_edit,

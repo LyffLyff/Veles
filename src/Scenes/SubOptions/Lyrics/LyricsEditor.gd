@@ -19,6 +19,7 @@ onready var save_as : TextureButton = $VBoxContainer/PanelContainer/DocOptions/S
 onready var embed_in_song : TextureButton = $VBoxContainer/PanelContainer/DocOptions/EmbedInFile
 
 func _ready():
+	Global.root.init_context_menus()
 	var _err = timestamp_tools.add_timestamp.connect("pressed", self, "_on_add_timestamp_pressed")
 	_err = timestamp_tools.cut_timestamp.connect("pressed", self, "_on_cut_timestamp_pressed")
 	_err = verse_tools.add_verse.connect("pressed", self, "_on_add_verse_pressed")
@@ -104,7 +105,7 @@ func init_verses(var verses : PoolStringArray) -> void:
 		verse_vbox.get_child(i).verse_text_edit.set_text(verses[i])
 		
 		# resizing the Verse TextEdit if the Verse  is Mutliline
-		verse_vbox.get_child(i).on_verse_text_changed()
+		verse_vbox.get_child(i)._on_VerseText_text_changed()
 
 
 func init_timestamps(var timestamps : PoolRealArray) -> void:
@@ -134,11 +135,11 @@ func create_from_lrc(var lrc_filepath : String) -> void:
 		verse_vbox.get_child(i).verse_text_edit.set_text( decoded_lrc_file[1][i] )
 		
 		# resizing the Verse TextEdit if the Verse  is Mutliline
-		verse_vbox.get_child(i).on_verse_text_changed()
+		verse_vbox.get_child(i)._on_VerseText_text_changed()
 	# timeStamps
 	for i in decoded_lrc_file[2].size():
 		_on_add_timestamp_pressed()
-		timestamp_vbox.get_child(i).timestamp_edit.set_text( str( decoded_lrc_file[2][i] ) )
+		timestamp_vbox.get_child(i).timestamp_edit.set_text(str(decoded_lrc_file[2][i]))
 
 
 func create_from_api_response(var api_response : Array) -> void:
@@ -155,7 +156,7 @@ func create_from_api_response(var api_response : Array) -> void:
 		verse_vbox.get_child(i).verse_text_edit.set_text(
 			api_response[i]["lyrics"]
 		)
-		verse_vbox.get_child(i).on_verse_text_changed()
+		verse_vbox.get_child(i)._on_VerseText_text_changed()
 		timestamp_vbox.get_child(i).timestamp_edit.set_text(
 			str( api_response[i]["seconds"] )
 		)
@@ -259,7 +260,7 @@ func _on_ExportToLRC_pressed() -> void:
 		FileDialog.ACCESS_FILESYSTEM,
 		"to_LRC",
 		[lrc_file_data],
-		"ExportLRC",
+		UsedFilepaths.LRC_FILE,
 		["*.lrc"],
 		true,
 		"Export Project to LRC File"
@@ -343,7 +344,7 @@ func _on_EmbedInFile_pressed():
 		FileDialog.ACCESS_FILESYSTEM,
 		"set_lyrics",
 		[is_synchronized, verses, timestamps],
-		"",
+		UsedFilepaths.EMBED_LYRICS,
 		["*.mp3","*.ogg","*.wav"],
 		false,
 		"Embed In Song"

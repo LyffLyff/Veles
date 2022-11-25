@@ -94,7 +94,7 @@ margin_bottom = 25.0
 rect_min_size = Vector2( 0, 25 )
 custom_constants/separation = 10
 
-[node name="Save" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions"]
+[node name="Save" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
 margin_right = 40.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 40, 0 )
@@ -103,7 +103,7 @@ texture_normal = ExtResource( 9 )
 expand = true
 stretch_mode = 5
 
-[node name="SaveAs" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions"]
+[node name="SaveAs" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
 margin_left = 50.0
 margin_right = 90.0
 margin_bottom = 25.0
@@ -113,7 +113,7 @@ texture_normal = ExtResource( 7 )
 expand = true
 stretch_mode = 5
 
-[node name="API" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions"]
+[node name="API" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
 margin_left = 100.0
 margin_right = 140.0
 margin_bottom = 25.0
@@ -123,7 +123,7 @@ texture_normal = ExtResource( 13 )
 expand = true
 stretch_mode = 5
 
-[node name="OpenInFileManager" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions"]
+[node name="OpenInFileManager" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
 margin_left = 150.0
 margin_right = 190.0
 margin_bottom = 25.0
@@ -133,7 +133,7 @@ texture_normal = ExtResource( 2 )
 expand = true
 stretch_mode = 5
 
-[node name="EmbedInFile" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions"]
+[node name="EmbedInFile" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
 margin_left = 200.0
 margin_right = 240.0
 margin_bottom = 25.0
@@ -143,7 +143,7 @@ texture_normal = ExtResource( 6 )
 expand = true
 stretch_mode = 5
 
-[node name="ExportToLRC" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions"]
+[node name="ExportToLRC" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
 margin_left = 250.0
 margin_right = 290.0
 margin_bottom = 25.0
@@ -153,7 +153,7 @@ texture_normal = ExtResource( 14 )
 expand = true
 stretch_mode = 5
 
-[node name="PasteFromClipboard" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions"]
+[node name="PasteFromClipboard" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
 margin_left = 300.0
 margin_right = 340.0
 margin_bottom = 25.0
@@ -163,7 +163,7 @@ texture_normal = ExtResource( 15 )
 expand = true
 stretch_mode = 5
 
-[node name="DeleteProjectFile" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions"]
+[node name="DeleteProjectFile" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
 margin_left = 350.0
 margin_right = 390.0
 margin_bottom = 25.0
@@ -214,41 +214,43 @@ custom_constants/separation = 15
 [node name="ScrollContainer" type="ScrollContainer" parent="LyricEditor/VBoxContainer"]
 margin_top = 279.0
 margin_right = 1064.0
-margin_bottom = 592.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 16 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer"]
 margin_right = 1064.0
-margin_bottom = 313.0
+margin_bottom = 321.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VerseVBox" type="VBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
-margin_right = 938.0
-margin_bottom = 313.0
+margin_right = 920.0
+margin_bottom = 321.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 3
 custom_constants/separation = 8
 
 [node name="VSeparator" type="VSeparator" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
-margin_left = 946.0
-margin_right = 956.0
-margin_bottom = 313.0
+margin_left = 928.0
+margin_right = 938.0
+margin_bottom = 321.0
 custom_constants/separation = 10
 
 [node name="TimeStampVBox" type="VBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
-margin_left = 964.0
-margin_right = 1064.0
-margin_bottom = 313.0
+margin_left = 946.0
+margin_right = 1046.0
+margin_bottom = 321.0
 rect_min_size = Vector2( 100, 0 )
 custom_constants/separation = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LyricEditor/VBoxContainer"]
-margin_top = 600.0
+[node name="RightEmpty" type="Control" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
+margin_left = 1054.0
 margin_right = 1064.0
-margin_bottom = 600.0
+margin_bottom = 321.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
 
 [node name="RightEmpty" type="Control" parent="LyricEditor"]
 margin_left = 1100.0

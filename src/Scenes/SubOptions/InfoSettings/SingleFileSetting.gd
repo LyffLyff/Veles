@@ -5,7 +5,16 @@ onready var dialogue : TextureButton = $FileDialog
 
 
 func _ready() -> void:
-	if dialogue.connect("pressed", Global.root,"load_general_file_dialogue",[file_edit, FileDialog.MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, "set_text", [], "Image", [], true]):
+	if dialogue.connect("pressed", Global.root,"load_general_file_dialogue",[
+		file_edit,
+		FileDialog.MODE_OPEN_FILE,
+		FileDialog.ACCESS_FILESYSTEM,
+		"set_text",
+		[],
+		UsedFilepaths.DESKTOP,
+		[],
+		true
+	]):
 		Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
 	var file_path : String = SettingsData.get_setting(
 		get_parent().get_parent().setting_type_idx,

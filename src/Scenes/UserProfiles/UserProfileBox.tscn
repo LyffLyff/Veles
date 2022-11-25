@@ -14,6 +14,7 @@ script = ExtResource( 1 )
 [node name="LoadUserSelect" type="Button" parent="."]
 margin_right = 176.0
 margin_bottom = 40.0
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

@@ -14,7 +14,7 @@ func load_dialogue() -> void:
 		FileDialog.ACCESS_FILESYSTEM,
 		"set_text",
 		[],
-		"Cover",
+		UsedFilepaths.USER_COVER,
 		Global.supported_img_extensions,
 		true
 	)

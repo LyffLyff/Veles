@@ -74,7 +74,7 @@ func _on_AddFolder_pressed():
 		FileDialog.ACCESS_FILESYSTEM,
 		"_on_FileDialog_dir_selected",
 		[],
-		"Song",
+		UsedFilepaths.ADD_FOLDER,
 		[],
 		false,
 		"Add Folders"

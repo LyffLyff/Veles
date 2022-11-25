@@ -161,7 +161,7 @@ func extract_cover(var main_idx : int = -1) -> void:
 		FileDialog.ACCESS_FILESYSTEM,
 		"to_image",
 		[song_paths],
-		"ExportCover",
+		UsedFilepaths.EXPORT_COVER,
 		["*png","*jpg","*webp"],
 		true
 	)

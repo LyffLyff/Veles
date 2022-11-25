@@ -115,6 +115,8 @@ func init_main(var load_current_song : bool = false) -> void:
 		# connecting User Profile Box
 		sidebar.user_profile_container.init_profile_box()
 		sidebar.update_sidebar(0.0)
+		
+		init_context_menus()
 		if !self.is_connected("resized",sidebar,"update_sidebar"):
 			var _err = self.connect("resized",sidebar,"update_sidebar")
 		if !sidebar.user_profile_container.load_user_select.is_connected("pressed",self,"load_user_profile_selection"):
@@ -477,7 +479,7 @@ func load_user_profile_selection() -> void:
 	# loads the user profiles selection to change the current user
 	
 	# saving user specific data
-	SongLists.save_user_specific_data( SongLists.add_users_to_fiie_paths(SongLists.file_paths) )
+	SongLists.save_user_specific_data( SongLists.add_users_to_filepaths(SongLists.file_paths) )
 	
 	var x = load("res://src/Scenes/UserProfiles/UserProfileSelection.tscn").instance()
 	var _err = x.connect("tree_exited",self,"init_main")
@@ -485,7 +487,7 @@ func load_user_profile_selection() -> void:
 
 
 func load_general_file_dialogue(var ref : Object, var open_mode : int, var file_access : int, var method : String,
-		var method_args : Array, var filetype : String, var filetype_filters : PoolStringArray = [],
+		var method_args : Array, var filetype : int, var filetype_filters : PoolStringArray = [],
 		var return_string : bool  = false, var title_override : String = "") -> Node:
 	# creates an Instance of the General FileDialogue and Autromatically sets thew text where needed
 	
@@ -559,9 +561,29 @@ func update_player_infos() -> void:
 		playlist_name = Tags.get_album(SongLists.current_song)
 	player.song_playlist.set_text("in " +  playlist_name )
 	
-	#Covers
+	# covers
 	player.update_player_covers(
 		Playlist.get_playlist_name(
 			SongLists.current_playlist_idx
 		)
 	)
+
+
+func init_context_menus() -> void:
+	var context_nodes : Array = get_tree().get_nodes_in_group("Context")
+	var _err
+	for i in context_nodes:
+		if !i.is_connected("mouse_entered", self, "show_context_menu"):
+			_err = i.connect("mouse_entered", self, "show_context_menu", [i])
+
+
+func show_context_menu(var ref : Control) -> void:
+	var new_context_label : Label = load("res://src/Scenes/General/ContextLabel.tscn").instance()
+	top_ui.add_child(new_context_label)
+	ref.connect("mouse_exited", new_context_label, "queue_free")
+	var context : String = ""
+	if ref.get("context"):
+		context = ref.get("context")
+	else:
+		context = ref.name
+	new_context_label.init_context_label(context)

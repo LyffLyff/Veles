@@ -256,7 +256,7 @@ func on_set_cover_pressed():
 		FileDialog.ACCESS_FILESYSTEM,
 		"on_cover_selected",
 		[],
-		"Image",
+		UsedFilepaths.PLAYLIST_COVER,
 		Global.supported_img_extensions,
 		true,
 		"Select New Playlist Cover"

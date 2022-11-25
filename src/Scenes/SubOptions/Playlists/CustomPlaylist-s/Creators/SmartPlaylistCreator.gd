@@ -22,7 +22,7 @@ func _ready():
 		FileDialog.ACCESS_FILESYSTEM,
 		"set_text",
 		[],
-		"Image",
+		UsedFilepaths.PLAYLIST_COVER,
 		Global.supported_img_extensions,
 		true
 	])

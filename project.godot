@@ -25,11 +25,6 @@ _global_script_classes=[ {
 "path": "res://src/Classes/Static/CSV.gd"
 }, {
 "base": "Reference",
-"class": "CheckString",
-"language": "NativeScript",
-"path": "res://addons/GDNative/CheckString.gdns"
-}, {
-"base": "Reference",
 "class": "CoverLoader",
 "language": "GDScript",
 "path": "res://src/Classes/Normal/ImageThread.gd"
@@ -120,6 +115,11 @@ _global_script_classes=[ {
 "path": "res://src/Classes/Static/TimeFormatter.gd"
 }, {
 "base": "Reference",
+"class": "UsedFilepaths",
+"language": "GDScript",
+"path": "res://src/Classes/Static/UsedFilepaths.gd"
+}, {
+"base": "Reference",
 "class": "VelesInit",
 "language": "GDScript",
 "path": "res://src/Classes/Normal/VelesInit.gd"
@@ -138,7 +138,6 @@ _global_script_class_icons={
 "AllSongs": "",
 "Binary": "",
 "CSV": "",
-"CheckString": "",
 "CoverLoader": "",
 "DesignPaths": "",
 "Exporter": "",
@@ -157,6 +156,7 @@ _global_script_class_icons={
 "Tagging": "",
 "Tags": "",
 "TimeFormatter": "",
+"UsedFilepaths": "",
 "VelesInit": "",
 "WAV": "",
 "YtDlp": ""

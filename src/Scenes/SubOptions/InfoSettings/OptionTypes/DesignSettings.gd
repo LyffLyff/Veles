@@ -46,14 +46,15 @@ Sets the color of the Songoptions being shown when right-clicking a song
 """
 Sets the mode of the Sidebar:
 
-1.) Expanded:
+1.) Automatic:
+	Contracts and Expands automatically depending on the windows size
+	
+2.) Expanded:
 	The sidebar always stays expanded and shows the labels
 	
-2.) Contracted:
+3.) Contracted:
 	The sidebar always stays contracted and shows the icons
 	
-3.) Automatic:
-	Contracts and Expands automatically depending on the windows size
 """,
 
 "Image View Option" :

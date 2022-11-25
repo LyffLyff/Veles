@@ -62,7 +62,7 @@ func _on_OpenFromFile_pressed():
 		FileDialog.ACCESS_FILESYSTEM,
 		"load_lyric_editor",
 		[],
-		"Lyrics",
+		UsedFilepaths.LRC_FILE,
 		["*.lrc","*.mp3","*.vlp"],
 		true
 	)

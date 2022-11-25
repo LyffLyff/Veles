@@ -39,6 +39,7 @@ func _ready():
 	for i in option_titles.size():
 		
 		var new_option : Control = load("res://src/Scenes/Main/SidebarOption.tscn").instance()
+		new_option.context = option_titles[i]
 		self.add_child(new_option)
 		self.move_child(new_option,i)
 		

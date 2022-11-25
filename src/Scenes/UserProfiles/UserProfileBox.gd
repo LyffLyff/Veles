@@ -1,5 +1,7 @@
 extends PanelContainer
 
+var context : String = "User Selection"
+
 onready var profile_img : TextureRect = $HBoxContainer/ProfileImg
 onready var load_user_select : Button = $LoadUserSelect
 onready var username_label : Label = $HBoxContainer/Username

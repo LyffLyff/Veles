@@ -1,16 +1,40 @@
-extends "res://src/Scenes/General/StdMenuButton.gd"
+extends Control
 
-#Copyright by sampsyo
-#https://gist.github.com/sampsyo/1241307
-var music_genres : PoolStringArray = []
+const music_genres : Array = [
+	"Pop",
+	"Rock",
+	"Hip-Hop & Rap",
+	"Country",
+	"R&B",
+	"Folk",
+	"Jazz",
+	"Heavy Metal",
+	"EDM",
+	"Soul",
+	"Funk",
+	"Reggae",
+	"Disco",
+	"Punk Rock",
+	"Classical",
+	"House",
+	"Techno",
+	"Indie Rock",
+	"Grunge",
+	"Ambient",
+	"Gospel",
+	"Latin Music",
+	"Grime",
+	"Trap",
+	"Psychedelic Rock"
+]
 
-func _enter_tree():
-	load_music_genres()
-	menu_button_selections = music_genres
+onready var genre_edit : LineEdit = $LineEdit
+onready var genre_presets : OptionButton = $GenreSelection
+
+func _ready():
+	for i in music_genres.size():
+		genre_presets.add_item(music_genres[i], i)
 
 
-func load_music_genres() -> void:
-	var file : File = File.new()
-	if file.open("res://src/Scenes/SubOptions/Tagging/music_genres.txt",File.READ) == OK:
-		while !file.eof_reached():
-			music_genres.push_back( file.get_line() )
+func _on_GenreSelection_item_selected(index):
+	genre_edit.set_text(music_genres[index])

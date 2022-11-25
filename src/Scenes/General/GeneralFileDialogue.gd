@@ -4,7 +4,7 @@ signal saved
 signal exited
 signal selection_made
 
-var search_type : String = ""	# Song,Image,Lyrics
+var filepath_idx : int = UsedFilepaths.DESKTOP
 var return_as_string : bool = false
 
 onready var dialogue : FileDialog = $FileDialog
@@ -32,7 +32,7 @@ func _on_FileDialog_popup_hide():
 	exit_popup()
 
 
-func n_ready(var mode_flag : int = 0, var access_flag : int = 0, var type : String = "", var filetype_filters : PoolStringArray = [], var return_string : bool = false, var title_override : String = "", var _file_override : String = ""):
+func n_ready(var mode_flag : int = 0, var access_flag : int = 0, var used_filepath_idx : int = UsedFilepaths.DESKTOP, var filetype_filters : PoolStringArray = [], var return_string : bool = false, var title_override : String = "", var _file_override : String = ""):
 	# node that needs this Scene has to call this function and give certain Parameters
 	# mode and Access NEED to be set prior to prevent blocking the set path/dir/file functions
 	dialogue.set_access(access_flag)
@@ -43,38 +43,9 @@ func n_ready(var mode_flag : int = 0, var access_flag : int = 0, var type : Stri
 		dialogue.set_mode_overrides_title(true)
 	return_as_string = return_string
 	# get Last Used Folder
-	search_type = type
-	match search_type:
-		"Image":
-			var path : String = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"ImagePath")
-			if path != "":
-				dialogue.set_current_dir(path)
-		"Song":
-			var path : String = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"SongPath")
-			if path != "":
-				dialogue.set_current_dir(path)
-		"Lyrics":
-			dialogue.set_current_dir(Global.get_current_user_data_folder() + "/Lyrics/Projects")
-		"ExportCover":
-			var path : String = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"CoverExportPath")
-			if path != "":
-				dialogue.set_current_dir(path)
-		"ExportHTML":
-			dialogue.set_current_dir(
-				SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"HTMLExportPath")
-			)
-		"ExportLRC":
-			dialogue.set_current_dir(
-				SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"LRCExportPath")
-			)
-		"ExportCSV":
-			dialogue.set_current_dir(
-				SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"CSVExportPath")
-			)
-		"ExportFolder":
-			dialogue.set_current_dir(
-				SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"FolderExportPath")
-			)
+	filepath_idx = used_filepath_idx
+	print(UsedFilepaths.get_used_filepath(used_filepath_idx))
+	dialogue.set_current_dir(UsedFilepaths.get_used_filepath(used_filepath_idx))
 	dialogue.popup_centered()
 
 
@@ -104,18 +75,4 @@ func selection_made(var args) -> void:
 func save_last_folder(var args : String):
 	# saving folder for next call of this Scene
 	var folder : String = args.get_base_dir()
-	match search_type:
-		"Image":
-			SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "ImagePath", folder)
-		"Song":
-			SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "song_path", folder)
-		"ExportCover":
-			SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "CoverExportPath", folder)
-		"ExportHTML":
-			SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "HTMLExportPath", folder)
-		"ExportLRC":
-			SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "LRCExportPath", folder)
-		"ExportCSV":
-			SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "CSVExportPath", folder)
-		"ExportFolder":
-			SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "FolderExportPath", folder)
+	UsedFilepaths.save_filepath_type(filepath_idx, folder)

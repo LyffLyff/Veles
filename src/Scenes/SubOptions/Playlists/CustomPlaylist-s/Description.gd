@@ -5,6 +5,7 @@ var is_expanded : bool = false
 
 onready var description_edit : TextEdit = $ScrollContainer/Description
 onready var animations : AnimationPlayer = $DescriptionAnimations
+onready var expand_button : Button = $Expand
 
 func load_description(var path : String) -> void:
 	file_path = path
@@ -21,6 +22,8 @@ func save_description():
 func _on_Expand_pressed():
 	if !is_expanded:
 		animations.play("Expand")
+		expand_button.icon = load("res://src/Assets/Icons/White/General/remove_1_72px.png")
 	else:
 		animations.play_backwards("Expand")
+		expand_button.icon = load("res://src/Assets/Icons/White/General/add_1_72px.png")
 	is_expanded = !is_expanded

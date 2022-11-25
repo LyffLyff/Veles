@@ -74,7 +74,7 @@ func _on_create_new_playlist_pressed(var new_playlist_type : int) -> void:
 				FileDialog.ACCESS_FILESYSTEM,
 				"set_text",
 				[],
-				"Image",
+				UsedFilepaths.PLAYLIST_COVER,
 				Global.supported_img_extensions,
 				true
 				]):
@@ -83,7 +83,16 @@ func _on_create_new_playlist_pressed(var new_playlist_type : int) -> void:
 		PlaylistType.NORMAL_FROM_FOLDER:
 			playlist_creator_ref = PLAYLIST_FROM_FOLDER.instance()
 			Global.root.top_ui.add_child(playlist_creator_ref)
-			if playlist_creator_ref.cover_hbox.connect("dialogue_pressed", Global.root, "load_general_file_dialogue",[playlist_creator_ref.cover_hbox.input_edit,FileDialog.MODE_OPEN_FILE,FileDialog.ACCESS_FILESYSTEM,"set_text",[],"Image",Global.supported_img_extensions,true]):
+			if playlist_creator_ref.cover_hbox.connect("dialogue_pressed", Global.root, "load_general_file_dialogue",[
+				playlist_creator_ref.cover_hbox.input_edit,
+				FileDialog.MODE_OPEN_FILE,
+				FileDialog.ACCESS_FILESYSTEM,
+				"set_text",
+				[],
+				UsedFilepaths.PLAYLIST_COVER,
+				Global.supported_img_extensions,
+				true
+				]):
 				Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
 			if playlist_creator_ref.folder.connect("dialogue_pressed", Global.root, "load_general_file_dialogue",[
 				playlist_creator_ref.folder.input_edit,
@@ -91,7 +100,7 @@ func _on_create_new_playlist_pressed(var new_playlist_type : int) -> void:
 				FileDialog.ACCESS_FILESYSTEM,
 				"set_text",
 				[],
-				"Song",
+				UsedFilepaths.DESKTOP,
 				[],
 				true
 				]):

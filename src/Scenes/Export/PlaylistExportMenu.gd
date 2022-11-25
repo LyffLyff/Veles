@@ -3,7 +3,7 @@ extends PanelContainer
 # it directs the app to the correct export function on a button press in the menu
 
 const export_methods : Array = [ "to_folder", "to_html_songlist", "to_CSV",]
-const save_types : Array = ["ExportFolder", "ExportHTML", "ExportCSV"]
+const save_types : Array = [UsedFilepaths.DESKTOP, UsedFilepaths.HTML_FILE,  UsedFilepaths.CSV_FILE]
 const file_filters : Array = [null,"*.html", "*.csv"]
 const open_modes : Array = [FileDialog.MODE_OPEN_DIR, FileDialog.MODE_SAVE_FILE, FileDialog.MODE_SAVE_FILE]
 

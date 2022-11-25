@@ -27,9 +27,9 @@ func set_value(var new_value : float) -> void:
 		# even when manually entering the effects must be within Min/Max range
 		new_value = min_value
 	
-	var new_rotation : float = rotary_button.value_to_rotation(new_value)	
-	rotary_button.set_rotation( new_rotation )
-	rotation_edit.set_rotary_edit( new_value )
+	var new_rotation : float = rotary_button.value_to_rotation(new_value)
+	rotary_button.set_rotation(new_rotation)
+	rotation_edit.set_rotary_edit(new_value)
 	rotation_value_changed(new_value, "audio_effect_sub_value_changed")
 
 
