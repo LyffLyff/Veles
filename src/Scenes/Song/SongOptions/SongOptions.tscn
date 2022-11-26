@@ -133,5 +133,5 @@ size_flags_horizontal = 3
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/ShowSongCover" to="." method="_on_ShowCoverInFilesystem_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/QueueSong" to="." method="_on_QueueSong_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/Clear Queue" to="." method="_on_Clear_Queue_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/ExtractCover" to="." method="ExtractSongCover"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/RemoveFromPlaylist" to="." method="RemoveFromPlaylist"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/ExtractCover" to="." method="extract_cover"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/RemoveFromPlaylist" to="." method="remove_from_playlist"]

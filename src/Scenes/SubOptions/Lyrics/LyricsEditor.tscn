@@ -259,6 +259,7 @@ margin_bottom = 600.0
 rect_min_size = Vector2( 20, 0 )
 
 [connection signal="pressed" from="LyricEditor/VBoxContainer/Return" to="LyricEditor" method="_on_Return_pressed"]
+[connection signal="text_changed" from="LyricEditor/VBoxContainer/Title" to="LyricEditor" method="_on_Title_text_changed"]
 [connection signal="text_entered" from="LyricEditor/VBoxContainer/Title" to="LyricEditor" method="_on_Title_text_entered"]
 [connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/Save" to="LyricEditor" method="on_save_lyrics_project"]
 [connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/SaveAs" to="LyricEditor" method="_on_SaveAs_pressed"]

@@ -3,7 +3,7 @@ extends PanelContainer
 # it directs the app to the correct export function on a button press in the menu
 
 const export_methods : Array = ["to_html_table", "to_CSV_table",]
-const save_types : Array = ["ExportHTML", "ExportCSV"]
+const save_types : Array = [UsedFilepaths.HTML_FILE, UsedFilepaths.CSV_FILE]
 const file_filters : Array = ["*.html", "*.csv"]
 const open_modes : Array = [FileDialog.MODE_SAVE_FILE, FileDialog.MODE_SAVE_FILE]
 
@@ -28,6 +28,7 @@ func init_export_menu(var content : Array) -> void:
 			[content],
 			save_types[i],
 			[file_filters[i]],
-			true
+			true,
+			"Export Stats"
 		])
 		_err = export_types.get_child(i).connect("pressed",self,"queue_free")

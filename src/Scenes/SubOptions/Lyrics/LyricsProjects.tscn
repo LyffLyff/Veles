@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://src/Ressources/Fonts/MidSizedHeader.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/ProjectsHeader.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Assets/Icons/White/General/add_72px.png" type="Texture" id=2]
 [ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsProjects.gd" type="Script" id=3]
 [ext_resource path="res://src/Assets/Icons/White/Folder/folder_72px.png" type="Texture" id=4]
 [ext_resource path="res://src/Ressources/Themes/LyricsEditor.tres" type="StyleBox" id=5]
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/ProjectSeparator.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=7]
 
 [node name="LyricsProjects" type="HBoxContainer"]
 anchor_right = 1.0
@@ -14,128 +16,36 @@ size_flags_vertical = 3
 script = ExtResource( 3 )
 
 [node name="LeftEmpty" type="Control" parent="."]
-margin_right = 20.0
 margin_bottom = 600.0
-rect_min_size = Vector2( 20, 0 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 28.0
-margin_right = 1092.0
+margin_left = 8.0
+margin_right = 1112.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 1064.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 0, 40 )
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 1 )
-text = "Lyrics"
-valign = 2
-
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-margin_top = 48.0
-margin_right = 1064.0
-margin_bottom = 58.0
-custom_constants/separation = 10
-
-[node name="LastEdited" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 66.0
-margin_right = 1064.0
-margin_bottom = 278.0
-rect_min_size = Vector2( 0, 40 )
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="VBoxContainer/LastEdited"]
-margin_right = 1064.0
-margin_bottom = 16.0
-size_flags_vertical = 1
-text = "Last Edited:"
-
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/LastEdited"]
-margin_top = 24.0
-margin_right = 1064.0
-margin_bottom = 212.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="LastEditedProjects" type="VBoxContainer" parent="VBoxContainer/LastEdited/ScrollContainer"]
-margin_right = 1064.0
-margin_bottom = 188.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 2
-
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-margin_top = 286.0
-margin_right = 1064.0
-margin_bottom = 296.0
-custom_constants/separation = 10
-
-[node name="AllProjects" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 304.0
-margin_right = 1064.0
-margin_bottom = 516.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="VBoxContainer/AllProjects"]
-margin_right = 1064.0
-margin_bottom = 16.0
-text = "All Lyrics Projects:"
-
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/AllProjects"]
-margin_top = 24.0
-margin_right = 1064.0
-margin_bottom = 212.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="AllProjects" type="VBoxContainer" parent="VBoxContainer/AllProjects/ScrollContainer"]
-margin_right = 1064.0
-margin_bottom = 188.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 2
-
 [node name="Buffer" type="Control" parent="VBoxContainer"]
-margin_top = 524.0
-margin_right = 1064.0
-margin_bottom = 534.0
+margin_right = 1104.0
+margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
-margin_top = 542.0
-margin_right = 1064.0
-margin_bottom = 582.0
+margin_top = 18.0
+margin_right = 1104.0
+margin_bottom = 58.0
 size_flags_horizontal = 3
 custom_styles/panel = ExtResource( 5 )
 
 [node name="Tools" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
-margin_right = 1064.0
+margin_right = 1104.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
-alignment = 2
 
-[node name="OpenFromFile" type="TextureButton" parent="VBoxContainer/PanelContainer/Tools"]
-margin_left = 918.0
+[node name="NewLyricsProject" type="TextureButton" parent="VBoxContainer/PanelContainer/Tools" groups=["Context"]]
 margin_top = 2.0
-margin_right = 978.0
-margin_bottom = 37.0
-rect_min_size = Vector2( 60, 35 )
-mouse_default_cursor_shape = 2
-size_flags_vertical = 4
-texture_normal = ExtResource( 4 )
-expand = true
-stretch_mode = 5
-
-[node name="NewLyricsProject" type="TextureButton" parent="VBoxContainer/PanelContainer/Tools"]
-margin_left = 986.0
-margin_top = 2.0
-margin_right = 1046.0
+margin_right = 60.0
 margin_bottom = 37.0
 rect_min_size = Vector2( 60, 35 )
 mouse_default_cursor_shape = 2
@@ -144,25 +54,65 @@ texture_normal = ExtResource( 2 )
 expand = true
 stretch_mode = 5
 
-[node name="Control" type="Control" parent="VBoxContainer/PanelContainer/Tools"]
-margin_left = 1054.0
-margin_right = 1064.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 10, 0 )
-size_flags_vertical = 3
+[node name="OpenFromFile" type="TextureButton" parent="VBoxContainer/PanelContainer/Tools" groups=["Context"]]
+margin_left = 68.0
+margin_top = 2.0
+margin_right = 128.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 60, 35 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 4
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_editor_description_": ""
+}
 
-[node name="BottomEmpty" type="Control" parent="VBoxContainer"]
-margin_top = 590.0
-margin_right = 1064.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 0, 10 )
+[node name="Buffer2" type="Control" parent="VBoxContainer"]
+margin_top = 66.0
+margin_right = 1104.0
+margin_bottom = 71.0
+rect_min_size = Vector2( 0, 5 )
 size_flags_horizontal = 3
 
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 79.0
+margin_right = 1104.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="ProjectsHeader" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_right = 1104.0
+margin_bottom = 16.0
+
+[node name="ProjectSeparator" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
+margin_top = 16.0
+margin_right = 1104.0
+margin_bottom = 24.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/VBoxContainer"]
+margin_top = 24.0
+margin_right = 1104.0
+margin_bottom = 521.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 7 )
+
+[node name="Projects" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/ScrollContainer"]
+margin_right = 1104.0
+margin_bottom = 497.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 2
+
 [node name="RightEmpty" type="Control" parent="."]
-margin_left = 1100.0
+margin_left = 1120.0
 margin_right = 1120.0
 margin_bottom = 600.0
-rect_min_size = Vector2( 20, 0 )
 
-[connection signal="pressed" from="VBoxContainer/PanelContainer/Tools/OpenFromFile" to="." method="_on_OpenFromFile_pressed"]
 [connection signal="pressed" from="VBoxContainer/PanelContainer/Tools/NewLyricsProject" to="." method="_on_NewLyricsProject_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/Tools/OpenFromFile" to="." method="_on_OpenFromFile_pressed"]

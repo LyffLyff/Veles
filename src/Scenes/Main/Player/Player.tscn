@@ -125,9 +125,14 @@ __meta__ = {
 }
 
 [node name="TextureRect" type="TextureRect" parent="Main/SongInfo/Info/Cover/Cover/HoverPanel"]
-rect_pivot_offset = Vector2( 7, 7 )
-size_flags_horizontal = 0
-size_flags_vertical = 0
+margin_left = 39.0
+margin_top = 39.0
+margin_right = 51.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 12, 12 )
+rect_pivot_offset = Vector2( 6, 6 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource( 16 )
 expand = true
 stretch_mode = 6

@@ -97,5 +97,5 @@ margin_bottom = 200.0
 rect_min_size = Vector2( 10, 0 )
 size_flags_vertical = 3
 
-[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/No" to="." method="No"]
-[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Yes" to="." method="Yes"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/No" to="." method="disagreed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Yes" to="." method="agreed"]

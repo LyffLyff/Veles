@@ -29,6 +29,7 @@ func init_export_menu(var playlist_idx : int) -> void:
 			[Playlist.get_playlist_paths(playlist_idx), playlist_idx],
 			save_types[i],
 			[file_filters[i]],
-			true
+			true,
+			"Export Playlist"
 		])
 		_err = export_types.get_child(i).connect("pressed",self,"queue_free")

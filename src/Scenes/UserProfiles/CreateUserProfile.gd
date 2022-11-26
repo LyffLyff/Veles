@@ -16,7 +16,8 @@ func load_dialogue() -> void:
 		[],
 		UsedFilepaths.USER_COVER,
 		Global.supported_img_extensions,
-		true
+		true,
+		"Select User Cover"
 	)
 
 

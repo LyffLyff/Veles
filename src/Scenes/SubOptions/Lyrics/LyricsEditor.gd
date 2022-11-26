@@ -12,7 +12,7 @@ onready var verse_tools : VBoxContainer = $VBoxContainer/ToolPanel/HBoxContainer
 onready var timestamp_tools : VBoxContainer = $VBoxContainer/ToolPanel/HBoxContainer/TimeStampTools
 onready var timestamp_vbox : VBoxContainer = $VBoxContainer/ScrollContainer/HBoxContainer/TimeStampVBox
 onready var verse_vbox : VBoxContainer = $VBoxContainer/ScrollContainer/HBoxContainer/VerseVBox
-onready var project_title_edit : LineEdit = $VBoxContainer/Title
+onready var title_edit : LineEdit = $VBoxContainer/Title
 onready var lrc_tags : VBoxContainer = $VBoxContainer/LRCTags
 onready var save : TextureButton = $VBoxContainer/PanelContainer/DocOptions/Save
 onready var save_as : TextureButton = $VBoxContainer/PanelContainer/DocOptions/SaveAs
@@ -77,7 +77,7 @@ func load_project() -> void:
 	var project_data : Array = SaveData.load_data(project_path)
 	
 	# title
-	project_title_edit.set_text(project_data[0])
+	title_edit.set_text(project_data[0])
 	
 	# LRC Tags
 	lrc_tags.artist_edit.set_text(project_data[3][0])
@@ -120,7 +120,7 @@ func create_from_lrc(var lrc_filepath : String) -> void:
 	var decoded_lrc_file : Array = LRC.new().decode_lrc_file(encoded_project_data)
 	
 	# info
-	project_title_edit.set_text( project_path.get_file().replace(".lrc","") )
+	title_edit.set_text( project_path.get_file().replace(".lrc","") )
 	lrc_tags.artist_edit.set_text(decoded_lrc_file[0].values()[0])
 	lrc_tags.album_edit.set_text(decoded_lrc_file[0].values()[1])
 	lrc_tags.title.set_text(decoded_lrc_file[0].values()[2])
@@ -175,7 +175,7 @@ func on_save_lyrics_project(var save_as : bool = false):
 	# VLP = Veles Lyrics Project
 	# structure = Array
 	# [Title, Verses, Timestamps, [Artist, Album, Title, Author, Length, Language, Creator of File] ]
-	var title : String = project_title_edit.get_text()
+	var title : String = title_edit.get_text()
 	var VLPFiledata : Array = [
 		title,
 		get_verses(),
@@ -240,7 +240,7 @@ func get_timestamps() -> PoolRealArray:
 
 
 func _on_ExportToLRC_pressed() -> void:
-	var title : String = project_title_edit.get_text()
+	var title : String = title_edit.get_text()
 	
 	var lrc_file_data : String = LRC.new().encode_lrc_file(
 		get_verses(),
@@ -263,7 +263,7 @@ func _on_ExportToLRC_pressed() -> void:
 		UsedFilepaths.LRC_FILE,
 		["*.lrc"],
 		true,
-		"Export Project to LRC File"
+		"Export to LRC File"
 	)
 
 
@@ -322,10 +322,6 @@ func _on_Return_pressed():
 		Global.root.load_option(6,true)
 
 
-func _on_Title_text_entered(var _new_title : String):
-	is_project_up_to_date = false
-
-
 func _on_DeleteProjectFile_pressed():
 	# deleting the Current Project and returning to the Project Selection screen
 	if Directory.new().remove(project_path) != OK:
@@ -373,3 +369,12 @@ func _on_PasteFromClipboard_pressed():
 	for i in clipboard_text.size():
 		_on_add_verse_pressed()
 		verse_vbox.get_child( verse_vbox.get_child_count() - 1 ).verse_text_edit.text = clipboard_text[i]
+
+
+func _on_Title_text_entered(var new_title : String):
+	is_project_up_to_date = false
+	title_edit.release_focus()
+
+
+func _on_Title_text_changed(var new_text : String):
+	is_project_up_to_date = false

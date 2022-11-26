@@ -1,33 +1,16 @@
 extends Control
 
 const CLEAR_BUTTON_THEME : Theme = preload("res://src/Themes/Buttons/ClearButtons.tres")
+const PROJECT_CONTAINER : PackedScene = preload("res://src/Scenes/SubOptions/Lyrics/ProjectContainer.tscn")
 
-onready var last_edited_projects : VBoxContainer = $VBoxContainer/LastEdited/ScrollContainer/LastEditedProjects
-onready var all_projects : VBoxContainer = $VBoxContainer/AllProjects/ScrollContainer/AllProjects
+onready var projects : VBoxContainer = $VBoxContainer/VBoxContainer/ScrollContainer/Projects
 
 func _ready():
+	Global.root.init_context_menus()
 	load_lyrics_projects()
 
 
 func load_lyrics_projects() -> void:
-	var dir : Directory = Directory.new()
-	if dir.open(Global.get_current_user_data_folder() + "/Lyrics/Projects/") != OK:	return
-	if dir.list_dir_begin(true,false) != OK:	return;
-	
-	# loading All Projects
-	while true:
-		var y = dir.get_next()
-		if y == "": break;
-		var x = Button.new()
-		x.align = Button.ALIGN_LEFT
-		x.theme = CLEAR_BUTTON_THEME
-		x.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		all_projects.add_child(x)
-		x.rect_min_size.y = 30
-		x.set_text(y)
-		x.connect("pressed",Global.root,"load_lyric_editor",[Global.get_current_user_data_folder() + "/Lyrics/Projects/" + y])
-		x.size_flags_horizontal = SIZE_EXPAND_FILL
-	
 	# loading Last Edited
 	# counts as Edited when:
 	# 1.) An Already existing Project has been opened
@@ -41,14 +24,11 @@ func load_lyrics_projects() -> void:
 			temp.remove(i)
 			SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects", temp)
 			continue;
-		var x = Button.new()
-		x.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		x.theme = CLEAR_BUTTON_THEME
-		x.rect_min_size.y = 30
-		x.align = Button.ALIGN_LEFT
+		var x = PROJECT_CONTAINER.instance()
 		x.connect("pressed",Global.root,"load_lyric_editor",[load_projects[i]])
-		last_edited_projects.add_child(x)
-		x.set_text(load_projects[i].get_file())
+		projects.add_child(x)
+		x.file.text = load_projects[i].get_file()
+		x.path.set_text(load_projects[i])	#set_text required because of text limiter
 
 
 func _on_NewLyricsProject_pressed():
@@ -64,5 +44,6 @@ func _on_OpenFromFile_pressed():
 		[],
 		UsedFilepaths.LRC_FILE,
 		["*.lrc","*.mp3","*.vlp"],
-		true
+		true,
+		"Open Lyrics"
 	)

@@ -76,7 +76,8 @@ func _on_create_new_playlist_pressed(var new_playlist_type : int) -> void:
 				[],
 				UsedFilepaths.PLAYLIST_COVER,
 				Global.supported_img_extensions,
-				true
+				true,
+				"Select Playlist Cover"
 				]):
 				Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
 		
@@ -91,7 +92,8 @@ func _on_create_new_playlist_pressed(var new_playlist_type : int) -> void:
 				[],
 				UsedFilepaths.PLAYLIST_COVER,
 				Global.supported_img_extensions,
-				true
+				true,
+				"Select Playlist Cover"
 				]):
 				Global.root.message("CONNECTING DIALOGUE PRESSED SIGNAL",  SaveData.MESSAGE_ERROR )
 			if playlist_creator_ref.folder.connect("dialogue_pressed", Global.root, "load_general_file_dialogue",[

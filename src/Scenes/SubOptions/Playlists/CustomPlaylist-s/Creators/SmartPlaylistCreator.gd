@@ -24,7 +24,8 @@ func _ready():
 		[],
 		UsedFilepaths.PLAYLIST_COVER,
 		Global.supported_img_extensions,
-		true
+		true,
+		"Select Playlist Cover"
 	])
 
 

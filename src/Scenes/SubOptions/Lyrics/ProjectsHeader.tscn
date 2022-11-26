@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Assets/Icons/White/File/file_16px.png" type="Texture" id=1]
+[ext_resource path="res://src/Assets/Fonts/Lyrics/ProjectContainer.tres" type="DynamicFont" id=2]
+
+[node name="ProjectsHeader" type="HBoxContainer"]
+anchor_right = 1.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_top = 1.0
+margin_right = 50.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 50, 12 )
+size_flags_vertical = 4
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="."]
+margin_left = 58.0
+margin_right = 585.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 2 )
+text = "Filename"
+valign = 1
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 593.0
+margin_right = 1120.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 2 )
+text = "Date"
+valign = 1
