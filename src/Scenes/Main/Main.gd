@@ -540,7 +540,7 @@ func load_temporary_playlist(var temp_playlist_title : String, var description_p
 func load_lyric_editor(var project_path : String = "") -> void:
 	delete_current_option()
 	var x = load("res://src/Scenes/SubOptions/Lyrics/LyricsEditor.tscn").instance()
-	options.add_child( x )
+	options.add_child(x)
 	x.get_child(0).n_ready(project_path)
 
 
@@ -580,7 +580,9 @@ func init_context_menus() -> void:
 func show_context_menu(var ref : Control) -> void:
 	var new_context_label : Label = load("res://src/Scenes/General/ContextLabel.tscn").instance()
 	top_ui.add_child(new_context_label)
-	ref.connect("mouse_exited", new_context_label, "queue_free")
+	var _err = ref.connect("mouse_exited", new_context_label, "queue_free")
+	# so when the buttion for the  context exits the tree the label does aswell
+	_err = ref.connect("tree_exited", new_context_label, "queue_free")
 	var context : String = ""
 	if ref.get("context"):
 		context = ref.get("context")

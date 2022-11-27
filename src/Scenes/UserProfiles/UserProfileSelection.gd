@@ -35,14 +35,17 @@ func free_user_profiles() -> void:
 
 func on_user_profile_selected(var user_idx : int) -> void:
 	# saving the Data of the Previous user then loading the one from the new one
-	var Paths : PoolStringArray = []
+	var paths : PoolStringArray = []
 	for i in SongLists.file_paths.size():
-		Paths.push_back( SongLists.add_user_to_filepath(SongLists.file_paths[i]) )
-	SongLists.save_user_specific_data(Paths)
+		paths.push_back( SongLists.add_user_to_filepath(SongLists.file_paths[i]))
+	SongLists.save_user_specific_data(paths)
 	Global.current_profile_idx = user_idx
 	Global.init_songs = true
 	SongLists.reset_userdata()
 	SongLists.load_user_specific_data(SongLists.file_paths)
+	
+	# stop playback
+	Playback.new().stop_playback()
 	
 	# initialising user profile
 	var init : VelesInit = VelesInit.new()

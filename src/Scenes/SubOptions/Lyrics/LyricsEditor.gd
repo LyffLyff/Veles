@@ -171,7 +171,7 @@ func create_from_song(var lyrics : Array) -> void:
 			init_timestamps(lyrics[1])
 
 
-func on_save_lyrics_project(var save_as : bool = false):
+func on_save_lyrics_project(var save_as_ : bool = false):
 	# VLP = Veles Lyrics Project
 	# structure = Array
 	# [Title, Verses, Timestamps, [Artist, Album, Title, Author, Length, Language, Creator of File] ]
@@ -191,7 +191,7 @@ func on_save_lyrics_project(var save_as : bool = false):
 		]
 	]
 	
-	if Directory.new().file_exists(project_path) and !save_as:
+	if Directory.new().file_exists(project_path) and !save_as_:
 		#The Project already exists, the PreExisting File will
 		#be overriden with the new Data
 		SaveData.save(SongLists.rel_to_abs_path(project_path), VLPFiledata )
@@ -199,14 +199,12 @@ func on_save_lyrics_project(var save_as : bool = false):
 	else:
 		var general_file_dialogue = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
 		Global.root.top_ui.add_child(general_file_dialogue)
-		general_file_dialogue.n_ready(FileDialog.MODE_SAVE_FILE ,FileDialog.ACCESS_USERDATA, "Lyrics",["*.vlp"], true, "Save Project As",title)
-		general_file_dialogue.dialogue.current_dir = Global.get_current_user_data_folder() + "/Lyrics/Projects"
+		general_file_dialogue.n_ready(FileDialog.MODE_SAVE_FILE, FileDialog.ACCESS_FILESYSTEM, UsedFilepaths.VPL_PROJECT, ["*.vlp"], true, "Save Project As",title)
 		var _err = general_file_dialogue.connect("selection_made", SaveData, "save", [VLPFiledata])
 		
 		# changing current project path if save as is true
-		if save_as:
-			_err = general_file_dialogue.connect("selection_made", self, "set_project_path")
-		
+		_err = general_file_dialogue.connect("selection_made", self, "set_project_path")
+		 
 		_err = general_file_dialogue.connect("selection_made", self, "add_project_to_edited")
 		_err = general_file_dialogue.connect("saved", self, "set", ["is_project_up_to_date",true])
 
@@ -371,10 +369,10 @@ func _on_PasteFromClipboard_pressed():
 		verse_vbox.get_child( verse_vbox.get_child_count() - 1 ).verse_text_edit.text = clipboard_text[i]
 
 
-func _on_Title_text_entered(var new_title : String):
+func _on_Title_text_entered(var _new_title : String):
 	is_project_up_to_date = false
 	title_edit.release_focus()
 
 
-func _on_Title_text_changed(var new_text : String):
+func _on_Title_text_changed(var _new_text : String):
 	is_project_up_to_date = false

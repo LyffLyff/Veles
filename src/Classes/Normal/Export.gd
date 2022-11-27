@@ -48,8 +48,7 @@ func to_image(var dst_path : String, var song_paths : PoolStringArray) -> void:
 		Global.root.message(
 			"EXCTRACTING COVER FROM FILES: " + song_paths.join(", ") + " TO:" + dst_paths.join(", "),
 			SaveData.MESSAGE_ERROR,
-			Color(),
-			false
+			true
 		)
 
 

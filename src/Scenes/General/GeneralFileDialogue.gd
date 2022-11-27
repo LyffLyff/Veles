@@ -44,7 +44,6 @@ func n_ready(var mode_flag : int = 0, var access_flag : int = 0, var used_filepa
 	return_as_string = return_string
 	# get Last Used Folder
 	filepath_idx = used_filepath_idx
-	print(UsedFilepaths.get_used_filepath(used_filepath_idx))
 	dialogue.set_current_dir(UsedFilepaths.get_used_filepath(used_filepath_idx))
 	dialogue.popup_centered()
 

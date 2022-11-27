@@ -31,7 +31,3 @@ const music_genres : Array = [
 func _ready():
 	for i in music_genres.size():
 		self.add_item(music_genres[i], i)
-
-
-func _on_GenreSelection2_item_selected(index):
-	print(index)

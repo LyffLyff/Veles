@@ -14,15 +14,16 @@ const PLAYLIST_FROM_FOLDER : PackedScene = preload("res://src/Scenes/SubOptions/
 const SMART_PLAYLIST_CREATOR : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Creators/SmartPlaylistCreator.tscn")
 
 onready var playlists : GridContainer = $VBoxContainer/HBoxContainer/ScrollContainer/Playlists
-onready var new_smart_playlist : Button =  $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CreatePlaylist
-onready var new_playlist_from_folder : Button = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CreateFromFolder
-onready var new_playlist : Button = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CreateSmartPlaylist
+onready var new_smart_playlist : TextureButton =  $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CreatePlaylist
+onready var new_playlist_from_folder : TextureButton = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CreateFromFolder
+onready var new_playlist : TextureButton = $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CreateSmartPlaylist
 
 func _ready():
 	var _err = new_smart_playlist.connect("pressed",self,"_on_create_new_playlist_pressed",[PlaylistType.NORMAL_FROM_SCRATCH])
 	_err = new_playlist_from_folder.connect("pressed",self,"_on_create_new_playlist_pressed",[PlaylistType.NORMAL_FROM_FOLDER])
 	_err = new_playlist.connect("pressed",self,"_on_create_new_playlist_pressed",[PlaylistType.SMART_FROM_SCRATCH])
 	_err = playlists.connect("item_rect_changed",self,"_on_playlists_item_rect_changed")
+	Global.root.init_context_menus()
 	load_playlist_grid()
 
 

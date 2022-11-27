@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Playlists.gd" type="Script" id=1]
 [ext_resource path="res://src/Ressources/Themes/LyricsEditor.tres" type="StyleBox" id=2]
+[ext_resource path="res://src/Assets/Icons/White/Folder/add folder_72px.png" type="Texture" id=3]
+[ext_resource path="res://src/Assets/Icons/White/General/add_1_72px.png" type="Texture" id=4]
+[ext_resource path="res://src/Assets/Icons/White/General/add_72px.png" type="Texture" id=5]
 
 [node name="Playlists" type="Control"]
 anchor_right = 1.0
@@ -78,19 +81,18 @@ margin_right = 80.0
 margin_bottom = 572.0
 rect_min_size = Vector2( 80, 0 )
 
-[node name="CreateFromFolder" type="Button" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="CreateFromFolder" type="TextureButton" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" groups=["Context"]]
 margin_left = 5.0
 margin_right = 75.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 70, 30 )
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
-text = "Folder"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
 
-[node name="CreateSmartPlaylist" type="Button" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="CreateSmartPlaylist" type="TextureButton" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" groups=["Context"]]
 margin_left = 5.0
 margin_top = 38.0
 margin_right = 75.0
@@ -98,12 +100,11 @@ margin_bottom = 68.0
 rect_min_size = Vector2( 70, 30 )
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
-text = "New Smart"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_normal = ExtResource( 5 )
+expand = true
+stretch_mode = 5
 
-[node name="CreatePlaylist" type="Button" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="CreatePlaylist" type="TextureButton" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer" groups=["Context"]]
 margin_left = 5.0
 margin_top = 76.0
 margin_right = 75.0
@@ -112,10 +113,9 @@ rect_min_size = Vector2( 70, 30 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
-text = "New"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 5
 
 [node name="EmptyLeft" type="Control" parent="VBoxContainer/HBoxContainer"]
 margin_left = 1110.0

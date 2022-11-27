@@ -12,6 +12,7 @@ enum {
 	HTML_FILE,
 	CSV_FILE,
 	DESKTOP,
+	VPL_PROJECT,
 }
 
 static func get_filepath() -> String:

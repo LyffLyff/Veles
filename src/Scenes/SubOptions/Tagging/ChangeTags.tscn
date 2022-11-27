@@ -42,7 +42,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 margin_right = 1105.0
-margin_bottom = 1108.0
+margin_bottom = 1027.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -96,19 +96,19 @@ size_flags_horizontal = 3
 [node name="MainTags" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 margin_top = 354.0
 margin_right = 1105.0
-margin_bottom = 1050.0
+margin_bottom = 969.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="LeftEmpty" type="Control" parent="ScrollContainer/VBoxContainer/MainTags"]
 margin_right = 30.0
-margin_bottom = 696.0
+margin_bottom = 615.0
 rect_min_size = Vector2( 30, 0 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags"]
 margin_left = 38.0
 margin_right = 1047.0
-margin_bottom = 696.0
+margin_bottom = 615.0
 rect_min_size = Vector2( 200, 0 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -117,47 +117,48 @@ custom_constants/separation = 15
 
 [node name="Paths" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
 margin_right = 1009.0
-margin_bottom = 38.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths"]
 margin_right = 130.0
-margin_bottom = 38.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 100, 0 )
+custom_constants/separation = 0
 
 [node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/VBoxContainer"]
 margin_right = 130.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 130, 30 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 130, 20 )
 size_flags_horizontal = 3
 text = "Path[s]:"
 align = 1
 valign = 1
 
 [node name="Control" type="Control" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/VBoxContainer"]
-margin_top = 38.0
+margin_top = 20.0
 margin_right = 130.0
-margin_bottom = 38.0
+margin_bottom = 20.0
 size_flags_vertical = 3
 
 [node name="Values" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths"]
 margin_left = 138.0
 margin_right = 1009.0
-margin_bottom = 38.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/Values"]
 margin_right = 871.0
-margin_bottom = 38.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="AddPath" type="TextureButton" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/Values/HBoxContainer"]
-margin_top = 5.0
-margin_right = 27.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 27, 27 )
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
 mouse_default_cursor_shape = 2
 size_flags_vertical = 4
 texture_normal = ExtResource( 2 )
@@ -165,11 +166,10 @@ expand = true
 stretch_mode = 5
 
 [node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/Values/HBoxContainer"]
-margin_left = 35.0
-margin_top = 5.0
+margin_left = 28.0
 margin_right = 823.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 0, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 4
 caret_blink = true
@@ -180,10 +180,9 @@ __meta__ = {
 
 [node name="SelectSong" type="TextureButton" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/Values/HBoxContainer"]
 margin_left = 831.0
-margin_top = 5.0
 margin_right = 871.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 40, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 40, 20 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
@@ -194,14 +193,14 @@ expand = true
 stretch_mode = 5
 
 [node name="NameExplorer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
-margin_top = 53.0
+margin_top = 35.0
 margin_right = 1009.0
-margin_bottom = 80.0
+margin_bottom = 55.0
 
 [node name="NameExplorerLabel" type="Label" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/NameExplorer"]
 margin_right = 130.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 130, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 130, 20 )
 text = "Filename:"
 align = 1
 valign = 1
@@ -212,8 +211,8 @@ __meta__ = {
 [node name="SongExplorer" type="LineEdit" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/NameExplorer"]
 margin_left = 138.0
 margin_right = 1009.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 0, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
@@ -222,14 +221,14 @@ __meta__ = {
 }
 
 [node name="NameTag" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
-margin_top = 95.0
+margin_top = 70.0
 margin_right = 1009.0
-margin_bottom = 122.0
+margin_bottom = 90.0
 
 [node name="NameTagLabel" type="Label" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/NameTag"]
 margin_right = 130.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 130, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 130, 20 )
 text = "Title:"
 align = 1
 valign = 1
@@ -240,8 +239,8 @@ __meta__ = {
 [node name="NameTag" type="LineEdit" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/NameTag"]
 margin_left = 138.0
 margin_right = 1009.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 0, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
@@ -250,15 +249,15 @@ __meta__ = {
 }
 
 [node name="Artist" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
-margin_top = 137.0
+margin_top = 105.0
 margin_right = 1009.0
-margin_bottom = 164.0
+margin_bottom = 125.0
+rect_min_size = Vector2( 0, 20 )
 
 [node name="ArtistLabel" type="Label" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Artist"]
 margin_right = 130.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 130, 27 )
-size_flags_vertical = 0
+margin_bottom = 20.0
+rect_min_size = Vector2( 130, 20 )
 text = "Artist[s]:"
 align = 1
 valign = 1
@@ -269,29 +268,28 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Artist"]
 margin_left = 138.0
 margin_right = 1009.0
-margin_bottom = 27.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Artist/VBoxContainer"]
 margin_right = 871.0
-margin_bottom = 27.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
 
 [node name="AddArtist" type="TextureButton" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Artist/VBoxContainer/HBoxContainer"]
-margin_right = 27.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 27, 27 )
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
 size_flags_vertical = 0
 texture_normal = ExtResource( 2 )
 expand = true
 stretch_mode = 5
 
 [node name="Artist" type="LineEdit" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Artist/VBoxContainer/HBoxContainer"]
-margin_left = 35.0
+margin_left = 28.0
 margin_right = 871.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 0, 27 )
+margin_bottom = 20.0
 size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
@@ -301,14 +299,15 @@ __meta__ = {
 }
 
 [node name="Album" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
-margin_top = 179.0
+margin_top = 140.0
 margin_right = 1009.0
-margin_bottom = 206.0
+margin_bottom = 160.0
+rect_min_size = Vector2( 0, 20 )
 
 [node name="AlbumLabel" type="Label" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Album"]
 margin_right = 130.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 130, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 130, 20 )
 text = "Album:"
 align = 1
 valign = 1
@@ -319,8 +318,8 @@ __meta__ = {
 [node name="Album" type="LineEdit" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Album"]
 margin_left = 138.0
 margin_right = 1009.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 0, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
@@ -330,19 +329,19 @@ __meta__ = {
 }
 
 [node name="GenreSelection" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 221.0
+margin_top = 175.0
 margin_right = 1009.0
-margin_bottom = 248.0
+margin_bottom = 195.0
 
 [node name="TrackNumber" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
-margin_top = 263.0
+margin_top = 210.0
 margin_right = 1009.0
-margin_bottom = 290.0
+margin_bottom = 230.0
 
 [node name="TrackNumberLabel" type="Label" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/TrackNumber"]
 margin_right = 130.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 130, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 130, 20 )
 text = "Track Number:"
 align = 1
 valign = 1
@@ -353,8 +352,8 @@ __meta__ = {
 [node name="TrackNumber" type="LineEdit" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/TrackNumber"]
 margin_left = 138.0
 margin_right = 1009.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 0, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
@@ -364,14 +363,14 @@ __meta__ = {
 }
 
 [node name="ReleaseYear" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
-margin_top = 305.0
+margin_top = 245.0
 margin_right = 1009.0
-margin_bottom = 332.0
+margin_bottom = 265.0
 
 [node name="ReleaseYearLabel" type="Label" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/ReleaseYear"]
 margin_right = 130.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 130, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 130, 20 )
 text = "Release Year:"
 align = 1
 valign = 1
@@ -382,8 +381,8 @@ __meta__ = {
 [node name="ReleaseYear" type="LineEdit" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/ReleaseYear"]
 margin_left = 138.0
 margin_right = 1009.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 0, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
@@ -393,18 +392,18 @@ __meta__ = {
 }
 
 [node name="Cover" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
-margin_top = 347.0
+margin_top = 280.0
 margin_right = 1009.0
-margin_bottom = 374.0
+margin_bottom = 300.0
 
 [node name="Cover" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Cover"]
 margin_right = 1009.0
-margin_bottom = 27.0
+margin_bottom = 20.0
 
 [node name="CoverLabel" type="Label" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Cover/Cover"]
 margin_right = 130.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 130, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 130, 20 )
 text = "Cover:"
 align = 1
 valign = 1
@@ -415,7 +414,8 @@ __meta__ = {
 [node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Cover/Cover"]
 margin_left = 138.0
 margin_right = 961.0
-margin_bottom = 27.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 caret_blink = true
 caret_blink_speed = 0.5
@@ -423,8 +423,8 @@ caret_blink_speed = 0.5
 [node name="SelectCover" type="TextureButton" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Cover/Cover"]
 margin_left = 969.0
 margin_right = 1009.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 40, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 40, 20 )
 action_mode = 0
 texture_normal = ExtResource( 3 )
 expand = true
@@ -443,7 +443,7 @@ margin_bottom = 131.0
 margin_top = 31.0
 margin_right = 130.0
 margin_bottom = 68.0
-rect_min_size = Vector2( 130, 27 )
+rect_min_size = Vector2( 130, 20 )
 text = "Cover 
 Description:"
 align = 1
@@ -457,19 +457,19 @@ __meta__ = {
 margin_left = 134.0
 margin_right = 709.0
 margin_bottom = 100.0
-rect_min_size = Vector2( 0, 100 )
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Comment" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
-margin_top = 389.0
+margin_top = 315.0
 margin_right = 1009.0
-margin_bottom = 589.0
+margin_bottom = 515.0
 
 [node name="CommentLabel" type="Label" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Comment"]
 margin_right = 130.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 130, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 130, 20 )
 size_flags_vertical = 0
 text = "Comment[s]"
 align = 1
@@ -490,14 +490,14 @@ custom_styles/normal = SubResource( 1 )
 custom_styles/completion = SubResource( 2 )
 
 [node name="Popularity" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
-margin_top = 604.0
+margin_top = 530.0
 margin_right = 1009.0
-margin_bottom = 631.0
+margin_bottom = 550.0
 
 [node name="Rating" type="Label" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Popularity"]
 margin_right = 130.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 130, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 130, 20 )
 size_flags_vertical = 0
 text = "Rating / 10"
 align = 1
@@ -509,8 +509,8 @@ __meta__ = {
 [node name="RatingEdit" type="SpinBox" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Popularity"]
 margin_left = 138.0
 margin_right = 1009.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 0, 27 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 min_value = 1.0
 max_value = 10.0
@@ -521,9 +521,9 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
-margin_top = 646.0
+margin_top = 565.0
 margin_right = 1009.0
-margin_bottom = 696.0
+margin_bottom = 615.0
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -547,13 +547,13 @@ __meta__ = {
 [node name="RightEmpty" type="Control" parent="ScrollContainer/VBoxContainer/MainTags"]
 margin_left = 1055.0
 margin_right = 1105.0
-margin_bottom = 696.0
+margin_bottom = 615.0
 rect_min_size = Vector2( 50, 0 )
 
 [node name="BottomEmpty" type="Control" parent="ScrollContainer/VBoxContainer"]
-margin_top = 1058.0
+margin_top = 977.0
 margin_right = 1105.0
-margin_bottom = 1108.0
+margin_bottom = 1027.0
 rect_min_size = Vector2( 0, 50 )
 mouse_filter = 2
 size_flags_horizontal = 3

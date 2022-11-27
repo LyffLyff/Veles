@@ -24,11 +24,12 @@ func load_lyrics_projects() -> void:
 			temp.remove(i)
 			SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects", temp)
 			continue;
-		var x = PROJECT_CONTAINER.instance()
-		x.connect("pressed",Global.root,"load_lyric_editor",[load_projects[i]])
-		projects.add_child(x)
-		x.file.text = load_projects[i].get_file()
-		x.path.set_text(load_projects[i])	#set_text required because of text limiter
+		var new_project_container : Control = PROJECT_CONTAINER.instance()
+		var _err = new_project_container.connect("pressed",Global.root,"load_lyric_editor",[load_projects[i]])
+		projects.add_child(new_project_container)
+		new_project_container.date.text = str(load_projects[i].hash())
+		new_project_container.file.text = load_projects[i].get_file()
+		new_project_container.path.set_text(load_projects[i])	#set_text required because of text limiter
 
 
 func _on_NewLyricsProject_pressed():

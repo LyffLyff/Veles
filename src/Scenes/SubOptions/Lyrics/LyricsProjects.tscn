@@ -44,10 +44,10 @@ margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="NewLyricsProject" type="TextureButton" parent="VBoxContainer/PanelContainer/Tools" groups=["Context"]]
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 60.0
-margin_bottom = 37.0
-rect_min_size = Vector2( 60, 35 )
+margin_bottom = 35.0
+rect_min_size = Vector2( 60, 30 )
 mouse_default_cursor_shape = 2
 size_flags_vertical = 4
 texture_normal = ExtResource( 2 )
@@ -56,10 +56,10 @@ stretch_mode = 5
 
 [node name="OpenFromFile" type="TextureButton" parent="VBoxContainer/PanelContainer/Tools" groups=["Context"]]
 margin_left = 68.0
-margin_top = 2.0
+margin_top = 5.0
 margin_right = 128.0
-margin_bottom = 37.0
-rect_min_size = Vector2( 60, 35 )
+margin_bottom = 35.0
+rect_min_size = Vector2( 60, 30 )
 mouse_default_cursor_shape = 2
 size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
@@ -87,15 +87,15 @@ custom_constants/separation = 0
 [node name="ProjectsHeader" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_right = 1104.0
-margin_bottom = 16.0
+margin_bottom = 14.0
 
 [node name="ProjectSeparator" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 16.0
+margin_top = 14.0
 margin_right = 1104.0
-margin_bottom = 24.0
+margin_bottom = 22.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/VBoxContainer"]
-margin_top = 24.0
+margin_top = 22.0
 margin_right = 1104.0
 margin_bottom = 521.0
 size_flags_horizontal = 3
@@ -104,7 +104,7 @@ script = ExtResource( 7 )
 
 [node name="Projects" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/ScrollContainer"]
 margin_right = 1104.0
-margin_bottom = 497.0
+margin_bottom = 499.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 2

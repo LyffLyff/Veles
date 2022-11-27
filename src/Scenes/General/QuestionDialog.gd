@@ -1,4 +1,4 @@
-extends PanelContainer
+extends "res://src/Scenes/General/StdPopupBackground.gd"
 # a general dialogue that asks a question and can either receive yes or no as a user input
 
 signal conformation
@@ -14,10 +14,10 @@ func n_ready(var Question : String) -> void:
 func disagreed():
 	emit_signal("disagreed")
 	emit_signal("conformation")
-	self.queue_free()
+	self.exit_popup()
 
 
 func agreed():
 	emit_signal("agreed")
 	emit_signal("conformation")
-	self.queue_free()
+	self.exit_popup()
