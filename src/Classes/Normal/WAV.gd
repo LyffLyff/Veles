@@ -8,11 +8,11 @@ class_name WAV extends Reference
 func is_channel_stereo(var header : PoolByteArray, var fmt_offset : int) -> bool:
 	# 0x200 -> Stereo
 	# 0x100 -> Mono
-	return true if Binary.new().byte_array_to_int32( header.subarray(6 + fmt_offset, 7 + fmt_offset) ) == 2 else false
+	return true if Binary.new().byte_array_to_int32_little_endian( header.subarray(6 + fmt_offset, 7 + fmt_offset) ) == 2 else false
 
 
 func get_mix_rate(var header : PoolByteArray, var fmt_offset : int) -> int:
-	return Binary.new().byte_array_to_int32(header.subarray(8 + fmt_offset, 11 + fmt_offset) )
+	return Binary.new().byte_array_to_int32_little_endian(header.subarray(8 + fmt_offset, 11 + fmt_offset) )
 
 
 func get_bit_rate(var header : PoolByteArray, var fmt_offset : int) -> int:
@@ -22,15 +22,15 @@ func get_bit_rate(var header : PoolByteArray, var fmt_offset : int) -> int:
 
 
 func get_byte_rate(var header : PoolByteArray,var fmt_offset : int) -> int:
-	return Binary.new().byte_array_to_int32(header.subarray(12 + fmt_offset, 15 + fmt_offset) )
+	return Binary.new().byte_array_to_int32_little_endian(header.subarray(12 + fmt_offset, 15 + fmt_offset) )
 
 
 func get_bits_per_sample(var header : PoolByteArray, var fmt_offset : int) -> int:
-	return Binary.new().byte_array_to_int32(header.subarray(18 + fmt_offset,19 + fmt_offset) )
+	return Binary.new().byte_array_to_int32_little_endian(header.subarray(18 + fmt_offset,19 + fmt_offset) )
 
 
 func get_format_type(var header : PoolByteArray, var fmt_offset : int) -> int:
-	return Binary.new().byte_array_to_int32(header.subarray(4 + fmt_offset,5 + fmt_offset) )
+	return Binary.new().byte_array_to_int32_little_endian(header.subarray(4 + fmt_offset,5 + fmt_offset) )
 
 
 func find_fmt_in_file(var data : PoolByteArray) -> int:

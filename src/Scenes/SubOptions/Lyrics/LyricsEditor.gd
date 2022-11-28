@@ -310,13 +310,13 @@ func _on_verse_rect_changed(var verse_idx : int, var new_height : int) -> void:
 
 func _on_Return_pressed():
 	if !is_project_up_to_date:
-		#Asking if they want to leave without saving
+		# asking if they want to leave without saving
 		var x : Node = load("res://src/Scenes/General/QuestionDialog.tscn").instance()
 		Global.root.add_child(x)
-		x.n_ready( "Leave Project without Saving?" )
+		x.n_ready("Leave Project without Saving?")
 		var _err = x.connect("agreed",Global.root,"load_option",[6,true])
 	else:
-		#If Porject is up to Date it won't display Notice
+		# If project is up to date it will simply return to projects
 		Global.root.load_option(6,true)
 
 

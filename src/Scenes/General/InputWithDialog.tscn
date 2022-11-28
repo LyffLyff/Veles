@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
+[ext_resource path="res://src/assets/Icons/White/Folder/open folder_72px.png" type="Texture" id=1]
 [ext_resource path="res://src/Scenes/General/InputWithDialog.gd" type="Script" id=2]
-[ext_resource path="res://src/Assets/Icons/White/Folder/add folder_72px.png" type="Texture" id=3]
 
 [node name="InputWithDialog" type="HBoxContainer"]
 anchor_right = 1.0
@@ -36,11 +36,7 @@ margin_right = 648.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 35, 25 )
 size_flags_horizontal = 5
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 3 )
-texture_hover = ExtResource( 3 )
-texture_disabled = ExtResource( 3 )
-texture_focused = ExtResource( 3 )
+texture_normal = ExtResource( 1 )
 expand = true
 stretch_mode = 5
 

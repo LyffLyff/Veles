@@ -34,7 +34,8 @@ func free_user_profiles() -> void:
 
 
 func on_user_profile_selected(var user_idx : int) -> void:
-	# saving the Data of the Previous user then loading the one from the new one
+	# handles switching / initialising of users
+	# saving the data of the Previous user then loading the one from the new one
 	var paths : PoolStringArray = []
 	for i in SongLists.file_paths.size():
 		paths.push_back( SongLists.add_user_to_filepath(SongLists.file_paths[i]))

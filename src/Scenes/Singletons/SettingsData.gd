@@ -1,5 +1,5 @@
 extends Node
-# this Script will hold all Settings that can be changed in Veles.
+# this script will hold all Settings that can be changed in Veles.
 
 enum {
 	GENERAL_SETTINGS,

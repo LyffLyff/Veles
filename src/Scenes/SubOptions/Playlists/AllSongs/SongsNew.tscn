@@ -41,7 +41,6 @@ size_flags_vertical = 3
 anchor_right = 0.0
 margin_right = 1110.0
 margin_bottom = 40.0
-size_flags_horizontal = 3
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
 margin_top = 48.0

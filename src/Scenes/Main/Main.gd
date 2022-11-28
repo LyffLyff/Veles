@@ -46,7 +46,6 @@ func _notification(what):
 		get_tree().get_root().set_disable_input(true)
 		Global.is_low_fps = true
 		Engine.set_target_fps(4)
-		#Engine.set_iterations_per_second(1)
 	elif what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
 		# resetting the engine frame rate to 60 fps
 		Global.is_low_fps = false
@@ -81,7 +80,7 @@ func _unhandled_key_input(event):
 						# loading Change Tags
 						load_option(4, true)
 					KEY_D:
-						#  loading Downloads
+						# loading Downloads
 						load_option(5, true)
 					KEY_Y:
 						# loading Lyrics
@@ -111,7 +110,6 @@ func _unhandled_key_input(event):
 
 func init_main(var load_current_song : bool = false) -> void:
 	if Global.current_profile_idx != -1:
-		
 		# connecting User Profile Box
 		sidebar.user_profile_container.init_profile_box()
 		sidebar.update_sidebar(0.0)
@@ -420,7 +418,7 @@ func free_option() -> void:
 		options.remove_child(n)
 
 
-func update_highlighted_song(var NextHighlighted : String) -> void:
+func update_highlighted_song(var next_highlighted : String) -> void:
 	#checks first if either AllSongs or a Playlist are shown
 	if options.get_child(0).get("songs") != null:
 		var highlighted_song : int = options.get_child(0).get_index_from_songlist(SongLists.current_song)
@@ -430,7 +428,7 @@ func update_highlighted_song(var NextHighlighted : String) -> void:
 		#if a song is currently highlighted
 		if highlighted_song != -1:
 			options.get_child(0).unhighlight_song(highlighted_song)
-			var NextHighlightedIdx : int = options.get_child(0).get_index_from_songlist(NextHighlighted)
+			var NextHighlightedIdx : int = options.get_child(0).get_index_from_songlist(next_highlighted)
 			if NextHighlightedIdx == -1:
 				return
 			options.get_child(0).highlight_song(options.get_child(0).songs.get_child( NextHighlightedIdx ) )

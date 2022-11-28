@@ -6,11 +6,7 @@
 
 [sub_resource type="StyleBoxFlat" id=4]
 resource_local_to_scene = true
-bg_color = Color( 0.113725, 0.113725, 0.113725, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
+bg_color = Color( 0.156863, 0.160784, 0.156863, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=2]
 

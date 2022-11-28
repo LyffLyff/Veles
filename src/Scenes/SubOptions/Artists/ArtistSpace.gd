@@ -21,12 +21,12 @@ func _input(event):
 						emit_signal("moving_container_released")
 
 
-func init_artist_space(var artists : PoolStringArray, var profession : String) -> void:
+func init_artist_space(var artists_ : PoolStringArray, var profession : String) -> void:
 	self.get_stylebox("panel").set_bg_color(NORMAL_CLR)
-	self.artists = artists
-	cover.set_texture( ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/Artists/Covers/" + artists.join("") + ".png") )
-	artist_label.set_text( self.artists.join(", ") )
-	profession_label.set_text( profession )
+	self.artists = artists_
+	cover.set_texture(ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/Artists/Covers/" + artists.join("") + ".png"))
+	artist_label.set_text(self.artists.join(", "))
+	profession_label.set_text(profession)
 	hold_threshold_timer.set_wait_time(HOLD_THRESHOLD)
 
 

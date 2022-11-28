@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png" type="Texture" id=1]
 [ext_resource path="res://src/Assets/Icons/White/General/add_1_72px.png" type="Texture" id=2]
-[ext_resource path="res://src/Assets/Icons/White/Folder/add folder_72px.png" type="Texture" id=3]
+[ext_resource path="res://src/Assets/Icons/White/Folder/open folder_72px.png" type="Texture" id=3]
 [ext_resource path="res://src/Scenes/SubOptions/Tagging/ChangeTags.gd" type="Script" id=5]
 [ext_resource path="res://src/Scenes/SubOptions/Tagging/GenreSelection.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=7]
@@ -132,7 +132,6 @@ margin_bottom = 20.0
 rect_min_size = Vector2( 130, 20 )
 size_flags_horizontal = 3
 text = "Path[s]:"
-align = 1
 valign = 1
 
 [node name="Control" type="Control" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/VBoxContainer"]
@@ -202,7 +201,6 @@ margin_right = 130.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 130, 20 )
 text = "Filename:"
-align = 1
 valign = 1
 __meta__ = {
 "_edit_lock_": true
@@ -230,7 +228,6 @@ margin_right = 130.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 130, 20 )
 text = "Title:"
-align = 1
 valign = 1
 __meta__ = {
 "_edit_lock_": true
@@ -259,7 +256,6 @@ margin_right = 130.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 130, 20 )
 text = "Artist[s]:"
-align = 1
 valign = 1
 __meta__ = {
 "_edit_lock_": true
@@ -309,7 +305,6 @@ margin_right = 130.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 130, 20 )
 text = "Album:"
-align = 1
 valign = 1
 __meta__ = {
 "_edit_lock_": true
@@ -343,7 +338,6 @@ margin_right = 130.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 130, 20 )
 text = "Track Number:"
-align = 1
 valign = 1
 __meta__ = {
 "_edit_lock_": true
@@ -372,7 +366,6 @@ margin_right = 130.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 130, 20 )
 text = "Release Year:"
-align = 1
 valign = 1
 __meta__ = {
 "_edit_lock_": true
@@ -405,7 +398,6 @@ margin_right = 130.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 130, 20 )
 text = "Cover:"
-align = 1
 valign = 1
 __meta__ = {
 "_edit_lock_": true
@@ -425,6 +417,7 @@ margin_left = 969.0
 margin_right = 1009.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 40, 20 )
+mouse_default_cursor_shape = 2
 action_mode = 0
 texture_normal = ExtResource( 3 )
 expand = true
@@ -435,18 +428,15 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Cover"]
 visible = false
-margin_top = 31.0
-margin_right = 709.0
-margin_bottom = 131.0
+margin_top = 28.0
+margin_right = 1009.0
+margin_bottom = 66.0
 
 [node name="CoverDescriptionLabel" type="Label" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Cover/HBoxContainer"]
-margin_top = 31.0
 margin_right = 130.0
-margin_bottom = 68.0
+margin_bottom = 38.0
 rect_min_size = Vector2( 130, 20 )
-text = "Cover 
-Description:"
-align = 1
+text = "Cover Description:"
 valign = 1
 autowrap = true
 __meta__ = {
@@ -454,9 +444,9 @@ __meta__ = {
 }
 
 [node name="CoverDescription" type="TextEdit" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Cover/HBoxContainer"]
-margin_left = 134.0
-margin_right = 709.0
-margin_bottom = 100.0
+margin_left = 138.0
+margin_right = 1009.0
+margin_bottom = 38.0
 rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -471,8 +461,7 @@ margin_right = 130.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 130, 20 )
 size_flags_vertical = 0
-text = "Comment[s]"
-align = 1
+text = "Comment[s]:"
 __meta__ = {
 "_edit_lock_": true
 }
@@ -499,8 +488,7 @@ margin_right = 130.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 130, 20 )
 size_flags_vertical = 0
-text = "Rating / 10"
-align = 1
+text = "Rating/10:"
 valign = 1
 __meta__ = {
 "_edit_lock_": true

@@ -37,12 +37,15 @@ func to_image(var dst_path : String, var song_paths : PoolStringArray) -> void:
 	var dst_paths : PoolStringArray = []
 	
 	for i in song_paths.size():
-		dst_paths.push_back(
-			dst_path.replace(
-				"." + dst_path.get_extension(),
-				""
-			) + "-(" + str(i + 1) + ")" + "." + dst_path.get_extension()
-		)
+		if i > 0:
+			dst_paths.push_back(
+				dst_path.replace(
+					"." + dst_path.get_extension(),
+					""
+				) + "-(" + str(i + 1) + ")" + "." + dst_path.get_extension()
+			)
+		else:
+			dst_paths.push_back(dst_path)
 	
 	if !Tags.copy_embedded_covers(song_paths, dst_paths)[0]:
 		Global.root.message(

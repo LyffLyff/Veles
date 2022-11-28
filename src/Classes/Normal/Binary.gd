@@ -2,19 +2,19 @@ class_name Binary  extends Reference
 # a class that hold useful function to handle binary data
 
 
-func byte_array_to_int32(var bytes : PoolByteArray) -> int:
-	# the Max Input of this Function should be 4 Bytes
+func byte_array_to_int32_little_endian(var bytes : PoolByteArray) -> int:
+	# the max input should be 4 bytes -> 4 * 8 = 32
 	# any more would not be a Int32 anymore
-	# conversion uses BIG Endian
-	var ShiftLength : int = 0
-	var Int32 : int = 0
+	# convert using little endian
+	var shift_length : int = 0
+	var int32 : int = 0
 	for i in bytes.size():
 		if i == 4:
 			break;
-		Int32 += bytes[i] << ShiftLength
+		int32 += bytes[i] << shift_length
 		# each Byte is 8 bit -> for each Index the Shift length has to increase by 8
-		ShiftLength += 8 
-	return Int32;
+		shift_length += 8 
+	return int32;
 
 
 func binary_to_decimal(var binary_number : int) -> int:
@@ -33,7 +33,7 @@ func binary_to_decimal(var binary_number : int) -> int:
 	return decimal_number
 
 
-func decimal_to_binary(var decimal_value ,var bits : int) -> String:
+func decimal_to_binary(var decimal_value , var bits : int) -> String:
 	# converting a decimal number given as an integer to a binary number represented as a string
 	var binary_string = "" 
 	var temp : int

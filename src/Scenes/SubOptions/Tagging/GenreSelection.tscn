@@ -15,7 +15,6 @@ margin_right = 139.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 139, 0 )
 text = "Genre:"
-align = 1
 valign = 1
 
 [node name="LineEdit" type="LineEdit" parent="."]

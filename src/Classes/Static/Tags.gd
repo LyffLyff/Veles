@@ -34,8 +34,7 @@ static func get_lyrics(var song_path : String) -> Array:
 
 
 static func get_song_duration(var path : String) -> int:
-	var x : Tagging = Tagging.new()
-	return x.GetSongDuration(path)
+	return AudioProperties.new().get_duration_seconds(path)
 
 
 static func get_cover_description(var src_path : String) -> String:

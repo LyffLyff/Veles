@@ -10,7 +10,7 @@ func init_context_label(var context : String) -> void:
 
 func show_context(var context : String) -> void:
 	self.text = " " + context + " "
-	self.rect_global_position = self.get_global_mouse_position() + Vector2(20, 0)
+	set_context_pos()
 	var _ptw := create_tween().tween_property(
 		self,
 		"modulate:a",
@@ -18,3 +18,10 @@ func show_context(var context : String) -> void:
 		0.1
 	)
 
+
+func set_context_pos() -> void:
+	self.rect_global_position = self.get_global_mouse_position() + Vector2(20, -20)
+	if self.rect_global_position.x  + 150 > OS.get_window_size().x:
+		self.rect_global_position.x -= 150
+	if self.rect_global_position.y  + 100 > OS.get_window_size().y:
+		self.rect_global_position.y -= 100
