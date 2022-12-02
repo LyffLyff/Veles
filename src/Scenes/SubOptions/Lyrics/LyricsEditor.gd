@@ -70,7 +70,6 @@ func n_ready(var prjct_path : String = "") -> void:
 				project_path = prjct_path
 				load_project()
 	is_project_up_to_date = true
-	add_project_to_edited(project_path)
 
 
 func load_project() -> void:
@@ -176,7 +175,7 @@ func on_save_lyrics_project(var save_as_ : bool = false):
 	# structure = Array
 	# [Title, Verses, Timestamps, [Artist, Album, Title, Author, Length, Language, Creator of File] ]
 	var title : String = title_edit.get_text()
-	var VLPFiledata : Array = [
+	var vlp_data : Array = [
 		title,
 		get_verses(),
 		get_timestamps(),
@@ -194,13 +193,13 @@ func on_save_lyrics_project(var save_as_ : bool = false):
 	if Directory.new().file_exists(project_path) and !save_as_:
 		#The Project already exists, the PreExisting File will
 		#be overriden with the new Data
-		SaveData.save(SongLists.rel_to_abs_path(project_path), VLPFiledata )
+		SaveData.save(SongLists.rel_to_abs_path(project_path), vlp_data )
 		is_project_up_to_date = true
 	else:
 		var general_file_dialogue = load("res://src/scenes/General/GeneralFileDialogue.tscn").instance()
 		Global.root.top_ui.add_child(general_file_dialogue)
 		general_file_dialogue.n_ready(FileDialog.MODE_SAVE_FILE, FileDialog.ACCESS_FILESYSTEM, UsedFilepaths.VPL_PROJECT, ["*.vlp"], true, "Save Project As",title)
-		var _err = general_file_dialogue.connect("selection_made", SaveData, "save", [VLPFiledata])
+		var _err = general_file_dialogue.connect("selection_made", SaveData, "save", [vlp_data])
 		
 		# changing current project path if save as is true
 		_err = general_file_dialogue.connect("selection_made", self, "set_project_path")
@@ -210,13 +209,10 @@ func on_save_lyrics_project(var save_as_ : bool = false):
 
 
 func add_project_to_edited(var new_project_path : String) -> void:
-	var edited_projects : Array = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects")
-	if !edited_projects.has(new_project_path):
-		edited_projects.push_back(new_project_path)
-	else:
-		edited_projects.remove(edited_projects.find(new_project_path))
-		edited_projects.push_front(new_project_path)
-	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects", edited_projects)
+	if is_project_up_to_date and new_project_path != "":
+		var edited_projects : Dictionary = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects")
+		edited_projects[new_project_path] = OS.get_unix_time()
+		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects", edited_projects)
 
 
 func get_lyrics_project_path(var title : String) -> String:

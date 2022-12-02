@@ -52,7 +52,7 @@ var general_settings : Dictionary = {
 	#Resolution of Window on Startup
 	"StartupResolution" : Vector2(),
 	
-	"LastEditedVLPProjects" : []
+	"LastEditedVLPProjects" : {}
 }
 var song_settings : Dictionary = {
 	#0 = File Explorer with Extension, 1 w.o extension, 2 = Tag Title

@@ -216,7 +216,7 @@ margin_right = 1120.0
 margin_bottom = 100.0
 alignment = 2
 
-[node name="Export" type="TextureButton" parent="VBoxContainer/Panel/VBoxContainer/Title/Options"]
+[node name="Export" type="TextureButton" parent="VBoxContainer/Panel/VBoxContainer/Title/Options" groups=["Context"]]
 margin_left = 1062.0
 margin_right = 1102.0
 margin_bottom = 100.0

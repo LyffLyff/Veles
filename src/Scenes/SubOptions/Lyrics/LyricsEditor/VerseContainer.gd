@@ -5,6 +5,14 @@ signal verse_text_edited
 
 onready var verse_text_edit : TextEdit = $HBoxContainer/VerseText
 
+
+func _input(event):
+	if event is InputEventKey:
+		if event.is_pressed():
+			if event.scancode == KEY_ESCAPE:
+				verse_text_edit.release_focus()
+
+
 func _on_VerseText_text_changed():
 	emit_signal("verse_text_edited")
 	verse_text_edit.rect_min_size.y = verse_text_edit.get_line_count() * verse_text_edit.get_line_height()

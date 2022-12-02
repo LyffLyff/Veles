@@ -16,6 +16,8 @@ onready var scroller : ScrollContainer = $VBoxContainer/Panel/VBoxContainer/HBox
 onready var toptitles : HBoxContainer = $VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles
 
 func _ready():
+	Global.root.init_context_menus()
+	
 	for n in options.get_child_count():
 		var option : Button = options.get_child(n)
 		option_texts.push_back(option.get_child(0).get_text())

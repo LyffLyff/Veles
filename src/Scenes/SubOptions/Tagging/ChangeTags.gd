@@ -275,9 +275,12 @@ func _on_SetTag_pressed():
 			
 			# TITLE
 			if line_edits_edited[ TITLE ]:
+				print("hehee")
 				Tags.set_title(title.get_text(),song_paths[ path_idx ])
+				print("hehee")
 				if update_in_songs:
 					AllSongs.set_song_title(title.get_text(),temp_main_idx)
+				print("hehee")
 			
 			# ALBUM
 			if line_edits_edited[ ALBUM ]:
@@ -303,8 +306,11 @@ func _on_SetTag_pressed():
 				Tags.set_cover_description(song_paths[ path_idx ], cover_description_edit.get_text())
 			
 			# Rating
+			print("wirguheirfubhiudsfhvb")
 			if rating_box.get_line_edit().text.is_valid_integer():
-				Tagging.new().SetSongPopularity(song_paths[ path_idx ], rating_box.get_value(), -1, "")
+				Tagging.new().SetSongPopularity(song_paths[path_idx], rating_box.get_value(), -1, "")
+			
+			print("hehee")
 			
 			# File Explorer Name
 			if line_edits_edited[0]:

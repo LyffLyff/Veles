@@ -50,3 +50,19 @@ func init_preset_selection() -> void:
 		preset_popup.add_item(temp_filename, item_idx)
 		preset_popup.set_item_text(item_idx, temp_filename)
 		item_idx += 1
+
+
+func _on_Close_mouse_entered():
+	Modulator.modulate_hover(close)
+
+
+func _on_Close_mouse_exited():
+	Modulator.modulate_normal(close)
+
+
+func _on_AddPreset_mouse_entered():
+	Modulator.modulate_hover(add_preset)
+
+
+func _on_AddPreset_mouse_exited():
+	Modulator.modulate_normal(add_preset)

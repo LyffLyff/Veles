@@ -10,6 +10,8 @@ func init_context_label(var context : String) -> void:
 
 func show_context(var context : String) -> void:
 	self.text = " " + context + " "
+	# waiting for text to be set and rect_size to be updated
+	yield(get_tree(),"idle_frame")
 	set_context_pos()
 	var _ptw := create_tween().tween_property(
 		self,
@@ -21,7 +23,7 @@ func show_context(var context : String) -> void:
 
 func set_context_pos() -> void:
 	self.rect_global_position = self.get_global_mouse_position() + Vector2(20, -20)
-	if self.rect_global_position.x  + 150 > OS.get_window_size().x:
-		self.rect_global_position.x -= 150
-	if self.rect_global_position.y  + 100 > OS.get_window_size().y:
-		self.rect_global_position.y -= 100
+	if self.get_global_mouse_position().x  + self.rect_size.x + 30 > OS.get_window_size().x:
+		self.rect_global_position.x -= (self.rect_size.x + 30)
+	if self.get_global_mouse_position().y + self.rect_size.y + 30 > OS.get_window_size().y:
+		self.rect_global_position.y -= (self.rect_size.y + 10)

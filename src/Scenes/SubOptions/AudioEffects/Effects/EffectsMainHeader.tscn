@@ -94,4 +94,8 @@ margin_right = 1120.0
 margin_bottom = 52.0
 size_flags_vertical = 8
 
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/Close" to="." method="_on_Close_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/Close" to="." method="_on_Close_mouse_exited"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer/MainSwitch" to="VBoxContainer/HBoxContainer/MainSwitch" method="on_main_switch_toggled"]
+[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/AddPreset" to="." method="_on_AddPreset_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/AddPreset" to="." method="_on_AddPreset_mouse_exited"]

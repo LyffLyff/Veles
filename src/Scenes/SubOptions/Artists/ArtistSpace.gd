@@ -2,7 +2,7 @@ extends "res://src/Scenes/Templates/MovingContainer.gd"
 
 const HIGHLIGHT_CLR : Color = Color("161616")
 const NORMAL_CLR : Color = Color("222222")
-const TW_DURATION : float = 0.1
+const TW_DURATION : float = 0.075
 
 var artists : PoolStringArray = []
 
