@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/Scenes/Views/SongInfoSpace.gd" type="Script" id=1]
+[ext_resource path="res://src/Scenes/Views/song_info.tres" type="StyleBox" id=2]
 
 [node name="SongInfoSpace" type="VBoxContainer"]
 anchor_right = 1.0
@@ -17,6 +18,7 @@ autowrap = true
 margin_top = 24.0
 margin_right = 1120.0
 margin_bottom = 40.0
+custom_styles/normal = ExtResource( 2 )
 autowrap = true
 
 [node name="HSeparator" type="HSeparator" parent="."]

@@ -83,7 +83,7 @@ size_flags_vertical = 3
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Background/HBoxContainer"]
 margin_left = 18.0
-margin_right = 1102.0
+margin_right = 1120.0
 margin_bottom = 600.0
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -93,46 +93,39 @@ script = ExtResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer/ScrollContainer"]
 material = SubResource( 3 )
-margin_right = 1084.0
+margin_right = 1102.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TopBuffer" type="Control" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer"]
-margin_right = 1084.0
+margin_right = 1102.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 0, 200 )
 size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer"]
 margin_top = 208.0
-margin_right = 1084.0
+margin_right = 1102.0
 margin_bottom = 208.0
 size_flags_horizontal = 3
 
 [node name="Lyrics" type="VBoxContainer" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_right = 1066.0
+margin_right = 1084.0
 size_flags_horizontal = 3
 
 [node name="RightEmpty" type="Control" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
-margin_left = 1074.0
-margin_right = 1084.0
+margin_left = 1092.0
+margin_right = 1102.0
 rect_min_size = Vector2( 10, 0 )
 size_flags_vertical = 3
 
 [node name="BottomBuffer" type="Control" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer"]
 margin_top = 216.0
-margin_right = 1084.0
+margin_right = 1102.0
 margin_bottom = 416.0
 rect_min_size = Vector2( 0, 200 )
 size_flags_horizontal = 3
-
-[node name="RightEmpty" type="Control" parent="Background/HBoxContainer"]
-margin_left = 1110.0
-margin_right = 1120.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 10, 0 )
-size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Background"]
 margin_right = 1120.0
@@ -151,18 +144,18 @@ mouse_filter = 2
 [node name="PanelContainer" type="PanelContainer" parent="Background/VBoxContainer/HBoxContainer"]
 visible = false
 material = SubResource( 8 )
-margin_left = 1032.0
+margin_left = 1036.0
 margin_right = 1072.0
-margin_bottom = 40.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 36, 36 )
 size_flags_horizontal = 10
 custom_styles/panel = SubResource( 7 )
 
 [node name="Resync" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/PanelContainer"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 35.0
-margin_bottom = 35.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 32.0
+margin_bottom = 32.0
 rect_min_size = Vector2( 28, 28 )
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4

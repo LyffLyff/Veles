@@ -25,6 +25,7 @@ rect_min_size = Vector2( 0, 30 )
 mouse_default_cursor_shape = 2
 icon = ExtResource( 1 )
 clip_text = true
+align = 0
 expand_icon = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

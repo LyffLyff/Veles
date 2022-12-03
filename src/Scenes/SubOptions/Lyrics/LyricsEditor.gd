@@ -73,6 +73,7 @@ func n_ready(var prjct_path : String = "") -> void:
 
 
 func load_project() -> void:
+	add_project_to_edited(project_path)
 	var project_data : Array = SaveData.load_data(project_path)
 	
 	# title
@@ -211,7 +212,7 @@ func on_save_lyrics_project(var save_as_ : bool = false):
 func add_project_to_edited(var new_project_path : String) -> void:
 	if is_project_up_to_date and new_project_path != "":
 		var edited_projects : Dictionary = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects")
-		edited_projects[new_project_path] = OS.get_unix_time()
+		edited_projects[new_project_path] = Time.get_datetime_dict_from_system()
 		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects", edited_projects)
 
 

@@ -74,43 +74,29 @@ border_color = Color( 0, 0, 0, 1 )
 [sub_resource type="StyleBoxFlat" id=52]
 
 [sub_resource type="StyleBoxFlat" id=30]
+content_margin_left = 1.0
+content_margin_right = 1.0
 bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id=31]
+content_margin_left = 1.0
+content_margin_right = 1.0
 bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id=32]
+content_margin_left = 1.0
+content_margin_right = 1.0
 bg_color = Color( 0.0705882, 0.0705882, 0.0705882, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id=28]
 content_margin_left = 1.0
 content_margin_right = 1.0
 bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id=29]
 content_margin_left = 1.0
 content_margin_right = 1.0
 bg_color = Color( 0.14902, 0.14902, 0.14902, 1 )
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id=19]
 bg_color = Color( 0.321569, 0.321569, 0.321569, 1 )
@@ -132,10 +118,6 @@ expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxFlat" id=21]
 bg_color = Color( 0.72549, 0.72549, 0.72549, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 expand_margin_top = 2.0
 expand_margin_bottom = 2.0
 
@@ -274,10 +256,6 @@ expand_margin_right = 1.0
 
 [sub_resource type="StyleBoxFlat" id=26]
 bg_color = Color( 0.670588, 0.670588, 0.670588, 1 )
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
 expand_margin_left = 2.0
 expand_margin_right = 2.0
 

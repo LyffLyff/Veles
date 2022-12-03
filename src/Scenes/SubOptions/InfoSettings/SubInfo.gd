@@ -22,6 +22,7 @@ func _ready():
 func load_subinfos() -> void:
 	for i in subinfos:
 		var x : Button = Button.new()
+		x.align = Button.ALIGN_LEFT
 		x.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		if x.connect("pressed",self,"emit_signal",["subinfo_pressed",i]):
 			Global.root.message("CANNOT CONNECT pressed signal to emit_signal subinfo_pressed",  SaveData.MESSAGE_ERROR)

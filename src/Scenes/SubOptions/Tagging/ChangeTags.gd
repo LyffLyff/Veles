@@ -235,11 +235,11 @@ func _on_SetTag_pressed():
 			song_paths.push_back(path_candidate)
 	
 	# setting the Changed Tags
+	var z : File = File.new()
 	for path_idx in song_paths.size():
-		var z : File = File.new()
-		if z.open(song_paths[ path_idx ],File.READ) != OK:
+		if z.open(song_paths[path_idx],File.READ) != OK:
 			# skipping the Song if it couldn't be opened
-			Global.root.message("File could not be tagged:\n" + song_paths[ path_idx ],  SaveData.MESSAGE_ERROR, true )
+			Global.root.message("File could not be tagged:\n" + song_paths[path_idx], SaveData.MESSAGE_ERROR, true )
 			continue;
 		
 		if FormatChecker.get_music_format_from_data( z.get_buffer(1024).hex_encode() ) == -1 and FormatChecker.get_music_filename_extension(song_paths[ path_idx ]) == -1:
@@ -250,17 +250,17 @@ func _on_SetTag_pressed():
 		z.close()
 		
 		update_in_songs = false
-		if SongLists.AllSongs.has(song_paths[ path_idx ]):
+		if SongLists.AllSongs.has(song_paths[path_idx]):
 			# if the Current Song has been added to the AllSongs, certain properties
 			# will be changed 
 			update_in_songs = true
-			temp_main_idx = AllSongs.get_main_idx(song_paths[ path_idx ])
+			temp_main_idx = AllSongs.get_main_idx(song_paths[path_idx])
 			
-		if dir.file_exists(song_paths[ path_idx ]):
-			Global.root.message("Setting Tags on: " + song_paths[ path_idx ], SaveData.MESSAGE_NOTICE)
+		if dir.file_exists(song_paths[path_idx]):
+			Global.root.message("Setting Tags on: " + song_paths[path_idx], SaveData.MESSAGE_NOTICE)
 			
 			# ARTIST
-			if line_edits_edited[ ARTIST ]:
+			if line_edits_edited[ARTIST]:
 				var new_artist : String = create_artist_string()
 				Tags.set_artist(new_artist, song_paths[ path_idx ])
 				if update_in_songs:
@@ -274,31 +274,28 @@ func _on_SetTag_pressed():
 					AllSongs.set_song_artist(new_artist,temp_main_idx)
 			
 			# TITLE
-			if line_edits_edited[ TITLE ]:
-				print("hehee")
+			if line_edits_edited[TITLE]:
 				Tags.set_title(title.get_text(),song_paths[ path_idx ])
-				print("hehee")
 				if update_in_songs:
 					AllSongs.set_song_title(title.get_text(),temp_main_idx)
-				print("hehee")
 			
 			# ALBUM
-			if line_edits_edited[ ALBUM ]:
+			if line_edits_edited[ALBUM]:
 				Tags.set_album(album_edit.get_text(),song_paths[ path_idx ])
 			
 			# GENRE
 			Tags.set_genre(genre_edit.get_text(),song_paths[ path_idx ])
 			
 			# TRACK NUMBER
-			if line_edits_edited[ TRACK_NUMBER ]:
+			if line_edits_edited[TRACK_NUMBER]:
 				Tags.set_track_number(track_num_edit.get_text(), song_paths[ path_idx ])
 			
 			# RELEASE_YEAR
-			if line_edits_edited[ RELEASE_YEAR ]:
+			if line_edits_edited[RELEASE_YEAR]:
 				Tags.set_release_year(release_year_edit.get_text(), song_paths[ path_idx ])
 			
 			# COMMENT
-			if line_edits_edited[ COMMENT ]:
+			if line_edits_edited[COMMENT]:
 				Tags.set_comment(comment_edit.get_text(), song_paths[ path_idx ])
 			
 			# COVER_DESCRIPTION
@@ -306,11 +303,8 @@ func _on_SetTag_pressed():
 				Tags.set_cover_description(song_paths[ path_idx ], cover_description_edit.get_text())
 			
 			# Rating
-			print("wirguheirfubhiudsfhvb")
 			if rating_box.get_line_edit().text.is_valid_integer():
 				Tagging.new().SetSongPopularity(song_paths[path_idx], rating_box.get_value(), -1, "")
-			
-			print("hehee")
 			
 			# File Explorer Name
 			if line_edits_edited[0]:

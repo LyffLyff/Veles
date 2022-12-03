@@ -1,8 +1,8 @@
 class_name TimeFormatter extends Reference
 # a class to format times from string to int, timestamp to seconds,.....
 
-const Months : Array = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-const DayExtension : Array = ["st","nd","rd","th"]
+const months : Array = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+const day_extensions : Array = ["st","nd","rd","th"]
 
 
 static func format_seconds(var seconds_f : float) -> String:
@@ -30,13 +30,13 @@ static func format_daytime(var hour : int, var minute : int, var second : int) -
 
 
 static func format_date(var day : int, var month_idx : int, var year : int) -> String:
-	return "%d"%day + get_day_extension(day) + " " + Months[month_idx - 1] + " " + "%d"%year
+	return "%d"%day + get_day_extension(day) + " " + months[month_idx - 1] + " " + "%d"%year
 
 
 static func get_day_extension(var day : int) -> String:
 	if day >= 3:
-		return DayExtension[3]
-	return DayExtension[day]
+		return day_extensions[3]
+	return day_extensions[day]
 
 
 static func lrc_timestamp_to_seconds(var lrc_timestamp : String) -> float:

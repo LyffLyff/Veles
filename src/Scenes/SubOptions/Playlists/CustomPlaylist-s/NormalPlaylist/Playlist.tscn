@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Assets/Fonts/Montserrat/static/Montserrat-ExtraBold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/NormalPlaylist/Playlist.gd" type="Script" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://src/Scenes/SubOptions/Playlists/Header.gd" type="Script" id=6]
 [ext_resource path="res://src/Assets/Icons/White/Settings/full orientation_72px.png" type="Texture" id=7]
 [ext_resource path="res://src/Scenes/SubOptions/Playlists/SongVBox/SongVbox.gd" type="Script" id=8]
-[ext_resource path="res://src/Ressources/Shaders/direction_fade.tres" type="Material" id=9]
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.254902, 0.254902, 0.254902, 1 )
@@ -53,7 +52,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Header" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
-material = ExtResource( 9 )
 margin_right = 1115.0
 margin_bottom = 154.0
 mouse_filter = 2

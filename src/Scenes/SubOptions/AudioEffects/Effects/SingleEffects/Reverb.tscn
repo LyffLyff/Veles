@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/SingleEffects/Reverb.gd" type="Script" id=1]
 [ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/RotaryButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/EffectsHeader.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/effect_header.tres" type="StyleBox" id=4]
 [ext_resource path="res://src/Ressources/Themes/AudioEffect.tres" type="StyleBox" id=5]
 
 [node name="Reverb" type="PanelContainer"]
@@ -44,6 +45,7 @@ custom_constants/separation = 10
 [node name="ReverbHeader" type="Label" parent="VBoxContainer/VBoxContainer"]
 margin_right = 1120.0
 margin_bottom = 16.0
+custom_styles/normal = ExtResource( 4 )
 text = "Reverb:"
 
 [node name="Reverb" type="GridContainer" parent="VBoxContainer/VBoxContainer"]
@@ -111,6 +113,7 @@ property_idx = 5
 margin_top = 220.0
 margin_right = 1120.0
 margin_bottom = 236.0
+custom_styles/normal = ExtResource( 4 )
 text = "PreDelay:"
 
 [node name="PreDelay" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
