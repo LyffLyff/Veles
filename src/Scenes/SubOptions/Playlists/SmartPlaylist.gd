@@ -61,7 +61,7 @@ func n_ready( var conditions : Dictionary = {}, var title = "", var custom_descr
 	else:
 		creation_date_label.text = ""
 	
-	# setting Current Song
+	# init 
 	Global.root.update_highlighted_song(SongLists.current_song)
 
 

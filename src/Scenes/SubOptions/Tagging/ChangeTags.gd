@@ -171,7 +171,7 @@ func init_tags(var valid_paths : PoolStringArray) -> void:
 	# song Popularity -> [Rating, Counter, Email]
 	var song_rating = Tagging.new().GetSongPopularity(valid_paths[0])
 	if song_rating[0]:
-		rating_box.get_line_edit().set_text(str(song_rating[0]))
+		rating_box.set_value(song_rating[0])
 	else:
 		rating_box.get_line_edit().set_text("n.a.")
 

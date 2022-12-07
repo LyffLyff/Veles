@@ -206,7 +206,6 @@ gdscript/warnings/standalone_ternary=false
 [display]
 
 window/size/width=1120
-window/size/borderless=true
 window/dpi/allow_hidpi=true
 window/per_pixel_transparency/allowed=true
 window/per_pixel_transparency/enabled=true
@@ -237,7 +236,7 @@ texture={
 "compress/normal_map": 0,
 "detect_3d": false,
 "flags/anisotropic": false,
-"flags/filter": true,
+"flags/filter": false,
 "flags/mipmaps": false,
 "flags/repeat": 0,
 "flags/srgb": 2,

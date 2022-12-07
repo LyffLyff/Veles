@@ -42,6 +42,9 @@ func _ready():
 	song_amount_label.text = str( get_playlist_song_amount() )
 	creation_date_label.text = get_playlist_creation_date()
 	runtime_label.text = get_playlist_runtime()
+	
+	# init 
+	Global.root.update_highlighted_song(SongLists.current_song)
 
 
 func on_cover_selected(var img_src : String):

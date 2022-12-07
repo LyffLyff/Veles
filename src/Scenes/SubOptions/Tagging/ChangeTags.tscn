@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png" type="Texture" id=1]
 [ext_resource path="res://src/Assets/Icons/White/General/add_1_72px.png" type="Texture" id=2]
@@ -6,19 +6,6 @@
 [ext_resource path="res://src/Scenes/SubOptions/Tagging/ChangeTags.gd" type="Script" id=5]
 [ext_resource path="res://src/Scenes/SubOptions/Tagging/GenreSelection.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=7]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.105882, 0.105882, 0.105882, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-expand_margin_left = 2.0
-expand_margin_right = 2.0
-expand_margin_top = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxFlat" id=2]
 
 [node name="ChangeTags" type="HBoxContainer"]
 anchor_right = 1.0
@@ -474,10 +461,6 @@ margin_bottom = 200.0
 rect_min_size = Vector2( 0, 200 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/read_only = SubResource( 1 )
-custom_styles/focus = SubResource( 1 )
-custom_styles/normal = SubResource( 1 )
-custom_styles/completion = SubResource( 2 )
 
 [node name="Popularity" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MainTags/VBoxContainer"]
 margin_top = 480.0
