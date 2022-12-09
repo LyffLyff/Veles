@@ -2,6 +2,8 @@ extends Control
 # Image View describes the Menu that overlays over the main scene,
 # that has the files cover, lyrics and infos in the focus
 
+signal image_view_exit_started
+
 enum ImageViewOptions {
 	LYRICS,
 	INFOS,
@@ -84,6 +86,7 @@ func init_image_view(var toggle : bool) -> SceneTreeTween:
 
 
 func exit_image_view() -> void:
+	emit_signal("image_view_exit_started")
 	yield(init_image_view(0.0),"finished")
 	self.queue_free()
 

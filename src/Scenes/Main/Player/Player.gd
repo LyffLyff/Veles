@@ -15,6 +15,7 @@ var output_device_ref : Control = null
 var volume_change_ref : Control = null
 var image_view_ref : Control = null
 var is_image_view_active : bool = false
+var is_image_view_tweening : bool = false
 
 onready var prior_song : TextureButton = $Main/MainPlayer/Middle/HBoxContainer/PriorSong
 onready var next_song : TextureButton = $Main/MainPlayer/Middle/HBoxContainer/NextSong
@@ -146,7 +147,7 @@ func _on_Cover_pressed():
 	if !is_image_view_active:
 		SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "ImageViewActivated", true)
 		image_view_ref = IMAGE_VIEW.instance()
-		var _err = image_view_ref.connect("tree_exited",self,"set_deferred",["image_view_ref", null])
+		var _err = image_view_ref.connect("image_view_exit_started", self, "set", ["image_view_ref", null])
 		Global.root.middle_part.add_child(image_view_ref)
 		update_player_covers(Playlist.get_playlist_name(SongLists.current_playlist_idx))
 	else:

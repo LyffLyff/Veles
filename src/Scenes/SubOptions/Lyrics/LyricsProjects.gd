@@ -17,7 +17,7 @@ func load_lyrics_projects() -> void:
 	# 2.) A new Project gets saved
 	# 3.) Every Saved As Project
 	var projects : Dictionary = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects")
-	for i in projects.size():
+	for i in range(projects.size() - 1, -1, -1):
 		if !Directory.new().file_exists(projects.keys()[i]):
 			# if the File doesn't exist it will be removed from the Last Edited ones
 			var temp : Dictionary = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects")

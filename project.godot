@@ -50,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://src/Classes/Static/ExtendedDirectory.gd"
 }, {
 "base": "Reference",
+"class": "FileChecker",
+"language": "GDScript",
+"path": "res://src/Classes/Static/FileChecker.gd"
+}, {
+"base": "Reference",
 "class": "FormatChecker",
 "language": "GDScript",
 "path": "res://src/Classes/Static/FormatChecker.gd"
@@ -107,7 +112,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "Tagging",
 "language": "NativeScript",
-"path": "res://addons/GDNative/Tagging.gdns"
+"path": "res://addons/GDNative/tagging.gdns"
 }, {
 "base": "Reference",
 "class": "Tags",
@@ -148,6 +153,7 @@ _global_script_class_icons={
 "DesignPaths": "",
 "Exporter": "",
 "ExtendedDirectory": "",
+"FileChecker": "",
 "FormatChecker": "",
 "HTML": "",
 "HexaDecimal": "",
@@ -206,6 +212,7 @@ gdscript/warnings/standalone_ternary=false
 [display]
 
 window/size/width=1120
+window/size/borderless=true
 window/dpi/allow_hidpi=true
 window/per_pixel_transparency/allowed=true
 window/per_pixel_transparency/enabled=true

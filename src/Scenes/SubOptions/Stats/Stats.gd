@@ -145,10 +145,10 @@ func _on_Export_pressed():
 	var current_tab_streams : Dictionary = get_stream_dict(current_tab)
 	var sorted_streams : PoolVector2Array = get_most_streamed(current_tab)
 	var sorted_streams_list : Array = []
-	var header : Array = ["Number","Name","Streams"]
+	var header : Array = ["Number:","Title:","Streams:"]
 	sorted_streams_list.push_back(header)
 	
-	for i in range(sorted_streams.size() - 1, 0, -1):
+	for i in range(sorted_streams.size() - 1, -1, -1):
 		# Adding the place, title and streams
 		sorted_streams_list.push_back(
 			[

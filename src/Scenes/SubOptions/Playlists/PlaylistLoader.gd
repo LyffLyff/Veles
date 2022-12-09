@@ -185,7 +185,7 @@ func rename_playlist() -> void:
 	Global.root.add_child(x)
 	x.set_topic("New Playlist Title")
 	var _err = x.connect("text_saved",Playlist,"rename_playlist",[playlist_idx])
-	_err = x.connect("tree_exited",self,"unload_playlist")
+	_err = x.connect("saved",self,"unload_playlist")
 	_err = x.connect("tree_exited",Global.root,"toggle_songlist_input",[true])
 
 

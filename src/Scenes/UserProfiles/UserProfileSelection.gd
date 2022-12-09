@@ -46,7 +46,8 @@ func on_user_profile_selected(var user_idx : int) -> void:
 	SongLists.load_user_specific_data(SongLists.file_paths)
 	
 	# stop playback
-	Playback.new().stop_playback()
+	if Global.last_loaded_user != Global.user_profiles[user_idx]:
+		Playback.new().stop_playback()
 	
 	# initialising user profile
 	var init : VelesInit = VelesInit.new()

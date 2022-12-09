@@ -2,6 +2,7 @@ extends "res://src/Scenes/General/StdPopupBackground.gd"
 # a general input popup that can receive input via a LineEdit
 
 signal text_saved
+signal saved
 
 onready var topic_label : Label = $PanelContainer/HBoxContainer/VBoxContainer/TopicLabel
 onready var input_edit : LineEdit = $PanelContainer/HBoxContainer/VBoxContainer/Input/InputEdit
@@ -31,5 +32,6 @@ func _on_Close_pressed():
 
 
 func _on_Save_pressed():
-	emit_signal("text_saved", input_edit.get_text() )
+	emit_signal("text_saved", input_edit.get_text())
+	emit_signal("saved")
 	exit_popup()

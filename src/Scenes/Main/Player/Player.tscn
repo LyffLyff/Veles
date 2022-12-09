@@ -131,6 +131,7 @@ margin_right = 51.0
 margin_bottom = 51.0
 rect_min_size = Vector2( 12, 12 )
 rect_pivot_offset = Vector2( 6, 6 )
+mouse_filter = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 16 )

@@ -126,8 +126,7 @@ func _execute_on_thread(arguments: Array) -> void:
 			"file_name": file_name,
 		})
 	
-	print(file_path)
-	options_and_arguments.append_array(["--no-continue", "-o", file_path, url])
+	options_and_arguments.append_array(["--no-continue","-o", file_path, url])
 	
 	var output: Array = []
 	OS.execute(executable, options_and_arguments, true, output)

@@ -7,7 +7,7 @@ const save_types : Array = [UsedFilepaths.DESKTOP, UsedFilepaths.HTML_FILE,  Use
 const file_filters : Array = [null,"*.html", "*.csv"]
 const open_modes : Array = [FileDialog.MODE_OPEN_DIR, FileDialog.MODE_SAVE_FILE, FileDialog.MODE_SAVE_FILE]
 
-onready var export_types : VBoxContainer = $PanelContainer/HBoxContainer/VBoxContainer/export_types
+onready var export_types : VBoxContainer = $PanelContainer/HBoxContainer/VBoxContainer/ExportTypes
 
 
 func _enter_tree():
@@ -26,7 +26,7 @@ func init_export_menu(var playlist_idx : int) -> void:
 			open_modes[i],
 			FileDialog.ACCESS_FILESYSTEM,
 			export_methods[i],
-			[Playlist.get_playlist_paths(playlist_idx), playlist_idx],
+			[Playlist.get_playlist_paths(playlist_idx), playlist_idx, Playlist.get_playlist_name(playlist_idx)],
 			save_types[i],
 			[file_filters[i]],
 			true,

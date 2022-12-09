@@ -49,7 +49,7 @@ rect_min_size = Vector2( 0, 10 )
 margin_top = 18.0
 margin_right = 364.0
 margin_bottom = 34.0
-text = "Export Playlist:"
+text = "Export Stats:"
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 margin_top = 42.0

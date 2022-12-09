@@ -268,6 +268,11 @@ func change_song(var direction : int) -> void:
 		var playlist_n : Dictionary
 		
 		if SongLists.current_playlist_idx >= 0:
+			# if the index of the normal playlist does not exist it switches to AllSongs
+			if SongLists.normal_playlists.values().size() <= SongLists.current_playlist_idx:
+				SongLists.current_playlist_idx = -1
+				change_song(+1)
+			
 			playlist_n = SongLists.normal_playlists.values()[SongLists.current_playlist_idx]
 		
 		elif SongLists.current_playlist_idx <= -2:
@@ -288,12 +293,12 @@ func change_song(var direction : int) -> void:
 				else:
 					idx_in_playlist = 0
 				break;
-		#getting the main idx
-		#it is safer to search the path (playlist_n.keys()[idx_in_playlist]) in the AllSongs Dictionary 
-		#since the main index can change when reloading AllSongs
+		# getting the main idx
+		# it is safer to search the path (playlist_n.keys()[idx_in_playlist]) in the AllSongs Dictionary 
+		# since the main index can change when reloading AllSongs
 		next_main_idx = AllSongs.get_main_idx(playlist_n.keys()[idx_in_playlist])
-	var path : String = AllSongs.get_song_path( next_main_idx )
 	
+	var path : String = AllSongs.get_song_path( next_main_idx )
 	update_highlighted_song(path)
 	Global.last_direction = direction
 	

@@ -109,7 +109,7 @@ func get_smart_playlist_songs(var conditions : Dictionary) -> PoolIntArray:
 
 
 func on_delete_smart_playlist_pressed():
-	SongLists.smart_playlists.erase( playlist_title )
+	SongLists.smart_playlists.erase(playlist_title)
 	ExtendedDirectory.delete_file(Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + playlist_title + ".png")
 	ExtendedDirectory.delete_file(Global.get_current_user_data_folder() + "/Songs/Playlists/Metadata/Descriptions/" + playlist_title + ".txt")
 	unload_playlist()

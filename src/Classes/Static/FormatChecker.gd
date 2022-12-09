@@ -39,7 +39,7 @@ static func identify_image_file(var data : String) -> int:
 
 
 static func get_music_file_extension(var song_path : String) -> String:
-	match get_music_format_from_data( encode_header( SaveData.load_buffer( song_path, 1024 ))):
+	match get_music_format_from_data(encode_header(SaveData.load_buffer(song_path, 1024))):
 		0:
 			return ".ogg"
 		1:
@@ -53,7 +53,7 @@ static func get_music_file_extension(var song_path : String) -> String:
 		5:
 			return ".m4a"
 		_:
-			return "Unidentifiable"
+			return song_path.get_extension()
 
 
 static func get_music_format_from_data(var max_check_data : String) -> int:

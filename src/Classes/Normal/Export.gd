@@ -2,7 +2,7 @@ class_name Exporter extends Object
 # a class that handles multiple ways Veles allows to export images, songs, lyrics,...
 
 
-func to_folder(var dst_folder : String, var song_paths : PoolStringArray, var playlist_idx : int = -1) -> bool:
+func to_folder(var dst_folder : String, var song_paths : PoolStringArray, var playlist_idx : int = -1, var custom_title : String = "") -> bool:
 	var title : String = Playlist.get_playlist_name(playlist_idx)
 	var dir : Directory = Directory.new()
 	var temp_dst_folder : String = ""
@@ -18,8 +18,8 @@ func to_folder(var dst_folder : String, var song_paths : PoolStringArray, var pl
 	return true;
 
 
-func to_html_songlist(var dst_file : String, var song_paths : PoolStringArray, var _playlist_idx : int = -1) -> void:
-	var html_file_path : String = HTML.new().create_html_songlist(song_paths)
+func to_html_songlist(var dst_file : String, var song_paths : PoolStringArray, var _playlist_idx : int = -1, var headline : String = "") -> void:
+	var html_file_path : String = HTML.new().create_html_songlist(song_paths, headline)
 	#Save To Export Destination
 	SaveData.save_as_text(dst_file, html_file_path)
 	var _err = OS.shell_open(dst_file)
@@ -55,7 +55,7 @@ func to_image(var dst_path : String, var song_paths : PoolStringArray) -> void:
 		)
 
 
-func to_CSV(var dst_path : String, var song_paths : PoolStringArray, var _playlist_idx : int = -1) -> void:
+func to_CSV(var dst_path : String, var song_paths : PoolStringArray, var _playlist_idx : int = -1, var title : String = "") -> void:
 	var csv_data : String = CSV.new().encode_songlist(song_paths)
 	SaveData.save_as_text(dst_path, csv_data)
 	var _err = OS.shell_open(dst_path)
