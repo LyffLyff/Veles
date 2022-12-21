@@ -164,7 +164,6 @@ margin_right = 256.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 0, 15 )
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 15 )
 text = "SongTitle"
 valign = 1
 autowrap = true
@@ -173,19 +172,18 @@ script = ExtResource( 14 )
 
 [node name="Artist" type="LinkButton" parent="Main/SongInfo/Info/Infos"]
 margin_top = 36.0
-margin_right = 34.0
+margin_right = 33.0
 margin_bottom = 52.0
 rect_min_size = Vector2( 0, 15 )
 size_flags_horizontal = 0
 custom_constants/underline_spacing = 1
-custom_fonts/font = ExtResource( 15 )
 text = "Artist"
 underline = 1
 script = ExtResource( 14 )
 
 [node name="Playlist" type="LinkButton" parent="Main/SongInfo/Info/Infos"]
 margin_top = 62.0
-margin_right = 46.0
+margin_right = 43.0
 margin_bottom = 78.0
 size_flags_horizontal = 0
 custom_constants/underline_spacing = 1

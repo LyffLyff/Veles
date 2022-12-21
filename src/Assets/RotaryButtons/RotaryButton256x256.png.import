@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/RotaryButton256x256.png-58d7874fae78111a64f24470c2cc167f.stex"
+path="res://.import/RotaryButton256x256.png-6679eb3204e302ba3f2eabdf82d6ef8b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Assets/RotaryButtons/RotaryButton256x256.png"
-dest_files=[ "res://.import/RotaryButton256x256.png-58d7874fae78111a64f24470c2cc167f.stex" ]
+source_file="res://src/assets/RotaryButtons/RotaryButton256x256.png"
+dest_files=[ "res://.import/RotaryButton256x256.png-6679eb3204e302ba3f2eabdf82d6ef8b.stex" ]
 
 [params]
 

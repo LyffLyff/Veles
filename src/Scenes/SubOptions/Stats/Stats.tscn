@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/Ressources/Fonts/options_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/Scenes/SubOptions/Stats/Stats.gd" type="Script" id=2]
@@ -10,6 +10,9 @@ bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=10]
+content_margin_left = 10.0
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0.196078, 0.196078, 0.196078, 1 )
@@ -208,7 +211,7 @@ margin_bottom = 100.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 1 )
-align = 1
+custom_styles/normal = SubResource( 10 )
 valign = 1
 
 [node name="Options" type="HBoxContainer" parent="VBoxContainer/Panel/VBoxContainer/Title"]
@@ -257,39 +260,39 @@ custom_constants/separation = 10
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
 margin_right = 1115.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 custom_constants/separation = 0
 
 [node name="LeftEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
 margin_right = 15.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 rect_min_size = Vector2( 15, 0 )
 size_flags_vertical = 3
 
 [node name="TopTitles" type="PanelContainer" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 15.0
 margin_right = 1105.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 7 )
 
 [node name="TopTitles" type="HBoxContainer" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles"]
 margin_right = 1090.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 rect_min_size = Vector2( 0, 200 )
 size_flags_horizontal = 3
 
 [node name="LeftEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles"]
 margin_right = 316.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="2" type="VBoxContainer" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles"]
 margin_left = 324.0
 margin_right = 444.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 rect_min_size = Vector2( 120, 0 )
 size_flags_vertical = 3
 __meta__ = {
@@ -298,22 +301,22 @@ __meta__ = {
 
 [node name="TopEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/2"]
 margin_right = 120.0
-margin_bottom = 100.0
+margin_bottom = 98.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Title" type="Label" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/2"]
-margin_top = 108.0
+margin_top = 106.0
 margin_right = 120.0
-margin_bottom = 124.0
+margin_bottom = 122.0
 align = 1
 valign = 1
 autowrap = true
 
 [node name="Panel" type="Panel" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/2"]
-margin_top = 132.0
+margin_top = 130.0
 margin_right = 120.0
-margin_bottom = 232.0
+margin_bottom = 230.0
 rect_min_size = Vector2( 120, 100 )
 size_flags_horizontal = 4
 custom_styles/panel = SubResource( 5 )
@@ -330,30 +333,30 @@ __meta__ = {
 }
 
 [node name="Streams" type="Label" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/2"]
-margin_top = 240.0
+margin_top = 238.0
 margin_right = 120.0
-margin_bottom = 256.0
+margin_bottom = 254.0
 align = 1
 valign = 1
 
 [node name="BottomEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/2"]
-margin_top = 264.0
+margin_top = 262.0
 margin_right = 120.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 rect_min_size = Vector2( 0, 8 )
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles"]
 margin_left = 452.0
 margin_right = 462.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 custom_constants/separation = 10
 custom_styles/separator = SubResource( 3 )
 
 [node name="1" type="VBoxContainer" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles"]
 margin_left = 470.0
 margin_right = 620.0
-margin_bottom = 272.0
-rect_min_size = Vector2( 90, 0 )
+margin_bottom = 270.0
+rect_min_size = Vector2( 90, 270 )
 size_flags_vertical = 3
 __meta__ = {
 "_edit_group_": true
@@ -361,23 +364,22 @@ __meta__ = {
 
 [node name="TopEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/1"]
 margin_right = 150.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+margin_bottom = 48.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Title" type="Label" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/1"]
-margin_top = 58.0
+margin_top = 56.0
 margin_right = 150.0
-margin_bottom = 74.0
+margin_bottom = 72.0
 align = 1
 valign = 1
 autowrap = true
 
 [node name="Panel" type="Panel" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/1"]
-margin_top = 82.0
+margin_top = 80.0
 margin_right = 150.0
-margin_bottom = 232.0
+margin_bottom = 230.0
 rect_min_size = Vector2( 150, 150 )
 size_flags_horizontal = 4
 custom_styles/panel = SubResource( 6 )
@@ -394,29 +396,29 @@ __meta__ = {
 }
 
 [node name="Streams" type="Label" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/1"]
-margin_top = 240.0
+margin_top = 238.0
 margin_right = 150.0
-margin_bottom = 256.0
+margin_bottom = 254.0
 align = 1
 valign = 1
 
 [node name="BottomEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/1"]
-margin_top = 264.0
+margin_top = 262.0
 margin_right = 150.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 rect_min_size = Vector2( 0, 8 )
 
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles"]
 margin_left = 628.0
 margin_right = 638.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 custom_constants/separation = 10
 custom_styles/separator = SubResource( 3 )
 
 [node name="3" type="VBoxContainer" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles"]
 margin_left = 646.0
 margin_right = 766.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 rect_min_size = Vector2( 120, 0 )
 size_flags_vertical = 3
 __meta__ = {
@@ -425,22 +427,22 @@ __meta__ = {
 
 [node name="TopEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/3"]
 margin_right = 120.0
-margin_bottom = 150.0
+margin_bottom = 148.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Title" type="Label" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/3"]
-margin_top = 158.0
+margin_top = 156.0
 margin_right = 120.0
-margin_bottom = 174.0
+margin_bottom = 172.0
 align = 1
 valign = 1
 autowrap = true
 
 [node name="Panel" type="Panel" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/3"]
-margin_top = 182.0
+margin_top = 180.0
 margin_right = 120.0
-margin_bottom = 232.0
+margin_bottom = 230.0
 rect_min_size = Vector2( 120, 50 )
 size_flags_horizontal = 4
 custom_styles/panel = SubResource( 4 )
@@ -457,34 +459,34 @@ __meta__ = {
 }
 
 [node name="Streams" type="Label" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/3"]
-margin_top = 240.0
+margin_top = 238.0
 margin_right = 120.0
-margin_bottom = 256.0
+margin_bottom = 254.0
 align = 1
 valign = 1
 
 [node name="BottomEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles/3"]
-margin_top = 264.0
+margin_top = 262.0
 margin_right = 120.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 rect_min_size = Vector2( 0, 8 )
 
 [node name="RightEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles"]
 margin_left = 774.0
 margin_right = 1090.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="RightEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 1105.0
 margin_right = 1115.0
-margin_bottom = 272.0
+margin_bottom = 270.0
 rect_min_size = Vector2( 10, 0 )
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer"]
-margin_top = 282.0
+margin_top = 280.0
 margin_right = 1115.0
 margin_bottom = 452.0
 size_flags_horizontal = 3
@@ -492,13 +494,13 @@ size_flags_vertical = 3
 
 [node name="LeftEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_right = 30.0
-margin_bottom = 170.0
+margin_bottom = 172.0
 rect_min_size = Vector2( 30, 0 )
 
 [node name="Indexes" type="VBoxContainer" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_left = 38.0
 margin_right = 88.0
-margin_bottom = 170.0
+margin_bottom = 172.0
 rect_min_size = Vector2( 50, 0 )
 size_flags_vertical = 3
 custom_constants/separation = 10
@@ -506,7 +508,7 @@ custom_constants/separation = 10
 [node name="Contents" type="VBoxContainer" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_left = 96.0
 margin_right = 969.0
-margin_bottom = 170.0
+margin_bottom = 172.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
@@ -514,7 +516,7 @@ custom_constants/separation = 10
 [node name="Values" type="VBoxContainer" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_left = 977.0
 margin_right = 1077.0
-margin_bottom = 170.0
+margin_bottom = 172.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_vertical = 3
 custom_constants/separation = 10
@@ -522,7 +524,7 @@ custom_constants/separation = 10
 [node name="RightEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 margin_left = 1085.0
 margin_right = 1115.0
-margin_bottom = 170.0
+margin_bottom = 172.0
 rect_min_size = Vector2( 30, 0 )
 
 [node name="RightEmpty" type="Control" parent="VBoxContainer/Panel/VBoxContainer/HBoxContainer"]

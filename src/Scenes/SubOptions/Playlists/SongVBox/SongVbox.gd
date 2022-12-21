@@ -103,7 +103,9 @@ func _input(var event):
 								call_deferred("emit_signal","space_pressed",real_index(idx))
 			elif event.button_index == BUTTON_RIGHT:
 				if self.get_global_rect().has_point( get_global_mouse_position() ) and idx >= 0:
-					call_deferred("emit_signal","space_rightclick",real_index(idx))
+					var r_idx : int = real_index(idx)
+					if r_idx >= 0:
+						call_deferred("emit_signal","space_rightclick", r_idx)
 
 
 func _physics_process(_delta):

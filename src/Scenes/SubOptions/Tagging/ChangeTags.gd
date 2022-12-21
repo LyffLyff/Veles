@@ -50,7 +50,7 @@ func _ready():
 				Global.root.message("CANNOT CONNECT TEXT CHANGED SIGNAL TO on_line_edit_text_entered FUNCTION",  SaveData.MESSAGE_ERROR )
 	
 	# init songpaths
-	set_song_paths( Global.temp_tag_paths )
+	set_song_paths(Global.temp_tag_paths)
 	Global.temp_tag_paths = []
 
 
@@ -169,7 +169,7 @@ func init_tags(var valid_paths : PoolStringArray) -> void:
 	track_num_edit.set_text(all_tags[6])
 	
 	# song Popularity -> [Rating, Counter, Email]
-	var song_rating = Tagging.new().GetSongPopularity(valid_paths[0])
+	var song_rating = Tagging.new().get_song_popularity(valid_paths[0])
 	if song_rating[0]:
 		rating_box.set_value(song_rating[0])
 	else:
@@ -304,7 +304,7 @@ func _on_SetTag_pressed():
 			
 			# Rating
 			if rating_box.get_line_edit().text.is_valid_integer():
-				Tagging.new().SetSongPopularity(song_paths[path_idx], rating_box.get_value(), -1, "")
+				Tagging.new().set_song_popularity(song_paths[path_idx], rating_box.get_value(), -1, "")
 			
 			# File Explorer Name
 			if line_edits_edited[0]:

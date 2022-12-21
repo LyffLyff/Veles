@@ -90,7 +90,7 @@ func on_Change_Cover_pressed(var user_idx : int) -> void:
 	_err = x.connect("tree_exited",self,"load_user_profiles")
 	Global.root.add_child(x)
 	x.set_topic("Change User Profile Image")
-	x.init_dialogue_button(FileDialog.MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, "Cover", Global.supported_img_extensions)
+	x.init_dialogue_button(FileDialog.MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, UsedFilepaths.USER_COVER, Global.supported_img_extensions)
 
 
 func on_Rename_pressed(var user_idx : int) -> void:

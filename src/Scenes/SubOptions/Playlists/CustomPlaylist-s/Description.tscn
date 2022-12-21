@@ -78,6 +78,8 @@ margin_right = 767.0
 margin_bottom = 7.5
 size_flags_horizontal = 3
 size_flags_vertical = 3
+smooth_scrolling = true
+wrap_enabled = true
 
 [node name="DescriptionAnimations" type="AnimationPlayer" parent="."]
 anims/Expand = SubResource( 1 )

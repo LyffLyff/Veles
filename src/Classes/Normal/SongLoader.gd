@@ -17,7 +17,7 @@ func reload() -> void:
 	var new_songs : PoolStringArray = []
 	var new_all_songs : Dictionary = {}
 	
-	# checking and Deleting Invalif Paths
+	# checking and Deleting Invalid Paths
 	for n in SongLists.AllSongs.keys():
 		var d : Directory = Directory.new()
 		if !d.file_exists(n):
@@ -74,7 +74,7 @@ func reload() -> void:
 						main_idx += 1
 	SongLists.AllSongs = new_all_songs
 	var x : CoverLoader = CoverLoader.new()
-	x.NewSongCovers(new_songs)
+	x.new_song_covers(new_songs)
 	emit_signal("songs_reloaded")
 
 
@@ -106,8 +106,9 @@ func set_songspace_cover(var songspace : HBoxContainer, var main_idx : int, var 
 	
 	if SettingsData.get_setting(SettingsData.SONG_SETTINGS, "ShowSongspaceCover"):
 		var coverhash : String = AllSongs.get_song_coverhash(main_idx)
-		if SongLists.cached_covers.has(coverhash):
-			cover_texture = SongLists.cached_covers.get(coverhash)
+		if SongLists.new_cached_covers.has(coverhash):
+			#cover_texture = SongLists.cached_covers.get(coverhash)
+			cover_texture = SongLists.new_cached_covers.get(coverhash)[1]
 		else:
 			cover_texture = ImageLoader.get_cover("", Playlist.get_playlist_name(playlist_idx))
 	coverspace.set_deferred("texture", cover_texture)
@@ -123,3 +124,4 @@ func set_songspace_artist(var songspace : HBoxContainer, var main_idx : int) -> 
 
 func set_songspace_length(var songspace : HBoxContainer, var main_idx : int) -> void:
 	songspace.get_node("Panel/HBoxContainer/Length").set_deferred("text",TimeFormatter.format_seconds(AllSongs.get_song_duration(main_idx)))
+

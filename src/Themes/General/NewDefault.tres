@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=76 format=2]
+[gd_resource type="Theme" load_steps=77 format=2]
 
 [ext_resource path="res://src/Assets/Checkbuttons/on_72px.png" type="Texture" id=1]
 [ext_resource path="res://src/Assets/Sliders/RoundedRect6x12Horizontal.png" type="Texture" id=2]
@@ -18,37 +18,26 @@
 [ext_resource path="res://src/Assets/Spinbox/updown.png" type="Texture" id=16]
 [ext_resource path="res://src/Assets/OptionButton/updown.png" type="Texture" id=17]
 [ext_resource path="res://src/Assets/Fonts/Montserrat/static/Montserrat-Medium.ttf" type="DynamicFontData" id=18]
+[ext_resource path="res://src/Ressources/Fonts/main_font.tres" type="DynamicFont" id=19]
 
 [sub_resource type="StyleBoxEmpty" id=65]
 
 [sub_resource type="StyleBoxEmpty" id=66]
 
 [sub_resource type="StyleBoxFlat" id=45]
+content_margin_left = 3.0
+content_margin_right = 3.0
 bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-expand_margin_left = 1.0
-expand_margin_right = 1.0
 
 [sub_resource type="StyleBoxFlat" id=46]
+content_margin_left = 3.0
+content_margin_right = 3.0
 bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-expand_margin_left = 1.0
-expand_margin_right = 1.0
 
 [sub_resource type="StyleBoxFlat" id=64]
+content_margin_left = 3.0
+content_margin_right = 3.0
 bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-expand_margin_left = 1.0
-expand_margin_right = 1.0
 
 [sub_resource type="StyleBoxEmpty" id=62]
 
@@ -148,34 +137,25 @@ bg_color = Color( 0.0627451, 0.0627451, 0.0627451, 1 )
 [sub_resource type="StyleBoxEmpty" id=72]
 
 [sub_resource type="StyleBoxEmpty" id=74]
-content_margin_left = 5.0
 
 [sub_resource type="StyleBoxFlat" id=25]
-content_margin_left = 5.0
 bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
 
 [sub_resource type="StyleBoxFlat" id=75]
-content_margin_left = 5.0
 bg_color = Color( 0.0980392, 0.0980392, 0.0980392, 1 )
 
 [sub_resource type="StyleBoxFlat" id=76]
-content_margin_left = 5.0
 bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
 [sub_resource type="StyleBoxFlat" id=14]
-content_margin_left = 2.0
 bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=36]
 
 [sub_resource type="StyleBoxFlat" id=35]
-content_margin_left = 5.0
-content_margin_right = 5.0
 bg_color = Color( 0.145098, 0.145098, 0.145098, 1 )
 
 [sub_resource type="StyleBoxFlat" id=67]
-content_margin_left = 5.0
-content_margin_right = 5.0
 bg_color = Color( 0.184314, 0.184314, 0.184314, 1 )
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
@@ -302,6 +282,7 @@ shadow_size = 1
 shadow_offset = Vector2( 2, 1 )
 
 [resource]
+default_font = ExtResource( 19 )
 Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 Button/colors/font_color_focus = Color( 0.941176, 0.941176, 0.941176, 1 )
@@ -356,7 +337,7 @@ MenuButton/colors/font_color_focus = Color( 0.94, 0.94, 0.94, 1 )
 MenuButton/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
 MenuButton/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 MenuButton/constants/hseparation = 6
-MenuButton/fonts/font = null
+MenuButton/fonts/font = ExtResource( 19 )
 MenuButton/styles/disabled = SubResource( 68 )
 MenuButton/styles/focus = SubResource( 69 )
 MenuButton/styles/hover = SubResource( 70 )
@@ -379,7 +360,7 @@ SpinBox/icons/updown = ExtResource( 16 )
 TabContainer/colors/font_color_bg = Color( 0.69, 0.69, 0.69, 1 )
 TabContainer/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 TabContainer/colors/font_color_fg = Color( 0.94, 0.94, 0.94, 1 )
-TabContainer/fonts/font = null
+TabContainer/fonts/font = ExtResource( 19 )
 TabContainer/icons/decrement = null
 TabContainer/icons/decrement_highlight = null
 TabContainer/icons/increment = null

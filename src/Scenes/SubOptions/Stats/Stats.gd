@@ -7,6 +7,9 @@ var option_texts : PoolStringArray = []
 var current_tab : int = 1
 var special_places : int = 3
 
+onready var bg_panel : PanelContainer = $VBoxContainer/Panel
+onready var title_bg_panel : PanelContainer = $VBoxContainer/Panel/VBoxContainer/Title
+onready var top_titles_bg : PanelContainer = $VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles
 onready var options : HBoxContainer = $VBoxContainer/HBoxContainer
 onready var contents : VBoxContainer = $VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/Contents
 onready var indexes : VBoxContainer = $VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/Indexes
@@ -16,6 +19,17 @@ onready var scroller : ScrollContainer = $VBoxContainer/Panel/VBoxContainer/HBox
 onready var toptitles : HBoxContainer = $VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles/TopTitles
 
 func _ready():
+	# init colors
+	title_bg_panel.get_stylebox("panel").set_bg_color(
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "MainBackgroundColor") + Color(0.075, 0.075, 0.075, 0.0)
+	)
+	bg_panel.get_stylebox("panel").set_bg_color(
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "MainBackgroundColor")
+	)
+	top_titles_bg.get_stylebox("panel").set_bg_color(
+		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "MainBackgroundColor") + Color(0.075, 0.075, 0.075, 0.0)
+	)
+	
 	Global.root.init_context_menus()
 	
 	for n in options.get_child_count():

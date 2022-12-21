@@ -20,7 +20,9 @@ const std_userdata_paths : Array = [
 	"user://GlobalSettings/StdUserdata/TempSmartPlaylist.dat",
 	"user://GlobalSettings/StdUserdata/AudioEffects.dat",
 	"user://GlobalSettings/StdUserdata/DownloadQueue.dat",
-	"user://GlobalSettings/AppStats/UsageTime.dat"
+	"user://GlobalSettings/StdUserdata/StdAudioPresets.dat",
+	"user://GlobalSettings/StdUserdata/UsedFilepaths.dat",
+	"user://GlobalSettings/StdUserdata/NewCoverCache.dat",
 ]
 const file_paths : Array = [
 	"user://Users/USERNAME/Settings/CoreSettings/Folders.dat",
@@ -42,6 +44,7 @@ const file_paths : Array = [
 	"user://Users/USERNAME/Settings/CoreSettings/DownloadQueue.dat",
 	"user://Users/USERNAME/Settings/CoreSettings/StdAudioPresets.dat",
 	"user://Users/USERNAME/Settings/CoreSettings/UsedFilepaths.dat",
+	"user://Users/USERNAME/Songs/AllSongs/NewCoverCache.dat",
 ]
 const global_file_paths : Array = [
 	"user://GlobalSettings/UserProfileIdx.dat",
@@ -84,6 +87,11 @@ var artist_streams : Dictionary = {}
 var artists : Array = []
 var main_enabled : bool = false
 var highlighted_songs : PoolStringArray = []
+
+var new_cached_covers : Dictionary = {
+	# unique file : [[file1, file2,...], ImageData[PoolByteArray]
+}
+
 var audio_effects : Array = [
 	# effect in this Array == Effect idx in AudioBus
 	# index 0 in each dictionary saves if the effect is enabled
@@ -204,7 +212,7 @@ func _exit_tree():
 	SaveData.save( global_file_paths[2], Global.last_loaded_user)
 	
 	# user specific Data
-	save_user_specific_data( add_users_to_filepaths(file_paths) )
+	save_user_specific_data(add_users_to_filepaths(file_paths))
 
 
 func rel_to_abs_path(var relative_path : String) -> String:
@@ -214,7 +222,7 @@ func rel_to_abs_path(var relative_path : String) -> String:
 func load_user_specific_data(var paths : PoolStringArray) -> void:
 	var temp
 	for i in paths.size():
-		temp = SaveData.load_data( add_user_to_filepath(paths[i]))
+		temp = SaveData.load_data(add_user_to_filepath(paths[i]))
 		if temp != null:
 			match i:
 				0:
@@ -243,7 +251,6 @@ func load_user_specific_data(var paths : PoolStringArray) -> void:
 					AllSongs = temp
 				11:
 					cached_covers = temp
-					init_cached_covers()
 				12:
 					artists = temp
 				13:
@@ -254,6 +261,9 @@ func load_user_specific_data(var paths : PoolStringArray) -> void:
 					audio_effects = temp
 				16:
 					Global.current_downloads = temp
+				19:
+					new_cached_covers = temp
+					init_cached_covers()
 	is_song_from_queue = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"SongFromQueue")
 
 
@@ -270,23 +280,24 @@ func add_user_to_filepath(var filepath : String) -> String:
 
 func save_user_specific_data(var paths : PoolStringArray) -> void:
 	# savingg all the data that needs to be saved when laoding this specific user again
-	SaveData.save( paths[0] , folders)
-	SaveData.save( paths[1] , current_song)
-	SaveData.save( paths[2] , current_playlist_idx)
-	SaveData.save( paths[3] , normal_playlists)
-	SaveData.save( paths[4] , Streams)
-	SaveData.save( paths[5] , playlist_streams)
-	SaveData.save( paths[6] , artist_streams)
+	SaveData.save(paths[0], folders)
+	SaveData.save(paths[1], current_song)
+	SaveData.save(paths[2], current_playlist_idx)
+	SaveData.save(paths[3], normal_playlists)
+	SaveData.save(paths[4], Streams)
+	SaveData.save(paths[5], playlist_streams)
+	SaveData.save(paths[6], artist_streams)
 	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "PlaybackPosition", MainStream.get_playback_position())
-	SaveData.save( paths[7] , SettingsData.settings)
-	SaveData.save( paths[8] , song_queue)
-	SaveData.save( paths[10] , AllSongs)
-	SaveData.save( paths[11] , cached_covers)
-	SaveData.save( paths[12] , artists)
-	SaveData.save( paths[13] , smart_playlists )
-	SaveData.save( paths[14] , current_temporary_playlist )
-	SaveData.save( paths[15] , audio_effects )
-	SaveData.save( paths[16], Global.current_downloads)
+	SaveData.save(paths[7], SettingsData.settings)
+	SaveData.save(paths[8], song_queue)
+	SaveData.save(paths[10], AllSongs)
+	SaveData.save(paths[11], cached_covers)
+	SaveData.save(paths[12], artists)
+	SaveData.save(paths[13], smart_playlists)
+	SaveData.save(paths[14], current_temporary_playlist)
+	SaveData.save(paths[15], audio_effects)
+	SaveData.save(paths[16], Global.current_downloads)
+	SaveData.save(paths[19], new_cached_covers)
 
 
 func reset_userdata() -> void:
@@ -349,10 +360,14 @@ func init_cached_covers() -> void:
 	# loads already filtered and sorted Covers into a Cache
 	# saving loading-time and memory
 	# warning-ignore:unused_variable
-	var counter = 0
-	for x in cached_covers.keys():
-		counter += 1
-		cached_covers[x] = ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + x + ".png", "", Vector2(70,70))
+	#var counter = 0
+	#for x in cached_covers.keys():
+	#	counter += 1
+	#	cached_covers[x] = ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + x + ".png", "", Vector2(70,70))
+	print(new_cached_covers)
+	for i in new_cached_covers:
+		print(i)
+		new_cached_covers.get(i)[1] = ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + i, "", Vector2(70,70))
 
 
 func add_folder(var dir : String):

@@ -24,7 +24,7 @@ func init_dialogue_button(var open_mode : int = FileDialog.MODE_OPEN_FILE, var f
 
 
 func set_topic(var topic : String) -> void:
-	topic_label.set_text(topic)
+	topic_label.set_text(topic + ":")
 
 
 func _on_Close_pressed():

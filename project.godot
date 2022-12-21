@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "DesignPaths",
 "language": "GDScript",
-"path": "res://src/Scenes/Design/DesignSetter.gd"
+"path": "res://src/scenes/Design/DesignSetter.gd"
 }, {
 "base": "Object",
 "class": "Exporter",
@@ -231,7 +231,7 @@ ternary=false
 common/drop_mouse_on_gui_input_disabled=true
 theme/use_hidpi=true
 theme/custom="res://src/Themes/General/NewDefault.tres"
-theme/custom_font="res://src/Ressources/Fonts/12pxMonserrat.tres"
+theme/custom_font="res://src/Ressources/Fonts/main_font.tres"
 
 [importer_defaults]
 

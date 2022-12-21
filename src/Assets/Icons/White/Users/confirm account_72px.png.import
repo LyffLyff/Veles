@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/confirm account_72px.png-fd49dae8eccd53024ca5f19b8f925098.stex"
+path="res://.import/confirm account_72px.png-e085861fd5711bc3ac57e8bbfdc1882f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Assets/Icons/White/Users/confirm account_72px.png"
-dest_files=[ "res://.import/confirm account_72px.png-fd49dae8eccd53024ca5f19b8f925098.stex" ]
+source_file="res://src/assets/Icons/White/Users/confirm account_72px.png"
+dest_files=[ "res://.import/confirm account_72px.png-e085861fd5711bc3ac57e8bbfdc1882f.stex" ]
 
 [params]
 

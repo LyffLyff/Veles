@@ -77,6 +77,7 @@ margin_right = 454.0
 margin_bottom = 282.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 2
 
 [node name="BottomEmpty" type="Control" parent="CenterContainer/PanelContainer/ScrollContainer/HBoxContainer/VBoxContainer"]
 margin_top = 290.0

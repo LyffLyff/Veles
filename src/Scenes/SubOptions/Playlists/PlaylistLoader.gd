@@ -200,9 +200,9 @@ func on_scroll_value_changed(var val : float) -> void:
 	val /= 2.0
 	var new_height : float
 	
-	if val > 0.0 and header_expanded:
+	if val > 0.2 and header_expanded:
 		toggle_header_infos(false)
-	elif val <= 0.0:
+	elif val <= 0.2:
 		toggle_header_infos(true,MAX_HEADER_SIZE)
 	
 	if !header_expanded:

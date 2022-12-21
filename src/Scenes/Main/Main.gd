@@ -272,7 +272,7 @@ func change_song(var direction : int) -> void:
 			if SongLists.normal_playlists.values().size() <= SongLists.current_playlist_idx:
 				SongLists.current_playlist_idx = -1
 				change_song(+1)
-			
+				return
 			playlist_n = SongLists.normal_playlists.values()[SongLists.current_playlist_idx]
 		
 		elif SongLists.current_playlist_idx <= -2:

@@ -40,12 +40,12 @@ func _ready():
 
 func _exit_tree():
 	# calculating the App usage time on Minutes
-	var PriorUsageTimeMin = SaveData.load_data(SongLists.global_file_paths[3])
-	var NewUsagetime : float = 0.0
-	if PriorUsageTimeMin == null:
-		PriorUsageTimeMin = 0.0
-	NewUsagetime = PriorUsageTimeMin + ( (OS.get_unix_time() - app_opened_time) / 60.0 )
-	SaveData.save(SongLists.global_file_paths[3], NewUsagetime ) 
+	var prior_usage_time_min = SaveData.load_data(SongLists.global_file_paths[3])
+	var new_usage_time : float = 0.0
+	if prior_usage_time_min == null:
+		prior_usage_time_min = 0.0
+	new_usage_time = prior_usage_time_min + ( (OS.get_unix_time() - app_opened_time) / 60.0 )
+	SaveData.save(SongLists.global_file_paths[3], new_usage_time) 
 
 
 func window_changed(var x : bool) -> void:

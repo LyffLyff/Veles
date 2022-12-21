@@ -101,7 +101,7 @@ static func get_image_mime_type(var cover_path : String) -> String:
 
 
 static func get_covercache_texture(var coverhash : String, var playlist_name : String = ""):
-	var data : PoolByteArray = SaveData.load_buffer( Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + coverhash + ".png")
+	var data : PoolByteArray = SaveData.load_buffer( Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + coverhash)
 	var img : Image = create_image_from_data(data)
 	
 	if !img:
