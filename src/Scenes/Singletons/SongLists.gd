@@ -69,9 +69,6 @@ var song_queue : Dictionary = {}
 var is_song_from_queue : bool = false
 # saves the last Song that wasn't played from the Queue the start playing from there
 var last_non_queued_song : String = ""
-# cover Hash [String] : ImageData [PoolByteArray],
-# using this Cache reduced the Texture and Video Memory usage by a factor of 4 -> ~400MB to ~100MB
-var cached_covers : Dictionary = {}
 # PATH : [TITLE, ARTIST,ALLSONGS_IDX,Streams,COVER_HASH,TAG,DURATION IN SECONDS, LIKED(TRUE/FALSE]
 var AllSongs : Dictionary = {}
 # playlist_name : {song_path : main_idx}
@@ -90,6 +87,7 @@ var highlighted_songs : PoolStringArray = []
 
 var new_cached_covers : Dictionary = {
 	# unique file : [[file1, file2,...], ImageData[PoolByteArray]
+	# using this Cache reduced the Texture and Video Memory usage by a factor of 4 -> ~400MB to ~100MB
 }
 
 var audio_effects : Array = [
@@ -250,7 +248,7 @@ func load_user_specific_data(var paths : PoolStringArray) -> void:
 					# AllSong Paths
 					AllSongs = temp
 				11:
-					cached_covers = temp
+					pass
 				12:
 					artists = temp
 				13:
@@ -291,7 +289,6 @@ func save_user_specific_data(var paths : PoolStringArray) -> void:
 	SaveData.save(paths[7], SettingsData.settings)
 	SaveData.save(paths[8], song_queue)
 	SaveData.save(paths[10], AllSongs)
-	SaveData.save(paths[11], cached_covers)
 	SaveData.save(paths[12], artists)
 	SaveData.save(paths[13], smart_playlists)
 	SaveData.save(paths[14], current_temporary_playlist)
@@ -360,13 +357,7 @@ func init_cached_covers() -> void:
 	# loads already filtered and sorted Covers into a Cache
 	# saving loading-time and memory
 	# warning-ignore:unused_variable
-	#var counter = 0
-	#for x in cached_covers.keys():
-	#	counter += 1
-	#	cached_covers[x] = ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + x + ".png", "", Vector2(70,70))
-	print(new_cached_covers)
 	for i in new_cached_covers:
-		print(i)
 		new_cached_covers.get(i)[1] = ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + i, "", Vector2(70,70))
 
 

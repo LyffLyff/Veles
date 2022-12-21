@@ -336,14 +336,17 @@ func _on_SetTag_pressed():
 					song_paths[path_idx],
 					ImageLoader.get_image_mime_type(cover_path)
 				)
+				
+				# updating in all songs
 				if SongLists.AllSongs.has(song_paths[path_idx]):
-					var coverhash : String = str(song_paths[path_idx].hash())
+					var old_cover_id : String = AllSongs.get_song_coverhash(AllSongs.get_main_idx(song_paths[path_idx]))
+					if SongLists.new_cached_covers.has(old_cover_id):
+						# erasing if this cover was the only cover of this type perviously
+						# only set to [] -> will be filtered by Coverloader
+						if SongLists.new_cached_covers.get(old_cover_id)[0].size() <= 1:
+							SongLists.new_cached_covers.get(old_cover_id)[0] = []
 					var x : CoverLoader = CoverLoader.new()
-					var y : Directory = Directory.new()
-					if y.copy(cover_path,Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + coverhash + ".png") == OK:
-						x.filter_duplicate_cover({coverhash : song_paths[path_idx]})
-					else:
-						Global.root.message("COULD NOT COPY NEW COVER",  SaveData.MESSAGE_ERROR )
+					x.new_song_covers([song_paths[path_idx]])
 		else:
 			Global.root.message("Cannot Set Tags on this Fileformat", SaveData.MESSAGE_ERROR, true)
 	

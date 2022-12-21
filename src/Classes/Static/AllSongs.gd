@@ -41,7 +41,7 @@ static func get_song_liked(var main_idx : int) -> bool:
 
 
 static func get_song_cover_path(var main_idx : int) -> String:
-	return Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + get_song_coverhash(main_idx) + ".png"
+	return Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + get_song_coverhash(main_idx)
 
 
 static func get_song_amount() -> int:

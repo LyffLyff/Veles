@@ -107,7 +107,6 @@ func set_songspace_cover(var songspace : HBoxContainer, var main_idx : int, var 
 	if SettingsData.get_setting(SettingsData.SONG_SETTINGS, "ShowSongspaceCover"):
 		var coverhash : String = AllSongs.get_song_coverhash(main_idx)
 		if SongLists.new_cached_covers.has(coverhash):
-			#cover_texture = SongLists.cached_covers.get(coverhash)
 			cover_texture = SongLists.new_cached_covers.get(coverhash)[1]
 		else:
 			cover_texture = ImageLoader.get_cover("", Playlist.get_playlist_name(playlist_idx))
