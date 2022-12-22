@@ -39,7 +39,7 @@ func copy_song_covers(var to_copy : PoolStringArray) -> Dictionary:
 	for n in to_copy.size():
 		if copy_results[n]:
 			cover_files[dst_coverpaths[n].get_file()] = [[to_copy[n]], null]
-	
+	print(cover_files)
 	return cover_files;
 
 
@@ -80,6 +80,7 @@ func filter_duplicate_covers(var new_songs : Dictionary) -> void:
 	
 	new_songs = delete_duplicate_covers(duplicates, new_songs)
 	duplicates = []
+	print(new_songs)
 	var is_in_cached : bool = false
 	
 	# comparing with other Covers
@@ -133,5 +134,6 @@ func delete_unused_cover_identifiers() -> void:
 	for key in SongLists.new_cached_covers:
 		if SongLists.new_cached_covers.get(key)[0].size() == 0:
 			var _err = SongLists.new_cached_covers.erase(key)
+			print(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + key)
 			if dir.remove(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + key) != OK:
 				Global.root.message("COULD NOT REMOVE UNUSED COVER", SaveData.MESSAGE_WARNING)

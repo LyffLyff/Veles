@@ -55,7 +55,7 @@ func save_preset(var preset_name : String) -> void:
 		return
 	
 	# saving the Preset with the Main enabled -> will be replaced on Load
-	var new_preset : Array = SongLists.audio_effects
+	var new_preset : Array = SongLists.audio_effects.effects
 	SaveData.save(
 		Global.get_current_user_data_folder() + "/Settings/AudioEffects/Presets/" + preset_name + ".epr",
 		new_preset
@@ -66,7 +66,7 @@ func save_preset(var preset_name : String) -> void:
 
 
 func load_preset(var preset_idx : int) -> void:
-	var main_enabled : bool = SongLists.audio_effects[SongLists.audio_effects.size() - 1]["main_enabled"]
+	var main_enabled : bool = SongLists.audio_effects.effects[SongLists.audio_effects.effects.size() - 1]["main_enabled"]
 	var preset_title : String = header.preset_menu.get_popup().get_item_text(preset_idx)
 	var preset_data = SaveData.load_data(Global.get_current_user_data_folder() + "/Settings/AudioEffects/Presets/" + preset_title)
 	
@@ -77,7 +77,7 @@ func load_preset(var preset_idx : int) -> void:
 	# setting Preset as Current Audio Effect
 	
 	preset_data[preset_data.size() - 1]["main_enabled"] = main_enabled
-	SongLists.audio_effects = preset_data
+	SongLists.audio_effects.effects = preset_data
 	
 	# updating the effects
 	var effect_idx : int = -1
@@ -87,7 +87,7 @@ func load_preset(var preset_idx : int) -> void:
 			# != null must be -> else thinks 0 is false
 			effect_idx = effects.get_child(i).effect_idx
 			effects.get_child(i).call_effect_containers("update_effect_container")
-			effects.get_child(i).effect_switch.on_effect_toggled(SongLists.audio_effects[effect_idx]["enabled"])
+			effects.get_child(i).effect_switch.on_effect_toggled(SongLists.audio_effects.effects[effect_idx]["enabled"])
 
 
 func free_audio_effects() -> void:

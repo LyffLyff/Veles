@@ -119,9 +119,6 @@ static func squarify_image(var img : Image) -> Image:
 	var new_rect : Rect2 = Rect2()
 	new_rect.size = Vector2(img.get_width() / img.get_size().aspect(), img.get_height())
 	
-	# fixing the issue of one invalid line of pixels being shown at the bottom in some cases
-	new_rect.size.y -= 1
-	
 	new_rect.position = Vector2(
 		(img.get_size() / 2.0) - (new_rect.size / 2.0)
 	)

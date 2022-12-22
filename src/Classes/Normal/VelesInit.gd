@@ -80,20 +80,20 @@ func create_folders():
 
 
 func init_audio_effects() -> void:
-	var main_enabled : bool = SongLists.audio_effects[SongLists.audio_effects.size() - 1]["main_enabled"]
-	for i in SongLists.audio_effects.size() - 1:
+	var main_enabled : bool = SongLists.audio_effects.effects[SongLists.audio_effects.effects.size() - 1]["main_enabled"]
+	for i in SongLists.audio_effects.effects.size() - 1:
 		# setting Effect Enabled
 		# if main is not enabled the effects will be set to off no matter what
 		AudioServer.set_bus_effect_enabled(
 			0,
 			i,
-			SongLists.audio_effects[i]["enabled"] and main_enabled
+			SongLists.audio_effects.effects[i]["enabled"] and main_enabled
 		)
 		
 		# setting Effect Values
 		var x : AudioEffect = AudioServer.get_bus_effect(0,i)
-		for j in range(1, SongLists.audio_effects[i].size()):
-			x.set_deferred( SongLists.audio_effects[i].keys()[j], SongLists.audio_effects[i].values()[j] )
+		for j in range(1, SongLists.audio_effects.effects[i].size()):
+			x.set_deferred( SongLists.audio_effects.effects[i].keys()[j], SongLists.audio_effects.effects[i].values()[j] )
 
 
 func init_volume() -> void:

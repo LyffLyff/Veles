@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://src/Classes/Static/AllSongs.gd"
 }, {
 "base": "Reference",
+"class": "AudioEffects",
+"language": "GDScript",
+"path": "res://src/Classes/Normal/AudioEffects.gd"
+}, {
+"base": "Reference",
 "class": "AudioProperties",
 "language": "NativeScript",
 "path": "res://addons/GDNative/AudioProperties.gdns"
@@ -146,6 +151,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AllSongs": "",
+"AudioEffects": "",
 "AudioProperties": "",
 "Binary": "",
 "CSV": "",

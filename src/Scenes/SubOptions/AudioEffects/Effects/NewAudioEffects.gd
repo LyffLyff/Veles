@@ -31,7 +31,7 @@ func set_audio_effect(var property_idx : int, var new_value : float) -> void:
 	var effect : AudioEffect = AudioServer.get_bus_effect(0, effect_idx)
 	var Property : String = properties[property_idx]
 	effect.set_deferred(Property, new_value)
-	SongLists.audio_effects[effect_idx][Property] = new_value
+	SongLists.audio_effects.effects[effect_idx][Property] = new_value
 
 
 func call_effect_containers(var method : String) -> void:
@@ -47,14 +47,14 @@ func call_effect_containers(var method : String) -> void:
 
 
 func init_effect_container(var effect_container : Control) -> void:
-	var new_value : float = SongLists.audio_effects[effect_idx][properties[effect_container.property_idx]]
+	var new_value : float = SongLists.audio_effects.effects[effect_idx][properties[effect_container.property_idx]]
 	effect_container.set_value(new_value)
 	var _err = effect_container.connect("audio_effect_sub_value_changed", self,"set_audio_effect")
 	set_audio_effect(effect_container.property_idx, new_value)
 
 
 func update_effect_container(var effect_container : Control) -> void:
-	var new_value : float = SongLists.audio_effects[effect_idx ][properties[effect_container.property_idx]]
+	var new_value : float = SongLists.audio_effects.effects[effect_idx ][properties[effect_container.property_idx]]
 	effect_container.set_value( 
 		new_value
 	)
