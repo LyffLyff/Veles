@@ -10,8 +10,6 @@ func init_context_label(var context : String) -> void:
 
 func show_context(var context : String) -> void:
 	self.text = " " + context + " "
-	# waiting for text to be set and rect_size to be updated
-	yield(get_tree(),"idle_frame")
 	set_context_pos()
 	var _ptw := create_tween().tween_property(
 		self,

@@ -38,7 +38,6 @@ func _ready():
 	last_option_idx = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "ImageViewLastOption")
 	toggle_cover_focus( SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "ImageViewCoverFocused"), 0.0 )
 	set_image_view_bg_clr()
-	#start anima
 	if self.connect("resized",self,"on_ImageView_resized"):
 		Global.root.message("CANNOT CONNECT IMAGE VIEW TO RESIZED FUNCTION", SaveData.MESSAGE_ERROR)
 	var _tw = init_image_view(true)
@@ -105,13 +104,21 @@ func get_unfocused_cover_size() -> Vector2:
 
 
 func set_image_view_bg_clr() -> void:
+	var tw : SceneTreeTween = create_tween()
 	match SettingsData.get_setting(SettingsData.SONG_SETTINGS, "ImageViewBackground"):
 		0:
 			background_panel.set_material(load("res://src/Ressources/Shaders/StarShader.tres"))
 		1:
-			background_panel.set_material(load("res://src/Ressources/Shaders/direction_fade.tres"))
 			var bg_clr : Color = SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "ImageViewStandardBackgroundColor")
 			background_panel.material.set_shader_param("color", bg_clr)
+			static_bg.get_stylebox("panel").set_bg_color(bg_clr)
+			var _ptw : PropertyTweener = tw.tween_property(
+				background_panel,
+				"modulate:a",
+				1.0,
+				0.3
+			)
+			
 		2:
 			background_panel.set_material(load("res://src/Ressources/Shaders/direction_fade.tres"))
 			
@@ -121,7 +128,6 @@ func set_image_view_bg_clr() -> void:
 			cover_img.resize(1,1,1)
 			cover_img.lock()
 			
-			var tw : SceneTreeTween = create_tween()
 			var _ptw : PropertyTweener = tw.tween_property(
 				background_panel.material,
 				"shader_param/color",
