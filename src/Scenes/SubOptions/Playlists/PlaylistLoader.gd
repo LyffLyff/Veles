@@ -115,6 +115,7 @@ func on_songspace_left_clicked(var l_idx : int) -> void:
 			# highlighting the current song if it has not been already
 			highlight_song(song_)
 			SongLists.current_playlist_idx = song_.playlist_idx
+			print(AllSongs.get_song_coverhash(main_idx))
 			Global.root.playback_song(
 				main_idx,
 				true,

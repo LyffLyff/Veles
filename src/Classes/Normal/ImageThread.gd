@@ -39,7 +39,6 @@ func copy_song_covers(var to_copy : PoolStringArray) -> Dictionary:
 	for n in to_copy.size():
 		if copy_results[n]:
 			cover_files[dst_coverpaths[n].get_file()] = [[to_copy[n]], null]
-	print(cover_files)
 	return cover_files;
 
 
@@ -80,7 +79,7 @@ func filter_duplicate_covers(var new_songs : Dictionary) -> void:
 	
 	new_songs = delete_duplicate_covers(duplicates, new_songs)
 	duplicates = []
-	print(new_songs)
+	print("NEW SONGS: ", new_songs)
 	var is_in_cached : bool = false
 	
 	# comparing with other Covers
@@ -91,21 +90,22 @@ func filter_duplicate_covers(var new_songs : Dictionary) -> void:
 		for y in SongLists.new_cached_covers.size():
 			cover_path_y = Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + SongLists.new_cached_covers.keys()[y]
 			if image_header == SaveData.load_buffer(cover_path_y, COVER_DUPLICATE_SAMPLE):
+				print("IMAGE EQUAL")
 				is_in_cached = true
-				if SongLists.new_cached_covers.has(new_songs.keys()[x]):
-					SongLists.new_cached_covers.values()[y][0].append_array(new_songs.values()[x][0])
-				else:
-					SongLists.new_cached_covers.values()[y] = new_songs.values()[x]
+				SongLists.new_cached_covers.values()[y][0].append_array(new_songs.values()[x][0])
 				set_cover_identifiers(new_songs.values()[x][0], SongLists.new_cached_covers.keys()[y])
-				duplicates.push_back(cover_path_y)
+				duplicates.push_back(new_songs.values()[x][0])
+			else:
+				print("IMAGE DIFFERENT")
 		if !is_in_cached:
+			print("NEW KEY")
 			SongLists.new_cached_covers[new_songs.keys()[x]] = new_songs.values()[x]
 			set_cover_identifiers(new_songs.values()[x][0], new_songs.keys()[x])
 	
 	new_songs = delete_duplicate_covers(duplicates, new_songs)
 	duplicates = []
 	
-	delete_unused_cover_identifiers()
+	delete_unused_cover_identifiers(new_songs)
 
 
 func generate_unique_filename(var extension : String = "") -> String:
@@ -127,13 +127,17 @@ func set_cover_identifiers(var paths : PoolStringArray, var unique_identifier : 
 		AllSongs.set_coverhash(path, unique_identifier)
 
 
-func delete_unused_cover_identifiers() -> void:
+func delete_unused_cover_identifiers(var new_song_covers : Dictionary) -> void:
 	# since somethings may go wrong or happen outside of Veles there needs to
 	# be a check to delete unused cover identifiers, so it does not have any useless space
 	var dir : Directory = Directory.new()
 	for key in SongLists.new_cached_covers:
 		if SongLists.new_cached_covers.get(key)[0].size() == 0:
 			var _err = SongLists.new_cached_covers.erase(key)
-			print(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + key)
+			if dir.remove(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + key) != OK:
+				Global.root.message("COULD NOT REMOVE UNUSED COVER", SaveData.MESSAGE_WARNING)
+	
+	for key in new_song_covers:
+		if !SongLists.new_cached_covers.has(key):
 			if dir.remove(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + key) != OK:
 				Global.root.message("COULD NOT REMOVE UNUSED COVER", SaveData.MESSAGE_WARNING)
