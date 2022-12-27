@@ -8,3 +8,6 @@ Wether you want to use this software to easily edit metadata including covers, l
 or use it to play and organize your digital music collection, Veles has got you covered.
 
 This is and will be free , forever!
+
+Download for free here:
+https://lyfflyff.itch.io/veles
