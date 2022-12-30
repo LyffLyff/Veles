@@ -12,13 +12,14 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1102.0
-margin_bottom = 98.0
+margin_bottom = 74.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
 setting_type_idx = 0
 
 [node name="BackgroundTransparency" parent="VBoxContainer" instance=ExtResource( 2 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 1102.0
@@ -34,9 +35,8 @@ property_key = "window/size/borderless"
 [node name="BorderlessWindow" parent="VBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 24.0
 margin_right = 1102.0
-margin_bottom = 40.0
+margin_bottom = 16.0
 setting_type = "ProjectSettings"
 setting_label = "Custom Windowbar"
 items = PoolStringArray( "Off", "On" )
@@ -45,16 +45,16 @@ property_section = "display"
 property_key = "window/size/borderless"
 
 [node name="BottomBuffer" type="Control" parent="VBoxContainer" groups=["Buffer"]]
-margin_top = 48.0
+margin_top = 24.0
 margin_right = 1102.0
-margin_bottom = 98.0
+margin_bottom = 74.0
 rect_min_size = Vector2( 0, 50 )
 size_flags_horizontal = 3
 
 [node name="RightEmpty" type="Control" parent="."]
 margin_left = 1110.0
 margin_right = 1120.0
-margin_bottom = 98.0
+margin_bottom = 74.0
 rect_min_size = Vector2( 10, 0 )
 mouse_filter = 2
 size_flags_vertical = 3

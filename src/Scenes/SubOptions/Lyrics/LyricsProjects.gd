@@ -21,13 +21,12 @@ func load_lyrics_projects() -> void:
 		if !Directory.new().file_exists(projects.keys()[i]):
 			# if the File doesn't exist it will be removed from the Last Edited ones
 			var temp : Dictionary = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects")
-			temp.erase(projects.keys()[i])
+			var _err = temp.erase(projects.keys()[i])
 			SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "LastEditedVLPProjects", temp)
 			continue;
 		var new_project_container : Control = PROJECT_CONTAINER.instance()
 		var _err = new_project_container.connect("pressed",Global.root,"load_lyric_editor",[projects.keys()[i]])
 		project_vbox.add_child(new_project_container)
-		TimeFormatter
 		new_project_container.date.text = Time.get_datetime_string_from_datetime_dict(
 			projects.get(projects.keys()[i], Time.get_datetime_dict_from_system()),
 			true)

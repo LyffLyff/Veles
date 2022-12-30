@@ -117,8 +117,8 @@ func generate_unique_filename(var extension : String = "") -> String:
 func delete_duplicate_covers(var duplicates : PoolStringArray, var new_songs : Dictionary) -> Dictionary:
 	var dir : Directory = Directory.new()
 	for i in duplicates:
-		dir.remove(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + i)
-		new_songs.erase(i)
+		var _err = dir.remove(Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + i)
+		_err = new_songs.erase(i)
 	return new_songs
 
 

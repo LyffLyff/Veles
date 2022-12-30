@@ -98,4 +98,4 @@ margin_right = 400.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 10, 0 )
 
-[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/ExportTypes/Close" to="." method="queue_free"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/ExportTypes/Close" to="." method="_on_Close_pressed"]

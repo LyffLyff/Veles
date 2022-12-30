@@ -67,7 +67,7 @@ static func create_image_from_data(var data : PoolByteArray):
 	if data.size() == 0:
 		return null
 	var new_image : Image = Image.new()
-	match FormatChecker.identify_image_file( data.subarray(0,128).hex_encode() ):
+	match FormatChecker.identify_image_file(data.subarray(0, 512).hex_encode()):
 			0:
 				if new_image.load_jpg_from_buffer(data) != OK:
 					Global.root.message("LOADING JPG FROM BUFFER" ,SaveData.MESSAGE_ERROR)

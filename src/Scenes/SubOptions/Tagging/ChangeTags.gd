@@ -31,7 +31,7 @@ onready var cover_description_edit : TextEdit = $ScrollContainer/VBoxContainer/M
 onready var comment_edit : TextEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Comment/Comment
 onready var track_num_edit : LineEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/TrackNumber/TrackNumber
 onready var release_year_edit : LineEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/ReleaseYear/ReleaseYear
-onready var top_covers : HBoxContainer = $ScrollContainer/VBoxContainer/ScrollContainer/Covers
+onready var cover_hbox : HBoxContainer = $ScrollContainer/VBoxContainer/ScrollContainer/Covers
 onready var rating_box : SpinBox = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Popularity/RatingEdit
 onready var tag_edits : Array = [filename_edit, artist_edit, title, album_edit, genre_edit, comment_edit, release_year_edit, track_num_edit, cover_description_edit]
 
@@ -142,14 +142,15 @@ func init_tags(var valid_paths : PoolStringArray) -> void:
 	if valid_paths.size() == 0:
 		return
 	
-	# set Covers
+	# set covers
 	# loaded from Scratch so also Songs not in the Covercache can be tagged properly
-	var data : PoolByteArray = Tags.get_embedded_cover( valid_paths[0] )
-	if data.size() > 0:
-		var img : Image = ImageLoader.create_image_from_data(data)
-		top_covers.get_child(0).set_deferred( "texture",ImageLoader.image_to_texture(img) )
-	else:
-		top_covers.get_child(0).set_deferred( "texture", null)
+	#var data : PoolByteArray = Tags.get_embedded_cover(valid_paths[0])
+	set_covers(Tagging.new().get_music_covers(valid_paths[0]))
+	#if data.size() > 0:
+	#	var img : Image = ImageLoader.create_image_from_data(data)
+	#	cover_hbox.get_child(0).set_deferred( "texture",ImageLoader.image_to_texture(img))
+	#else:
+	#	cover_hbox.get_child(0).set_deferred( "texture", null)
 	
 	# retrieve Text Tags
 	var all_tags : PoolStringArray = []
@@ -190,6 +191,24 @@ func create_artist_string() -> String:
 		if n + 1 < artist_vbox.get_child_count():
 			combined_artists += ", "
 	return combined_artists
+
+
+func set_covers(var image_data : Array) -> void:
+	# free prior children
+	for child in cover_hbox.get_children():
+		child.queue_free()
+	
+	# add covers
+	var temp_img : Image
+	for i in range(len(image_data)):
+		var new_cover : TextureRect = TextureRect.new()
+		new_cover.rect_min_size = Vector2(250, 270)
+		new_cover.expand = true
+		new_cover.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		
+		temp_img = ImageLoader.create_image_from_data(image_data[i])
+		new_cover.set_texture(ImageLoader.image_to_texture(temp_img))
+		cover_hbox.add_child(new_cover)
 
 
 func set_artist_line_edits(var Artist_s : String) -> void:

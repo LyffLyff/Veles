@@ -573,11 +573,12 @@ func update_player_infos() -> void:
 
 
 func init_context_menus() -> void:
-	var context_nodes : Array = get_tree().get_nodes_in_group("Context")
-	var _err
-	for i in context_nodes:
-		if !i.is_connected("mouse_entered", self, "show_context_menu"):
-			_err = i.connect("mouse_entered", self, "show_context_menu", [i])
+	if self.is_inside_tree():
+		var context_nodes : Array = get_tree().get_nodes_in_group("Context")
+		var _err
+		for i in context_nodes:
+			if !i.is_connected("mouse_entered", self, "show_context_menu"):
+				_err = i.connect("mouse_entered", self, "show_context_menu", [i])
 
 
 func show_context_menu(var ref : Control) -> void:

@@ -51,7 +51,6 @@ margin_bottom = 600.0
 custom_styles/panel = SubResource( 4 )
 
 [node name="DynamicBackground" type="PanelContainer" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 material = ExtResource( 3 )
 margin_right = 1120.0
 margin_bottom = 600.0

@@ -47,7 +47,7 @@ func _on_Cover_pressed():
 		final_rotation,
 		TW_DURATION
 	)
-	var _err = ptw.connect("finished",self,"set", ["is_pointer_tweening", false])
+	_err = ptw.connect("finished",self,"set", ["is_pointer_tweening", false])
 
 
 func tween_hover_panel(var toggle : bool) -> void:
@@ -55,7 +55,7 @@ func tween_hover_panel(var toggle : bool) -> void:
 		var final_val : float = float(toggle)
 		set_pointer_rotation()
 		
-		get_tree().create_tween().set_trans(Tween.TRANS_QUAD).tween_property(
+		var _ptw : PropertyTweener = get_tree().create_tween().set_trans(Tween.TRANS_QUAD).tween_property(
 			hover_panel,
 			"modulate:a",
 			final_val,

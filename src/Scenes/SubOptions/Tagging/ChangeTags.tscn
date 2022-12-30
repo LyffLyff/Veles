@@ -60,6 +60,7 @@ margin_bottom = 250.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 10
 alignment = 1
 
 [node name="Cover1" type="TextureRect" parent="ScrollContainer/VBoxContainer/ScrollContainer/Covers"]

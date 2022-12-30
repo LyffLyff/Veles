@@ -1,4 +1,4 @@
-extends PanelContainer
+extends "res://src/Scenes/General/StdPopupBackground.gd"
 # the script for the playlists export menu
 # it directs the app to the correct export function on a button press in the menu
 
@@ -11,11 +11,11 @@ onready var export_types : VBoxContainer = $PanelContainer/HBoxContainer/VBoxCon
 
 
 func _enter_tree():
-	Global.root.toggle_songlist_input( false )
+	Global.root.toggle_songlist_input(false)
 
 
 func _exit_tree():
-	Global.root.toggle_songlist_input( true )
+	Global.root.toggle_songlist_input(true)
 
 
 func init_export_menu(var playlist_idx : int) -> void:
@@ -33,3 +33,7 @@ func init_export_menu(var playlist_idx : int) -> void:
 			"Export Playlist"
 		])
 		_err = export_types.get_child(i).connect("pressed",self,"queue_free")
+
+
+func _on_Close_pressed():
+	exit_popup()

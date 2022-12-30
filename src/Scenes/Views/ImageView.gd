@@ -25,6 +25,7 @@ onready var image_view_cover : TextureButton = $VBoxContainer/HBoxContainer/Cove
 onready var middle_part : MarginContainer = get_parent()
 onready var option_vbox : VBoxContainer = $VBoxContainer/HBoxContainer/VBoxContainer/Option/Options
 onready var option_place : MarginContainer = $VBoxContainer/HBoxContainer/VBoxContainer/Option/Options/OptionPlace
+onready var option_bg : PanelContainer = $VBoxContainer/HBoxContainer/VBoxContainer/Option
 onready var background_panel : PanelContainer = $DynamicBackground
 onready var static_bg : PanelContainer = $StaticBackground
 onready var middle_buffer : Control = $VBoxContainer/HBoxContainer/MiddleBuffer
@@ -36,8 +37,7 @@ func _ready():
 		SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "ImageViewOption")
 	)
 	last_option_idx = SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "ImageViewLastOption")
-	toggle_cover_focus( SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "ImageViewCoverFocused"), 0.0 )
-	set_image_view_bg_clr()
+	toggle_cover_focus(SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "ImageViewCoverFocused"), 0.0)
 	if self.connect("resized",self,"on_ImageView_resized"):
 		Global.root.message("CANNOT CONNECT IMAGE VIEW TO RESIZED FUNCTION", SaveData.MESSAGE_ERROR)
 	var _tw = init_image_view(true)
@@ -67,20 +67,27 @@ func init_image_view(var toggle : bool) -> SceneTreeTween:
 		image_view_cover,
 		"self_modulate:a",
 		1.0 * int(toggle),
-		0.4
+		0.3
 	)
 	_ptw = tw.parallel().tween_property(
 		background_panel,
 		"modulate:a",
 		1.0 * int(toggle),
-		0.5
+		0.3
 	)
 	_ptw = tw.parallel().tween_property(
 		option_vbox,
 		"modulate:a",
 		1.0 * int(toggle),
-		0.5
+		0.3
 	)
+	if background_panel.material.get("shader_param/strength"):
+		_ptw = tw.parallel().tween_property(
+			background_panel.material,
+			"shader_param/strength",
+			2.0 * int(toggle),
+			0.3
+		)
 	return tw
 
 
@@ -104,7 +111,6 @@ func get_unfocused_cover_size() -> Vector2:
 
 
 func set_image_view_bg_clr() -> void:
-	var tw : SceneTreeTween = create_tween()
 	match SettingsData.get_setting(SettingsData.SONG_SETTINGS, "ImageViewBackground"):
 		0:
 			background_panel.set_material(load("res://src/Ressources/Shaders/StarShader.tres"))
@@ -112,28 +118,41 @@ func set_image_view_bg_clr() -> void:
 			var bg_clr : Color = SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "ImageViewStandardBackgroundColor")
 			background_panel.material.set_shader_param("color", bg_clr)
 			static_bg.get_stylebox("panel").set_bg_color(bg_clr)
-			var _ptw : PropertyTweener = tw.tween_property(
-				background_panel,
+			var _ptw : PropertyTweener = create_tween().parallel().tween_property(
+				static_bg,
 				"modulate:a",
 				1.0,
 				0.3
 			)
-			
 		2:
 			background_panel.set_material(load("res://src/Ressources/Shaders/direction_fade.tres"))
-			
 			# retrieving the data of the current Cover Texture, resizing to 1x1
 			# and the Setting the background_panel to the Color of this one pixel
 			var cover_img : Image = image_view_cover.get_normal_texture().get_data()
 			cover_img.resize(1,1,1)
 			cover_img.lock()
-			
+			var tw : SceneTreeTween = create_tween()
+			Global.request_fps_change(60)
 			var _ptw : PropertyTweener = tw.tween_property(
 				background_panel.material,
 				"shader_param/color",
 				cover_img.get_pixel(0,0),
 				0.3
 			)
+			_ptw = tw.parallel().tween_property(
+				background_panel.material,
+				"shader_param/strength",
+				2.0,
+				0.3
+			)
+			_ptw = tw.parallel().tween_property(
+				static_bg,
+				"modulate:a",
+				1.0,
+				0.3
+			)
+			yield(tw,"finished")
+			Global.request_fps_change(4)
 
 func update_option() -> void:
 	# updates the Current Image View Option
@@ -222,3 +241,4 @@ func _on_Cover_pressed():
 
 func _on_Infos_pressed():
 	add_option(ImageViewOptions.INFOS)
+
