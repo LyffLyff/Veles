@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=23 format=2]
+[gd_resource type="Theme" load_steps=22 format=2]
 
-[ext_resource path="res://src/Assets/Fonts/JetBrains/JetBrainsMono-Italic.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/Ressources/Fonts/Jetbrains_Italic.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/Assets/Icons/White/Folder/folder_18px.png" type="Texture" id=2]
 [ext_resource path="res://src/Assets/Icons/White/File/file_16px.png" type="Texture" id=3]
 [ext_resource path="res://src/Assets/Icons/White/General/repeat_16px.png" type="Texture" id=4]
@@ -73,12 +73,8 @@ content_margin_top = 18.0
 bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
 expand_margin_top = 18.0
 
-[sub_resource type="DynamicFont" id=30]
-size = 12
-font_data = ExtResource( 1 )
-
 [resource]
-default_font = SubResource( 30 )
+default_font = ExtResource( 1 )
 Button/styles/disabled = SubResource( 20 )
 Button/styles/focus = SubResource( 20 )
 Button/styles/hover = SubResource( 28 )

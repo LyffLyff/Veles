@@ -67,18 +67,18 @@ static func create_image_from_data(var data : PoolByteArray):
 	if data.size() == 0:
 		return null
 	var new_image : Image = Image.new()
+	var error_code : int = -1
 	match FormatChecker.identify_image_file(data.subarray(0, 512).hex_encode()):
 			0:
-				if new_image.load_jpg_from_buffer(data) != OK:
-					Global.root.message("LOADING JPG FROM BUFFER" ,SaveData.MESSAGE_ERROR)
+				error_code = new_image.load_jpg_from_buffer(data)
 			1:
-				if new_image.load_png_from_buffer(data) != OK:
-					Global.root.message("LOADING PNG FROM BUFFER" ,SaveData.MESSAGE_ERROR)
+				error_code = new_image.load_png_from_buffer(data)
 			2:
-				if new_image.load_webp_from_buffer(data) != OK:
-					Global.root.message("LOADING WebP FROM BUFFER" ,SaveData.MESSAGE_ERROR)
+				error_code = new_image.load_webp_from_buffer(data)
 			_:
 				return null
+	if error_code != OK:
+		Global.root.Message("Unable to Load Image from Buffer", SaveData.MESSAGE_ERROR)
 	return new_image
 
 
@@ -89,7 +89,7 @@ static func image_to_texture(var img : Image):
 
 
 static func get_image_mime_type(var cover_path : String) -> String:
-	match FormatChecker.identify_image_file( SaveData.load_buffer(cover_path, 256).hex_encode() ):
+	match FormatChecker.identify_image_file(SaveData.load_buffer(cover_path, 256).hex_encode()):
 		0:
 			return "image/jpeg";
 		1:

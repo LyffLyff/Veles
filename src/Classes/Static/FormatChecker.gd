@@ -121,3 +121,15 @@ static func get_music_filename_extension(var path : String) -> int:
 	elif path.ends_with(".m4a"):
 		return 5
 	return -1
+
+
+static func get_img_extension_fromn_embedded_cover(var song_path : String) -> String:
+	match identify_image_file(encode_header(SaveData.load_buffer(song_path, 128))):
+		0:
+			return ".jpg"
+		1:
+			return ".png"
+		2:
+			return ".png"
+		_:
+			return ".png"

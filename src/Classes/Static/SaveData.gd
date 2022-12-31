@@ -22,7 +22,7 @@ static func load_data(var filename : String):
 		return data
 	else:
 		if Global.root:
-			Global.root.message("OPENING FILE TO LOAD VARIANT: " + filename,MESSAGE_ERROR, false, Color() )
+			Global.root.message("OPENING FILE TO LOAD VARIANT: " + filename, MESSAGE_ERROR, false, Color() )
 	return null
 
 
@@ -47,14 +47,14 @@ static func load_as_text(var filename : String) -> String:
 	return ""
 
 
-static func load_buffer(var path : String, var Length : int = -1) -> PoolByteArray:
+static func load_buffer(var path : String, var custom_length : int = -1) -> PoolByteArray:
 	# loads and images data as a PoolByteArray and returns it
 	# length_flag = -1 then all data will be loaded else just the the header
 	var file : File = File.new()
 	if file.open(path,File.READ) == OK:
 		var data
-		if Length != -1:
-			data = file.get_buffer(Length)
+		if custom_length != -1:
+			data = file.get_buffer(custom_length)
 		else:
 			data = file.get_buffer(file.get_len())
 		file.close()
@@ -64,40 +64,40 @@ static func load_buffer(var path : String, var Length : int = -1) -> PoolByteArr
 		return PoolByteArray()
 
 
-static func push_key_and_save(var filename : String,var Key : String,var ArrIdx : int,var EditFlag : bool,var PushData) -> bool:
+static func push_key_and_save(var filename : String, var key : String, var array_idx : int, var edit_flag : bool, var push_data) -> bool:
 	# can Edit Data in specificly formatted Dictionary
 	# value -> Array
 	# edit Flag defines if the Value Array will be edited or Replaced with the given data
 	var data = load_data(filename);
 	if !data:
 		data = {}
-	if !data.has(Key):
-		data[Key] = []
-	if EditFlag:
-		var Arr : Array = data.get(Key)
-		Arr.insert(ArrIdx,PushData)
-		data[Key] = Arr
+	if !data.has(key):
+		data[key] = []
+	if edit_flag:
+		var Arr : Array = data.get(key)
+		Arr.insert(array_idx, push_data)
+		data[key] = Arr
 	else:
 		# if this type is chosen the PushData needs to be of type Array
-		data[Key] = PushData
+		data[key] = push_data
 	save(filename, data)
 	return true;
 
 
-static func erase_key_from_file(var filename : String,var Key : String) -> void:
+static func erase_key_from_file(var filename : String, var key : String) -> void:
 	var data = load_data(filename);
-	if !data or !data.has(Key):
+	if !data or !data.has(key):
 		return
-	data.erase(Key)
+	data.erase(key)
 	save(filename, data)
 
 
-static func get_key_from_file(var filename : String,var Key : String,var ArrIdx : int):
+static func get_key_from_file(var filename : String, var key : String, var array_idx : int):
 	var data = load_data(filename)
-	if !data or !data.has(Key):
+	if !data or !data.has(key):
 		return null
-	if data[Key].size() > ArrIdx:
-		return data[Key][ArrIdx]
+	if data[key].size() > array_idx:
+		return data[key][array_idx]
 
 
 static func replace_key_from_file(var filename : String, var old_key : String, var new_key : String) -> void:

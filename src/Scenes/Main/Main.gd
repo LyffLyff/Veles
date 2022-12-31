@@ -163,13 +163,13 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 		var song_data : PoolByteArray = file.get_buffer(file.get_len())
 		
 		# CHECK MUSIC FORMAT WITH HEADER
-		var RealFormatFlag : int = FormatChecker.get_music_format_from_data(song_data.subarray(0,1024).hex_encode())
-		if RealFormatFlag == -1:
-			RealFormatFlag = FormatChecker.get_music_filename_extension(song_path) 
+		var real_format_flag : int = FormatChecker.get_music_format_from_data(song_data.subarray(0,1024).hex_encode())
+		if real_format_flag == -1:
+			real_format_flag = FormatChecker.get_music_filename_extension(song_path) 
 		
 		# CREATE STREAM
 		var stream = null
-		match RealFormatFlag:
+		match real_format_flag:
 			0:
 				stream = AudioStreamOGGVorbis.new()
 			1:
@@ -183,14 +183,14 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 				var header : PoolByteArray = song_data.subarray(0,45 + FmtOffset)
 				if FmtOffset == -1:
 					#if a the "fmt " specifier could not be found the song will be skipped
-					RealFormatFlag = -1
+					real_format_flag = -1
 					
 				var FormatType : int = WavProperties.get_format_type(header, FmtOffset)
 				if FormatType <= 2:
 					stream.format = FormatType
 				else:
 					message("UNKNOWN WAV FORMAT: " + str(FormatType), SaveData.MESSAGE_ERROR)
-					RealFormatFlag = -1
+					real_format_flag = -1
 				
 				song_data = song_data.subarray( 128 * 10, song_data.size() - 1 )
 				stream.stereo = WavProperties.is_channel_stereo(header, FmtOffset)
@@ -200,13 +200,13 @@ func playback_song(var main_idx : int, var play : bool = false, var _PlaylistNam
 				if BitsPerSample > 16:
 					#24Bit, 32Bits per sample 
 					#song_data = WavProperties.convert_32_and_24_to_16_bits(song_data, BitsPerSample)
-					RealFormatFlag = -1
+					real_format_flag = -1
 				
 				song_data = WavProperties.audio_pop_workaround(song_data)
 			-1:
 				pass
 		
-		if RealFormatFlag != -1 and RealFormatFlag != 3 and RealFormatFlag != 4 and RealFormatFlag != 5:
+		if real_format_flag != -1 and real_format_flag != 3 and real_format_flag != 4 and real_format_flag != 5:
 			stream.data = song_data
 			
 			#Setting Stream

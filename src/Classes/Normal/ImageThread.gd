@@ -27,7 +27,7 @@ func copy_song_covers(var to_copy : PoolStringArray) -> Dictionary:
 
 	# creating destination Paths
 	for n in to_copy.size():
-		unique_filename = generate_unique_filename(".png")
+		unique_filename = generate_unique_filename(FormatChecker.get_img_extension_fromn_embedded_cover(to_copy[n]))
 		dst_coverpaths.push_back(dst_folder + unique_filename)
 		AllSongs.set_coverhash(to_copy[n], unique_filename)
 

@@ -29,7 +29,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="LeftEmpty" type="Control" parent="Title"]
-margin_right = 498.0
+margin_right = 500.0
 margin_bottom = 21.0
 rect_min_size = Vector2( 20, 0 )
 mouse_filter = 2
@@ -37,16 +37,16 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Creator" type="Label" parent="Title"]
-margin_left = 506.0
-margin_right = 613.0
+margin_left = 508.0
+margin_right = 612.0
 margin_bottom = 21.0
 size_flags_vertical = 3
-text = "Veles  Beta v1.0.0"
+text = "Veles, Beta v1.1.0"
 align = 1
 valign = 1
 
 [node name="RightBuffer" type="Control" parent="Title"]
-margin_left = 621.0
+margin_left = 620.0
 margin_right = 1120.0
 margin_bottom = 21.0
 mouse_filter = 2

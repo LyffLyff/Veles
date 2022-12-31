@@ -172,7 +172,7 @@ script = ExtResource( 14 )
 
 [node name="Artist" type="LinkButton" parent="Main/SongInfo/Info/Infos"]
 margin_top = 36.0
-margin_right = 33.0
+margin_right = 34.0
 margin_bottom = 52.0
 rect_min_size = Vector2( 0, 15 )
 size_flags_horizontal = 0
@@ -183,7 +183,7 @@ script = ExtResource( 14 )
 
 [node name="Playlist" type="LinkButton" parent="Main/SongInfo/Info/Infos"]
 margin_top = 62.0
-margin_right = 43.0
+margin_right = 46.0
 margin_bottom = 78.0
 size_flags_horizontal = 0
 custom_constants/underline_spacing = 1

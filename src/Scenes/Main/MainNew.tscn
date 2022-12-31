@@ -71,11 +71,10 @@ __meta__ = {
 }
 
 [node name="SideBar" parent="MarginContainer/VBoxContainer/MiddlePart/VBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
-margin_right = 148.0
 margin_bottom = 457.0
 
 [node name="Option" type="MarginContainer" parent="MarginContainer/VBoxContainer/MiddlePart/VBoxContainer/HBoxContainer"]
-margin_left = 148.0
+margin_left = 120.0
 margin_right = 1120.0
 margin_bottom = 457.0
 rect_min_size = Vector2( 800, 0 )

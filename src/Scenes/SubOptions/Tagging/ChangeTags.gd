@@ -17,6 +17,8 @@ const dialogue_song_formats : Array = ["*.mp3","*.ogg","*.flac","*.wav","*.opus"
 
 var line_edits_edited : PoolByteArray = []
 var song_paths : PoolStringArray = []
+var loaded_covers : Array = []
+var current_cover_idx : int = -1
 
 onready var path_edit : LineEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/Values/HBoxContainer/LineEdit
 onready var path_vbox : VBoxContainer = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Paths/Values
@@ -32,6 +34,8 @@ onready var comment_edit : TextEdit = $ScrollContainer/VBoxContainer/MainTags/VB
 onready var track_num_edit : LineEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/TrackNumber/TrackNumber
 onready var release_year_edit : LineEdit = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/ReleaseYear/ReleaseYear
 onready var cover_hbox : HBoxContainer = $ScrollContainer/VBoxContainer/ScrollContainer/Covers
+onready var cover_display : TextureRect = $ScrollContainer/VBoxContainer/ScrollContainer/Covers/Cover
+onready var cover_count : Label = $ScrollContainer/VBoxContainer/ScrollContainer/Covers/Cover/Label
 onready var rating_box : SpinBox = $ScrollContainer/VBoxContainer/MainTags/VBoxContainer/Popularity/RatingEdit
 onready var tag_edits : Array = [filename_edit, artist_edit, title, album_edit, genre_edit, comment_edit, release_year_edit, track_num_edit, cover_description_edit]
 
@@ -143,18 +147,13 @@ func init_tags(var valid_paths : PoolStringArray) -> void:
 		return
 	
 	# set covers
-	# loaded from Scratch so also Songs not in the Covercache can be tagged properly
-	#var data : PoolByteArray = Tags.get_embedded_cover(valid_paths[0])
-	set_covers(Tagging.new().get_music_covers(valid_paths[0]))
-	#if data.size() > 0:
-	#	var img : Image = ImageLoader.create_image_from_data(data)
-	#	cover_hbox.get_child(0).set_deferred( "texture",ImageLoader.image_to_texture(img))
-	#else:
-	#	cover_hbox.get_child(0).set_deferred( "texture", null)
+	# loading from the file itself
+	var cover_data : Array = Tagging.new().get_music_covers(valid_paths[0])
+	set_covers(cover_data)
 	
 	# retrieve Text Tags
 	var all_tags : PoolStringArray = []
-	all_tags = Tags.get_text_tags( valid_paths[0],[0,1,2,3,4,5,6] )
+	all_tags = Tags.get_text_tags(valid_paths[0],[0,1,2,3,4,5,6])
 	
 	# set Tags
 	if all_tags.size() == 0:
@@ -194,21 +193,31 @@ func create_artist_string() -> String:
 
 
 func set_covers(var image_data : Array) -> void:
-	# free prior children
-	for child in cover_hbox.get_children():
-		child.queue_free()
-	
+	# free stuff
+	loaded_covers.clear()
+	cover_count.text = "1/x"
+	 
 	# add covers
 	var temp_img : Image
 	for i in range(len(image_data)):
-		var new_cover : TextureRect = TextureRect.new()
-		new_cover.rect_min_size = Vector2(250, 270)
-		new_cover.expand = true
-		new_cover.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		
+		#var new_cover : TextureRect = TextureRect.new()
+		#new_cover.rect_min_size = Vector2(250, 270)
+		#new_cover.expand = true
+		#new_cover.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		if FormatChecker.identify_image_file(image_data[i].hex_encode()) == 1:
+			# the first 23 Bytes of the extracted PNG header cannot be read from godots internal
+			# png decoder since they seem to be APIC specific
+			# -> needs more testing to see if it works anywhere
+			image_data[i] = image_data[i].subarray(23, len(image_data[i]) - 1)
 		temp_img = ImageLoader.create_image_from_data(image_data[i])
-		new_cover.set_texture(ImageLoader.image_to_texture(temp_img))
-		cover_hbox.add_child(new_cover)
+		#new_cover.set_texture(ImageLoader.image_to_texture(temp_img))
+		loaded_covers.push_back(ImageLoader.image_to_texture(temp_img))
+		#cover_hbox.add_child(new_cover)
+	
+	if loaded_covers.size() > 0:
+		current_cover_idx = 0
+		cover_display.texture = loaded_covers[current_cover_idx]
+		cover_count.text = "1/" + str(len(loaded_covers))
 
 
 func set_artist_line_edits(var Artist_s : String) -> void:
@@ -438,3 +447,22 @@ func _on_AddPath_pressed():
 	var new_path_edit : HBoxContainer = load("res://src/Scenes/SubOptions/Tagging/AdditionalArtist.tscn").instance()
 	new_path_edit.rect_min_size.y = path_edit.rect_min_size.y
 	path_vbox.add_child(new_path_edit)
+
+
+func _on_PriorCover_pressed():
+	if current_cover_idx > 0:
+		current_cover_idx -= 1
+	update_cover()
+
+
+func _on_NextCover_pressed():
+	if current_cover_idx + 1 < len(loaded_covers):
+		current_cover_idx += 1
+	update_cover()
+
+
+func update_cover() -> void:
+	if loaded_covers.size() == 0:
+		return
+	cover_count.text = str(current_cover_idx + 1) +  "/" + str(len(loaded_covers))
+	cover_display.texture = loaded_covers[current_cover_idx]

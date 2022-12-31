@@ -148,12 +148,12 @@ func load_playlist_selector(var main_idxs : PoolIntArray) -> void:
 func extract_cover(var main_idx : int = -1) -> void: 
 	var song_paths : PoolStringArray = []
 	if main_idx != -1:
-		song_paths.push_back( AllSongs.get_song_path(main_idx) )
+		song_paths.push_back(AllSongs.get_song_path(main_idx))
 	else:
 		if get_clicked_song_path() in SongLists.highlighted_songs:
 			song_paths = SongLists.highlighted_songs
 		else:
-			song_paths.push_back( get_clicked_song_path() )
+			song_paths.push_back(get_clicked_song_path())
 	
 	var _dialog = Global.root.load_general_file_dialogue(
 		Exporter.new(),
