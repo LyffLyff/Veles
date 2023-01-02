@@ -3,44 +3,19 @@ extends Control
 const song_formats : Array = ["mp3","ogg","flac","wav","opus"]
 const dialogue_song_formats : Array = ["*.mp3","*.ogg","*.flac","*.wav","*.opus"]
 
-onready var file_tree : Tree = $VBoxContainer/HBoxContainer/ScrollContainer/FileTree
+onready var opened_files : ScrollContainer  = $VBoxContainer/HBoxContainer/DividedContainer
 
 func _ready():
-	init_file_tree()
-	file_tree.set_hide_root(true)
 	var x = []
-	for i in 100:
+	for i in 1000:
 		x.push_back("erguhvephnsödjnasödfjhdjfsdfsdfjjsdöf")
-	set_file_tree(x)
+	update_opened_files(x)
 
 
-func init_file_tree() -> void:
-	file_tree.set_column_title(0, "Path:")
-	file_tree.set_column_title(1, "Tag1:")
-
-
-func set_file_tree(var filepaths : PoolStringArray) -> void:
-	file_tree.clear()
-	var temp_item : LineEdit
+func update_opened_files(var filepaths : PoolStringArray) -> void:
+	var temp_item : Label
 	for i in len(filepaths):
-		temp_item = LineEdit.new()
-		temp_item.rect_min_size.y = 15
-		file_tree.create_item(
-			null,
-			i
-		).set_text(0, filepaths[i])
-
-
-func _on_FileTree_button_pressed(var item : TreeItem, var column : int, var id : int):
-	print(item.text)
-
-
-func _on_FileTree_item_selected():
-	print("hm")
-
-
-func _on_FileTree_cell_selected():
-	print("jojojo")
+		opened_files.append_item([filepaths[i]])
 
 
 func _on_OpenFiles_pressed():
@@ -48,7 +23,7 @@ func _on_OpenFiles_pressed():
 		self,
 		FileDialog.MODE_OPEN_FILES,
 		FileDialog.ACCESS_FILESYSTEM,
-		"set_file_tree",
+		"update_opened_files",
 		[],
 		UsedFilepaths.TAG_PATH,
 		dialogue_song_formats,

@@ -1,13 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Scenes/Test/NewChangeTags.gd" type="Script" id=1]
 [ext_resource path="res://src/Assets/Icons/White/Folder/open folder_72px.png" type="Texture" id=2]
 [ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png" type="Texture" id=3]
-[ext_resource path="res://src/Scenes/Test/NewChangeTags.tres" type="Theme" id=4]
-
-[sub_resource type="StyleBoxEmpty" id=1]
-
-[sub_resource type="StyleBoxEmpty" id=2]
+[ext_resource path="res://src/Scenes/General/DividedContainer/DividedContainer.tscn" type="PackedScene" id=4]
 
 [node name="NewChangeTags" type="Control"]
 anchor_right = 1.0
@@ -50,26 +46,12 @@ margin_right = 210.0
 margin_bottom = 582.0
 custom_constants/separation = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer"]
+[node name="DividedContainer" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_left = 210.0
 margin_right = 1070.0
 margin_bottom = 582.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="FileTree" type="Tree" parent="VBoxContainer/HBoxContainer/ScrollContainer"]
-margin_right = 860.0
-margin_bottom = 582.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource( 4 )
-custom_styles/title_button_normal = SubResource( 1 )
-custom_styles/title_button_hover = SubResource( 2 )
-columns = 4
-column_titles_visible = true
-hide_folding = true
-hide_root = true
-select_mode = 2
 
 [node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 margin_left = 1070.0
@@ -94,7 +76,4 @@ texture_normal = ExtResource( 2 )
 expand = true
 stretch_mode = 5
 
-[connection signal="button_pressed" from="VBoxContainer/HBoxContainer/ScrollContainer/FileTree" to="." method="_on_FileTree_button_pressed"]
-[connection signal="cell_selected" from="VBoxContainer/HBoxContainer/ScrollContainer/FileTree" to="." method="_on_FileTree_cell_selected"]
-[connection signal="item_selected" from="VBoxContainer/HBoxContainer/ScrollContainer/FileTree" to="." method="_on_FileTree_item_selected"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Options/OpenFiles" to="." method="_on_OpenFiles_pressed"]

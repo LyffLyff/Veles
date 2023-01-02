@@ -53,7 +53,7 @@ static func get_cover(var path : String, var playlist_name : String = "", var Im
 			var std_cover_path : String = SettingsData.get_setting(SettingsData.SONG_SETTINGS, "StandardSongCover")
 			if std_cover_path != "" and Directory.new().file_exists(std_cover_path):
 				#Loads the std cover_edit Image Specified in the Settings
-				texture = get_cover( SettingsData.get_setting(SettingsData.SONG_SETTINGS, "StandardSongCover") )
+				texture = get_cover(SettingsData.get_setting(SettingsData.SONG_SETTINGS, "StandardSongCover"))
 			else:
 				#Loads the true std cover -> when no std cover was selected
 				texture = load("res://src/Assets/Icons/White/Audio/MusicNotes/icons8-musik-1000.png")

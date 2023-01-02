@@ -123,7 +123,7 @@ static func get_music_filename_extension(var path : String) -> int:
 	return -1
 
 
-static func get_img_extension_fromn_embedded_cover(var song_path : String) -> String:
+static func get_img_extension_from_embedded_cover(var song_path : String) -> String:
 	match identify_image_file(encode_header(SaveData.load_buffer(song_path, 128))):
 		0:
 			return ".jpg"

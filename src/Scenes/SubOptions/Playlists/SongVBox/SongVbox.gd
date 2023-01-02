@@ -42,7 +42,7 @@ func _ready():
 	self.set_mouse_filter(Control.MOUSE_FILTER_PASS)
 	
 	# V-Scrollbar
-	song_slider.set_script( load("res://src/Scenes/SubOptions/Playlists/SongVBox/SongVScrollbar.gd") )
+	song_slider.set_script(load("res://src/Scenes/SubOptions/Playlists/SongVBox/SongVScrollbar.gd"))
 	song_slider.set_h_size_flags(SIZE_SHRINK_CENTER)
 	song_slider._ready()
 	if song_slider.connect("scrollbar_released", self, "block_song_highlighter",[true]):
