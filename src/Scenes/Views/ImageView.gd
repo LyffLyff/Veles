@@ -98,16 +98,26 @@ func exit_image_view() -> void:
 
 
 func on_ImageView_resized():
-	image_view_cover.rect_min_size = get_unfocused_cover_size()
+	image_view_cover.rect_min_size = get_image_view_cover_size()
 
 
-func get_unfocused_cover_size() -> Vector2:
+func get_image_view_cover_size() -> Vector2:
 	var new_cover_size : Vector2 = Vector2()
-	new_cover_size.y = middle_part.rect_size.y - TOP_SPACING
-	new_cover_size.x = OS.get_window_size().x * UNFOCUSED_COVER_MAX_PERCENT / 100.0
+	new_cover_size.y = get_fixed_cover_size(middle_part.rect_size.y - TOP_SPACING)
+	new_cover_size.x = get_fixed_cover_size(OS.get_window_size().x * UNFOCUSED_COVER_MAX_PERCENT / 100.0)
 	if new_cover_size.x > new_cover_size.y:
 		new_cover_size.x = new_cover_size.y
 	return new_cover_size
+
+
+func get_fixed_cover_size(var proposed_width : int) -> float:
+	# if the images containers is evenly sized on the x-axis the image must be aswell
+	# the same applies with even x-values
+	# if this rule does not seem to be followed a "glitched" line of image appears at the bottom
+	if int(self.rect_size.y) % 2 == proposed_width % 2:
+		return float(proposed_width)
+	else:
+		return float(proposed_width + 1)
 
 
 func set_image_view_bg_clr() -> void:
@@ -242,3 +252,8 @@ func _on_Cover_pressed():
 func _on_Infos_pressed():
 	add_option(ImageViewOptions.INFOS)
 
+
+func _on_ImageView_resized():
+	# updating when view gets resized
+	if image_view_cover:
+		image_view_cover.rect_min_size = get_image_view_cover_size()
