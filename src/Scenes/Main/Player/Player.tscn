@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/Themes/General/NewDefault.tres" type="Theme" id=1]
 [ext_resource path="res://src/Assets/Icons/White/Audio/Replay/play_72px.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://src/Ressources/Fonts/12pxMonserrat.tres" type="DynamicFont" id=15]
 [ext_resource path="res://src/Assets/Icons/White/General/Pointers/up pointer_72px.png" type="Texture" id=16]
 [ext_resource path="res://src/Scenes/Main/Player/Cover.gd" type="Script" id=17]
+[ext_resource path="res://src/Scenes/Main/Player/PlaybackSlider.gd" type="Script" id=18]
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
@@ -335,6 +336,7 @@ mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
+script = ExtResource( 18 )
 
 [node name="SongLength" type="Label" parent="Main/MainPlayer/Bottom"]
 margin_left = 338.0
@@ -454,7 +456,10 @@ autostart = true
 [connection signal="pressed" from="Main/MainPlayer/Middle/Shuffle" to="." method="_on_Shuffle_pressed"]
 [connection signal="pressed" from="Main/MainPlayer/Middle/HBoxContainer/Playback" to="." method="_on_Playback_pressed"]
 [connection signal="pressed" from="Main/MainPlayer/Middle/Repeat" to="." method="_on_RepeatMode_pressed"]
-[connection signal="value_changed" from="Main/MainPlayer/Bottom/PlaybackSlider" to="." method="_on_PlaybackSlider_value_changed"]
+[connection signal="drag_ended" from="Main/MainPlayer/Bottom/PlaybackSlider" to="." method="_on_PlaybackSlider_drag_ended"]
+[connection signal="drag_started" from="Main/MainPlayer/Bottom/PlaybackSlider" to="." method="_on_PlaybackSlider_drag_started"]
+[connection signal="mouse_entered" from="Main/MainPlayer/Bottom/PlaybackSlider" to="Main/MainPlayer/Bottom/PlaybackSlider" method="_on_PlaybackSlider_mouse_entered"]
+[connection signal="mouse_exited" from="Main/MainPlayer/Bottom/PlaybackSlider" to="Main/MainPlayer/Bottom/PlaybackSlider" method="_on_PlaybackSlider_mouse_exited"]
 [connection signal="pressed" from="Main/Additional/Volume/Volume" to="." method="_on_Volume_pressed"]
 [connection signal="pressed" from="Main/Additional/OutputDevice" to="." method="_on_OutputDevice_pressed"]
 [connection signal="pressed" from="Main/Additional/Effects" to="." method="_on_Effects_pressed"]

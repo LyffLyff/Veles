@@ -21,7 +21,7 @@ static func load_data(var filename : String):
 		file.close()
 		return data
 	else:
-		if Global.root:
+		if Global.root and Global.root.has_method("message"):
 			Global.root.message("OPENING FILE TO LOAD VARIANT: " + filename, MESSAGE_ERROR, false, Color() )
 	return null
 

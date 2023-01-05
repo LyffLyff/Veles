@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/off_36px.png-53ee01c353fbabe0893a4aeb7ddd259e.stex"
+path="res://.import/off_36px.png-a5fca06cbad45bfd998fd4d5d12b5c72.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Assets/Checkbuttons/off_36px.png"
-dest_files=[ "res://.import/off_36px.png-53ee01c353fbabe0893a4aeb7ddd259e.stex" ]
+source_file="res://src/assets/Checkbuttons/off_36px.png"
+dest_files=[ "res://.import/off_36px.png-a5fca06cbad45bfd998fd4d5d12b5c72.stex" ]
 
 [params]
 

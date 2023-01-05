@@ -49,6 +49,8 @@ func _enter_tree():
 
 
 func _exit_tree():
+	# resets the dynamic background to neutral grey
+	background_panel.material.set("shader_param/color", Color("2e2e2e"))
 	SettingsData.set_setting(SettingsData.GENERAL_SETTINGS, "ImageViewLastOption", last_option_idx)
 	Global.root.toggle_songlist_input(true)
 
@@ -71,7 +73,7 @@ func init_image_view(var toggle : bool) -> SceneTreeTween:
 	)
 	_ptw = tw.parallel().tween_property(
 		background_panel,
-		"modulate:a",
+		"self_modulate:a",
 		1.0 * int(toggle),
 		0.3
 	)

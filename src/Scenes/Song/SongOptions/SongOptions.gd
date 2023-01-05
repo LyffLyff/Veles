@@ -175,7 +175,7 @@ func remove_from_playlist(var main_idx : int = -1) -> void:
 		if get_clicked_song_path() in SongLists.highlighted_songs:
 			keys = SongLists.highlighted_songs
 		else:
-			keys.push_back( SongLists.normal_playlists.values()[Global.pressed_playlist_idx].keys()[song_idx] )
+			keys.push_back(SongLists.normal_playlists.values()[Global.pressed_playlist_idx].keys()[song_idx])
 	
 	for i in keys.size():
 		SongLists.normal_playlists.values()[Global.pressed_playlist_idx].erase(keys[i])

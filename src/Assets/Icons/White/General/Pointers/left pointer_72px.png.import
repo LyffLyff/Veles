@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/left pointer_72px.png-6371bfab1dd1f36bc33da3b113e7639d.stex"
+path="res://.import/left pointer_72px.png-d15b2a68a7dafb30d469f278b58905fb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Assets/Icons/White/General/Pointers/left pointer_72px.png"
-dest_files=[ "res://.import/left pointer_72px.png-6371bfab1dd1f36bc33da3b113e7639d.stex" ]
+source_file="res://src/assets/Icons/White/General/Pointers/left pointer_72px.png"
+dest_files=[ "res://.import/left pointer_72px.png-d15b2a68a7dafb30d469f278b58905fb.stex" ]
 
 [params]
 

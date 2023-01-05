@@ -62,21 +62,33 @@ func check_setup() -> bool:
 	return true
 
 
-func OnDownloadAdded():
+func on_download_added():
 	if !check_setup():
 		Global.root.message("Download setup is NOT complete -> see Infos",  SaveData.MESSAGE_ERROR, true, Color(ColorN("dark_red")) )
 		return
 	
-	if !Directory.new().dir_exists( dst_folder.get_text().get_base_dir() ):
+	var dir : Directory = Directory.new()
+	if !dir.dir_exists(dst_folder.get_text().get_base_dir()):
 		Global.root.message("Destination Folder not found",  SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )
 		return
-	
 	if title.get_text() == "":
 		Global.root.message("No Filename Selected",  SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )
 		return
 	if !title.get_text().is_valid_filename():
 		Global.root.message("Invalid Filename Title",  SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )
 		return
+	
+	# checking if file already exists
+	if is_playlist.selected == 0:
+		var dst_path : String = dst_folder.get_text().get_base_dir() + "/" + title.get_text()
+		match audio_video.selected:
+			0:
+				dst_path += "." + video_format.get_item_text(video_format.selected).to_lower()
+			1:
+				dst_path += "." + audio_format.get_item_text(audio_format.selected).to_lower()
+		if dir.file_exists(dst_path):
+			Global.root.message("File already exists at destination", SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )
+			return
 	
 	if url_edit.get_text() == "":
 		Global.root.message("No Download link entered",  SaveData.MESSAGE_ERROR, true, Color(ColorN("red")) )

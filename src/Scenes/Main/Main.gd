@@ -3,7 +3,7 @@ extends Control
 
 
 # all the possible options that can be selected in the left sidebar menu
-const all_songs : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/AllSongs/SongsNew.tscn")
+const all_songs : PackedScene = preload("res://src/Scenes/SubOptions/MyMusic/MyMusic.tscn")
 const playlists : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/PlaylistGrid.tscn")
 const add_folder : PackedScene = preload("res://src/Scenes/SubOptions/Folders/SelectFolder.tscn")
 const infos : PackedScene = preload("res://src/Scenes/SubOptions/InfoSettings/Infos.tscn")
@@ -16,8 +16,7 @@ const lyrics : PackedScene = preload("res://src/Scenes/SubOptions/Lyrics/LyricsP
 
 const MESSAGE_CONTAINER : PackedScene = preload("res://src/scenes/ErrorHandling/MessageContainer.tscn")
 const GENERAL_DIALOGUE : PackedScene = preload("res://src/scenes/General/GeneralFileDialogue.tscn")
-const NORMAL_PLAYLIST_TEMPLATE : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/NormalPlaylist/Playlist.tscn")
-const SMART_PLAYLIST_TEMPLATE : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/SmartPlaylist.tscn")
+const PLAYLIST_TEMPLATE : PackedScene = preload("res://src/Scenes/Playlists/General/NewPlaylist.tscn")
 
 var input_disable_counter : int = 0
 
@@ -426,17 +425,17 @@ func free_option() -> void:
 func update_highlighted_song(var next_highlighted : String) -> void:
 	#checks first if either AllSongs or a Playlist are shown
 	if options.get_child(0).get("songs") != null:
-		var highlighted_song : int = options.get_child(0).get_index_from_songlist(SongLists.current_song)
+		var highlighted_song : int = options.get_child(0).get_child(0).get_index_from_songlist(SongLists.current_song)
 		if  options.get_child(0).get("songs").get_child_count() < highlighted_song:
 			#if a song is next from another Playlist  that is bigger
 			return
 		#if a song is currently highlighted
 		if highlighted_song != -1:
-			options.get_child(0).unhighlight_song(highlighted_song)
-			var NextHighlightedIdx : int = options.get_child(0).get_index_from_songlist(next_highlighted)
+			options.get_child(0).get_child(0).unhighlight_song(highlighted_song)
+			var NextHighlightedIdx : int = options.get_child(0).get_child(0).get_index_from_songlist(next_highlighted)
 			if NextHighlightedIdx == -1:
 				return
-			options.get_child(0).highlight_song(options.get_child(0).songs.get_child( NextHighlightedIdx ) )
+			options.get_child(0).get_child(0).highlight_song(options.get_child(0).songs.get_child(NextHighlightedIdx))
 
 
 func message(var message : String,var message_type : int, var display : bool = false, var bg_clr : Color = Color("1f1f1f")) -> void:
@@ -458,7 +457,7 @@ func toggle_songlist_input(var x : bool) -> void:
 		var ref : Node = null
 		if options.get_child(0).get("songs"):
 			# only set reference if it exists -> input toggler can handle null Nodes
-			ref = options.get_child(0).songs.get_parent()
+			ref = options.get_child(0).songs
 		
 		if !x:
 			input_disable_counter += 1;
@@ -516,14 +515,9 @@ func load_playlist(var playlist_idx : int) -> void:
 	sidebar.sub_options.set_sidebar_option(1)
 	
 	# loading a smart or normal playlist depending on the index
-	var playlist_scene : Node = null
-	if playlist_idx >= 0:
-		playlist_scene = NORMAL_PLAYLIST_TEMPLATE.instance()
-		options.add_child(playlist_scene)
-	else:
-		playlist_scene = SMART_PLAYLIST_TEMPLATE.instance()
-		options.add_child(playlist_scene)
-		playlist_scene.n_ready()
+	var playlist_scene : Node = PLAYLIST_TEMPLATE.instance()
+	options.add_child(playlist_scene)
+	playlist_scene.init_playlist()
 
 
 func load_temporary_playlist(var temp_playlist_title : String, var description_path : String, var cover_path : String, var option_idx : int) -> void:
@@ -535,9 +529,10 @@ func load_temporary_playlist(var temp_playlist_title : String, var description_p
 	sidebar.sub_options.set_sidebar_option(option_idx)
 	
 	# loading temporary playlist from given arguments
-	var new_temp_playlist : Control = SMART_PLAYLIST_TEMPLATE.instance()
-	options.add_child( new_temp_playlist )
-	new_temp_playlist.n_ready( SongLists.temporary_playlist_conditions,temp_playlist_title,description_path, cover_path )
+	var new_temp_playlist : Control = PLAYLIST_TEMPLATE.instance()
+	options.add_child(new_temp_playlist)
+	new_temp_playlist.init_playlist()
+	new_temp_playlist.init_temporary_playlist(SongLists.temporary_playlist_conditions, temp_playlist_title, description_path, cover_path)
 
 
 func load_lyric_editor(var project_path : String = "") -> void:

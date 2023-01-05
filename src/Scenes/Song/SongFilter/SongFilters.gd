@@ -8,8 +8,8 @@ signal is_filtering
 
 const HOLD_THRESHOLD : int = 120
 
-onready var filter_edit : LineEdit = $VBoxContainer/Panel/HBoxContainer/Filter
-onready var background : Panel = $VBoxContainer/Panel
+onready var filter_edit : LineEdit = $VBoxContainer/HBoxContainer/PanelContainer/Filter
+onready var background : PanelContainer = $VBoxContainer/HBoxContainer/PanelContainer
 
 
 func _enter_tree():
@@ -45,8 +45,9 @@ func apply_filter(var filter_phrase : String) -> void:
 	var songs : VBoxContainer = get_owner().songs
 	if filter_phrase != "":
 		emit_signal("is_filtering",true)
+		get_owner().songs.set_filter_status(true)
 		for n in songs.get_child_count():
-			var song_name : String = AllSongs.get_song_filename( songs.get_child(n).main_index )
+			var song_name : String = AllSongs.get_song_filename(songs.get_child(n).main_index)
 			# if the text is somewhat similar or includes the entered phrase it'll be shown
 			if song_name.similarity(filter_phrase) > 0.7 or song_name.findn(filter_phrase,0) != -1:
 				# if Global.valid_song(song_name) == 1 or  Global.valid_song(song_name) == 0:			#onyl allows valid files to be shown -> else can show .wav files
@@ -54,6 +55,7 @@ func apply_filter(var filter_phrase : String) -> void:
 			else:
 				songs.get_child(n).hide()
 	else:
+		get_owner().songs.set_filter_status(false)
 		emit_signal("is_filtering",false)
 		for n in songs.get_child_count():
 			songs.get_child(n).show()

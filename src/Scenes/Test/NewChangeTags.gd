@@ -6,14 +6,21 @@ const dialogue_song_formats : Array = ["*.mp3","*.ogg","*.flac","*.wav","*.opus"
 onready var opened_files : ScrollContainer  = $VBoxContainer/HBoxContainer/DividedContainer
 
 func _ready():
-	var x = []
-	for i in 1000:
-		x.push_back("erguhvephnsödjnasödfjhdjfsdfsdfjjsdöf")
-	update_opened_files(x)
+	init_headers()
+	Global.temp_tag_paths = song_formats
+	update_opened_files(Global.temp_tag_paths)
+
+
+func init_headers() -> void:
+	var headers : PoolStringArray = ["Filename:", "Title:", "Artist:"]
+	opened_files.clear_sections()
+	for i in range(len(headers)):
+		opened_files.append_section()
+		opened_files.set_header(i, headers[i])
 
 
 func update_opened_files(var filepaths : PoolStringArray) -> void:
-	var temp_item : Label
+	opened_files.clear_items()
 	for i in len(filepaths):
 		opened_files.append_item([filepaths[i]])
 

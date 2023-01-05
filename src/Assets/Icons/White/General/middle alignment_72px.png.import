@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/middle alignment_72px.png-c08a5c82fb9c3414affe29167a3d1f88.stex"
+path="res://.import/middle alignment_72px.png-977369d7ce33ae3f08a6568b98c75586.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Assets/Icons/White/General/middle alignment_72px.png"
-dest_files=[ "res://.import/middle alignment_72px.png-c08a5c82fb9c3414affe29167a3d1f88.stex" ]
+source_file="res://src/assets/Icons/White/General/middle alignment_72px.png"
+dest_files=[ "res://.import/middle alignment_72px.png-977369d7ce33ae3f08a6568b98c75586.stex" ]
 
 [params]
 

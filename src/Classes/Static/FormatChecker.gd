@@ -130,6 +130,18 @@ static func get_img_extension_from_embedded_cover(var song_path : String) -> Str
 		1:
 			return ".png"
 		2:
+			return ".webp"
+		_:
 			return ".png"
+
+
+static func get_img_extension_from_image_data(var image_data : PoolByteArray) -> String:
+	match identify_image_file(encode_header(image_data)):
+		0:
+			return ".jpg"
+		1:
+			return ".png"
+		2:
+			return ".webp"
 		_:
 			return ".png"

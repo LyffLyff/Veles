@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "DesignPaths",
 "language": "GDScript",
-"path": "res://src/Scenes/Design/DesignSetter.gd"
+"path": "res://src/scenes/Design/DesignSetter.gd"
 }, {
 "base": "Object",
 "class": "Exporter",
@@ -296,7 +296,6 @@ common/physics_interpolation=true
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 quality/intended_usage/framebuffer_allocation=0
 threads/thread_model=2
 vram_compression/import_etc=true

@@ -16,6 +16,7 @@ var volume_change_ref : Control = null
 var image_view_ref : Control = null
 var is_image_view_active : bool = false
 var is_image_view_tweening : bool = false
+var is_dragging : bool = false
 
 onready var prior_song : TextureButton = $Main/MainPlayer/Middle/HBoxContainer/PriorSong
 onready var next_song : TextureButton = $Main/MainPlayer/Middle/HBoxContainer/NextSong
@@ -117,14 +118,6 @@ func _on_Playback_pressed():
 			MainStream.stream_timer.set_deferred("paused",false)
 
 
-func _on_PlaybackSlider_value_changed(value):
-	# only changes the value of the Playback slider if the difference
-	# in either direction is greater than 1 second
-	# allows scrolling and won't cause accidental scrolling
-	if abs(value - MainStream.get_playback_position()) > 1:
-		MainStream.seek(value)
-
-
 func _on_RepeatMode_pressed():
 	if !SettingsData.get_setting(SettingsData.GENERAL_SETTINGS,"Repeat"):
 		var _tw : PropertyTweener = create_tween().tween_property(repeat_button, "modulate:a", 1.0, TW_DURATION )
@@ -197,8 +190,18 @@ func _on_OutputDevice_pressed():
 
 func _on_PlaybackTimer_timeout() -> void:
 	playback_pos = MainStream.get_playback_position()
-	playback_position.set_text( TimeFormatter.format_seconds( playback_pos ) )
-	playback_slider.set_value( int( playback_pos ) )
+	playback_position.set_text(TimeFormatter.format_seconds(playback_pos))
+	if !is_dragging:
+		playback_slider.set_value(int(playback_pos))
+
+
+func _on_PlaybackSlider_drag_ended(var _value_changed : bool):
+	is_dragging = false
+	MainStream.seek(playback_slider.value)
+
+
+func _on_PlaybackSlider_drag_started():
+	is_dragging = true
 
 
 func _on_Playlist_pressed():

@@ -6,8 +6,8 @@ const MAX_HEADER_SIZE : int = 154
 const HEADER_LABEL_HEIGHT : int = 16
 const HIGHLIGHTED_SONG : Resource = preload("res://src/Ressources/Themes/Song/HighlightedSong.tres")
 
-onready var songs : VBoxContainer = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller/Songs
-onready var song_scroller : ScrollContainer = $HBoxContainer/VBoxContainer/HBoxContainer/SongScroller
+onready var songs : VBoxContainer = null
+onready var song_scroller : ScrollContainer = null
 onready var song_highlighter : HBoxContainer = null
 onready var title : Label = null
 onready var playlist_options : TextureButton
@@ -127,7 +127,8 @@ func on_songspace_left_clicked(var l_idx : int) -> void:
 
 
 func  _on_SongScroller_resized():
-	song_scroller_rect =  song_scroller.get_global_rect()
+	return
+	song_scroller_rect = song_scroller.get_global_rect()
 
 
 func get_playlist_song_amount() -> int:

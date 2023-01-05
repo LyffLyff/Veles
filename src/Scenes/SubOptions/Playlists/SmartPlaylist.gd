@@ -36,7 +36,7 @@ func n_ready( var conditions : Dictionary = {}, var title = "", var custom_descr
 		playlist_title = title
 		playlist_idx = -2
 		
-	smart_playlist_title.set_text( playlist_title )
+	smart_playlist_title.set_text(playlist_title)
 	if temp_playlist_coverpath == "":
 		smart_playlist_cover.set_texture( ImageLoader.get_cover(Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + playlist_title + ".png") )
 	else:
@@ -67,7 +67,7 @@ func n_ready( var conditions : Dictionary = {}, var title = "", var custom_descr
 
 func load_songs(var song_idxs : PoolIntArray) -> void:
 	var x : SongLoader = SongLoader.new()
-	x.create_songspaces(song_vbox, song_idxs, Global.pressed_playlist_idx )
+	x.create_songspaces(song_vbox, song_idxs, Global.pressed_playlist_idx)
 
 
 func load_playlist_conditions() -> Dictionary:
