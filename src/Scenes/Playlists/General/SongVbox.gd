@@ -27,7 +27,7 @@ func init_song_scroller():
 	ignore_mouse_input = false
 	self.set_mouse_filter(Control.MOUSE_FILTER_PASS)
 	
-	# ProcessToggler
+	# processToggler
 	if self.connect("panel_visible", playlist_root.song_highlighter, "set_visible"):
 		Global.root.message("CONNECTING TOGGLE PROCESS TO SONGSCROLLER VISIBILITY",  SaveData.MESSAGE_ERROR )
 
@@ -65,8 +65,8 @@ func _input(var event):
 
 func _physics_process(_delta):
 	# if the VBox and the ScrollContainer have this point
-	if playlist_root_rect.has_point(mouse_pos) and self.get_global_rect().has_point(mouse_pos) and mouse_pos.x  + 40 < get_global_rect().size.x + get_global_rect().position.x:
-		if playlist_root.songs.get_child_count() > 0 and real_index(calc_idx()) < playlist_root.songs.get_child_count() and real_index(calc_idx()) >= 0:
+	if playlist_root_rect.has_point(mouse_pos) and self.get_global_rect().has_point(mouse_pos) and mouse_pos.x  + 40 < self.get_global_rect().size.x + self.get_global_rect().position.x:
+		if playlist_root.songs.get_child_count() > 0 and self.calc_idx() < playlist_root.songs.get_child_count() and self.calc_idx() >= 0:
 			emit_signal("panel_visible",true)
 	else:
 		if !ignore_mouse_input:
@@ -74,7 +74,7 @@ func _physics_process(_delta):
 
 
 func block_song_highlighter(var x : bool) -> void:
-	self.get_parent().get_parent().get_parent().set_process(x)
+	playlist_root.scroller.set_process(x)
 	self.set_process(x)
 	self.set_process_input(x)
 	emit_signal("panel_visible",x)
@@ -92,8 +92,8 @@ func toggle_processes(var x : bool) -> void:
 
 func calc_idx() -> int:
 	# songspace height and VboxSeparation need to be exactly their value
-	var x : int =  int((get_global_mouse_position().y - self.rect_global_position.y) / (SONGSPACE_HEIGHT + VBOX_SEPARATION) )
-	if (x >= playlist_root.songs.get_child_count()):
+	var x : int =  int((self.get_global_mouse_position().y - self.rect_global_position.y) / (SONGSPACE_HEIGHT + VBOX_SEPARATION) )
+	if x >= playlist_root.songs.get_child_count():
 		return -1;
 	return x;
 

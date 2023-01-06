@@ -8,10 +8,13 @@ onready var header_cover : TextureRect = $VBoxContainer/HeaderContent/Cover
 onready var background_cover : TextureRect = $BackgroundTexture
 onready var description : Control = $VBoxContainer/HeaderContent/VBoxContainer/Description
 onready var bottom_blur : Panel = $BottomBlur
+onready var play : TextureButton = $VBoxContainer/Options/Play
 
 
 func _ready():
-	self.get_stylebox("panel").bg_color = SettingsData.get_setting(SettingsData.DESIGN_SETTINGS, "PlaylistHeader")
+	var _err : int = play.connect("mouse_entered", Modulator, "modulate_hover", [play])
+	_err = play.connect("mouse_exited", Modulator, "modulate_normal", [play])
+	_err = play.connect("pressed", Modulator, "modulate_pressed", [play])
 
 
 func set_header_cover(var new_cover : Texture) -> void:

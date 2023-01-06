@@ -5,16 +5,14 @@
 [ext_resource path="res://src/Assets/Icons/White/Audio/Replay/play_72px.png" type="Texture" id=3]
 [ext_resource path="res://src/Assets/Icons/White/Audio/Replay/next_72px.png" type="Texture" id=4]
 [ext_resource path="res://src/Assets/Icons/White/Settings/full orientation_72px.png" type="Texture" id=5]
-[ext_resource path="res://src/Ressources/Fonts/MidSizedHeader.tres" type="DynamicFont" id=6]
+[ext_resource path="res://src/Ressources/Fonts/Playlist/PlaylistTitle.tres" type="DynamicFont" id=6]
 [ext_resource path="res://src/Scenes/SubOptions/Playlists/Header.gd" type="Script" id=7]
-
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.0509804, 0.0509804, 0.0509804, 1 )
+[ext_resource path="res://src/Ressources/Fonts/Playlist/PlaylistContent.tres" type="DynamicFont" id=8]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 
-uniform float lod: hint_range(0.0, 5) = 0.0;
+uniform float lod: hint_range(0.0, 5.0) = 0.0;
 
 void fragment(){
 	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV, lod);
@@ -23,7 +21,7 @@ void fragment(){
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
-shader_param/lod = 3.5
+shader_param/lod = 1.0
 
 [sub_resource type="Shader" id=6]
 code = "shader_type canvas_item;
@@ -47,40 +45,36 @@ shader_param/strength = 1.5
 
 [node name="PlaylistHeader" type="PanelContainer"]
 anchor_right = 1.0
-anchor_bottom = 0.42
+anchor_bottom = 1.0
 size_flags_horizontal = 3
-custom_styles/panel = SubResource( 3 )
 script = ExtResource( 7 )
 __meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": true
+"_edit_group_": true
 }
 
 [node name="BackgroundTexture" type="TextureRect" parent="."]
 margin_right = 1120.0
-margin_bottom = 252.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 7
 
-[node name="Blur" type="Panel" parent="."]
+[node name="Blur" type="ColorRect" parent="."]
 material = SubResource( 2 )
 margin_right = 1120.0
-margin_bottom = 252.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+margin_bottom = 600.0
 
 [node name="BottomBlur" type="Panel" parent="."]
 material = SubResource( 7 )
 margin_right = 1120.0
-margin_bottom = 252.0
+margin_bottom = 600.0
 rect_min_size = Vector2( 0, 50 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_right = 1120.0
-margin_bottom = 252.0
+margin_bottom = 600.0
 custom_constants/separation = 10
 
 [node name="TopBuffer" type="Control" parent="VBoxContainer"]
@@ -91,13 +85,13 @@ rect_min_size = Vector2( 0, 5 )
 [node name="HeaderContent" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 15.0
 margin_right = 1120.0
-margin_bottom = 184.0
+margin_bottom = 208.0
 size_flags_horizontal = 3
 
 [node name="Cover" type="TextureRect" parent="VBoxContainer/HeaderContent"]
-margin_top = 12.0
+margin_top = 24.0
 margin_right = 200.0
-margin_bottom = 157.0
+margin_bottom = 169.0
 rect_min_size = Vector2( 200, 145 )
 size_flags_horizontal = 5
 size_flags_vertical = 4
@@ -108,63 +102,66 @@ stretch_mode = 6
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HeaderContent"]
 margin_left = 208.0
 margin_right = 1120.0
-margin_bottom = 169.0
+margin_bottom = 193.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Labels" type="VBoxContainer" parent="VBoxContainer/HeaderContent/VBoxContainer"]
 margin_right = 912.0
-margin_bottom = 103.0
+margin_bottom = 127.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Title" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
 margin_right = 912.0
-margin_bottom = 31.0
+margin_bottom = 43.0
 custom_fonts/font = ExtResource( 6 )
 text = "Yandhi"
 valign = 1
 clip_text = true
 
 [node name="Created" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
-margin_top = 39.0
+margin_top = 51.0
 margin_right = 912.0
-margin_bottom = 55.0
+margin_bottom = 71.0
+custom_fonts/font = ExtResource( 8 )
 text = "Created on: 04/01/23"
 valign = 1
 
 [node name="Length" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
-margin_top = 63.0
+margin_top = 79.0
 margin_right = 912.0
-margin_bottom = 79.0
+margin_bottom = 99.0
+custom_fonts/font = ExtResource( 8 )
 text = "32.43min"
 valign = 1
 
 [node name="Amount" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
-margin_top = 87.0
+margin_top = 107.0
 margin_right = 912.0
-margin_bottom = 103.0
+margin_bottom = 127.0
+custom_fonts/font = ExtResource( 8 )
 text = "Created on: 04/01/23"
 valign = 1
 
 [node name="Description" parent="VBoxContainer/HeaderContent/VBoxContainer" instance=ExtResource( 2 )]
-margin_top = 111.0
+margin_top = 135.0
 margin_right = 912.0
-margin_bottom = 169.0
+margin_bottom = 193.0
 alignment = 2
 
 [node name="Buffer" type="Control" parent="VBoxContainer"]
-margin_top = 194.0
+margin_top = 218.0
 margin_right = 1120.0
-margin_bottom = 199.0
+margin_bottom = 223.0
 rect_min_size = Vector2( 0, 5 )
 
 [node name="Options" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 209.0
+margin_top = 233.0
 margin_right = 1120.0
-margin_bottom = 237.0
+margin_bottom = 261.0
 rect_min_size = Vector2( 0, 28 )
 
 [node name="Play" type="TextureButton" parent="VBoxContainer/Options"]
@@ -197,7 +194,7 @@ expand = true
 stretch_mode = 5
 
 [node name="BottomBuffer" type="Control" parent="VBoxContainer"]
-margin_top = 247.0
+margin_top = 271.0
 margin_right = 1120.0
-margin_bottom = 252.0
+margin_bottom = 276.0
 rect_min_size = Vector2( 0, 5 )

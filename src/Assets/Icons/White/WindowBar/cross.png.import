@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cross.png-b92bb18cf92ab3f2900d3f0c2cc1324b.stex"
+path="res://.import/cross.png-d3175c86ac6ef1a2107e6d38e7ef9844.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/assets/Icons/White/WindowBar/cross.png"
-dest_files=[ "res://.import/cross.png-b92bb18cf92ab3f2900d3f0c2cc1324b.stex" ]
+source_file="res://src/Assets/Icons/White/WindowBar/cross.png"
+dest_files=[ "res://.import/cross.png-d3175c86ac6ef1a2107e6d38e7ef9844.stex" ]
 
 [params]
 

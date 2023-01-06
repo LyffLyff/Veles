@@ -1,4 +1,4 @@
-extends "res://src/Scenes/Playlists/General/NewPlaylistLoader.gd"
+extends "res://src/Scenes/Playlists/General/PlaylistLoader.gd"
 
 var playlist_title : String = ""
 var playlist_cover_path : String = ""
@@ -27,9 +27,10 @@ func init_playlist(var custom_cover_path : String = "") -> void:
 	playlist_idx = Global.pressed_playlist_idx
 	
 	# connect signals
+	header.play.connect("pressed", self, "on_songspace_left_clicked", [0])
 	songs.init_song_scroller()
 	var _err = scroller.get_v_scrollbar().connect("mouse_entered", song_highlighter, "set_visible", [false])
-	connect_scroll_container()
+	connect_song_vbox()
 	
 	
 	if custom_cover_path != "":
@@ -142,3 +143,25 @@ func get_normal_playlist_songs() -> PoolIntArray:
 func _on_NewPlaylist_resized():
 	if songs:
 		songs.playlist_root_rect = self.get_global_rect()
+
+
+func on_delete_smart_playlist_pressed():
+	SongLists.smart_playlists.erase(playlist_title)
+	ExtendedDirectory.delete_file(Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + playlist_title + ".png")
+	ExtendedDirectory.delete_file(Global.get_current_user_data_folder() + "/Songs/Playlists/Metadata/Descriptions/" + playlist_title + ".txt")
+	unload_playlist()
+
+
+func on_delete_pressed():
+	var playlist_key : String = SongLists.normal_playlists.keys()[playlist_idx]
+	if !SongLists.normal_playlists.erase(playlist_key):
+		Global.root.message("DELETIING PLAYLIST COVER FROM USER DATA",  SaveData.MESSAGE_ERROR )
+	ExtendedDirectory.delete_file(OS.get_user_data_dir() + "/Songs/Playlists/Covers/" + playlist_key + ".png")
+	SaveData.erase_key_from_file(SongLists.file_paths[9],playlist_key)
+	unload_playlist()
+
+
+func _on_queue_playlist_pressed() -> void:
+	# queueing all the Songs in trhe Current Playlist
+	for n in SongLists.normal_playlists.values()[playlist_idx].size():
+		SongLists.queue_song(SongLists.normal_playlists.values()[playlist_idx].keys()[n])

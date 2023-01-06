@@ -435,7 +435,7 @@ func update_highlighted_song(var next_highlighted : String) -> void:
 			var NextHighlightedIdx : int = options.get_child(0).get_child(0).get_index_from_songlist(next_highlighted)
 			if NextHighlightedIdx == -1:
 				return
-			options.get_child(0).get_child(0).highlight_song(options.get_child(0).songs.get_child(NextHighlightedIdx))
+			options.get_child(0).get_child(0).highlight_song(options.get_child(0).get_child(0).songs.get_child(NextHighlightedIdx))
 
 
 func message(var message : String,var message_type : int, var display : bool = false, var bg_clr : Color = Color("1f1f1f")) -> void:

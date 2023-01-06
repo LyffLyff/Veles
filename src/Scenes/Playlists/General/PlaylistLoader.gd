@@ -14,18 +14,13 @@ onready var playlist_options : TextureButton
 onready var header_cover : TextureRect = null
 onready var infos : Array = []
 
-var song_scroller_rect : Rect2
 var idx : int = -1
 var temp_pos : float = -1.0
 var temp_idx : int = -1
 var song_options_ref : Node = null
 var playlist_idx : int = -1
-var is_scrolling_fast : bool = false
 var header_expanded : bool = true
 var last_scroll_value : float = 0.0
-
-func _ready():
-	_on_SongScroller_resized()
 
 
 func _exit_tree():
@@ -33,23 +28,16 @@ func _exit_tree():
 
 
 func _process(_delta):
-	temp_idx =  song_scroller.real_index(song_scroller.calc_idx())
-	if !is_scrolling_fast:
-		if song_scroller_rect.has_point(get_global_mouse_position()):
-			idx = temp_idx
-			if idx >= 0:
-				temp_pos = songs.rect_position.y
-				song_highlighter.rect_global_position.y = songs.get_child(temp_idx).rect_position.y + song_scroller.rect_global_position.y + temp_pos
-	else:
+	temp_idx = songs.calc_idx()
+	if self.songs.get_global_rect().has_point(get_global_mouse_position()):
 		if temp_idx >= 0:
-			if song_scroller_rect.has_point(get_global_mouse_position()):
-				song_highlighter.rect_global_position.y = get_global_mouse_position().y
+			song_highlighter.rect_global_position.y = songs.get_child(temp_idx).rect_position.y + songs.rect_global_position.y
 
 
-func connect_scroll_container() -> void:
-	if songs.get_parent().connect("space_pressed",self,"on_songspace_left_clicked"):
+func connect_song_vbox() -> void:
+	if songs.connect("space_pressed",self,"on_songspace_left_clicked"):
 		Global.root.message("CONNECTING SPACE PRESSED SIGNAL WITH LEFT BUTTON CLICKED FUNCTION",  SaveData.MESSAGE_ERROR )
-	if songs.get_parent().connect("space_rightclick",self,"on_songspace_right_clicked"):
+	if songs.connect("space_rightclick",self,"on_songspace_right_clicked"):
 		Global.root.message("CONNECTING SPACE RIGHTCLICKED SIGNAL WITH RIGHT BUTTON CLICKED FUNCTION",  SaveData.MESSAGE_ERROR )
 
 
@@ -81,7 +69,7 @@ func unhighlight_song(var l_idx : int) -> void:
 func free_highlighted_songs() -> void:
 	# clearing CTRL highlighted songs
 	for highlighted_song in SongLists.highlighted_songs:
-		songs.get_child( get_index_from_songlist(highlighted_song) ).modulate = Color("ffffff")
+		songs.get_child(get_index_from_songlist(highlighted_song)).modulate = Color("ffffff")
 	SongLists.highlighted_songs = []
 
 
@@ -115,7 +103,6 @@ func on_songspace_left_clicked(var l_idx : int) -> void:
 			# highlighting the current song if it has not been already
 			highlight_song(song_)
 			SongLists.current_playlist_idx = song_.playlist_idx
-			print(AllSongs.get_song_coverhash(main_idx))
 			Global.root.playback_song(
 				main_idx,
 				true,
@@ -124,11 +111,6 @@ func on_songspace_left_clicked(var l_idx : int) -> void:
 			Global.root.player.set_repeat(false)
 		else:
 			SongLists.add_highlighted_song(songs, l_idx)
-
-
-func  _on_SongScroller_resized():
-	return
-	song_scroller_rect = song_scroller.get_global_rect()
 
 
 func get_playlist_song_amount() -> int:
@@ -195,60 +177,6 @@ func export_playlist() -> void:
 	var playlist_export_menu : Node = load("res://src/Scenes/Export/PlaylistExportMenu.tscn").instance()
 	Global.root.top_ui.add_child(playlist_export_menu)
 	playlist_export_menu.init_export_menu(playlist_idx)
-
-
-func on_scroll_value_changed(var val : float) -> void:
-	# header Expanding/Contracting
-	val /= 2.0
-	var new_height : float
-	
-	if val > 0.2 and header_expanded:
-		toggle_header_infos(false)
-	elif val <= 0.2:
-		toggle_header_infos(true,MAX_HEADER_SIZE)
-	
-	if !header_expanded:
-		new_height = MAX_HEADER_SIZE - val
-		if new_height > MIN_HEADER_SIZE:
-			if val - last_scroll_value > 0.0:
-				# scrolling Down
-				set_header_infos_height(
-					# If the 1st part is greater zero then the 2nd part defines height,
-					# else it's 0, since x * 0 = 0 
-					int(val <= HEADER_LABEL_HEIGHT) * (HEADER_LABEL_HEIGHT - val)
-				)
-				
-			else:
-				# scrolling Up
-				set_header_infos_height(
-					#If the 1st part is greater zero then the 2nd part defines height,
-					#else it's 0, since x * 0 = 0 
-					int(HEADER_LABEL_HEIGHT - val >= 0.0) * (HEADER_LABEL_HEIGHT - val)
-				)
-			var _ptw : PropertyTweener = create_tween().tween_property(
-				header_cover,
-				"rect_min_size:y",
-				new_height,
-				0.1
-			)
-		else:
-			header_cover.rect_min_size.y = MIN_HEADER_SIZE
-	# saving Last Scroll Value to see Scroll trend (up/down)
-	last_scroll_value = val
-
-
-func toggle_header_infos(var toggle : bool, var min_height : int = -1) -> void:
-	for x in infos:
-		for i in x.get_children():
-			if i.has_method("set_visible"):
-				i.set_visible(toggle)
-	header_expanded = toggle
-	if min_height != -1: header_cover.rect_min_size.y = min_height;
-
-
-func set_header_infos_height(var new_height : float) -> void:
-	for i in infos:
-		i.rect_min_size.y = new_height
 
 
 func on_set_cover_pressed():

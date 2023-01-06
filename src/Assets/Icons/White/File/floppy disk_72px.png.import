@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/floppy disk_72px.png-344726f8530dda9f4eaa8008ce84d252.stex"
+path="res://.import/floppy disk_72px.png-ee1a9663cd13f440e72b0636dfa1159d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/assets/Icons/White/File/floppy disk_72px.png"
-dest_files=[ "res://.import/floppy disk_72px.png-344726f8530dda9f4eaa8008ce84d252.stex" ]
+source_file="res://src/Assets/Icons/White/File/floppy disk_72px.png"
+dest_files=[ "res://.import/floppy disk_72px.png-ee1a9663cd13f440e72b0636dfa1159d.stex" ]
 
 [params]
 
