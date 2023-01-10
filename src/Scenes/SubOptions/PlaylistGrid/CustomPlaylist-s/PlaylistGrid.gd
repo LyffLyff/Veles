@@ -8,10 +8,10 @@ enum PlaylistType{
 
 const SCROLL_SPEED : int = 45
 const PLAYLIST_CONTAINER_LENGTH : int = 170
-const PLAYLIST_CONTAINER : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/PlaylistsContainer.tscn")
-const PLAYLIST_FROM_SCRATCH : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/PlaylistFromScratch.tscn")
-const PLAYLIST_FROM_FOLDER : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Creators/PlaylistFromFolder.tscn")
-const SMART_PLAYLIST_CREATOR : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Creators/SmartPlaylistCreator.tscn")
+const PLAYLIST_CONTAINER : PackedScene = preload("res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/PlaylistsContainer.tscn")
+const PLAYLIST_FROM_SCRATCH : PackedScene = preload("res://src/Scenes/SubOptions/PlaylistGrid/PlaylistFromScratch.tscn")
+const PLAYLIST_FROM_FOLDER : PackedScene = preload("res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/Creators/PlaylistFromFolder.tscn")
+const SMART_PLAYLIST_CREATOR : PackedScene = preload("res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/Creators/SmartPlaylistCreator.tscn")
 
 onready var playlists : GridContainer = $VBoxContainer/HBoxContainer/ScrollContainer/Playlists
 onready var new_smart_playlist : TextureButton =  $VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/CreatePlaylist
@@ -38,7 +38,7 @@ func _on_playlists_item_rect_changed():
 
 func load_playlist_grid() -> void:
 	# init
-	playlists.get_parent().get_v_scrollbar().set_script( load("res://src/Scenes/SubOptions/Playlists/SongVBox/SongVScrollbar.gd") )
+	playlists.get_parent().get_v_scrollbar().set_script( load("res://src/Scenes/SubOptions/PlaylistGrid/SongVBox/SongVScrollbar.gd") )
 	playlists.get_parent().get_v_scrollbar().set_h_size_flags(SIZE_SHRINK_CENTER)
 	playlists.get_parent().get_v_scrollbar()._ready()
 	

@@ -10,7 +10,7 @@ func init_context_label(var context : String) -> void:
 
 func show_context(var context : String) -> void:
 	self.text = " " + context + " "
-	set_context_pos()
+	self.call_deferred("set_context_pos")	# deferred -> so rect_size has been updated with text
 	var _ptw := create_tween().tween_property(
 		self,
 		"modulate:a",

@@ -11,7 +11,6 @@ onready var song_scroller : ScrollContainer = null
 onready var song_highlighter : HBoxContainer = null
 onready var title : Label = null
 onready var playlist_options : TextureButton
-onready var header_cover : TextureRect = null
 onready var infos : Array = []
 
 var idx : int = -1
@@ -29,15 +28,15 @@ func _exit_tree():
 
 func _process(_delta):
 	temp_idx = songs.calc_idx()
-	if self.songs.get_global_rect().has_point(get_global_mouse_position()):
+	if self.song_scroller.get_global_rect().has_point(get_global_mouse_position()):
 		if temp_idx >= 0:
 			song_highlighter.rect_global_position.y = songs.get_child(temp_idx).rect_position.y + songs.rect_global_position.y
 
 
 func connect_song_vbox() -> void:
-	if songs.connect("space_pressed",self,"on_songspace_left_clicked"):
+	if songs.connect("space_pressed", self, "on_songspace_left_clicked"):
 		Global.root.message("CONNECTING SPACE PRESSED SIGNAL WITH LEFT BUTTON CLICKED FUNCTION",  SaveData.MESSAGE_ERROR )
-	if songs.connect("space_rightclick",self,"on_songspace_right_clicked"):
+	if songs.connect("space_rightclicked", self, "on_songspace_right_clicked"):
 		Global.root.message("CONNECTING SPACE RIGHTCLICKED SIGNAL WITH RIGHT BUTTON CLICKED FUNCTION",  SaveData.MESSAGE_ERROR )
 
 
@@ -89,7 +88,7 @@ func on_songspace_right_clicked(var l_idx : int) -> void:
 
 
 func on_songspace_left_clicked(var l_idx : int) -> void:
-	if l_idx >= 0:
+	if l_idx >= 0 and songs.get_child_count() > 0:
 		if !Input.is_key_pressed(KEY_CONTROL):
 			free_highlighted_songs()
 			# playing pressed song
@@ -139,7 +138,7 @@ func get_playlist_creation_date() -> String:
 
 
 func get_playlist_runtime() -> String:
-	return TimeFormatter.format_seconds(Playlist.get_runtime_seconds(playlist_idx)) + "min"
+	return TimeFormatter.format_seconds(Playlist.get_runtime_seconds(playlist_idx)) + " min"
 
 
 func _on_PlaylistOptions_pressed(var is_smart : bool = false):

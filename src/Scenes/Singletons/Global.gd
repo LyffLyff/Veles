@@ -55,6 +55,7 @@ func window_changed(var x : bool) -> void:
 func set_node_input(var ref : Node, var input : bool = false) -> void:
 	if ref:
 		ref.set_process_input(input)
+		ref.set_physics_process(input)
 		ref.set_process_unhandled_input(input)
 
 

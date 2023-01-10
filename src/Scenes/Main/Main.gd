@@ -4,7 +4,7 @@ extends Control
 
 # all the possible options that can be selected in the left sidebar menu
 const all_songs : PackedScene = preload("res://src/Scenes/SubOptions/MyMusic/MyMusic.tscn")
-const playlists : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/PlaylistGrid.tscn")
+const playlists : PackedScene = preload("res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/PlaylistGrid.tscn")
 const add_folder : PackedScene = preload("res://src/Scenes/SubOptions/Folders/SelectFolder.tscn")
 const infos : PackedScene = preload("res://src/Scenes/SubOptions/InfoSettings/Infos.tscn")
 const download : PackedScene = preload("res://src/Scenes/SubOptions/Downloader/Download.tscn")
@@ -16,7 +16,7 @@ const lyrics : PackedScene = preload("res://src/Scenes/SubOptions/Lyrics/LyricsP
 
 const MESSAGE_CONTAINER : PackedScene = preload("res://src/scenes/ErrorHandling/MessageContainer.tscn")
 const GENERAL_DIALOGUE : PackedScene = preload("res://src/scenes/General/GeneralFileDialogue.tscn")
-const PLAYLIST_TEMPLATE : PackedScene = preload("res://src/Scenes/Playlists/General/NewPlaylist.tscn")
+const PLAYLIST_TEMPLATE : PackedScene = preload("res://src/Scenes/Playlists/General/GeneralPlaylist.tscn")
 
 var input_disable_counter : int = 0
 
@@ -422,54 +422,58 @@ func free_option() -> void:
 		options.remove_child(n)
 
 
-func update_highlighted_song(var next_highlighted : String) -> void:
-	#checks first if either AllSongs or a Playlist are shown
-	if options.get_child(0).get("songs") != null:
-		var highlighted_song : int = options.get_child(0).get_child(0).get_index_from_songlist(SongLists.current_song)
-		if  options.get_child(0).get("songs").get_child_count() < highlighted_song:
-			#if a song is next from another Playlist  that is bigger
+func update_highlighted_song(var next_highlighted_path : String) -> void:
+	# checks first if either AllSongs or a Playlist are shown
+	var ref : Node = options.find_node("GeneralPlaylist", true, false)
+	if ref != null:
+		var highlighted_song : int = ref.get_index_from_songlist(SongLists.current_song) 
+		if  ref.songs.get_child_count() < highlighted_song:
+			# if a song is next from another Playlist  that is bigger
 			return
-		#if a song is currently highlighted
+		# if a song is currently highlighted
 		if highlighted_song != -1:
-			options.get_child(0).get_child(0).unhighlight_song(highlighted_song)
-			var NextHighlightedIdx : int = options.get_child(0).get_child(0).get_index_from_songlist(next_highlighted)
-			if NextHighlightedIdx == -1:
+			ref.unhighlight_song(highlighted_song)
+			var next_highlighted_idx : int = ref.get_index_from_songlist(next_highlighted_path)
+			if next_highlighted_idx == -1:
 				return
-			options.get_child(0).get_child(0).highlight_song(options.get_child(0).get_child(0).songs.get_child(NextHighlightedIdx))
+			ref.highlight_song(ref.songs.get_child(next_highlighted_idx))
 
 
-func message(var message : String,var message_type : int, var display : bool = false, var bg_clr : Color = Color("1f1f1f")) -> void:
+func message(var message : String, var message_type : int, var display : bool = false, var bg_clr : Color = Color("1f1f1f")) -> void:
 	message = message.to_upper()
 	SaveData.log_message(message,message_type)
 	if display:
 		Global.displayed_message = message;
-		var MessageRef : Control = MESSAGE_CONTAINER.instance()
-		self.add_child(MessageRef)
-		MessageRef.set_background_color(bg_clr)
+		var message_ref : Control = MESSAGE_CONTAINER.instance()
+		self.add_child(message_ref)
+		message_ref.set_background_color(bg_clr)
 
 
-func toggle_songlist_input(var x : bool) -> void:
+func toggle_songlist_input(var toggle : bool) -> void:
 	#if the toggle gets set to disabled it will be counted
 	#so that if it f.e. disabled by the volume and image view, the Songscroller cannot
 	#be used when just on of them enabled the Scroller, event though one of them is still there
-	
-	if options.get_child_count() > 0:
-		var ref : Node = null
-		if options.get_child(0).get("songs"):
-			# only set reference if it exists -> input toggler can handle null Nodes
-			ref = options.get_child(0).songs
-		
-		if !x:
-			input_disable_counter += 1;
-			Global.set_node_input(ref,false)
-		else:
-			input_disable_counter -= 1;
-			if input_disable_counter < 0:
-				input_disable_counter = 0;
-				message("PROCESS INPUT DISABLER FOR SONG SCROLLER DISABLED MULTIPLE TIMES", SaveData.MESSAGE_WARNING)
-			if input_disable_counter == 0:
-				Global.set_node_input(ref,true)
+	var ref : Node = options.find_node("SongVbox", true, false)
+	if !ref:
+		input_disable_counter = 0
+		return
+	if !toggle:
+		input_disable_counter += 1;
+		Global.set_node_input(ref, false)
+		ref.emit_signal("panel_visible", false)
+	else:
+		input_disable_counter -= 1;
+		if input_disable_counter < 0:
+			input_disable_counter = 0;
+			message("PROCESS INPUT DISABLER FOR SONG SCROLLER DISABLED MULTIPLE TIMES", SaveData.MESSAGE_WARNING)
+		if input_disable_counter == 0:
+			Global.set_node_input(ref, true)
 
+
+func toggle_songlist_visibility(var toggle : bool) -> void:
+	var ref : Node = options.find_node("SongVbox", true, false)
+	if ref:
+		ref.set_visible(toggle)
 
 func reset_input_disabler() -> void:
 	input_disable_counter = 0

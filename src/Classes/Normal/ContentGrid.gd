@@ -5,9 +5,9 @@ extends Control
 const SCROLL_SPEED : int = 45
 const PLAYLIST_CONTAINER_LENGTH : int = 170
 
-const CONTENT_CONTAINER : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/PlaylistsContainer.tscn")
-const PLAYLIST_FROM_SCRATCH : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/PlaylistFromScratch.tscn")
-const PLAYLIST_FROM_FOLDER : PackedScene = preload("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Creators/PlaylistFromFolder.tscn")
+const CONTENT_CONTAINER : PackedScene = preload("res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/PlaylistsContainer.tscn")
+const PLAYLIST_FROM_SCRATCH : PackedScene = preload("res://src/Scenes/SubOptions/PlaylistGrid/PlaylistFromScratch.tscn")
+const PLAYLIST_FROM_FOLDER : PackedScene = preload("res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/Creators/PlaylistFromFolder.tscn")
 
 onready var main : Control = get_tree().get_root().get_child(get_tree().get_root().get_child_count()-1)
 onready var content_place : Control = $VBoxContainer/HBoxContainer/ScrollContainer/Playlists

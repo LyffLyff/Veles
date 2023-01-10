@@ -6,7 +6,7 @@ var description_path : String = ""
 
 onready var scroller : ScrollContainer = $VBoxContainer/ScrollContainer
 onready var header : PanelContainer = $VBoxContainer/ScrollContainer/VBoxContainer/PlaylistHeader
-onready var filter : Control =  $VBoxContainer/ScrollContainer/VBoxContainer/SongFilters
+onready var filter : Control = $VBoxContainer/ScrollContainer/VBoxContainer/SongFilters
 
 
 func _notification(what):
@@ -22,7 +22,7 @@ func init_playlist(var custom_cover_path : String = "") -> void:
 	song_scroller = scroller
 	songs.playlist_root = self
 	songs.playlist_root_rect = self.get_global_rect()
-	songs.song_slider = scroller.get_v_scrollbar()
+	scroller.get_v_scrollbar().step = 0.1
 	playlist_title = Playlist.get_playlist_name(Global.pressed_playlist_idx)
 	playlist_idx = Global.pressed_playlist_idx
 	
@@ -30,8 +30,8 @@ func init_playlist(var custom_cover_path : String = "") -> void:
 	header.play.connect("pressed", self, "on_songspace_left_clicked", [0])
 	songs.init_song_scroller()
 	var _err = scroller.get_v_scrollbar().connect("mouse_entered", song_highlighter, "set_visible", [false])
-	connect_song_vbox()
 	
+	connect_song_vbox()
 	
 	if custom_cover_path != "":
 		playlist_cover_path = custom_cover_path
@@ -106,7 +106,7 @@ func get_smart_playlist_songs(var conditions : Dictionary) -> PoolIntArray:
 	var temp_smart_playlist : Dictionary = {}
 	
 	# going through AllSongs
-	for x  in SongLists.AllSongs.size():
+	for x in SongLists.AllSongs.size():
 		is_valid_song = true
 		temp_song_path = SongLists.AllSongs.keys()[x]
 		# checking Conditions

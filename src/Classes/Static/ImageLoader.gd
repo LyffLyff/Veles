@@ -16,7 +16,7 @@ static func webp_to_png(var webp_data : PoolByteArray) -> PoolByteArray:
 	return img.save_png_to_buffer()
 
 
-static func get_cover(var path : String, var playlist_name : String = "", var ImageSize : Vector2 = Vector2.ZERO) -> ImageTexture:
+static func get_cover(var path : String, var playlist_name : String = "", var image_size : Vector2 = Vector2.ZERO) -> ImageTexture:
 	#Retrieving Image from the File itself and returning is as a usable ImageTexture
 	#If this process fails a standard StreamTexture will be returned
 	var img : Image = Image.new()
@@ -25,7 +25,7 @@ static func get_cover(var path : String, var playlist_name : String = "", var Im
 	if dir.file_exists(path):
 		texture = ImageTexture.new()
 		var img_data : PoolByteArray = SaveData.load_buffer(path)
-		var image_header : String = SaveData.load_buffer(path,512).hex_encode()
+		var image_header : String = SaveData.load_buffer(path, 512).hex_encode()
 		match FormatChecker.identify_image_file(image_header):
 			0:
 				if !img.load_jpg_from_buffer(img_data) == OK:
@@ -40,10 +40,10 @@ static func get_cover(var path : String, var playlist_name : String = "", var Im
 				#intentionally loads this function with wrong path to get an "empty image"
 				texture = get_cover("")
 		
-		if ImageSize != Vector2.ZERO:
+		if image_size != Vector2.ZERO:
 			var AspectRatio : float = img.get_size().aspect()
-			ImageSize *= AspectRatio
-			img.resize( int(ImageSize.x * AspectRatio) , int( ImageSize.y ) )
+			image_size *= AspectRatio
+			img.resize(int(image_size.x * AspectRatio) , int(image_size.y))
 		img = squarify_image(img)
 		texture.create_from_image(img,Texture.FLAGS_DEFAULT)
 	else:

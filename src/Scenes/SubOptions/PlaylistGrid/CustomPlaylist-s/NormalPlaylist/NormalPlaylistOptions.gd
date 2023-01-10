@@ -1,4 +1,4 @@
-extends "res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/GeneralPlaylistOptions.gd"
+extends "res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/GeneralPlaylistOptions.gd"
 
 onready var playlist_cover : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/SetPlaylistCover
 onready var queue_playlist : Button = $NormalPlaylistOptions/HBoxContainer/OptionVBox/QueuePlaylist

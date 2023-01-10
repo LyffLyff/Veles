@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Scenes/UserProfiles/UserProfileBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Scenes/Main/Options.gd" type="Script" id=3]
@@ -10,29 +10,6 @@ bg_color = Color( 0.0980392, 0.0980392, 0.0980392, 1 )
 [sub_resource type="StyleBoxEmpty" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="Shader" id=5]
-code = "shader_type canvas_item;
-
-uniform vec4 color : hint_color;
-uniform vec2 direction = vec2(0,1);
-uniform float strength : hint_range(0.0,3.0) = 1.0;
-
-void fragment(){
-	vec4 pixelcolor = texture(TEXTURE,UV);
-	COLOR = color;
-	vec2 NewUV = ((UV / 2.0) + 0.2) * direction;
-	COLOR.a *= (NewUV.x + NewUV.y) * strength;
-}"
-
-[sub_resource type="ShaderMaterial" id=6]
-resource_local_to_scene = true
-shader = SubResource( 5 )
-shader_param/color = Color( 0.180392, 0.180392, 0.180392, 1 )
-shader_param/direction = Vector2( 0, 1 )
-shader_param/strength = 0.321
-
-[sub_resource type="StyleBoxFlat" id=4]
 
 [node name="SideBar" type="ScrollContainer"]
 margin_right = 120.0
@@ -49,23 +26,24 @@ margin_right = 120.0
 margin_bottom = 465.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 0
 alignment = 1
 
 [node name="LeftEmpty" type="VSeparator" parent="HBoxContainer"]
 margin_right = 8.0
 margin_bottom = 465.0
-rect_min_size = Vector2( 2, 0 )
+rect_min_size = Vector2( 4, 0 )
 custom_styles/separator = SubResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_left = 16.0
-margin_right = 104.0
+margin_left = 8.0
+margin_right = 112.0
 margin_bottom = 465.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="EmptyTop" type="Control" parent="HBoxContainer/VBoxContainer"]
-margin_right = 88.0
+margin_right = 104.0
 margin_bottom = 5.0
 rect_min_size = Vector2( 0, 5 )
 
@@ -73,17 +51,17 @@ rect_min_size = Vector2( 0, 5 )
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 13.0
-margin_right = 88.0
+margin_right = 104.0
 margin_bottom = 53.0
 
 [node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
 margin_top = 61.0
-margin_right = 88.0
+margin_right = 104.0
 margin_bottom = 69.0
 
 [node name="Options" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
 margin_top = 77.0
-margin_right = 88.0
+margin_right = 104.0
 margin_bottom = 465.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -91,7 +69,7 @@ custom_constants/separation = 2
 script = ExtResource( 3 )
 
 [node name="BottomEmpty" type="Control" parent="HBoxContainer/VBoxContainer/Options"]
-margin_right = 88.0
+margin_right = 104.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
 
@@ -99,14 +77,5 @@ rect_min_size = Vector2( 0, 20 )
 margin_left = 112.0
 margin_right = 120.0
 margin_bottom = 465.0
-rect_min_size = Vector2( 2, 0 )
+rect_min_size = Vector2( 4, 0 )
 custom_styles/separator = SubResource( 3 )
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
-material = SubResource( 6 )
-margin_right = 120.0
-margin_bottom = 465.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/panel = SubResource( 4 )

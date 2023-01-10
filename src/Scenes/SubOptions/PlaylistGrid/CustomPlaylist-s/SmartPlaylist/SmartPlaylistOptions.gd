@@ -1,4 +1,4 @@
-extends "res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/GeneralPlaylistOptions.gd"
+extends "res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/GeneralPlaylistOptions.gd"
 
 onready var option_vbox : VBoxContainer = $PanelContainer/HBoxContainer/OptionVBox
 onready var return_to_playlists : Button = $PanelContainer/HBoxContainer/OptionVBox/ToPlaylists

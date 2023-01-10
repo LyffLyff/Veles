@@ -80,9 +80,6 @@ func reload() -> void:
 
 func create_songspaces(var songspace_vbox : VBoxContainer, var main_idxs : PoolIntArray = [], var playlist_idx : int = -1) -> void:
 	var new_songspace : HBoxContainer
-	if main_idxs.empty():
-		for i in AllSongs.get_song_amount():
-			main_idxs.push_back(i)
 	
 	for n in main_idxs:
 		new_songspace = songspace_scene.instance()
@@ -94,10 +91,10 @@ func create_songspaces(var songspace_vbox : VBoxContainer, var main_idxs : PoolI
 		new_songspace.path = AllSongs.get_song_path(n)
 		
 		# filling in Songspace Data
-		set_songspace_cover(new_songspace,n,playlist_idx)
-		set_songspace_title(new_songspace,n)
-		set_songspace_artist(new_songspace,n)
-		set_songspace_length(new_songspace,n)
+		set_songspace_cover(new_songspace, n, playlist_idx)
+		set_songspace_title(new_songspace, n)
+		set_songspace_artist(new_songspace, n)
+		set_songspace_length(new_songspace, n)
 
 
 func set_songspace_cover(var songspace : HBoxContainer, var main_idx : int, var playlist_idx : int = -1) -> void:
@@ -114,13 +111,13 @@ func set_songspace_cover(var songspace : HBoxContainer, var main_idx : int, var 
 
 
 func set_songspace_title(var songspace : HBoxContainer, var main_idx : int) -> void:
-	songspace.get_node("Panel/HBoxContainer/Name").set_deferred("text",AllSongs.song_title(main_idx))
+	songspace.get_node("Panel/HBoxContainer/Name").set_deferred("text", AllSongs.song_title(main_idx))
 
 
 func set_songspace_artist(var songspace : HBoxContainer, var main_idx : int) -> void:
-	songspace.get_node("Panel/HBoxContainer/Artist").set_deferred("text",AllSongs.get_song_artist(main_idx))
+	songspace.get_node("Panel/HBoxContainer/Artist").set_deferred("text", AllSongs.get_song_artist(main_idx))
 
 
 func set_songspace_length(var songspace : HBoxContainer, var main_idx : int) -> void:
-	songspace.get_node("Panel/HBoxContainer/Length").set_deferred("text",TimeFormatter.format_seconds(AllSongs.get_song_duration(main_idx)))
+	songspace.get_node("Panel/HBoxContainer/Length").set_deferred("text", TimeFormatter.format_seconds(AllSongs.get_song_duration(main_idx)))
 

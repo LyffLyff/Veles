@@ -40,7 +40,8 @@ func _ready():
 	toggle_cover_focus(SettingsData.get_setting(SettingsData.GENERAL_SETTINGS, "ImageViewCoverFocused"), 0.0)
 	if self.connect("resized",self,"on_ImageView_resized"):
 		Global.root.message("CANNOT CONNECT IMAGE VIEW TO RESIZED FUNCTION", SaveData.MESSAGE_ERROR)
-	var _tw = init_image_view(true)
+	yield(init_image_view(true), "finished")
+	Global.root.toggle_songlist_visibility(false)
 	on_ImageView_resized()
 
 
@@ -95,6 +96,7 @@ func init_image_view(var toggle : bool) -> SceneTreeTween:
 
 func exit_image_view() -> void:
 	emit_signal("image_view_exit_started")
+	Global.root.toggle_songlist_visibility(true)
 	yield(init_image_view(0.0),"finished")
 	self.queue_free()
 

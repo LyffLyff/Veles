@@ -135,12 +135,12 @@ func _on_Clear_Queue_pressed():
 
 
 func load_playlist_selector(var main_idxs : PoolIntArray) -> void:
-	var playlist_selector = load("res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/PlaylistSelector.tscn").instance()
+	var playlist_selector = load("res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/PlaylistSelector.tscn").instance()
 	Global.root.middle_part.add_child(playlist_selector)
 	for n in SongLists.normal_playlists.size():
-		var std_playlist_button = load("res://src/Scenes/SubOptions/Playlists/StdPlaylistButton.tscn").instance()
+		var std_playlist_button = load("res://src/Scenes/SubOptions/PlaylistGrid/StdPlaylistButton.tscn").instance()
 		playlist_selector.Playlists.add_child(std_playlist_button)
-		if std_playlist_button.connect("pressed",Global,"add_to_playlist",[playlist_selector,n,main_idxs]):
+		if std_playlist_button.connect("pressed", Global, "add_to_playlist", [playlist_selector,n,main_idxs]):
 			Global.root.message("ADDING SONG TO PLAYLIST", SaveData.MESSAGE_ERROR)
 		std_playlist_button.get_child(0).text = SongLists.normal_playlists.keys()[n]
 

@@ -1,4 +1,4 @@
-extends "res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Creators/PlaylistCreatorMain.gd"
+extends "res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/Creators/PlaylistCreatorMain.gd"
 
 onready var title : HBoxContainer = $Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Title
 onready var cover_hbox : HBoxContainer = $Panel/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer/Cover

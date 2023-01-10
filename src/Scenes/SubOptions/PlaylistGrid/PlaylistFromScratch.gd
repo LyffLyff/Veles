@@ -1,4 +1,4 @@
-extends "res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Creators/PlaylistCreatorMain.gd"
+extends "res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/Creators/PlaylistCreatorMain.gd"
 
 onready var title : LineEdit = $Panel/VBoxContainer2/Main/Name/InputEdit
 onready var cover_hbox : HBoxContainer = $Panel/VBoxContainer2/Main/Cover

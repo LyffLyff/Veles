@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/SmartPlaylist/SmartPlaylistOptions.gd" type="Script" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/NormalPlaylist/NormalPlaylistOptions.gd" type="Script" id=1]
 [ext_resource path="res://src/Themes/Buttons/OptionButton.tres" type="StyleBox" id=2]
 [ext_resource path="res://src/Themes/Panels/PlaylisOptions.tres" type="StyleBox" id=3]
 
-[node name="SmartPlaylistOptions" type="VBoxContainer"]
+[node name="NormalPlaylistOptions" type="VBoxContainer"]
 margin_right = 168.0
 margin_bottom = 304.0
 mouse_filter = 2
@@ -16,36 +16,36 @@ margin_bottom = 100.0
 rect_min_size = Vector2( 0, 100 )
 mouse_filter = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="NormalPlaylistOptions" type="PanelContainer" parent="."]
 margin_top = 108.0
 margin_right = 176.0
-margin_bottom = 308.0
+margin_bottom = 319.0
 custom_styles/panel = ExtResource( 3 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NormalPlaylistOptions"]
 margin_right = 176.0
-margin_bottom = 200.0
+margin_bottom = 211.0
 
-[node name="LeftEmpty" type="Control" parent="PanelContainer/HBoxContainer"]
+[node name="LeftEmpty" type="Control" parent="NormalPlaylistOptions/HBoxContainer"]
 margin_right = 5.0
-margin_bottom = 200.0
+margin_bottom = 211.0
 rect_min_size = Vector2( 5, 0 )
 
-[node name="OptionVBox" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+[node name="OptionVBox" type="VBoxContainer" parent="NormalPlaylistOptions/HBoxContainer"]
 margin_left = 13.0
 margin_right = 163.0
-margin_bottom = 200.0
+margin_bottom = 211.0
 rect_min_size = Vector2( 0, 200 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 2
 
-[node name="TopBuffer" type="Control" parent="PanelContainer/HBoxContainer/OptionVBox"]
+[node name="TopBuffer" type="Control" parent="NormalPlaylistOptions/HBoxContainer/OptionVBox"]
 margin_right = 150.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 0, 10 )
 
-[node name="SetPlaylistCover" type="Button" parent="PanelContainer/HBoxContainer/OptionVBox"]
+[node name="SetPlaylistCover" type="Button" parent="NormalPlaylistOptions/HBoxContainer/OptionVBox"]
 margin_top = 12.0
 margin_right = 150.0
 margin_bottom = 37.0
@@ -55,7 +55,7 @@ size_flags_horizontal = 4
 custom_styles/normal = ExtResource( 2 )
 text = "Set PlaylistCover"
 
-[node name="Rename" type="Button" parent="PanelContainer/HBoxContainer/OptionVBox"]
+[node name="QueuePlaylist" type="Button" parent="NormalPlaylistOptions/HBoxContainer/OptionVBox"]
 margin_top = 39.0
 margin_right = 150.0
 margin_bottom = 64.0
@@ -63,9 +63,9 @@ rect_min_size = Vector2( 150, 25 )
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
 custom_styles/normal = ExtResource( 2 )
-text = "Rename"
+text = "Queue Playlist"
 
-[node name="Export" type="Button" parent="PanelContainer/HBoxContainer/OptionVBox"]
+[node name="Rename" type="Button" parent="NormalPlaylistOptions/HBoxContainer/OptionVBox"]
 margin_top = 66.0
 margin_right = 150.0
 margin_bottom = 91.0
@@ -73,9 +73,9 @@ rect_min_size = Vector2( 150, 25 )
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
 custom_styles/normal = ExtResource( 2 )
-text = "Export"
+text = "Rename"
 
-[node name="DeletePlaylist" type="Button" parent="PanelContainer/HBoxContainer/OptionVBox"]
+[node name="Export" type="Button" parent="NormalPlaylistOptions/HBoxContainer/OptionVBox"]
 margin_top = 93.0
 margin_right = 150.0
 margin_bottom = 118.0
@@ -83,9 +83,9 @@ rect_min_size = Vector2( 150, 25 )
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
 custom_styles/normal = ExtResource( 2 )
-text = "Delete"
+text = "Export"
 
-[node name="ToPlaylists" type="Button" parent="PanelContainer/HBoxContainer/OptionVBox"]
+[node name="DeletePlaylist" type="Button" parent="NormalPlaylistOptions/HBoxContainer/OptionVBox"]
 margin_top = 120.0
 margin_right = 150.0
 margin_bottom = 145.0
@@ -93,9 +93,9 @@ rect_min_size = Vector2( 150, 25 )
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
 custom_styles/normal = ExtResource( 2 )
-text = "Return"
+text = "Delete"
 
-[node name="Close" type="Button" parent="PanelContainer/HBoxContainer/OptionVBox"]
+[node name="ToPlaylists" type="Button" parent="NormalPlaylistOptions/HBoxContainer/OptionVBox"]
 margin_top = 147.0
 margin_right = 150.0
 margin_bottom = 172.0
@@ -103,10 +103,26 @@ rect_min_size = Vector2( 150, 25 )
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 4
 custom_styles/normal = ExtResource( 2 )
+text = "To Playlists"
+
+[node name="Close" type="Button" parent="NormalPlaylistOptions/HBoxContainer/OptionVBox"]
+margin_top = 174.0
+margin_right = 150.0
+margin_bottom = 199.0
+rect_min_size = Vector2( 150, 25 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+custom_styles/normal = ExtResource( 2 )
 text = "Close"
 
-[node name="RightEmpty" type="Control" parent="PanelContainer/HBoxContainer"]
+[node name="BottomBuffer" type="Control" parent="NormalPlaylistOptions/HBoxContainer/OptionVBox"]
+margin_top = 201.0
+margin_right = 150.0
+margin_bottom = 211.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="RightEmpty" type="Control" parent="NormalPlaylistOptions/HBoxContainer"]
 margin_left = 171.0
 margin_right = 176.0
-margin_bottom = 200.0
+margin_bottom = 211.0
 rect_min_size = Vector2( 5, 0 )

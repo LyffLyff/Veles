@@ -1,6 +1,6 @@
 extends ScrollContainer
 
-const std_scrollbar : GDScript = preload("res://src/Scenes/SubOptions/Playlists/SongVBox/SongVScrollbar.gd")
+const std_scrollbar : GDScript = preload("res://src/Scenes/SubOptions/PlaylistGrid/SongVBox/SongVScrollbar.gd")
 
 func _ready(): 
 	# init h-Scrollbar

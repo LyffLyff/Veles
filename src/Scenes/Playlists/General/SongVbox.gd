@@ -2,7 +2,7 @@ extends VBoxContainer
 
 signal toggle_process
 signal space_pressed
-signal space_rightclick
+signal space_rightclicked
 signal space_entered
 signal space_exited
 signal panel_visible
@@ -13,12 +13,10 @@ const SONGSPACE_HEIGHT : int = 41
 var idx : int = -1
 var curr_idx : int = -1
 var ignore_mouse_input : bool = true
-var mouse_pos : Vector2
 var is_filtering : bool = false
 var playlist_root_rect : Rect2 = Rect2()
 
 onready var playlist_root : Control = null
-onready var song_slider : VScrollBar = null
 
 # connects to each songspace and toggle its process to detect the mouse
 # disable all processes when leaving this ScrollContainer to prevent misinput
@@ -32,45 +30,38 @@ func init_song_scroller():
 		Global.root.message("CONNECTING TOGGLE PROCESS TO SONGSCROLLER VISIBILITY",  SaveData.MESSAGE_ERROR )
 
 
-func _notification(what):
-	# disabling Processes when focus on the wondpw has been lost
-	if what == MainLoop.NOTIFICATION_WM_MOUSE_EXIT:
-		# exiting the Current Space, so it won't be falsely focused
-		emit_signal("space_exited",curr_idx)
-
-
 func _input(var event):
-	if event is InputEventMouseMotion:
-		mouse_pos = event.global_position
-	elif event is InputEventMouseButton:
+	if event is InputEventMouseButton:
 		if ignore_mouse_input:
 			return;
 		if event.is_pressed():
-			idx = calc_idx()
 			if event.button_index == BUTTON_LEFT:
+				idx = calc_idx()
 				if idx >= 0:
 						# checking if inside  of Rect of Songs 
-						if self.get_global_rect().has_point(mouse_pos) and playlist_root_rect.has_point(mouse_pos):
+						if playlist_root_rect.has_point(get_global_mouse_position()):
 							# preventing a click if its just next  to the Scrollbar
-							if get_global_rect().position.x + get_global_rect().size.x >= mouse_pos.x + 25:
+							if self.get_global_rect().position.x + get_global_rect().size.x >= get_global_mouse_position().x + 25:
 								if (Global.pressed_playlist_idx < -2 and Global.pressed_playlist_idx != SongLists.current_playlist_idx) or Global.pressed_playlist_idx == -2:
 									SongLists.current_temporary_playlist = SongLists.pressed_temporary_playlist
 								call_deferred("emit_signal", "space_pressed", real_index(idx))
 			elif event.button_index == BUTTON_RIGHT:
-				if self.get_global_rect().has_point( get_global_mouse_position() ) and idx >= 0:
+				idx = calc_idx()
+				if playlist_root_rect.has_point(get_global_mouse_position()) and idx >= 0:
 					var r_idx : int = real_index(idx)
 					if r_idx >= 0:
-						call_deferred("emit_signal", "space_rightclick", r_idx)
+						self.emit_signal("panel_visible", false)
+						call_deferred("emit_signal", "space_rightclicked", r_idx)
 
 
 func _physics_process(_delta):
-	# if the VBox and the ScrollContainer have this point
-	if playlist_root_rect.has_point(mouse_pos) and self.get_global_rect().has_point(mouse_pos) and mouse_pos.x  + 40 < self.get_global_rect().size.x + self.get_global_rect().position.x:
+	# if the Vbox and the ScrollContainer have this point
+	if playlist_root_rect.has_point(get_global_mouse_position()) and self.get_global_rect().has_point(get_global_mouse_position()) and get_global_mouse_position().x + 20 < self.get_global_rect().size.x + self.get_global_rect().position.x:
 		if playlist_root.songs.get_child_count() > 0 and self.calc_idx() < playlist_root.songs.get_child_count() and self.calc_idx() >= 0:
-			emit_signal("panel_visible",true)
+			emit_signal("panel_visible", true)
 	else:
 		if !ignore_mouse_input:
-			emit_signal("panel_visible",false)
+			emit_signal("panel_visible", false)
 
 
 func block_song_highlighter(var x : bool) -> void:
@@ -82,12 +73,11 @@ func block_song_highlighter(var x : bool) -> void:
 
 func toggle_processes(var x : bool) -> void:
 	self.set_process(x)
-	if !x:
-		# releases the last focused song when leaving the ScrollContainer
-		# songsspace moue filters have ALL to be set to ignore for this to work
-		if !self.get_global_rect().has_point(get_global_mouse_position()):
-			emit_signal("space_exited",curr_idx)
-	call_deferred("emit_signal","toggle_process",x)
+	call_deferred("emit_signal", "toggle_process", x)
+
+
+func set_filter_status(var status : bool) -> void:
+	is_filtering = status
 
 
 func calc_idx() -> int:
@@ -96,10 +86,6 @@ func calc_idx() -> int:
 	if x >= playlist_root.songs.get_child_count():
 		return -1;
 	return x;
-
-
-func set_filter_status(var status : bool) -> void:
-	is_filtering = status
 
 
 func real_index(var visible_idx : int) -> int:

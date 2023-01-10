@@ -19,15 +19,15 @@ mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 margin_left = 5.0
-margin_right = 1108.0
+margin_right = 1115.0
 margin_bottom = 41.0
 mouse_filter = 2
 size_flags_horizontal = 3
 custom_styles/panel = SubResource( 1 )
 
 [node name="RightEmpty" type="Control" parent="."]
-margin_left = 1108.0
+margin_left = 1115.0
 margin_right = 1120.0
 margin_bottom = 41.0
-rect_min_size = Vector2( 12, 0 )
+rect_min_size = Vector2( 5, 0 )
 mouse_filter = 2

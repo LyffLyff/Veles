@@ -1,4 +1,4 @@
-extends "res://src/Scenes/SubOptions/Playlists/CustomPlaylist-s/Creators/PlaylistCreatorMain.gd"
+extends "res://src/Scenes/SubOptions/PlaylistGrid/CustomPlaylist-s/Creators/PlaylistCreatorMain.gd"
 
 const condition_functions : Array = [
 	"genre",
@@ -42,5 +42,6 @@ func on_save_pressed() -> void:
 			if temp_condition_value != "":
 				condition_values.push_back( temp_condition_value )
 		conditions[condition_functions[i]] = condition_values
+	print(conditions)
 	emit_signal("save", title.get_text(), cover_hbox.input_edit.get_text(), "", conditions)
 	on_close_pressed()

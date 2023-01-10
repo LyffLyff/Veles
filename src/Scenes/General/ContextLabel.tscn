@@ -2,11 +2,12 @@
 
 [ext_resource path="res://src/Ressources/Themes/ContextLabel.tres" type="StyleBox" id=1]
 [ext_resource path="res://src/Scenes/General/ContextLabel.gd" type="Script" id=2]
-[ext_resource path="res://src/Assets/Fonts/Montserrat/static/Montserrat-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://src/Assets/Fonts/JetBrains/JetBrainsMono-Italic.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 12
 use_mipmaps = true
+use_filter = true
 extra_spacing_top = 2
 extra_spacing_bottom = 2
 font_data = ExtResource( 3 )

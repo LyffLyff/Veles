@@ -39,12 +39,11 @@ func _on_files_dropped(var file_paths : PoolStringArray, var _screen_idx : int) 
 	
 	var closest_file_edit_idx : int = -1
 	var closest_distance : float = -1.0
-	var mouse_pos : Vector2 = get_global_mouse_position()
 	
 	for i in option_file_edits.size():
-		if mouse_pos.distance_to(option_file_edits[i].rect_global_position) < closest_distance or closest_distance == -1.0:
+		if get_global_mouse_position().distance_to(option_file_edits[i].rect_global_position) < closest_distance or closest_distance == -1.0:
 			closest_file_edit_idx = i
-			closest_distance = mouse_pos.distance_to( option_file_edits[i].rect_global_position )
+			closest_distance = get_global_mouse_position().distance_to(option_file_edits[i].rect_global_position)
 	
 	option_file_edits[closest_file_edit_idx].file_edit.set_text(file_paths[0])
 	option_file_edits[closest_file_edit_idx].file_edit.emit_signal("text_entered",file_paths[0])
