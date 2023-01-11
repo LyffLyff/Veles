@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends "res://src/Scenes/General/SonglistBlocker.gd"
 
 var is_ready : bool = false
 
@@ -11,7 +11,7 @@ func _ready():
 func _process(var _delta : float):
 	if !is_ready:
 		return
-	if !self.get_global_rect().has_point( get_global_mouse_position() ):
+	if !self.get_global_rect().has_point(get_global_mouse_position()):
 		unload_playlist_options()
 
 

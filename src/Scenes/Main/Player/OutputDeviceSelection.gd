@@ -32,14 +32,6 @@ func _ready():
 		x.add_child(y)
 
 
-func _enter_tree():
-	Global.root.toggle_songlist_input(false)
-
-
-func _exit_tree():
-	Global.root.toggle_songlist_input(true)
-
-
 func _process(_delta):
 	if !self.get_global_rect().has_point( get_global_mouse_position() ):
 		exit_player_option()

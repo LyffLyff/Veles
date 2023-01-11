@@ -38,9 +38,10 @@ func _input(var event):
 			if event.button_index == BUTTON_LEFT:
 				idx = calc_idx()
 				if idx >= 0:
-						# checking if inside  of Rect of Songs 
-						if playlist_root_rect.has_point(get_global_mouse_position()):
-							# preventing a click if its just next  to the Scrollbar
+						# checking if inside  of Rect of Songs
+						# and if the mouse is not on the songlist header
+						if playlist_root_rect.has_point(get_global_mouse_position()) and get_global_mouse_position().y > self.get_global_position().y:
+							# preventing a click if its just next to the Scrollbar
 							if self.get_global_rect().position.x + get_global_rect().size.x >= get_global_mouse_position().x + 25:
 								if (Global.pressed_playlist_idx < -2 and Global.pressed_playlist_idx != SongLists.current_playlist_idx) or Global.pressed_playlist_idx == -2:
 									SongLists.current_temporary_playlist = SongLists.pressed_temporary_playlist
@@ -57,7 +58,7 @@ func _input(var event):
 func _physics_process(_delta):
 	# if the Vbox and the ScrollContainer have this point
 	if playlist_root_rect.has_point(get_global_mouse_position()) and self.get_global_rect().has_point(get_global_mouse_position()) and get_global_mouse_position().x + 20 < self.get_global_rect().size.x + self.get_global_rect().position.x:
-		if playlist_root.songs.get_child_count() > 0 and self.calc_idx() < playlist_root.songs.get_child_count() and self.calc_idx() >= 0:
+		if playlist_root.song_vbox.get_child_count() > 0 and self.calc_idx() < playlist_root.song_vbox.get_child_count() and self.calc_idx() >= 0:
 			emit_signal("panel_visible", true)
 	else:
 		if !ignore_mouse_input:
@@ -65,7 +66,7 @@ func _physics_process(_delta):
 
 
 func block_song_highlighter(var x : bool) -> void:
-	playlist_root.scroller.set_process(x)
+	playlist_root.song_scroller.set_process(x)
 	self.set_process(x)
 	self.set_process_input(x)
 	emit_signal("panel_visible",x)
@@ -83,7 +84,7 @@ func set_filter_status(var status : bool) -> void:
 func calc_idx() -> int:
 	# songspace height and VboxSeparation need to be exactly their value
 	var x : int =  int((self.get_global_mouse_position().y - self.rect_global_position.y) / (SONGSPACE_HEIGHT + VBOX_SEPARATION) )
-	if x >= playlist_root.songs.get_child_count():
+	if x >= playlist_root.song_vbox.get_child_count():
 		return -1;
 	return x;
 

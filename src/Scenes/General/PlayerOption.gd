@@ -1,4 +1,4 @@
-extends Control
+extends "res://src/Scenes/General/SonglistBlocker.gd"
 # a script that handles the animation of some possible options that can appear on screen
 
 var is_tweening : bool = false

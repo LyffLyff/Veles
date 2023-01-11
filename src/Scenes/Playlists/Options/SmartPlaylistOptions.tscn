@@ -1,0 +1,100 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Scenes/Playlists/Options/SmartPlaylistOptions.gd" type="Script" id=1]
+[ext_resource path="res://src/Themes/Panels/PlaylisOptions.tres" type="StyleBox" id=2]
+[ext_resource path="res://src/Themes/Buttons/OptionButton.tres" type="StyleBox" id=3]
+
+[node name="SmartPlaylistOptions" type="PanelContainer"]
+margin_right = 176.0
+margin_bottom = 200.0
+custom_styles/panel = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 176.0
+margin_bottom = 200.0
+
+[node name="LeftEmpty" type="Control" parent="HBoxContainer"]
+margin_right = 5.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 5, 0 )
+
+[node name="OptionVBox" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 13.0
+margin_right = 163.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 2
+
+[node name="TopBuffer" type="Control" parent="HBoxContainer/OptionVBox"]
+margin_right = 150.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="SetPlaylistCover" type="Button" parent="HBoxContainer/OptionVBox"]
+margin_top = 12.0
+margin_right = 150.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 150, 25 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+custom_styles/normal = ExtResource( 3 )
+text = "Set PlaylistCover"
+
+[node name="Rename" type="Button" parent="HBoxContainer/OptionVBox"]
+margin_top = 39.0
+margin_right = 150.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 150, 25 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+custom_styles/normal = ExtResource( 3 )
+text = "Rename"
+
+[node name="Export" type="Button" parent="HBoxContainer/OptionVBox"]
+margin_top = 66.0
+margin_right = 150.0
+margin_bottom = 91.0
+rect_min_size = Vector2( 150, 25 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+custom_styles/normal = ExtResource( 3 )
+text = "Export"
+
+[node name="DeletePlaylist" type="Button" parent="HBoxContainer/OptionVBox"]
+margin_top = 93.0
+margin_right = 150.0
+margin_bottom = 118.0
+rect_min_size = Vector2( 150, 25 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+custom_styles/normal = ExtResource( 3 )
+text = "Delete"
+
+[node name="ToPlaylists" type="Button" parent="HBoxContainer/OptionVBox"]
+margin_top = 120.0
+margin_right = 150.0
+margin_bottom = 145.0
+rect_min_size = Vector2( 150, 25 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+custom_styles/normal = ExtResource( 3 )
+text = "Return"
+
+[node name="Close" type="Button" parent="HBoxContainer/OptionVBox"]
+margin_top = 147.0
+margin_right = 150.0
+margin_bottom = 172.0
+rect_min_size = Vector2( 150, 25 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+custom_styles/normal = ExtResource( 3 )
+text = "Close"
+
+[node name="RightEmpty" type="Control" parent="HBoxContainer"]
+margin_left = 171.0
+margin_right = 176.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 5, 0 )

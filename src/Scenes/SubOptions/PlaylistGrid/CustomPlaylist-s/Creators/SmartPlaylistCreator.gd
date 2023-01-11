@@ -42,6 +42,5 @@ func on_save_pressed() -> void:
 			if temp_condition_value != "":
 				condition_values.push_back( temp_condition_value )
 		conditions[condition_functions[i]] = condition_values
-	print(conditions)
 	emit_signal("save", title.get_text(), cover_hbox.input_edit.get_text(), "", conditions)
 	on_close_pressed()

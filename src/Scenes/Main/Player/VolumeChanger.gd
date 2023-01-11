@@ -14,14 +14,6 @@ func _ready():
 	init_volume_slider()
 
 
-func _enter_tree():
-	Global.root.toggle_songlist_input(false)
-
-
-func _exit_tree():
-	Global.root.toggle_songlist_input(true)
-
-
 func _process(_delta):
 	# this process checks the mouse position relative to the volume changer
 	# the volume changer will be hidden depending on the difference in position

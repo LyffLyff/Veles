@@ -98,7 +98,6 @@ func rename_user(var new_username : String, var user_idx : int) -> void:
 	
 	var dir : Directory = Directory.new()
 	var old_username : String = user_profiles[user_idx]
-	print(OS.get_user_data_dir() + "/Users/" + old_username)
 	# renaming the Directory in the Userdata
 	if dir.rename(
 		OS.get_user_data_dir() + "/Users/" + old_username + "/",

@@ -427,7 +427,7 @@ func update_highlighted_song(var next_highlighted_path : String) -> void:
 	var ref : Node = options.find_node("GeneralPlaylist", true, false)
 	if ref != null:
 		var highlighted_song : int = ref.get_index_from_songlist(SongLists.current_song) 
-		if  ref.songs.get_child_count() < highlighted_song:
+		if  ref.song_vbox.get_child_count() < highlighted_song:
 			# if a song is next from another Playlist  that is bigger
 			return
 		# if a song is currently highlighted
@@ -436,7 +436,7 @@ func update_highlighted_song(var next_highlighted_path : String) -> void:
 			var next_highlighted_idx : int = ref.get_index_from_songlist(next_highlighted_path)
 			if next_highlighted_idx == -1:
 				return
-			ref.highlight_song(ref.songs.get_child(next_highlighted_idx))
+			ref.highlight_song(ref.song_vbox.get_child(next_highlighted_idx))
 
 
 func message(var message : String, var message_type : int, var display : bool = false, var bg_clr : Color = Color("1f1f1f")) -> void:
@@ -477,8 +477,8 @@ func toggle_songlist_visibility(var toggle : bool) -> void:
 
 func reset_input_disabler() -> void:
 	input_disable_counter = 0
-	if options.get_child(0).get("songs"):
-		Global.set_node_input(options.get_child(0).songs.get_parent(),true)
+	if options.get_child(0).get("song_vbox"):
+		Global.set_node_input(options.get_child(0).song_vbox.get_parent(),true)
 
 
 func load_user_profile_selection() -> void:

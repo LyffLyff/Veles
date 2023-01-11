@@ -21,14 +21,6 @@ func _ready():
 			self.get_node("VBoxContainer/HBoxContainer/VBoxContainer/RemoveFromPlaylist").show()
 
 
-func _enter_tree():
-	Global.root.toggle_songlist_input(false)
-
-
-func _exit_tree():
-	Global.root.toggle_songlist_input(true)
-
-
 func _process(_delta):
 	if !is_ready:
 		return
@@ -40,9 +32,9 @@ func _process(_delta):
 func get_clicked_song_path() -> String:
 	if song_idx >= 0:
 		var option : Control = Global.root.options.get_child(0)
-		if option.get("songs") != null:
-			var songs : VBoxContainer = option.songs
-			return songs.get_child(song_idx).path
+		if option.get("song_vbox") != null:
+			var song_vbox : VBoxContainer = option.song_vbox
+			return song_vbox.get_child(song_idx).path
 	return ""
 
 

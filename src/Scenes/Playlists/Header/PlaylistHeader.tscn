@@ -90,9 +90,9 @@ size_flags_horizontal = 3
 
 [node name="Cover" type="TextureRect" parent="VBoxContainer/HeaderContent"]
 margin_top = 24.0
-margin_right = 200.0
+margin_right = 201.0
 margin_bottom = 169.0
-rect_min_size = Vector2( 200, 145 )
+rect_min_size = Vector2( 201, 145 )
 size_flags_horizontal = 5
 size_flags_vertical = 4
 texture = ExtResource( 1 )
@@ -100,7 +100,7 @@ expand = true
 stretch_mode = 6
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HeaderContent"]
-margin_left = 208.0
+margin_left = 209.0
 margin_right = 1120.0
 margin_bottom = 193.0
 size_flags_horizontal = 3
@@ -108,14 +108,14 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Labels" type="VBoxContainer" parent="VBoxContainer/HeaderContent/VBoxContainer"]
-margin_right = 912.0
+margin_right = 911.0
 margin_bottom = 127.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Title" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
-margin_right = 912.0
+margin_right = 911.0
 margin_bottom = 43.0
 custom_fonts/font = ExtResource( 6 )
 text = "Yandhi"
@@ -124,7 +124,7 @@ clip_text = true
 
 [node name="Created" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
 margin_top = 51.0
-margin_right = 912.0
+margin_right = 911.0
 margin_bottom = 71.0
 custom_fonts/font = ExtResource( 8 )
 text = "Created on: 04/01/23"
@@ -132,7 +132,7 @@ valign = 1
 
 [node name="Length" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
 margin_top = 79.0
-margin_right = 912.0
+margin_right = 911.0
 margin_bottom = 99.0
 custom_fonts/font = ExtResource( 8 )
 text = "32.43min"
@@ -140,7 +140,7 @@ valign = 1
 
 [node name="Amount" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
 margin_top = 107.0
-margin_right = 912.0
+margin_right = 911.0
 margin_bottom = 127.0
 custom_fonts/font = ExtResource( 8 )
 text = "Created on: 04/01/23"
@@ -148,7 +148,7 @@ valign = 1
 
 [node name="Description" parent="VBoxContainer/HeaderContent/VBoxContainer" instance=ExtResource( 2 )]
 margin_top = 135.0
-margin_right = 912.0
+margin_right = 911.0
 margin_bottom = 193.0
 alignment = 2
 

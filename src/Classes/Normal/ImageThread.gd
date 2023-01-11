@@ -79,7 +79,6 @@ func filter_duplicate_covers(var new_songs : Dictionary) -> void:
 	
 	new_songs = delete_duplicate_covers(duplicates, new_songs)
 	duplicates = []
-	print("NEW SONGS: ", new_songs)
 	var is_in_cached : bool = false
 	
 	# comparing with other Covers
@@ -90,15 +89,11 @@ func filter_duplicate_covers(var new_songs : Dictionary) -> void:
 		for y in SongLists.new_cached_covers.size():
 			cover_path_y = Global.get_current_user_data_folder() + "/Songs/AllSongs/Covers/" + SongLists.new_cached_covers.keys()[y]
 			if image_header == SaveData.load_buffer(cover_path_y, COVER_DUPLICATE_SAMPLE):
-				print("IMAGE EQUAL")
 				is_in_cached = true
 				SongLists.new_cached_covers.values()[y][0].append_array(new_songs.values()[x][0])
 				set_cover_identifiers(new_songs.values()[x][0], SongLists.new_cached_covers.keys()[y])
 				duplicates.push_back(new_songs.values()[x][0])
-			else:
-				print("IMAGE DIFFERENT")
 		if !is_in_cached:
-			print("NEW KEY")
 			SongLists.new_cached_covers[new_songs.keys()[x]] = new_songs.values()[x]
 			set_cover_identifiers(new_songs.values()[x][0], new_songs.keys()[x])
 	

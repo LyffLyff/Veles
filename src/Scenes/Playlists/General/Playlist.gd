@@ -1,37 +1,65 @@
 extends "res://src/Scenes/Playlists/General/PlaylistLoader.gd"
 
+const SMART_PLAYLIST_OPTIONS : PackedScene = preload("res://src/Scenes/Playlists/Options/SmartPlaylistOptions.tscn")
+const STANDARD_PLAYLIST_OPTIONS : PackedScene = preload("res://src/Scenes/Playlists/Options/NormalPlaylistOptions.tscn")
+const HIGHLIGHTED_SONG : Resource = preload("res://src/Ressources/Themes/Song/HighlightedSong.tres")
+const SONG_OPTIONS_OFFSET : int = 40
+
+var temp_idx : int = -1
+var playlist_idx : int = -1
 var playlist_title : String = ""
 var playlist_cover_path : String = ""
 var description_path : String = ""
 
-onready var scroller : ScrollContainer = $VBoxContainer/ScrollContainer
+onready var song_scroller : ScrollContainer = $VBoxContainer/ScrollContainer
 onready var header : PanelContainer = $VBoxContainer/ScrollContainer/VBoxContainer/PlaylistHeader
 onready var filter : Control = $VBoxContainer/ScrollContainer/VBoxContainer/SongFilters
+onready var song_vbox : Control = $VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/SongVbox
+onready var song_highlighter : Control = $SongHighlighter
 
 
 func _notification(what):
 	if what == NOTIFICATION_WM_FOCUS_IN:
-		scroller.mouse_filter = Control.MOUSE_FILTER_PASS
+		song_scroller.mouse_filter = Control.MOUSE_FILTER_STOP
 	elif what == NOTIFICATION_WM_FOCUS_OUT:
-		scroller.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		song_scroller.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
-func init_playlist(var custom_cover_path : String = "") -> void:
-	songs = $VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer/SongVbox
-	song_highlighter = $SongHighlighter
-	song_scroller = scroller
-	songs.playlist_root = self
-	songs.playlist_root_rect = self.get_global_rect()
-	scroller.get_v_scrollbar().step = 0.1
+func _exit_tree():
+	free_highlighted_songs()
+
+
+func _process(_delta):
+	temp_idx = song_vbox.calc_idx()
+	if self.song_scroller.get_global_rect().has_point(get_global_mouse_position()):
+		if temp_idx >= 0:
+			song_highlighter.rect_global_position.y = song_vbox.get_child(temp_idx).rect_position.y + song_vbox.rect_global_position.y
+
+
+func unload() -> void:
+	Global.root.delete_current_option()
+	Global.root.load_option(1, true)
+
+func connect_song_vbox() -> void:
+	if song_vbox.connect("space_pressed", self, "on_songspace_left_clicked"):
+		Global.root.message("CONNECTING SPACE PRESSED SIGNAL WITH LEFT BUTTON CLICKED FUNCTION", SaveData.MESSAGE_ERROR)
+	if song_vbox.connect("space_rightclicked", self, "on_songspace_right_clicked"):
+		Global.root.message("CONNECTING SPACE RIGHTCLICKED SIGNAL WITH RIGHT BUTTON CLICKED FUNCTION", SaveData.MESSAGE_ERROR)
+
+
+func init_playlist(var custom_cover_path : String = "", var reload : bool = false) -> void:
+	song_vbox.playlist_root = self
+	song_vbox.playlist_root_rect = self.get_global_rect()
+	song_scroller.get_v_scrollbar().step = 0.01
 	playlist_title = Playlist.get_playlist_name(Global.pressed_playlist_idx)
 	playlist_idx = Global.pressed_playlist_idx
 	
 	# connect signals
-	header.play.connect("pressed", self, "on_songspace_left_clicked", [0])
-	songs.init_song_scroller()
-	var _err = scroller.get_v_scrollbar().connect("mouse_entered", song_highlighter, "set_visible", [false])
-	
-	connect_song_vbox()
+	if !reload:
+		header.play.connect("pressed", self, "on_songspace_left_clicked", [0])
+		song_vbox.init_song_scroller()
+		var _err = song_scroller.get_v_scrollbar().connect("mouse_entered", song_highlighter, "set_visible", [false])
+		connect_song_vbox()
 	
 	if custom_cover_path != "":
 		playlist_cover_path = custom_cover_path
@@ -55,13 +83,12 @@ func init_playlist(var custom_cover_path : String = "") -> void:
 	else:
 		# temporary playlist -> init_temp_playlist needs to be called for songs to be loaded
 		filter.hide()
-		pass
 	
 	# colors
 	self.get_stylebox("panel").set_bg_color(header.bottom_blur.material.get("shader_param/color"))
 	
 	# various
-	scroller.get_v_scrollbar().rect_min_size.x = 5
+	song_scroller.get_v_scrollbar().rect_min_size.x = 5
 
 
 func init_temporary_playlist(var conditions : Dictionary, var title : String, var custom_description_path : String, var cover_path : String) -> void:
@@ -75,9 +102,9 @@ func init_temporary_playlist(var conditions : Dictionary, var title : String, va
 func init_header() -> void:
 	# general
 	header.title_label.text = playlist_title
-	header.creation_date_label.text = get_playlist_creation_date()
-	header.playlist_duration_label.text = get_playlist_runtime()
-	header.song_amount_label.text = str(get_playlist_song_amount())
+	header.creation_date_label.text = get_playlist_creation_date(playlist_idx)
+	header.playlist_duration_label.text = get_playlist_runtime(playlist_idx)
+	header.song_amount_label.text = str(get_playlist_song_amount(playlist_idx))
 	header.set_header_cover(ImageLoader.get_cover(playlist_cover_path))
 	
 	if playlist_idx < -1:
@@ -86,9 +113,84 @@ func init_header() -> void:
 		header.description.hide()
 
 
+func init_playlist_options(var ref : Control) -> void:
+	var options_ref : Control = null
+	if playlist_idx >= 0:
+		options_ref = STANDARD_PLAYLIST_OPTIONS.instance()
+	else:
+		options_ref = SMART_PLAYLIST_OPTIONS.instance()
+	self.add_child(options_ref)
+	options_ref.set_owner(self)
+	options_ref.init_options()
+	options_ref.rect_global_position = ref.rect_global_position - (ref.rect_size / 2)
+
+
+func get_index_from_songlist(var path : String) -> int:
+	for songspace in song_vbox.get_children():
+		if songspace.path == path:
+			return songspace.get_index();
+	return -1;
+
+
+func highlight_song(var songspace : HBoxContainer) ->  void:
+	songspace.get_child(0).set_deferred("custom_styles/panel", HIGHLIGHTED_SONG)
+
+
+func unhighlight_song(var l_idx : int) -> void:
+	if l_idx != -1:
+		song_vbox.get_child(l_idx).get_child(0).set_deferred("custom_styles/panel", null)
+
+
+func free_highlighted_songs() -> void:
+	# clearing CTRL highlighted songs
+	for highlighted_song in SongLists.highlighted_songs:
+		song_vbox.get_child(get_index_from_songlist(highlighted_song)).modulate = Color("ffffff")
+	SongLists.highlighted_songs = []
+
+
+func on_songspace_right_clicked(var l_idx : int) -> void:
+	# no need to check if there is a priorly pressed instance od the SongOptions,
+	# since the Input gets disabled anyways
+	var x = load("res://src/Scenes/Song/SongOptions/SongOptions.tscn").instance()
+	x.rect_position = get_global_mouse_position()
+	x.rect_position.x -= SONG_OPTIONS_OFFSET
+	x.rect_position.y -= SONG_OPTIONS_OFFSET
+	if get_global_mouse_position().y + 200 > OS.get_window_size().y: 
+		x.rect_position.y -= 150
+	if get_global_mouse_position().x + 200 > OS.get_window_size().x: 
+		x.rect_position.x -= 100
+	x.song_idx = l_idx
+	Global.root.add_child(x)
+
+
+func on_songspace_left_clicked(var l_idx : int) -> void:
+	if l_idx >= 0 and song_vbox.get_child_count() > 0:
+		if !Input.is_key_pressed(KEY_CONTROL):
+			free_highlighted_songs()
+			# playing pressed song
+			var song_ : Control = song_vbox.get_child(l_idx)
+			var main_idx : int = song_.main_index
+			# unhighlights the highlighted song when another one has been pressed
+			var highlighted_song : int = get_index_from_songlist(SongLists.current_song)
+			if highlighted_song != l_idx:
+				if highlighted_song != -1:
+					unhighlight_song(highlighted_song)
+			# highlighting the current song if it has not been already
+			highlight_song(song_)
+			SongLists.current_playlist_idx = song_.playlist_idx
+			Global.root.playback_song(
+				main_idx,
+				true,
+				Playlist.get_playlist_name(song_.playlist_idx)
+			)
+			Global.root.player.set_repeat(false)
+		else:
+			SongLists.add_highlighted_song(song_vbox, l_idx)
+
+
 func load_songs(var song_idxs : PoolIntArray) -> void:
 	var x : SongLoader = SongLoader.new()
-	x.create_songspaces(songs, song_idxs, Global.pressed_playlist_idx)
+	x.create_songspaces(song_vbox, song_idxs, Global.pressed_playlist_idx)
 
 
 func load_playlist_conditions() -> Dictionary:
@@ -141,15 +243,15 @@ func get_normal_playlist_songs() -> PoolIntArray:
 
 
 func _on_NewPlaylist_resized():
-	if songs:
-		songs.playlist_root_rect = self.get_global_rect()
+	if song_vbox:
+		song_vbox.playlist_root_rect = self.get_global_rect()
 
 
 func on_delete_smart_playlist_pressed():
 	SongLists.smart_playlists.erase(playlist_title)
 	ExtendedDirectory.delete_file(Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + playlist_title + ".png")
 	ExtendedDirectory.delete_file(Global.get_current_user_data_folder() + "/Songs/Playlists/Metadata/Descriptions/" + playlist_title + ".txt")
-	unload_playlist()
+	unload()
 
 
 func on_delete_pressed():
@@ -158,10 +260,30 @@ func on_delete_pressed():
 		Global.root.message("DELETIING PLAYLIST COVER FROM USER DATA",  SaveData.MESSAGE_ERROR )
 	ExtendedDirectory.delete_file(OS.get_user_data_dir() + "/Songs/Playlists/Covers/" + playlist_key + ".png")
 	SaveData.erase_key_from_file(SongLists.file_paths[9],playlist_key)
-	unload_playlist()
+	unload()
 
 
 func _on_queue_playlist_pressed() -> void:
 	# queueing all the Songs in trhe Current Playlist
 	for n in SongLists.normal_playlists.values()[playlist_idx].size():
 		SongLists.queue_song(SongLists.normal_playlists.values()[playlist_idx].keys()[n])
+
+
+func change_playlist_cover():
+	var _dialog = Global.root.load_general_file_dialogue(
+		self,
+		FileDialog.MODE_OPEN_FILE,
+		FileDialog.ACCESS_FILESYSTEM,
+		"new_cover_selected",
+		[],
+		UsedFilepaths.PLAYLIST_COVER,
+		Global.supported_img_extensions,
+		true,
+		"Select New Playlist Cover"
+	)
+
+
+func new_cover_selected(var new_cover_path : String) -> void:
+	var dir : Directory = Directory.new()
+	var _err : int = dir.copy(new_cover_path, playlist_cover_path)
+	self.init_header()
