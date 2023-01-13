@@ -450,9 +450,9 @@ func message(var message : String, var message_type : int, var display : bool = 
 
 
 func toggle_songlist_input(var toggle : bool) -> void:
-	#if the toggle gets set to disabled it will be counted
-	#so that if it f.e. disabled by the volume and image view, the Songscroller cannot
-	#be used when just on of them enabled the Scroller, event though one of them is still there
+	# if the toggle gets set to disabled it will be counted
+	# so that if it f.e. disabled by the volume and image view, the Songscroller cannot
+	# be used when just on of them enabled the Scroller, event though one of them is still there
 	var ref : Node = options.find_node("SongVbox", true, false)
 	if !ref:
 		input_disable_counter = 0

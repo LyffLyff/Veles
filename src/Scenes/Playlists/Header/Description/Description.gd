@@ -4,7 +4,7 @@ var file_path : String = ""
 var is_expanded : bool = false
 
 onready var description_edit : TextEdit = $ScrollContainer/Description
-onready var animations : AnimationPlayer = $DescriptionAnimations
+onready var scroller : ScrollContainer = $ScrollContainer
 onready var expand_button : Button = $Expand
 
 func load_description(var path : String) -> void:
@@ -20,10 +20,17 @@ func save_description():
 
 
 func _on_Expand_pressed():
+	var tw : SceneTreeTween = get_tree().create_tween()
+	tw.set_trans(Tween.TRANS_BOUNCE)
 	if !is_expanded:
-		animations.play("Expand")
+		scroller.visible = true
+		scroller.modulate.a = 0.0
+		var _ptw : PropertyTweener = tw.tween_property(scroller, "rect_min_size:y", 150.0, 0.3)
+		_ptw = tw.parallel().tween_property(scroller, "modulate:a", 1.0, 0.3)
 		expand_button.icon = load("res://src/Assets/Icons/White/General/remove_1_72px.png")
 	else:
-		animations.play_backwards("Expand")
+		var _err : int = tw.connect("finished", scroller, "set_visible", [false])
+		var _ptw : PropertyTweener = tw.tween_property(scroller, "rect_min_size:y", 0.0, 0.3)
+		_ptw = tw.parallel().tween_property(scroller, "modulate:a", 0.0, 0.3)
 		expand_button.icon = load("res://src/Assets/Icons/White/General/add_1_72px.png")
 	is_expanded = !is_expanded

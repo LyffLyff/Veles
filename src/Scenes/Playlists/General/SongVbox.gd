@@ -43,7 +43,7 @@ func _input(var event):
 						if playlist_root_rect.has_point(get_global_mouse_position()) and get_global_mouse_position().y > self.get_global_position().y:
 							# preventing a click if its just next to the Scrollbar
 							if self.get_global_rect().position.x + get_global_rect().size.x >= get_global_mouse_position().x + 25:
-								if (Global.pressed_playlist_idx < -2 and Global.pressed_playlist_idx != SongLists.current_playlist_idx) or Global.pressed_playlist_idx == -2:
+								if Global.pressed_playlist_idx != SongLists.current_playlist_idx and Global.pressed_playlist_idx == -2:
 									SongLists.current_temporary_playlist = SongLists.pressed_temporary_playlist
 								call_deferred("emit_signal", "space_pressed", real_index(idx))
 			elif event.button_index == BUTTON_RIGHT:

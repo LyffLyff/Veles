@@ -18,11 +18,11 @@ onready var song_vbox : Control = $VBoxContainer/ScrollContainer/VBoxContainer/H
 onready var song_highlighter : Control = $SongHighlighter
 
 
-func _notification(what):
+func _notification(what): 
 	if what == NOTIFICATION_WM_FOCUS_IN:
-		song_scroller.mouse_filter = Control.MOUSE_FILTER_STOP
+		Global.root.call_deferred("toggle_songlist_input", true)
 	elif what == NOTIFICATION_WM_FOCUS_OUT:
-		song_scroller.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		Global.root.call_deferred("toggle_songlist_input", false)
 
 
 func _exit_tree():
@@ -66,8 +66,6 @@ func init_playlist(var custom_cover_path : String = "", var reload : bool = fals
 	else:
 		playlist_cover_path = Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + playlist_title + ".png"
 	
-	init_header()
-	
 	if playlist_idx <= -3:
 		# smart playlist
 		load_songs(get_smart_playlist_songs(load_playlist_conditions()))
@@ -83,6 +81,8 @@ func init_playlist(var custom_cover_path : String = "", var reload : bool = fals
 	else:
 		# temporary playlist -> init_temp_playlist needs to be called for songs to be loaded
 		filter.hide()
+	
+	init_header()
 	
 	# colors
 	self.get_stylebox("panel").set_bg_color(header.bottom_blur.material.get("shader_param/color"))
@@ -104,10 +104,10 @@ func init_header() -> void:
 	header.title_label.text = playlist_title
 	header.creation_date_label.text = get_playlist_creation_date(playlist_idx)
 	header.playlist_duration_label.text = get_playlist_runtime(playlist_idx)
-	header.song_amount_label.text = str(get_playlist_song_amount(playlist_idx))
+	header.song_amount_label.text = "Songs: " + str(get_playlist_song_amount(playlist_idx))
 	header.set_header_cover(ImageLoader.get_cover(playlist_cover_path))
 	
-	if playlist_idx < -1:
+	if playlist_idx == -2:
 		header.description.load_description(description_path)
 	else:
 		header.description.hide()
@@ -287,3 +287,19 @@ func new_cover_selected(var new_cover_path : String) -> void:
 	var dir : Directory = Directory.new()
 	var _err : int = dir.copy(new_cover_path, playlist_cover_path)
 	self.init_header()
+
+
+func rename_playlist() -> void:
+	Global.root.toggle_songlist_input(false)
+	var x : Node = load("res://src/Scenes/General/TextInputDialogue.tscn").instance()
+	Global.root.add_child(x)
+	x.set_topic("New Playlist Title")
+	var _err = x.connect("text_saved", Playlist, "rename_playlist", [playlist_idx])
+	_err = x.connect("saved",self,"unload")
+	_err = x.connect("tree_exited", Global.root, "toggle_songlist_input", [true])
+
+
+func export_playlist() -> void:
+	var playlist_export_menu : Node = load("res://src/Scenes/Export/PlaylistExportMenu.tscn").instance()
+	Global.root.top_ui.add_child(playlist_export_menu)
+	playlist_export_menu.init_export_menu(playlist_idx)
