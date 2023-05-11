@@ -1,0 +1,205 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/Ressources/Fonts/MidSizedHeader.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/InfoTextSpace.gd" type="Script" id=2]
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/SubInfo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/Infos.gd" type="Script" id=4]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="Infos" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_scale = Vector2( 1, 0.996883 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 4 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="VSeparator3" type="VSeparator" parent="HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 600.0
+custom_constants/separation = 10
+
+[node name="Sidebar" type="PanelContainer" parent="HBoxContainer"]
+margin_left = 10.0
+margin_right = 190.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 180, 0 )
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 2 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/Sidebar"]
+margin_right = 180.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Sidebar/ScrollContainer"]
+margin_right = 180.0
+margin_bottom = 330.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="InfoVbox" type="VBoxContainer" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer"]
+margin_left = 5.0
+margin_right = 175.0
+margin_bottom = 330.0
+rect_min_size = Vector2( 170, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 3
+custom_constants/separation = 2
+
+[node name="TopBuffer" type="Control" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox"]
+margin_right = 170.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="General" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
+margin_top = 12.0
+margin_right = 170.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 0, 0 )
+size_flags_horizontal = 1
+size_flags_vertical = 1
+subinfo_title = "General"
+
+[node name="Shortcuts" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
+margin_top = 44.0
+margin_right = 170.0
+margin_bottom = 74.0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+subinfo_title = "Shortcuts"
+
+[node name="PlayingMusic" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
+margin_top = 76.0
+margin_right = 170.0
+margin_bottom = 106.0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+subinfo_title = "Playback"
+
+[node name="Playlists" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
+margin_top = 108.0
+margin_right = 170.0
+margin_bottom = 138.0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+subinfo_title = "Playlists"
+
+[node name="Tags" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
+margin_top = 140.0
+margin_right = 170.0
+margin_bottom = 170.0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+subinfo_title = "Tags"
+
+[node name="Lyrics" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
+margin_top = 172.0
+margin_right = 170.0
+margin_bottom = 202.0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+subinfo_title = "Lyrics"
+
+[node name="Downloads" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
+margin_top = 204.0
+margin_right = 170.0
+margin_bottom = 234.0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+subinfo_title = "Downloads"
+
+[node name="Statistics" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
+margin_top = 236.0
+margin_right = 170.0
+margin_bottom = 266.0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+subinfo_title = "Stats"
+
+[node name="Credits" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
+margin_top = 268.0
+margin_right = 170.0
+margin_bottom = 298.0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+subinfo_title = "Credits"
+
+[node name="Licenses" parent="HBoxContainer/Sidebar/ScrollContainer/HBoxContainer/InfoVbox" instance=ExtResource( 3 )]
+margin_top = 300.0
+margin_right = 170.0
+margin_bottom = 330.0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+subinfo_title = "Licenses"
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+margin_left = 190.0
+margin_right = 200.0
+margin_bottom = 600.0
+custom_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 200.0
+margin_right = 1105.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TOPHSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+margin_right = 905.0
+margin_bottom = 20.0
+custom_constants/separation = 20
+custom_styles/separator = SubResource( 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
+margin_top = 28.0
+margin_right = 905.0
+margin_bottom = 572.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InfoTextSpace" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer"]
+margin_right = 905.0
+margin_bottom = 544.0
+focus_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/italics_font = ExtResource( 1 )
+bbcode_enabled = true
+selection_enabled = true
+script = ExtResource( 2 )
+
+[node name="BottomHSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+margin_top = 580.0
+margin_right = 905.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+custom_constants/separation = 20
+custom_styles/separator = SubResource( 1 )
+
+[node name="VSeparator2" type="VSeparator" parent="HBoxContainer"]
+margin_left = 1105.0
+margin_right = 1120.0
+margin_bottom = 600.0
+size_flags_vertical = 3
+custom_constants/separation = 15
+
+[connection signal="meta_clicked" from="HBoxContainer/VBoxContainer/PanelContainer/InfoTextSpace" to="." method="_on_InfoTextSpace_meta_clicked"]

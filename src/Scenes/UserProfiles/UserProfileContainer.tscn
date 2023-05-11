@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/music_note_128px.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/UserProfiles/UserProfileContainer.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxFlat" id=6]
+resource_local_to_scene = true
+bg_color = Color( 0.0705882, 0.0705882, 0.0705882, 1 )
+
+[node name="UserProfileContainer" type="Button"]
+anchor_right = 0.134
+anchor_bottom = 0.375
+margin_right = -110.08
+margin_bottom = -185.0
+rect_min_size = Vector2( 150, 225 )
+mouse_default_cursor_shape = 2
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 6 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 150.0
+margin_bottom = 225.0
+
+[node name="ProfileImage" type="TextureRect" parent="VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 0, 140 )
+size_flags_horizontal = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 7
+
+[node name="Username" type="Label" parent="VBoxContainer"]
+margin_top = 178.0
+margin_right = 150.0
+margin_bottom = 194.0
+rect_pivot_offset = Vector2( 75, 8 )
+size_flags_vertical = 6
+text = "Username"
+align = 1
+valign = 1
+autowrap = true
+
+[connection signal="gui_input" from="." to="." method="_on_UserProfileContainer_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_UserProfileContainer_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_UserProfileContainer_mouse_exited"]

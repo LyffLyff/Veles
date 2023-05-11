@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=5 format=2]
+
+[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic16px.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Ressources/Fonts/12pxMonserrat.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic12px.tres" type="DynamicFont" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 2.0
+content_margin_right = 2.0
+bg_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+
+[resource]
+HSeparator/constants/separation = 5
+Label/fonts/font = ExtResource( 1 )
+LineEdit/fonts/font = ExtResource( 2 )
+MenuButton/fonts/font = ExtResource( 3 )
+PopupMenu/constants/vseparation = 4
+PopupMenu/fonts/font = ExtResource( 3 )
+PopupMenu/styles/panel = SubResource( 1 )
+VBoxContainer/constants/separation = 4

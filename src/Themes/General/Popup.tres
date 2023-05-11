@@ -1,0 +1,82 @@
+[gd_resource type="Theme" load_steps=10 format=2]
+
+[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsLight10px.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Assets/Checkbox/checked_box_16px.png" type="Texture" id=3]
+[ext_resource path="res://src/Assets/Checkbox/unchecked_box_16px.png" type="Texture" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 2.0
+content_margin_right = 2.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 2.0
+content_margin_right = 2.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0.0862745, 0.0862745, 0.0862745, 1 )
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id=5]
+content_margin_left = 2.0
+content_margin_right = 2.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color( 0.0705882, 0.0705882, 0.0705882, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.14902, 0.14902, 0.14902, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.584314, 0.584314, 0.584314, 1 )
+border_blend = true
+
+[resource]
+default_font = ExtResource( 1 )
+Button/styles/disabled = SubResource( 4 )
+Button/styles/focus = SubResource( 2 )
+Button/styles/hover = SubResource( 2 )
+Button/styles/normal = SubResource( 3 )
+Button/styles/pressed = SubResource( 5 )
+CheckBox/icons/checked = ExtResource( 3 )
+CheckBox/icons/checked_disabled = ExtResource( 3 )
+CheckBox/icons/unchecked = ExtResource( 4 )
+CheckBox/icons/unchecked_disabled = ExtResource( 4 )
+CheckBox/styles/disabled = SubResource( 7 )
+CheckBox/styles/focus = SubResource( 7 )
+Label/styles/normal = null
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 10
+MarginContainer/constants/margin_right = 10
+MarginContainer/constants/margin_top = 10
+PanelContainer/styles/panel = SubResource( 6 )
+VBoxContainer/constants/separation = 2

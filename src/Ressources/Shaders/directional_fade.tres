@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform vec4 color : hint_color;
+uniform vec2 direction = vec2(0,1);
+uniform float strength : hint_range(0.0,3.0) = 1.0;
+
+void fragment(){
+	vec4 pixelcolor = texture(TEXTURE, UV);
+	COLOR = color;
+	vec2 NewUV = ((UV / 2.0) + 0.2) * direction;
+	
+	COLOR.a *= (NewUV.x + NewUV.y) * strength;
+}"
+
+[resource]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/color = Color( 0.247059, 0.247059, 0.247059, 1 )
+shader_param/direction = Vector2( 0, 1 )
+shader_param/strength = 0.0

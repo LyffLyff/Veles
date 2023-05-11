@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/assets/Icons/White/Folder/open folder_72px.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/General/InputWithDialog.gd" type="Script" id=2]
+
+[node name="InputWithDialog" type="HBoxContainer"]
+anchor_right = 1.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
+script = ExtResource( 2 )
+
+[node name="InputLabel" type="Label" parent="."]
+margin_right = 60.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 60, 0 )
+size_flags_vertical = 3
+text = "Input:"
+align = 1
+valign = 1
+
+[node name="InputEdit" type="LineEdit" parent="."]
+margin_left = 68.0
+margin_right = 1077.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Dialogue" type="TextureButton" parent="."]
+margin_left = 1085.0
+margin_right = 1120.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 35, 0 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[connection signal="pressed" from="Dialogue" to="." method="_on_Dialogue_pressed"]

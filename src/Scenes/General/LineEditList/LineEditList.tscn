@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Scenes/Templates/SingleExpandableLineEdit.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Scenes/General/LineEditList/LineEditList.gd" type="Script" id=3]
+
+[node name="LineEditList" type="VBoxContainer"]
+anchor_right = 1.0
+margin_bottom = 38.0
+custom_constants/separation = 2
+script = ExtResource( 3 )
+
+[node name="Header" type="Label" parent="."]
+margin_right = 1120.0
+margin_bottom = 16.0
+text = "Header:"
+
+[node name="List" type="VBoxContainer" parent="."]
+margin_top = 18.0
+margin_right = 1120.0
+margin_bottom = 36.0
+custom_constants/separation = 2
+
+[node name="TopItem" parent="List" instance=ExtResource( 2 )]
+anchor_right = 0.0
+margin_right = 1120.0
+margin_bottom = 18.0

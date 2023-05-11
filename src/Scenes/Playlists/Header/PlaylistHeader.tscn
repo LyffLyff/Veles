@@ -1,0 +1,219 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/music_note_500px.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/Playlists/Header/Description/Description.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Assets/Icons/White/Audio/Replay/play_72px.png" type="Texture" id=3]
+[ext_resource path="res://src/Assets/Icons/White/General/lists_72px.png" type="Texture" id=4]
+[ext_resource path="res://src/Assets/Icons/White/Settings/full orientation_72px.png" type="Texture" id=5]
+[ext_resource path="res://src/Ressources/Fonts/Playlist/PlaylistTitle.tres" type="DynamicFont" id=6]
+[ext_resource path="res://src/Scenes/Playlists/Header/Header.gd" type="Script" id=7]
+[ext_resource path="res://src/Ressources/Fonts/Playlist/PlaylistContent.tres" type="DynamicFont" id=8]
+[ext_resource path="res://src/Assets/Icons/White/Audio/Replay/repeat one_72px.png" type="Texture" id=9]
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+
+uniform float lod: hint_range(0.0, 5) = 0.0;
+
+void fragment(){
+	vec4 color = textureLod(SCREEN_TEXTURE, SCREEN_UV, lod);
+	COLOR = color;
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+shader_param/lod = 2.0
+
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+
+uniform vec4 color : hint_color;
+uniform vec2 direction = vec2(0,1);
+uniform float strength : hint_range(0.0,3.0) = 1.0;
+
+void fragment(){
+	vec4 pixelcolor = texture(TEXTURE, UV);
+	COLOR = color;
+	vec2 new_uv = ((UV / 2.0) + 0.2) * direction;
+	COLOR.a *= (new_uv.x + new_uv.y) * strength;
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+shader_param/direction = Vector2( 0, 1 )
+shader_param/strength = 1.5
+
+[node name="PlaylistHeader" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 0.46
+margin_bottom = -276.0
+size_flags_horizontal = 3
+script = ExtResource( 7 )
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0.5 )
+margin_right = 1120.0
+margin_bottom = 274.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 7
+
+[node name="Blur" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 9 )
+margin_right = 1120.0
+margin_bottom = 276.0
+color = Color( 0.198567, 0.1748, 0.46, 1 )
+
+[node name="BottomBlur" type="Panel" parent="."]
+material = SubResource( 7 )
+margin_right = 1120.0
+margin_bottom = 274.0
+rect_min_size = Vector2( 0, 50 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1120.0
+margin_bottom = 274.0
+custom_constants/separation = 10
+
+[node name="TopBuffer" type="Control" parent="VBoxContainer"]
+margin_right = 1120.0
+margin_bottom = 5.0
+rect_min_size = Vector2( 0, 5 )
+
+[node name="HeaderContent" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 15.0
+margin_right = 1120.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+
+[node name="Cover" type="TextureRect" parent="VBoxContainer/HeaderContent"]
+margin_right = 201.0
+margin_bottom = 145.0
+rect_min_size = Vector2( 201, 145 )
+size_flags_horizontal = 5
+size_flags_vertical = 0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HeaderContent"]
+margin_left = 209.0
+margin_right = 1107.0
+margin_bottom = 193.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Labels" type="VBoxContainer" parent="VBoxContainer/HeaderContent/VBoxContainer"]
+margin_right = 898.0
+margin_bottom = 127.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
+margin_right = 898.0
+margin_bottom = 43.0
+custom_fonts/font = ExtResource( 6 )
+text = "Yandhi"
+valign = 1
+clip_text = true
+
+[node name="Created" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
+margin_top = 51.0
+margin_right = 898.0
+margin_bottom = 71.0
+custom_fonts/font = ExtResource( 8 )
+text = "Created on: 04/01/23"
+valign = 1
+
+[node name="Length" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
+margin_top = 79.0
+margin_right = 898.0
+margin_bottom = 99.0
+custom_fonts/font = ExtResource( 8 )
+text = "32.43min"
+valign = 1
+
+[node name="Amount" type="Label" parent="VBoxContainer/HeaderContent/VBoxContainer/Labels"]
+margin_top = 107.0
+margin_right = 898.0
+margin_bottom = 127.0
+custom_fonts/font = ExtResource( 8 )
+text = "Created on: 04/01/23"
+valign = 1
+
+[node name="Description" parent="VBoxContainer/HeaderContent/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+margin_top = 135.0
+margin_right = 898.0
+margin_bottom = 193.0
+alignment = 2
+
+[node name="RightEmpty" type="Control" parent="VBoxContainer/HeaderContent"]
+margin_left = 1115.0
+margin_right = 1120.0
+margin_bottom = 193.0
+rect_min_size = Vector2( 5, 0 )
+size_flags_horizontal = 0
+
+[node name="Buffer" type="Control" parent="VBoxContainer"]
+margin_top = 218.0
+margin_right = 1120.0
+margin_bottom = 223.0
+rect_min_size = Vector2( 0, 5 )
+
+[node name="Options" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 233.0
+margin_right = 1120.0
+margin_bottom = 259.0
+rect_min_size = Vector2( 0, 26 )
+
+[node name="Play" type="TextureButton" parent="VBoxContainer/Options" groups=["Context"]]
+margin_right = 70.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 70, 0 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="Queue" type="TextureButton" parent="VBoxContainer/Options" groups=["Context"]]
+margin_left = 78.0
+margin_right = 148.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 70, 0 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+
+[node name="Shuffle" type="TextureButton" parent="VBoxContainer/Options" groups=["Context"]]
+margin_left = 156.0
+margin_right = 226.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 70, 0 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="Options" type="TextureButton" parent="VBoxContainer/Options" groups=["Context"]]
+margin_left = 234.0
+margin_right = 304.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 70, 0 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+
+[node name="BottomBuffer" type="Control" parent="VBoxContainer"]
+margin_top = 269.0
+margin_right = 1120.0
+margin_bottom = 274.0
+rect_min_size = Vector2( 0, 5 )

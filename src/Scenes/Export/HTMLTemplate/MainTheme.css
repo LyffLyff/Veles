@@ -1,0 +1,15 @@
+
+
+
+h1 {
+    color: navy;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table, th, td {
+    border:1px solid black;
+  }
+
+  table{
+    width: 100%;
+  }

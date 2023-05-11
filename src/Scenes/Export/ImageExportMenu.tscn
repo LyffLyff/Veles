@@ -1,0 +1,160 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/Scenes/Export/ImageExportMenu.gd" type="Script" id=1]
+[ext_resource path="res://src/Scenes/General/CoverSwitcher/CoverSwitcher.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic16px.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/Themes/General/Popup.tres" type="Theme" id=4]
+[ext_resource path="res://src/Scenes/General/Menus/MenuFooter.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Scenes/General/InputWithDialog.tscn" type="PackedScene" id=6]
+
+[node name="ImageExportMenu" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.0
+margin_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 143.0 ]
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 285.0
+margin_top = 125.0
+margin_right = 835.0
+margin_bottom = 475.0
+rect_min_size = Vector2( 550, 350 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 549.0
+margin_bottom = 349.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+custom_constants/margin_right = 10
+custom_constants/margin_top = 5
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+margin_left = 10.0
+margin_top = 5.0
+margin_right = 538.0
+margin_bottom = 338.0
+
+[node name="Header" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+margin_right = 528.0
+margin_bottom = 153.0
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Header"]
+margin_right = 172.0
+margin_bottom = 153.0
+size_flags_vertical = 1
+custom_fonts/font = ExtResource( 3 )
+text = "Export Cover Image:"
+
+[node name="CoverSwitcher" parent="PanelContainer/MarginContainer/VBoxContainer/Header" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 392.0
+margin_right = 528.0
+margin_bottom = 153.0
+size_flags_horizontal = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 155.0
+margin_right = 528.0
+margin_bottom = 285.0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 527.0
+margin_bottom = 129.0
+custom_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 516.0
+margin_bottom = 118.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Source" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 6 )]
+anchor_right = 0.0
+margin_right = 506.0
+margin_bottom = 20.0
+input_label_text = "Src:"
+show_file_dialogue = true
+
+[node name="Destination" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 6 )]
+anchor_right = 0.0
+margin_top = 22.0
+margin_right = 506.0
+margin_bottom = 42.0
+input_label_text = "Dst:"
+show_file_dialogue = true
+
+[node name="File" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 6 )]
+anchor_right = 0.0
+margin_top = 44.0
+margin_right = 506.0
+margin_bottom = 64.0
+input_label_text = "File:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 66.0
+margin_right = 506.0
+margin_bottom = 86.0
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_top = 3.0
+margin_right = 60.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 60, 0 )
+text = "Format:"
+align = 1
+valign = 1
+
+[node name="Format" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 68.0
+margin_right = 506.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "Original Format"
+align = 1
+items = [ "Original Format", null, false, 0, null, "PNG", null, true, 1, null ]
+selected = 0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+margin_top = 88.0
+margin_right = 506.0
+margin_bottom = 108.0
+custom_constants/separation = 0
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 65.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 65, 0 )
+
+[node name="ExportAll" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 65.0
+margin_right = 246.0
+margin_bottom = 20.0
+text = "Export All Embedded Images"
+flat = true
+
+[node name="MenuFooter" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 5 )]
+anchor_right = 0.0
+margin_top = 303.0
+margin_right = 528.0
+margin_bottom = 333.0
+size_flags_vertical = 10

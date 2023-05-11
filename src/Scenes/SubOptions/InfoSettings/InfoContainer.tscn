@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/InfoContainer.gd" type="Script" id=2]
+
+[node name="InfoContainer" type="OptionButton"]
+anchor_right = 1.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 20 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+align = 1
+script = ExtResource( 2 )

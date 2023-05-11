@@ -1,0 +1,455 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://src/Assets/Icons/White/General/Pointers/Up100pxWhite.png" type="Texture" id=1]
+[ext_resource path="res://src/Assets/Icons/White/Audio/Replay/play_72px.png" type="Texture" id=2]
+[ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/music_note_128px.png" type="Texture" id=3]
+[ext_resource path="res://src/Scenes/Main/SongOptionsPlayer.gd" type="Script" id=4]
+[ext_resource path="res://src/Scenes/Main/Player/Player.gd" type="Script" id=5]
+[ext_resource path="res://src/Assets/Icons/White/Audio/Replay/next_72px.png" type="Texture" id=6]
+[ext_resource path="res://src/Assets/Icons/White/Audio/Replay/previous_72px.png" type="Texture" id=7]
+[ext_resource path="res://src/Assets/Icons/White/Audio/Replay/shuffle_72px.png" type="Texture" id=8]
+[ext_resource path="res://src/Assets/Icons/White/Settings/full orientation_72px.png" type="Texture" id=9]
+[ext_resource path="res://src/Assets/Icons/White/Audio/OuputDevice/cassette tape_72px.png" type="Texture" id=10]
+[ext_resource path="res://src/Assets/Icons/White/Audio/Replay/repeat one_72px.png" type="Texture" id=11]
+[ext_resource path="res://src/Assets/Icons/White/Audio/Volume/high volume_72px.png" type="Texture" id=12]
+[ext_resource path="res://src/Assets/Icons/White/Settings/audio settings_72px.png" type="Texture" id=13]
+[ext_resource path="res://src/Classes/Normal/TextLimiter.gd" type="Script" id=14]
+[ext_resource path="res://src/Ressources/Fonts/12pxMonserrat.tres" type="DynamicFont" id=15]
+[ext_resource path="res://src/Themes/General/Veles.tres" type="Theme" id=16]
+[ext_resource path="res://src/Scenes/Main/Player/Cover.gd" type="Script" id=17]
+[ext_resource path="res://src/Scenes/Main/Player/PlaybackSlider.gd" type="Script" id=18]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_top = 1.0
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+
+
+uniform vec4 color : hint_color;
+uniform vec2 direction = vec2(0,1);
+uniform float strength : hint_range(0.0,3.0) = 1.0;
+
+void fragment(){
+	vec4 pixelcolor = texture(TEXTURE,UV);
+	COLOR = color;
+	vec2 NewUV = ((UV / 2.0) + 0.2) * direction;
+	COLOR.a *= (NewUV.x + NewUV.y) * strength;
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+resource_local_to_scene = true
+shader = SubResource( 5 )
+shader_param/color = Color( 0.0901961, 0.0901961, 0.0901961, 0.498039 )
+shader_param/direction = Vector2( 0, 1 )
+shader_param/strength = 2.2
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.254902, 0.254902, 0.254902, 0.478431 )
+
+[node name="Player" type="PanelContainer"]
+anchor_right = 1.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 0, 110 )
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 4 )
+script = ExtResource( 5 )
+
+[node name="Main" type="HBoxContainer" parent="."]
+margin_right = 1120.0
+margin_bottom = 110.0
+alignment = 1
+
+[node name="SongInfo" type="VBoxContainer" parent="Main"]
+margin_right = 368.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+alignment = 1
+
+[node name="Info" type="HBoxContainer" parent="Main/SongInfo"]
+margin_right = 368.0
+margin_bottom = 110.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EmptyLeft" type="Control" parent="Main/SongInfo/Info"]
+margin_right = 5.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 2
+size_flags_vertical = 3
+
+[node name="Cover" type="VBoxContainer" parent="Main/SongInfo/Info"]
+margin_left = 8.0
+margin_top = 9.0
+margin_right = 100.0
+margin_bottom = 101.0
+mouse_filter = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Cover" type="TextureButton" parent="Main/SongInfo/Info/Cover"]
+margin_right = 92.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 92, 92 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 17 )
+
+[node name="HoverPanel" type="PanelContainer" parent="Main/SongInfo/Info/Cover/Cover"]
+modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 6 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TextureRect" type="TextureRect" parent="Main/SongInfo/Info/Cover/Cover/HoverPanel"]
+margin_left = 36.0
+margin_top = 36.0
+margin_right = 56.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 20, 20 )
+rect_pivot_offset = Vector2( 10, 10 )
+mouse_filter = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CoverInfoBuffer" type="Control" parent="Main/SongInfo/Info"]
+margin_left = 103.0
+margin_right = 106.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 3, 0 )
+mouse_filter = 2
+
+[node name="Infos" type="VBoxContainer" parent="Main/SongInfo/Info"]
+margin_left = 109.0
+margin_right = 368.0
+margin_bottom = 110.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="Label" parent="Main/SongInfo/Info/Infos"]
+margin_top = 21.0
+margin_right = 259.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 0, 15 )
+size_flags_horizontal = 3
+text = "SongTitle"
+valign = 1
+autowrap = true
+clip_text = true
+script = ExtResource( 14 )
+
+[node name="Artist" type="LinkButton" parent="Main/SongInfo/Info/Infos"]
+margin_top = 46.0
+margin_right = 34.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 0, 15 )
+size_flags_horizontal = 0
+custom_constants/underline_spacing = 1
+text = "Artist"
+underline = 1
+script = ExtResource( 14 )
+
+[node name="Playlist" type="LinkButton" parent="Main/SongInfo/Info/Infos"]
+margin_top = 72.0
+margin_right = 46.0
+margin_bottom = 88.0
+size_flags_horizontal = 0
+custom_constants/underline_spacing = 1
+text = "Playlist"
+underline = 1
+script = ExtResource( 14 )
+
+[node name="MainPlayer" type="VBoxContainer" parent="Main"]
+margin_left = 376.0
+margin_right = 744.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="EmptyTop" type="Control" parent="Main/MainPlayer"]
+margin_right = 368.0
+margin_bottom = 10.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Middle" type="HBoxContainer" parent="Main/MainPlayer"]
+margin_top = 18.0
+margin_right = 368.0
+margin_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftEmpty" type="Control" parent="Main/MainPlayer/Middle"]
+margin_right = 42.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Shuffle" type="TextureButton" parent="Main/MainPlayer/Middle" groups=["Context"]]
+margin_left = 50.0
+margin_right = 72.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 22, 0 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+
+[node name="LeftBuffer" type="Control" parent="Main/MainPlayer/Middle"]
+margin_left = 80.0
+margin_right = 122.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/MainPlayer/Middle"]
+margin_left = 130.0
+margin_right = 242.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 19
+
+[node name="PriorSong" type="TextureButton" parent="Main/MainPlayer/Middle/HBoxContainer"]
+margin_right = 21.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 21, 25 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="Playback" type="TextureButton" parent="Main/MainPlayer/Middle/HBoxContainer"]
+margin_left = 40.0
+margin_right = 72.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="NextSong" type="TextureButton" parent="Main/MainPlayer/Middle/HBoxContainer"]
+margin_left = 91.0
+margin_right = 112.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 21, 25 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+
+[node name="RightBuffer" type="Control" parent="Main/MainPlayer/Middle"]
+margin_left = 250.0
+margin_right = 292.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Repeat" type="TextureButton" parent="Main/MainPlayer/Middle"]
+margin_left = 300.0
+margin_right = 318.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 18, 0 )
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 11 )
+expand = true
+stretch_mode = 5
+
+[node name="RightEmpty" type="Control" parent="Main/MainPlayer/Middle"]
+margin_left = 326.0
+margin_right = 368.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Empty" type="Control" parent="Main/MainPlayer"]
+margin_top = 58.0
+margin_right = 368.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Bottom" type="HBoxContainer" parent="Main/MainPlayer"]
+margin_top = 76.0
+margin_right = 368.0
+margin_bottom = 92.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlaybackPosition" type="Label" parent="Main/MainPlayer/Bottom"]
+margin_right = 30.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 30, 0 )
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 15 )
+text = "0:00"
+align = 2
+valign = 1
+
+[node name="PlaybackSlider" type="HSlider" parent="Main/MainPlayer/Bottom"]
+margin_left = 38.0
+margin_right = 330.0
+margin_bottom = 16.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 16 )
+step = 0.001
+script = ExtResource( 18 )
+
+[node name="SongLength" type="Label" parent="Main/MainPlayer/Bottom"]
+margin_left = 338.0
+margin_right = 368.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 30, 0 )
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 15 )
+text = "0:00"
+valign = 1
+
+[node name="BottomEmpty" type="Control" parent="Main/MainPlayer"]
+margin_top = 100.0
+margin_right = 368.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Additional" type="HBoxContainer" parent="Main"]
+margin_left = 752.0
+margin_right = 1120.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftEmpty" type="Control" parent="Main/Additional"]
+margin_right = 128.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Volume" type="TextureButton" parent="Main/Additional" groups=["Context"]]
+margin_left = 136.0
+margin_right = 168.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 32, 0 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 3
+texture_normal = ExtResource( 12 )
+expand = true
+stretch_mode = 5
+
+[node name="OutputDevice" type="TextureButton" parent="Main/Additional" groups=["Context"]]
+margin_left = 176.0
+margin_right = 216.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 40, 0 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 3
+texture_normal = ExtResource( 10 )
+expand = true
+stretch_mode = 5
+
+[node name="Effects" type="TextureButton" parent="Main/Additional" groups=["Context"]]
+margin_left = 224.0
+margin_right = 264.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 40, 0 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 3
+texture_normal = ExtResource( 13 )
+expand = true
+stretch_mode = 5
+
+[node name="Buffer2" type="Control" parent="Main/Additional"]
+margin_left = 272.0
+margin_right = 282.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SongOptions" type="TextureButton" parent="Main/Additional" groups=["Context"]]
+margin_left = 290.0
+margin_right = 330.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 40, 0 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 3
+texture_normal = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="BufferRight" type="Control" parent="Main/Additional"]
+margin_left = 338.0
+margin_right = 368.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 30, 0 )
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="PlaybackTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.3
+autostart = true
+
+[connection signal="mouse_entered" from="Main/SongInfo/Info/Cover/Cover" to="Main/SongInfo/Info/Cover/Cover" method="_on_Cover_mouse_entered"]
+[connection signal="pressed" from="Main/SongInfo/Info/Cover/Cover" to="." method="_on_Cover_pressed"]
+[connection signal="pressed" from="Main/SongInfo/Info/Cover/Cover" to="Main/SongInfo/Info/Cover/Cover" method="_on_Cover_pressed"]
+[connection signal="resized" from="Main/SongInfo/Info/Infos" to="Main/SongInfo/Info/Infos/Title" method="_on_Parent_Resized"]
+[connection signal="resized" from="Main/SongInfo/Info/Infos" to="Main/SongInfo/Info/Infos/Artist" method="_on_Parent_Resized"]
+[connection signal="resized" from="Main/SongInfo/Info/Infos" to="Main/SongInfo/Info/Infos/Playlist" method="_on_Parent_Resized"]
+[connection signal="pressed" from="Main/SongInfo/Info/Infos/Artist" to="." method="_on_Artist_pressed"]
+[connection signal="pressed" from="Main/SongInfo/Info/Infos/Playlist" to="." method="_on_Playlist_pressed"]
+[connection signal="pressed" from="Main/MainPlayer/Middle/Shuffle" to="." method="_on_Shuffle_pressed"]
+[connection signal="pressed" from="Main/MainPlayer/Middle/HBoxContainer/Playback" to="." method="_on_Playback_pressed"]
+[connection signal="pressed" from="Main/MainPlayer/Middle/Repeat" to="." method="_on_RepeatMode_pressed"]
+[connection signal="drag_ended" from="Main/MainPlayer/Bottom/PlaybackSlider" to="." method="_on_PlaybackSlider_drag_ended"]
+[connection signal="drag_started" from="Main/MainPlayer/Bottom/PlaybackSlider" to="." method="_on_PlaybackSlider_drag_started"]
+[connection signal="mouse_entered" from="Main/MainPlayer/Bottom/PlaybackSlider" to="Main/MainPlayer/Bottom/PlaybackSlider" method="_on_PlaybackSlider_mouse_entered"]
+[connection signal="mouse_exited" from="Main/MainPlayer/Bottom/PlaybackSlider" to="Main/MainPlayer/Bottom/PlaybackSlider" method="_on_PlaybackSlider_mouse_exited"]
+[connection signal="pressed" from="Main/Additional/Volume" to="." method="_on_Volume_pressed"]
+[connection signal="pressed" from="Main/Additional/OutputDevice" to="." method="_on_OutputDevice_pressed"]
+[connection signal="pressed" from="Main/Additional/Effects" to="." method="_on_Effects_pressed"]
+[connection signal="pressed" from="Main/Additional/SongOptions" to="Main/Additional/SongOptions" method="on_song_options_pressed"]
+[connection signal="timeout" from="PlaybackTimer" to="." method="_on_PlaybackTimer_timeout"]

@@ -1,0 +1,173 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/OptionTypes/DesignSettings.gd" type="Script" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/SingleSetting.tscn" type="PackedScene" id=2]
+
+[node name="DesignSettings" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1102.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 15
+script = ExtResource( 1 )
+setting_type_idx = 3
+
+[node name="MainBackgroundColor" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1102.0
+margin_bottom = 16.0
+setting_type = "Color"
+setting_label = "Main Background Color"
+clr_node_path = "Background"
+stylebox_title = "panel"
+stylebox_clr_property = "bg_color"
+color_setting_key = "MainBackgroundColor"
+
+[node name="WindowBarColor" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 31.0
+margin_right = 1102.0
+margin_bottom = 47.0
+setting_type = "Color"
+setting_label = "Window Bar Color"
+clr_node_path = "MarginContainer/VBoxContainer/WindowBar"
+stylebox_title = "panel"
+stylebox_clr_property = "bg_color"
+color_setting_key = "WindowBarColor"
+
+[node name="ImageViewStandardBackgroundColor" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 62.0
+margin_right = 1102.0
+margin_bottom = 78.0
+setting_type = "Color"
+setting_label = "Image View Std Background Color"
+color_setting_key = "ImageViewStandardBackgroundColor"
+change_clr_realtime = false
+
+[node name="PlayerBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 93.0
+margin_right = 1102.0
+margin_bottom = 109.0
+setting_type = "Color"
+setting_label = "Player Background"
+clr_node_path = "MarginContainer/VBoxContainer/Player"
+stylebox_title = "panel"
+stylebox_clr_property = "bg_color"
+color_setting_key = "PlayerBackground"
+
+[node name="SidebarBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 124.0
+margin_right = 1102.0
+margin_bottom = 140.0
+setting_type = "Color"
+setting_label = "Sidebar Background"
+clr_node_path = "MarginContainer/VBoxContainer/MiddlePart/VBoxContainer/HBoxContainer/SideBar"
+stylebox_title = "bg"
+stylebox_clr_property = "bg_color"
+color_setting_key = "SidebarBackground"
+
+[node name="SongHighlighterColor" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 155.0
+margin_right = 1102.0
+margin_bottom = 171.0
+setting_type = "Color"
+setting_label = "Song Highlighter"
+color_setting_key = "SongHighlighter"
+change_clr_realtime = false
+
+[node name="MainSongOptionsBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 186.0
+margin_right = 1102.0
+margin_bottom = 202.0
+setting_type = "Color"
+setting_label = "Portable Song Options Background"
+color_setting_key = "MainSongOptionsBackground"
+change_clr_realtime = false
+
+[node name="PortableSongOptionsBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 217.0
+margin_right = 1102.0
+margin_bottom = 233.0
+setting_type = "Color"
+setting_label = "Portable Song Options Background"
+color_setting_key = "PortableSongOptionsBackground"
+change_clr_realtime = false
+
+[node name="ImageViewOption" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 248.0
+margin_right = 1102.0
+margin_bottom = 264.0
+setting_type = "Color"
+setting_label = "Image View Option"
+color_setting_key = "ImageViewOption"
+change_clr_realtime = false
+
+[node name="SidebarMode" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 279.0
+margin_right = 1102.0
+margin_bottom = 295.0
+setting_type = "Options"
+setting_label = "Sidebar Mode"
+normal_setting_key = "SidebarMode"
+items = PoolStringArray( "Automatic", "Expanded", "Contracted" )
+
+[node name="AudioEffectsBackground" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 310.0
+margin_right = 1102.0
+margin_bottom = 326.0
+setting_type = "Color"
+setting_label = "Audio Effects Background"
+color_setting_key = "AudioEffectsBackground"
+change_clr_realtime = false
+
+[node name="PlaylistHeader" parent="VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 341.0
+margin_right = 1102.0
+margin_bottom = 357.0
+setting_type = "Color"
+setting_label = "Playlist Header"
+color_setting_key = "PlaylistHeader"
+change_clr_realtime = false
+
+[node name="BottomBuffer" type="Control" parent="VBoxContainer" groups=["Buffer"]]
+margin_top = 372.0
+margin_right = 1102.0
+margin_bottom = 422.0
+rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+
+[node name="RightEmpty" type="Control" parent="."]
+margin_left = 1110.0
+margin_right = 1120.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2
+size_flags_vertical = 3

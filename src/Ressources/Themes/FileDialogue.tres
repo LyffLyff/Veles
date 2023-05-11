@@ -1,0 +1,111 @@
+[gd_resource type="Theme" load_steps=22 format=2]
+
+[ext_resource path="res://src/Ressources/Fonts/Jetbrains_Italic.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Assets/Icons/White/Folder/folder_18px.png" type="Texture" id=2]
+[ext_resource path="res://src/Assets/Icons/White/File/file_16px.png" type="Texture" id=3]
+[ext_resource path="res://src/Assets/Icons/White/General/repeat_16px.png" type="Texture" id=4]
+[ext_resource path="res://src/Assets/Icons/White/General/view two_16px.png" type="Texture" id=5]
+[ext_resource path="res://src/Assets/Icons/White/General/Pointers/up.png" type="Texture" id=6]
+
+[sub_resource type="StyleBoxFlat" id=20]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color( 0.141176, 0.141176, 0.141176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=28]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+
+[sub_resource type="StyleBoxFlat" id=29]
+content_margin_left = 3.0
+content_margin_right = 3.0
+bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=22]
+bg_color = Color( 0.141176, 0.141176, 0.141176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 2.0
+content_margin_right = 2.0
+bg_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 2.0
+content_margin_right = 2.0
+bg_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+
+[sub_resource type="StyleBoxFlat" id=25]
+bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=24]
+bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 0 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0.133333, 0.133333, 0.133333, 1 )
+
+[sub_resource type="StyleBoxFlat" id=26]
+bg_color = Color( 0.196078, 0.196078, 0.196078, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+
+[sub_resource type="StyleBoxFlat" id=27]
+bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
+expand_margin_left = 3.0
+expand_margin_right = 3.0
+
+[sub_resource type="StyleBoxFlat" id=18]
+content_margin_top = 18.0
+bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+expand_margin_top = 18.0
+
+[resource]
+default_font = ExtResource( 1 )
+Button/styles/disabled = SubResource( 20 )
+Button/styles/focus = SubResource( 20 )
+Button/styles/hover = SubResource( 28 )
+Button/styles/normal = SubResource( 20 )
+Button/styles/pressed = SubResource( 29 )
+FileDialog/icons/file = ExtResource( 3 )
+FileDialog/icons/folder = ExtResource( 2 )
+FileDialog/icons/parent_folder = ExtResource( 6 )
+FileDialog/icons/reload = ExtResource( 4 )
+FileDialog/icons/toggle_hidden = ExtResource( 5 )
+LineEdit/styles/focus = SubResource( 22 )
+LineEdit/styles/normal = SubResource( 22 )
+LineEdit/styles/read_only = SubResource( 22 )
+Panel/styles/panel = SubResource( 3 )
+PanelContainer/styles/panel = SubResource( 2 )
+PopupMenu/styles/hover = SubResource( 25 )
+PopupMenu/styles/panel = SubResource( 4 )
+PopupMenu/styles/panel_disabled = SubResource( 4 )
+PopupPanel/styles/panel = SubResource( 1 )
+TooltipLabel/colors/font_color = Color( 0.956863, 0.956863, 0.956863, 1 )
+Tree/constants/item_margin = 5
+Tree/constants/vseparation = 2
+Tree/styles/bg = SubResource( 6 )
+Tree/styles/bg_focus = SubResource( 24 )
+Tree/styles/selected = SubResource( 9 )
+Tree/styles/selected_focus = SubResource( 9 )
+VScrollBar/styles/grabber = SubResource( 26 )
+VScrollBar/styles/grabber_highlight = SubResource( 26 )
+VScrollBar/styles/grabber_pressed = SubResource( 26 )
+VScrollBar/styles/scroll = SubResource( 27 )
+VScrollBar/styles/scroll_focus = SubResource( 27 )
+WindowDialog/colors/title_color = Color( 1, 1, 1, 1 )
+WindowDialog/constants/title_height = 9
+WindowDialog/styles/panel = SubResource( 18 )

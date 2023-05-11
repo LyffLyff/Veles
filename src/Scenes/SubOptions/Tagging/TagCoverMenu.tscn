@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/Tagging/TagCoverMenu.gd" type="Script" id=1]
+[ext_resource path="res://src/Themes/General/Popup.tres" type="Theme" id=3]
+
+[node name="TagCoverMenu" type="PanelContainer"]
+margin_right = 128.0
+margin_bottom = 130.0
+rect_min_size = Vector2( 100, 130 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 3 )
+script = ExtResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 127.0
+margin_bottom = 129.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 116.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.9
+
+[node name="Add" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_right = 106.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Add Cover"
+
+[node name="Remove" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_top = 22.0
+margin_right = 106.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Remove Cover"
+
+[node name="RemoveAll" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_top = 44.0
+margin_right = 106.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Remove All Covers"
+
+[node name="Extract" type="Button" parent="MarginContainer/VBoxContainer"]
+margin_top = 66.0
+margin_right = 106.0
+margin_bottom = 86.0
+rect_min_size = Vector2( 0, 20 )
+size_flags_horizontal = 3
+theme = ExtResource( 3 )
+text = "Extract Cover"

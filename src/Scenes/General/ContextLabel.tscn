@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Themes/General/Popup.tres" type="Theme" id=1]
+[ext_resource path="res://src/Scenes/General/ContextLabel.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=7]
+content_margin_left = 2.0
+content_margin_right = 2.0
+content_margin_top = 1.0
+content_margin_bottom = 1.0
+bg_color = Color( 0.14902, 0.14902, 0.14902, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+
+[node name="ContextLabel" type="Label"]
+margin_right = 40.0
+margin_bottom = 16.0
+theme = ExtResource( 1 )
+custom_styles/normal = SubResource( 7 )
+align = 1
+valign = 1
+script = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]

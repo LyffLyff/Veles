@@ -1,0 +1,289 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsEditor.gd" type="Script" id=1]
+[ext_resource path="res://src/Assets/Icons/White/Folder/open folder_72px.png" type="Texture" id=2]
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsEditor/LRCTags.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsEditor/TimeStampTools.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsEditor/VerseTools.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Assets/Icons/White/File/add document_72px.png" type="Texture" id=6]
+[ext_resource path="res://src/Assets/Icons/White/File/add file_72px.png" type="Texture" id=7]
+[ext_resource path="res://src/Assets/Icons/White/File/delete file_72px.png" type="Texture" id=8]
+[ext_resource path="res://src/Assets/Icons/White/File/floppy disk_72px.png" type="Texture" id=9]
+[ext_resource path="res://src/Assets/Icons/White/General/Pointers/left pointer_72px.png" type="Texture" id=10]
+[ext_resource path="res://src/Ressources/Fonts/MidSizedHeader.tres" type="DynamicFont" id=11]
+[ext_resource path="res://src/Ressources/Themes/LyricsEditor.tres" type="StyleBox" id=12]
+[ext_resource path="res://src/Assets/Icons/White/Download/download_72px.png" type="Texture" id=13]
+[ext_resource path="res://src/Assets/Icons/White/Export/export_72px.png" type="Texture" id=14]
+[ext_resource path="res://src/Assets/Icons/White/General/clipboard_72px.png" type="Texture" id=15]
+[ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=16]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.129412, 0.129412, 0.129412, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[node name="PanelContainer" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="LyricEditor" type="HBoxContainer" parent="."]
+margin_right = 1120.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+
+[node name="LeftEmpty" type="Control" parent="LyricEditor"]
+margin_right = 20.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LyricEditor"]
+margin_left = 28.0
+margin_right = 1092.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopEmpty" type="Control" parent="LyricEditor/VBoxContainer"]
+margin_right = 1064.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Title" type="LineEdit" parent="LyricEditor/VBoxContainer"]
+margin_top = 28.0
+margin_right = 1064.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 0, 30 )
+custom_fonts/font = ExtResource( 11 )
+custom_styles/normal = SubResource( 3 )
+text = "New Lyrics"
+max_length = 150
+
+[node name="HSeparator2" type="HSeparator" parent="LyricEditor/VBoxContainer"]
+margin_top = 67.0
+margin_right = 1064.0
+margin_bottom = 82.0
+custom_constants/separation = 15
+
+[node name="PanelContainer" type="PanelContainer" parent="LyricEditor/VBoxContainer"]
+margin_top = 90.0
+margin_right = 1064.0
+margin_bottom = 115.0
+custom_styles/panel = ExtResource( 12 )
+
+[node name="DocOptions" type="HBoxContainer" parent="LyricEditor/VBoxContainer/PanelContainer"]
+margin_right = 1064.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+custom_constants/separation = 10
+
+[node name="Return" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
+margin_top = 1.0
+margin_right = 40.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 23 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 4
+texture_normal = ExtResource( 10 )
+expand = true
+stretch_mode = 5
+
+[node name="Save" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
+margin_left = 50.0
+margin_top = 1.0
+margin_right = 90.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 23 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 4
+texture_normal = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="SaveAs" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
+margin_left = 100.0
+margin_top = 1.0
+margin_right = 140.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 23 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 4
+texture_normal = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="API" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
+visible = false
+margin_left = 150.0
+margin_top = 1.0
+margin_right = 190.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 23 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 4
+texture_normal = ExtResource( 13 )
+expand = true
+stretch_mode = 5
+
+[node name="OpenInFileManager" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
+margin_left = 150.0
+margin_top = 1.0
+margin_right = 190.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 23 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 4
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="EmbedInFile" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
+margin_left = 200.0
+margin_top = 1.0
+margin_right = 240.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 23 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 4
+texture_normal = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+
+[node name="ExportToLRC" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
+margin_left = 250.0
+margin_top = 1.0
+margin_right = 290.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 23 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 4
+texture_normal = ExtResource( 14 )
+expand = true
+stretch_mode = 5
+
+[node name="PasteFromClipboard" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
+margin_left = 300.0
+margin_top = 1.0
+margin_right = 340.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 23 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 4
+texture_normal = ExtResource( 15 )
+expand = true
+stretch_mode = 5
+
+[node name="DeleteProjectFile" type="TextureButton" parent="LyricEditor/VBoxContainer/PanelContainer/DocOptions" groups=["Context"]]
+margin_left = 350.0
+margin_top = 1.0
+margin_right = 390.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 23 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 4
+texture_normal = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+
+[node name="LRCTags" parent="LyricEditor/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 123.0
+margin_right = 1064.0
+margin_bottom = 148.0
+
+[node name="ToolPanel" type="PanelContainer" parent="LyricEditor/VBoxContainer"]
+margin_top = 156.0
+margin_right = 1064.0
+margin_bottom = 210.0
+custom_styles/panel = ExtResource( 12 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LyricEditor/VBoxContainer/ToolPanel"]
+margin_right = 1064.0
+margin_bottom = 54.0
+size_flags_horizontal = 3
+
+[node name="VerseTools" parent="LyricEditor/VBoxContainer/ToolPanel/HBoxContainer" instance=ExtResource( 5 )]
+margin_right = 520.0
+margin_bottom = 54.0
+
+[node name="VSeparator" type="VSeparator" parent="LyricEditor/VBoxContainer/ToolPanel/HBoxContainer"]
+margin_left = 528.0
+margin_right = 536.0
+margin_bottom = 54.0
+
+[node name="TimeStampTools" parent="LyricEditor/VBoxContainer/ToolPanel/HBoxContainer" instance=ExtResource( 4 )]
+margin_left = 544.0
+margin_right = 1064.0
+margin_bottom = 54.0
+
+[node name="HSeparator" type="HSeparator" parent="LyricEditor/VBoxContainer"]
+margin_top = 218.0
+margin_right = 1064.0
+margin_bottom = 233.0
+custom_constants/separation = 15
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LyricEditor/VBoxContainer"]
+margin_top = 241.0
+margin_right = 1064.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 16 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer"]
+margin_right = 1064.0
+margin_bottom = 359.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VerseVBox" type="VBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
+margin_right = 920.0
+margin_bottom = 359.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 3
+custom_constants/separation = 8
+
+[node name="VSeparator" type="VSeparator" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
+margin_left = 928.0
+margin_right = 938.0
+margin_bottom = 359.0
+custom_constants/separation = 10
+
+[node name="TimeStampVBox" type="VBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
+margin_left = 946.0
+margin_right = 1046.0
+margin_bottom = 359.0
+rect_min_size = Vector2( 100, 0 )
+custom_constants/separation = 8
+
+[node name="RightEmpty" type="Control" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
+margin_left = 1054.0
+margin_right = 1064.0
+margin_bottom = 359.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+
+[node name="RightEmpty" type="Control" parent="LyricEditor"]
+margin_left = 1100.0
+margin_right = 1120.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 20, 0 )
+
+[connection signal="text_changed" from="LyricEditor/VBoxContainer/Title" to="LyricEditor" method="_on_Title_text_changed"]
+[connection signal="text_entered" from="LyricEditor/VBoxContainer/Title" to="LyricEditor" method="_on_Title_text_entered"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/Return" to="LyricEditor" method="_on_Return_pressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/Save" to="LyricEditor" method="on_save_lyrics_project"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/SaveAs" to="LyricEditor" method="_on_SaveAs_pressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/API" to="LyricEditor" method="_on_API_pressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/OpenInFileManager" to="LyricEditor" method="_on_OpenInFileManager_pressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/EmbedInFile" to="LyricEditor" method="_on_EmbedInFile_pressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/ExportToLRC" to="LyricEditor" method="_on_ExportToLRC_pressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/PasteFromClipboard" to="LyricEditor" method="_on_PasteFromClipboard_pressed"]
+[connection signal="pressed" from="LyricEditor/VBoxContainer/PanelContainer/DocOptions/DeleteProjectFile" to="LyricEditor" method="_on_DeleteProjectFile_pressed"]

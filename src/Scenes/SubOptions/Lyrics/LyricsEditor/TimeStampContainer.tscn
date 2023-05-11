@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsEditor/TimeStampContainer.gd" type="Script" id=3]
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color( 0.403922, 0.403922, 0.403922, 1 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color( 0.156863, 0.160784, 0.156863, 1 )
+
+[node name="TimeStampContainer" type="HBoxContainer"]
+anchor_right = 1.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 20 )
+script = ExtResource( 3 )
+
+[node name="TimeInSeconds" type="LineEdit" parent="."]
+margin_right = 1120.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
+text = "0"
+align = 1
+
+[connection signal="focus_exited" from="TimeInSeconds" to="." method="_on_TimeInSeconds_focus_exited"]
+[connection signal="text_changed" from="TimeInSeconds" to="." method="_on_TimeInSeconds_text_changed"]
+[connection signal="text_entered" from="TimeInSeconds" to="." method="_on_TimeInSeconds_text_entered"]

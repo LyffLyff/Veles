@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/LanguageSelectionISO6391.gd" type="Script" id=1]
+
+[node name="ISO6391LanguageSelection" type="HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="."]
+margin_top = 11.0
+margin_right = 136.0
+margin_bottom = 28.0
+text = "Language ISO-639-1:"
+
+[node name="ISO6391LanguageSelection" type="MenuButton" parent="."]
+margin_left = 140.0
+margin_right = 140.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )

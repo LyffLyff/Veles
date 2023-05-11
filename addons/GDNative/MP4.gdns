@@ -1,0 +1,9 @@
+[gd_resource type="NativeScript" load_steps=2 format=2]
+
+[ext_resource path="res://addons/GDNative/Veles.gdnlib" type="GDNativeLibrary" id=1]
+
+[resource]
+resource_name = "MP4"
+class_name = "MP4"
+library = ExtResource( 1 )
+script_class_name = "MP4"

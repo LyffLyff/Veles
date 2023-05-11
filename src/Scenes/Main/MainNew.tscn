@@ -1,0 +1,250 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/Scenes/Main/Main.gd" type="Script" id=1]
+[ext_resource path="res://src/Scenes/Main/SideBar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Scenes/Main/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Scenes/Window/WindowBar.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Scenes/Main/Background.gd" type="Script" id=6]
+[ext_resource path="res://src/Scenes/Window/ResizeHandles.gd" type="Script" id=7]
+
+[sub_resource type="StyleBoxFlat" id=17]
+bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+
+[sub_resource type="StyleBoxFlat" id=21]
+bg_color = Color( 0.0705882, 0.0705882, 0.0705882, 1 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+
+[node name="Background" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 17 )
+script = ExtResource( 6 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 1120.0
+margin_bottom = 600.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="WindowBar" parent="MarginContainer/VBoxContainer" instance=ExtResource( 4 )]
+
+[node name="MiddlePart" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 21.0
+margin_right = 1120.0
+margin_bottom = 490.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MiddlePart"]
+margin_right = 1120.0
+margin_bottom = 469.0
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MiddlePart/VBoxContainer"]
+margin_right = 1120.0
+margin_bottom = 469.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SideBar" parent="MarginContainer/VBoxContainer/MiddlePart/VBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 120.0
+margin_bottom = 469.0
+
+[node name="Option" type="MarginContainer" parent="MarginContainer/VBoxContainer/MiddlePart/VBoxContainer/HBoxContainer"]
+margin_left = 120.0
+margin_right = 1120.0
+margin_bottom = 469.0
+rect_min_size = Vector2( 800, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 0
+custom_constants/margin_top = 0
+custom_constants/margin_left = 0
+custom_constants/margin_bottom = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Player" parent="MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_top = 490.0
+margin_right = 1120.0
+margin_bottom = 600.0
+custom_styles/panel = SubResource( 21 )
+
+[node name="ResizeHandles" type="HBoxContainer" parent="MarginContainer"]
+margin_right = 1120.0
+margin_bottom = 600.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LeftHandles" type="VBoxContainer" parent="MarginContainer/ResizeHandles"]
+margin_right = 7.0
+margin_bottom = 600.0
+mouse_filter = 2
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LeftTop" type="Control" parent="MarginContainer/ResizeHandles/LeftHandles"]
+margin_right = 7.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+mouse_filter = 1
+mouse_default_cursor_shape = 12
+
+[node name="LeftHandle" type="Control" parent="MarginContainer/ResizeHandles/LeftHandles"]
+margin_top = 15.0
+margin_right = 5.0
+margin_bottom = 585.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 10
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="LeftBottom" type="Control" parent="MarginContainer/ResizeHandles/LeftHandles"]
+margin_top = 593.0
+margin_right = 7.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 7, 7 )
+mouse_filter = 1
+mouse_default_cursor_shape = 11
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TopBottom" type="VBoxContainer" parent="MarginContainer/ResizeHandles"]
+margin_left = 15.0
+margin_right = 1102.0
+margin_bottom = 600.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CenterTop" type="Control" parent="MarginContainer/ResizeHandles/TopBottom"]
+margin_right = 1087.0
+margin_bottom = 3.0
+rect_min_size = Vector2( 0, 3 )
+mouse_filter = 1
+mouse_default_cursor_shape = 9
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="MiddleEmpty" type="Control" parent="MarginContainer/ResizeHandles/TopBottom"]
+margin_top = 11.0
+margin_right = 1087.0
+margin_bottom = 589.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CenterBottom" type="Control" parent="MarginContainer/ResizeHandles/TopBottom"]
+margin_top = 597.0
+margin_right = 1087.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 3 )
+mouse_filter = 1
+mouse_default_cursor_shape = 9
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RightHandles" type="VBoxContainer" parent="MarginContainer/ResizeHandles"]
+margin_left = 1110.0
+margin_right = 1120.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 2
+size_flags_vertical = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RightTop" type="Control" parent="MarginContainer/ResizeHandles/RightHandles"]
+margin_left = 5.0
+margin_right = 10.0
+margin_bottom = 5.0
+rect_min_size = Vector2( 5, 5 )
+mouse_filter = 1
+mouse_default_cursor_shape = 11
+size_flags_horizontal = 8
+
+[node name="RightHandle" type="Control" parent="MarginContainer/ResizeHandles/RightHandles"]
+margin_left = 8.0
+margin_top = 13.0
+margin_right = 10.0
+margin_bottom = 582.0
+rect_min_size = Vector2( 2, 0 )
+mouse_filter = 1
+mouse_default_cursor_shape = 10
+size_flags_horizontal = 8
+size_flags_vertical = 3
+
+[node name="RightBottom" type="Control" parent="MarginContainer/ResizeHandles/RightHandles"]
+margin_top = 590.0
+margin_right = 10.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 10, 10 )
+mouse_filter = 1
+mouse_default_cursor_shape = 12
+
+[node name="TopUI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="gui_input" from="MarginContainer/ResizeHandles/LeftHandles/LeftTop" to="MarginContainer/ResizeHandles" method="_on_handle_gui_input"]
+[connection signal="gui_input" from="MarginContainer/ResizeHandles/LeftHandles/LeftHandle" to="MarginContainer/ResizeHandles" method="_on_handle_gui_input"]
+[connection signal="gui_input" from="MarginContainer/ResizeHandles/LeftHandles/LeftBottom" to="MarginContainer/ResizeHandles" method="_on_handle_gui_input"]
+[connection signal="gui_input" from="MarginContainer/ResizeHandles/TopBottom/CenterTop" to="MarginContainer/ResizeHandles" method="_on_handle_gui_input"]
+[connection signal="gui_input" from="MarginContainer/ResizeHandles/TopBottom/CenterBottom" to="MarginContainer/ResizeHandles" method="_on_handle_gui_input"]
+[connection signal="gui_input" from="MarginContainer/ResizeHandles/RightHandles/RightTop" to="MarginContainer/ResizeHandles" method="_on_handle_gui_input"]
+[connection signal="gui_input" from="MarginContainer/ResizeHandles/RightHandles/RightHandle" to="MarginContainer/ResizeHandles" method="_on_handle_gui_input"]
+[connection signal="gui_input" from="MarginContainer/ResizeHandles/RightHandles/RightBottom" to="MarginContainer/ResizeHandles" method="_on_handle_gui_input"]

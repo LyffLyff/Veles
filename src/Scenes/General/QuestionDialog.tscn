@@ -1,0 +1,102 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Scenes/General/QuestionDialog.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.164706, 0.164706, 0.164706, 0.584314 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0823529, 0.0823529, 0.0823529, 1 )
+
+[node name="QuestionDialog" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 360.0
+margin_top = 225.0
+margin_right = 760.0
+margin_bottom = 375.0
+rect_min_size = Vector2( 400, 150 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_styles/panel = SubResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+margin_right = 400.0
+margin_bottom = 150.0
+
+[node name="LeftEmpty" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+margin_left = 18.0
+margin_right = 382.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="TopEmpty" type="Control" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_right = 364.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="Question" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 364.0
+margin_bottom = 108.0
+size_flags_vertical = 3
+align = 1
+valign = 1
+autowrap = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 116.0
+margin_right = 364.0
+margin_bottom = 132.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="No" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 236.0
+margin_right = 296.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 60, 0 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 8
+text = "No"
+
+[node name="Yes" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 304.0
+margin_right = 364.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 60, 0 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 8
+text = "Yes"
+
+[node name="BottomEmpty" type="Control" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+margin_top = 140.0
+margin_right = 364.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="RightEmpty" type="Control" parent="PanelContainer/HBoxContainer"]
+margin_left = 390.0
+margin_right = 400.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/No" to="." method="disagreed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/Yes" to="." method="agreed"]

@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+uniform float hide : hint_range(0.0, 1.0, 0.01) = 0.5;
+
+void fragment(){
+	if(UV.y < hide){
+		COLOR.a = 0.0
+	}
+}"
+
+[resource]
+shader = SubResource( 2 )
+shader_param/hide = 0.0

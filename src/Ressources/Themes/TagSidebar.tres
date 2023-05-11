@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=3 format=2]
+
+[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsLight10px.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Assets/OptionButton/updown.png" type="Texture" id=2]
+
+[resource]
+default_font = ExtResource( 1 )
+SpinBox/icons/updown = ExtResource( 2 )
+TextEdit/colors/selection_color = Color( 0.160784, 0.160784, 0.160784, 1 )
+TextEdit/constants/line_spacing = 1

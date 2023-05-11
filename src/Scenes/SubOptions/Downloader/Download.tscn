@@ -1,0 +1,347 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Assets/Icons/White/Folder/open folder_72px.png" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/SubOptions/Downloader/Download.gd" type="Script" id=2]
+
+[node name="Download" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 1118.0
+margin_bottom = 650.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopEmpty" type="Control" parent="ScrollContainer/VBoxContainer"]
+margin_right = 1118.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HboxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 108.0
+margin_right = 1118.0
+margin_bottom = 542.0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LeftEmpty" type="Control" parent="ScrollContainer/VBoxContainer/HboxContainer"]
+margin_right = 20.0
+margin_bottom = 434.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer"]
+margin_left = 28.0
+margin_right = 1090.0
+margin_bottom = 434.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer"]
+margin_right = 1062.0
+margin_bottom = 200.0
+
+[node name="LeftEmpty" type="Control" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer"]
+margin_right = 100.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="DownloadInfos" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 108.0
+margin_right = 954.0
+margin_bottom = 200.0
+size_flags_horizontal = 3
+custom_constants/separation = 10
+
+[node name="URL" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
+margin_right = 846.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 250, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/URL"]
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 100, 0 )
+text = "URL:"
+align = 1
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/URL"]
+margin_left = 108.0
+margin_right = 846.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Title" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
+margin_top = 30.0
+margin_right = 846.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 250, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Title"]
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 100, 0 )
+text = "Title:"
+align = 1
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Title"]
+margin_left = 108.0
+margin_right = 846.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="DstFolder" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
+margin_top = 60.0
+margin_right = 846.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 250, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/DstFolder"]
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 100, 0 )
+text = "Dst. Folder:"
+align = 1
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/DstFolder"]
+margin_left = 108.0
+margin_right = 800.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="SelectFolder" type="TextureButton" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/DstFolder"]
+margin_left = 808.0
+margin_right = 846.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 38, 0 )
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="Playlist" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
+margin_top = 90.0
+margin_right = 846.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 250, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Playlist"]
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 100, 0 )
+text = "Playlist:"
+align = 1
+valign = 1
+
+[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Playlist"]
+margin_left = 108.0
+margin_right = 846.0
+margin_bottom = 20.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "No"
+align = 1
+items = [ "No", null, false, 0, false, "Yes", null, false, 0, false ]
+selected = 0
+
+[node name="AudioVideo" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
+margin_top = 120.0
+margin_right = 846.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 250, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/AudioVideo"]
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 100, 0 )
+text = "Audio/Video:"
+align = 1
+valign = 1
+
+[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/AudioVideo"]
+margin_left = 108.0
+margin_right = 846.0
+margin_bottom = 20.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Audio"
+align = 1
+items = [ "Video", null, false, 0, false, "Audio", null, false, 0, false ]
+selected = 1
+
+[node name="Audioformat" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
+margin_top = 150.0
+margin_right = 846.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 250, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Audioformat"]
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 100, 0 )
+text = "Audio Format:"
+align = 1
+valign = 1
+
+[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Audioformat"]
+margin_left = 108.0
+margin_right = 846.0
+margin_bottom = 20.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "MP3"
+align = 1
+items = [ "AAC", null, false, 0, false, "FLAC", null, false, 0, false, "MP3", null, false, 0, false, "M4A", null, false, 0, false, "OGG-OPUS", null, false, 0, false, "OGG-VORBIS", null, false, 0, false, "WAV", null, false, 0, false ]
+selected = 2
+
+[node name="Videoformat" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos"]
+margin_top = 180.0
+margin_right = 846.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 250, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Videoformat"]
+margin_top = 2.0
+margin_right = 100.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 100, 0 )
+text = "Video Format:"
+align = 1
+valign = 1
+
+[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Videoformat"]
+margin_left = 108.0
+margin_right = 846.0
+margin_bottom = 20.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "MP4"
+align = 1
+items = [ "MP4", null, false, 0, false, "WebM", null, false, 0, false ]
+selected = 0
+
+[node name="RightEmpty" type="Control" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer"]
+margin_left = 962.0
+margin_right = 1062.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 100, 0 )
+
+[node name="Buffer" type="Control" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer"]
+margin_top = 208.0
+margin_right = 1062.0
+margin_bottom = 218.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="Start" type="Button" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer"]
+margin_left = 942.0
+margin_top = 226.0
+margin_right = 1062.0
+margin_bottom = 256.0
+rect_min_size = Vector2( 120, 30 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 12
+text = "Start/Queue"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer"]
+margin_top = 264.0
+margin_right = 1062.0
+margin_bottom = 279.0
+custom_constants/separation = 15
+
+[node name="CurrentDownload" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer"]
+margin_top = 287.0
+margin_right = 1062.0
+margin_bottom = 303.0
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/CurrentDownload"]
+margin_right = 1062.0
+margin_bottom = 16.0
+text = "Downloading...."
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer"]
+margin_top = 311.0
+margin_right = 1062.0
+margin_bottom = 326.0
+custom_constants/separation = 15
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer"]
+margin_top = 334.0
+margin_right = 1062.0
+margin_bottom = 434.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="QueuedDownloads" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/ScrollContainer"]
+margin_right = 1062.0
+margin_bottom = 100.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/ScrollContainer/QueuedDownloads"]
+margin_right = 1062.0
+margin_bottom = 16.0
+text = "Queue:"
+
+[node name="RightEmpty" type="Control" parent="ScrollContainer/VBoxContainer/HboxContainer"]
+margin_left = 1098.0
+margin_right = 1118.0
+margin_bottom = 434.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="BottomEmpty" type="Control" parent="ScrollContainer/VBoxContainer"]
+margin_top = 550.0
+margin_right = 1118.0
+margin_bottom = 650.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/DstFolder/SelectFolder" to="." method="_on_SelectFolder_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/Start" to="." method="on_download_added"]

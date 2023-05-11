@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/InfoSettings/ColorSetting.gd" type="Script" id=1]
+
+[node name="ColorSetting" type="ColorPickerButton"]
+anchor_right = 1.0
+anchor_bottom = 0.138
+margin_bottom = 0.199997
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+script = ExtResource( 1 )
+
+[connection signal="picker_created" from="." to="." method="_on_ColorSetting_picker_created"]

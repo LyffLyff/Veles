@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/PlaylistGrid/Creators/NormalPlaylistCreator.gd" type="Script" id=1]
+[ext_resource path="res://src/Ressources/Themes/PopupBackground.tres" type="StyleBox" id=2]
+[ext_resource path="res://src/Themes/General/Popup.tres" type="Theme" id=3]
+[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic24px.tres" type="DynamicFont" id=4]
+[ext_resource path="res://src/Scenes/General/InputWithDialog.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Scenes/General/Menus/MenuFooter.tscn" type="PackedScene" id=6]
+
+[node name="PlaylistFromScratch" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.0
+margin_right = -1.0
+custom_styles/panel = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="Panel" type="PanelContainer" parent="."]
+margin_left = 260.0
+margin_top = 125.0
+margin_right = 860.0
+margin_bottom = 475.0
+rect_min_size = Vector2( 600, 350 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 599.0
+margin_bottom = 349.0
+custom_constants/margin_bottom = 10
+
+[node name="Main" type="VBoxContainer" parent="Panel/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 588.0
+margin_bottom = 338.0
+size_flags_horizontal = 3
+custom_constants/separation = 4
+
+[node name="Header" type="Label" parent="Panel/MarginContainer/Main"]
+margin_right = 578.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 4 )
+text = "New Playlist:"
+valign = 2
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/Main"]
+margin_top = 44.0
+margin_right = 578.0
+margin_bottom = 52.0
+
+[node name="Name" parent="Panel/MarginContainer/Main" instance=ExtResource( 5 )]
+anchor_right = 0.0
+margin_top = 56.0
+margin_right = 578.0
+margin_bottom = 76.0
+input_label_text = "Title:"
+
+[node name="Cover" parent="Panel/MarginContainer/Main" instance=ExtResource( 5 )]
+anchor_right = 0.0
+margin_top = 80.0
+margin_right = 578.0
+margin_bottom = 100.0
+input_label_text = "Cover:"
+file_type = "0"
+show_file_dialogue = true
+
+[node name="MenuFooter" parent="Panel/MarginContainer/Main" instance=ExtResource( 6 )]
+anchor_right = 0.0
+margin_top = 298.0
+margin_right = 578.0
+margin_bottom = 328.0
+size_flags_vertical = 10

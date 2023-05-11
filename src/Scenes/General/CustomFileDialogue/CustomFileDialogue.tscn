@@ -1,0 +1,161 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/Scenes/General/CustomFileDialogue/CustomFileDialogue.gd" type="Script" id=1]
+[ext_resource path="res://src/Assets/Icons/White/General/Pointers/up.png" type="Texture" id=2]
+[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsLight12pxTight.tres" type="DynamicFont" id=3]
+[ext_resource path="res://src/Assets/Icons/White/General/repeat_16px.png" type="Texture" id=4]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.0705882, 0.0705882, 0.0705882, 1 )
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.156863, 0.156863, 0.156863, 1 )
+
+[node name="CustomFileDialogue" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 285.0
+margin_top = 125.0
+margin_right = 835.0
+margin_bottom = 475.0
+rect_min_size = Vector2( 550, 350 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+custom_styles/panel = SubResource( 2 )
+
+[node name="MainBody" type="VBoxContainer" parent="PanelContainer"]
+margin_right = 550.0
+margin_bottom = 350.0
+custom_constants/separation = 3
+
+[node name="WindowHeader" type="PanelContainer" parent="PanelContainer/MainBody"]
+margin_right = 550.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 0, 15 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MainBody/WindowHeader"]
+margin_right = 550.0
+margin_bottom = 15.0
+alignment = 1
+
+[node name="Title" type="Label" parent="PanelContainer/MainBody/WindowHeader/HBoxContainer"]
+margin_left = 216.0
+margin_right = 333.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 3 )
+text = "Custom File Dialogue"
+align = 1
+valign = 1
+
+[node name="Options" type="HBoxContainer" parent="PanelContainer/MainBody"]
+margin_top = 18.0
+margin_right = 550.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 0, 15 )
+alignment = 2
+
+[node name="CreateDir" type="Button" parent="PanelContainer/MainBody/Options"]
+margin_left = 320.0
+margin_right = 434.0
+margin_bottom = 16.0
+text = "Create Directory"
+
+[node name="DeleteFile" type="Button" parent="PanelContainer/MainBody/Options"]
+margin_left = 442.0
+margin_right = 522.0
+margin_bottom = 16.0
+text = "Delete File"
+
+[node name="ReloadDirectory" type="TextureButton" parent="PanelContainer/MainBody/Options"]
+margin_left = 530.0
+margin_right = 550.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 20, 0 )
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+
+[node name="DirectoryHeader" type="HBoxContainer" parent="PanelContainer/MainBody"]
+margin_top = 37.0
+margin_right = 550.0
+margin_bottom = 57.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="ParentDirectory" type="TextureButton" parent="PanelContainer/MainBody/DirectoryHeader"]
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 0 )
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 3
+
+[node name="CurrentDirectory" type="LineEdit" parent="PanelContainer/MainBody/DirectoryHeader"]
+margin_left = 28.0
+margin_right = 466.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+text = "C:/"
+
+[node name="SearchFiles" type="LineEdit" parent="PanelContainer/MainBody/DirectoryHeader"]
+margin_left = 474.0
+margin_right = 550.0
+margin_bottom = 20.0
+
+[node name="Filesystem" type="HBoxContainer" parent="PanelContainer/MainBody"]
+margin_top = 60.0
+margin_right = 550.0
+margin_bottom = 317.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FileTree" type="Tree" parent="PanelContainer/MainBody/Filesystem"]
+visible = false
+margin_right = 80.0
+margin_bottom = 269.0
+rect_min_size = Vector2( 80, 0 )
+allow_reselect = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MainBody/Filesystem"]
+margin_right = 550.0
+margin_bottom = 257.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CurrentDirectory" type="VBoxContainer" parent="PanelContainer/MainBody/Filesystem/ScrollContainer"]
+margin_right = 550.0
+size_flags_horizontal = 3
+custom_constants/separation = 2
+
+[node name="Footer" type="HBoxContainer" parent="PanelContainer/MainBody"]
+margin_top = 320.0
+margin_right = 550.0
+margin_bottom = 350.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="Label" type="Label" parent="PanelContainer/MainBody/Footer"]
+margin_top = 7.0
+margin_right = 30.0
+margin_bottom = 23.0
+text = "File: "
+
+[node name="LineEdit" type="LineEdit" parent="PanelContainer/MainBody/Footer"]
+margin_left = 38.0
+margin_right = 452.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+
+[node name="FileExtensionFilters" type="MenuButton" parent="PanelContainer/MainBody/Footer"]
+margin_left = 460.0
+margin_right = 550.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 90, 0 )
+
+[connection signal="pressed" from="PanelContainer/MainBody/DirectoryHeader/ParentDirectory" to="." method="_on_ParentDirectory_pressed"]

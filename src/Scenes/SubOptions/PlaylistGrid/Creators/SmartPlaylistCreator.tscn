@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/PlaylistGrid/Creators/SmartPlaylistCreator.gd" type="Script" id=1]
+[ext_resource path="res://src/Scenes/Playlists/Conditions/PlaylistConditionsList.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Themes/General/Popup.tres" type="Theme" id=3]
+[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic24px.tres" type="DynamicFont" id=4]
+[ext_resource path="res://src/Ressources/Themes/PopupBackground.tres" type="StyleBox" id=5]
+[ext_resource path="res://src/Scenes/General/InputWithDialog.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Ressources/Shaders/SimpleBlur.tres" type="Material" id=7]
+[ext_resource path="res://src/Scenes/General/Menus/MenuFooter.tscn" type="PackedScene" id=8]
+
+[node name="SmartPlaylistCreator" type="PanelContainer"]
+material = ExtResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = ExtResource( 5 )
+script = ExtResource( 1 )
+
+[node name="Panel" type="PanelContainer" parent="."]
+margin_left = 210.0
+margin_top = 100.0
+margin_right = 910.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 700, 400 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 699.0
+margin_bottom = 399.0
+custom_constants/margin_bottom = 10
+
+[node name="Main" type="VBoxContainer" parent="Panel/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 688.0
+margin_bottom = 388.0
+size_flags_horizontal = 3
+custom_constants/separation = 4
+
+[node name="Header" type="Label" parent="Panel/MarginContainer/Main"]
+margin_right = 678.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+custom_fonts/font = ExtResource( 4 )
+text = "New Smart Playlist:"
+valign = 2
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/MarginContainer/Main"]
+margin_top = 44.0
+margin_right = 678.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 0, 5 )
+
+[node name="Title" parent="Panel/MarginContainer/Main" instance=ExtResource( 6 )]
+anchor_right = 0.0
+margin_top = 56.0
+margin_right = 678.0
+margin_bottom = 76.0
+input_label_text = "Title:"
+
+[node name="Cover" parent="Panel/MarginContainer/Main" instance=ExtResource( 6 )]
+anchor_right = 0.0
+margin_top = 80.0
+margin_right = 678.0
+margin_bottom = 100.0
+input_label_text = "Cover:"
+file_type = "0"
+show_file_dialogue = true
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/Main"]
+margin_top = 104.0
+margin_right = 678.0
+margin_bottom = 109.0
+rect_min_size = Vector2( 0, 5 )
+size_flags_horizontal = 3
+custom_constants/separation = 1
+
+[node name="PlaylistConditionsList" parent="Panel/MarginContainer/Main" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 113.0
+margin_right = 678.0
+margin_bottom = 335.0
+
+[node name="Buffer" type="Control" parent="Panel/MarginContainer/Main"]
+margin_top = 339.0
+margin_right = 678.0
+margin_bottom = 344.0
+rect_min_size = Vector2( 0, 5 )
+
+[node name="MenuFooter" parent="Panel/MarginContainer/Main" instance=ExtResource( 8 )]
+anchor_right = 0.0
+margin_top = 348.0
+margin_right = 678.0
+margin_bottom = 378.0

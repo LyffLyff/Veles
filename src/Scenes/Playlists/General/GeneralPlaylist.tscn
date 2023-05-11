@@ -1,0 +1,113 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/Scenes/Song/SonglistHeader.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Scenes/Song/SongFilter/SongFilters.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Scenes/Song/SongHighlighter.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Scenes/Playlists/Header/PlaylistHeader.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Scenes/Playlists/General/SongVbox.gd" type="Script" id=5]
+[ext_resource path="res://src/Scenes/Playlists/General/Playlist.gd" type="Script" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+
+[node name="GeneralPlaylist" type="PanelContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 6 )
+
+[node name="SongHighlighter" parent="." instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_right = 1120.0
+margin_bottom = 41.0
+mouse_filter = 2
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 1120.0
+margin_bottom = 600.0
+custom_constants/separation = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+margin_right = 1120.0
+margin_bottom = 600.0
+input_pass_on_modal_close_click = false
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+margin_right = 1120.0
+margin_bottom = 600.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 5
+
+[node name="PlaylistHeader" parent="VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1120.0
+margin_bottom = 274.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="SongFilters" parent="VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource( 2 )]
+anchor_right = 0.0
+margin_top = 279.0
+margin_right = 1120.0
+margin_bottom = 319.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+margin_top = 324.0
+margin_right = 1120.0
+margin_bottom = 600.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="LeftEmpty" type="Control" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_right = 5.0
+margin_bottom = 276.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_left = 5.0
+margin_right = 1115.0
+margin_bottom = 276.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 5
+
+[node name="SongDescriptionHeader" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
+anchor_right = 0.0
+margin_right = 1110.0
+margin_bottom = 20.0
+
+[node name="SongVbox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+margin_top = 25.0
+margin_right = 1110.0
+margin_bottom = 25.0
+focus_mode = 2
+mouse_filter = 2
+size_flags_horizontal = 3
+custom_constants/separation = 3
+script = ExtResource( 5 )
+
+[node name="RightEmpty" type="Control" parent="VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_left = 1115.0
+margin_right = 1120.0
+margin_bottom = 276.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 2
+size_flags_vertical = 3
+
+[connection signal="resized" from="." to="." method="_on_GeneralPlaylist_resized"]

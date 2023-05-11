@@ -1,0 +1,164 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricScroller.gd" type="Script" id=1]
+[ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=2]
+[ext_resource path="res://src/Assets/Icons/White/Folder/rotate three_72px.png" type="Texture" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+
+uniform sampler2D gradient; 
+
+
+void fragment(){
+	COLOR.a = texture(gradient,UV).a;
+}"
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0.0228758, 0.238562, 0.545752, 0.761438, 0.928105 )
+colors = PoolColorArray( 0, 0, 0, 0.25098, 1, 1, 1, 1, 0.819064, 0.819064, 0.819064, 1, 0.812569, 0.812569, 0.812569, 1, 0.988235, 0.988235, 0.988235, 0.333333 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/gradient = SubResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.101961, 0.101961, 0.101961, 0.862745 )
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+corner_detail = 20
+
+[node name="LyricScroller" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+
+[node name="Background" type="PanelContainer" parent="."]
+margin_right = 1120.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 6 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background"]
+margin_right = 1120.0
+margin_bottom = 600.0
+
+[node name="LeftEmpty" type="Control" parent="Background/HBoxContainer"]
+margin_right = 10.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/HBoxContainer"]
+margin_left = 18.0
+margin_right = 1120.0
+margin_bottom = 600.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer/ScrollContainer"]
+material = SubResource( 3 )
+margin_right = 1102.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TopBuffer" type="Control" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer"]
+margin_right = 1102.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer"]
+margin_top = 108.0
+margin_right = 1102.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+
+[node name="Lyrics" type="VBoxContainer" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_right = 1084.0
+size_flags_horizontal = 3
+
+[node name="RightEmpty" type="Control" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_left = 1092.0
+margin_right = 1102.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+
+[node name="BottomBuffer" type="Control" parent="Background/HBoxContainer/ScrollContainer/VBoxContainer"]
+margin_top = 116.0
+margin_right = 1102.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 0, 100 )
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+margin_right = 1120.0
+margin_bottom = 600.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
+margin_top = 582.0
+margin_right = 1120.0
+margin_bottom = 582.0
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Background/VBoxContainer/HBoxContainer"]
+visible = false
+margin_left = 1036.0
+margin_right = 1072.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 36, 36 )
+size_flags_horizontal = 10
+custom_styles/panel = SubResource( 7 )
+
+[node name="Resync" type="TextureButton" parent="Background/VBoxContainer/HBoxContainer/PanelContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 28, 24 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="RightEmpty" type="Control" parent="Background/VBoxContainer/HBoxContainer"]
+margin_right = 40.0
+rect_min_size = Vector2( 40, 0 )
+
+[node name="BottomEmpty" type="Control" parent="Background/VBoxContainer"]
+margin_top = 590.0
+margin_right = 1120.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 0, 10 )
+size_flags_horizontal = 3
+
+[node name="UpdateSecondsPassed" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.15
+autostart = true
+
+[connection signal="resized" from="." to="." method="_on_LyricScroller_resized"]
+[connection signal="pressed" from="Background/VBoxContainer/HBoxContainer/PanelContainer/Resync" to="." method="_on_Resync_pressed"]
+[connection signal="timeout" from="UpdateSecondsPassed" to="." method="_on_UpdateSecondsPassed_timeout"]
