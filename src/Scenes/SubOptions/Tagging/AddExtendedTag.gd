@@ -18,7 +18,7 @@ func init_property_ids(var filepath : String)  -> void:
 	for id in Tagging.new().get_property_identifiers(filepath):
 		if id == "":
 			continue
-		if extension == "M4A" or extension == "MP4":
+		if (extension == "M4A" or extension == "MP4") and id.length() == 3:
 			id = "©" + id
 		option_button.add_item(id)
 	on_identifer_selected(0)

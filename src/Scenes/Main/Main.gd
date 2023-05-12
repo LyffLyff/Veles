@@ -174,8 +174,10 @@ func playback_song(var main_idx : int, var play : bool = false, var playlist_nam
 		# GET DATA
 		var song_data : PoolByteArray = file.get_buffer(file.get_len())
 		
+		
 		# CHECK MUSIC FORMAT WITH HEADER
 		var real_format_flag : int = FormatChecker.get_music_format_from_data(song_data.subarray(0,1024).hex_encode())
+		
 		if real_format_flag == -1:
 			real_format_flag = FormatChecker.get_music_filename_extension(song_path) 
 		

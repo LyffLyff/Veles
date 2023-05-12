@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://src/Ressources/Fonts/MidSizedHeader.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic24px.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/Scenes/SubOptions/InfoSettings/InfoTextSpace.gd" type="Script" id=2]
 [ext_resource path="res://src/Scenes/SubOptions/InfoSettings/SubInfo.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Scenes/SubOptions/InfoSettings/Infos.gd" type="Script" id=4]
@@ -162,23 +162,16 @@ margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TOPHSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
-margin_right = 905.0
-margin_bottom = 20.0
-custom_constants/separation = 20
-custom_styles/separator = SubResource( 1 )
-
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
-margin_top = 28.0
 margin_right = 905.0
-margin_bottom = 572.0
+margin_bottom = 582.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="InfoTextSpace" type="RichTextLabel" parent="HBoxContainer/VBoxContainer/PanelContainer"]
 margin_right = 905.0
-margin_bottom = 544.0
+margin_bottom = 582.0
 focus_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -188,11 +181,11 @@ selection_enabled = true
 script = ExtResource( 2 )
 
 [node name="BottomHSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
-margin_top = 580.0
+margin_top = 590.0
 margin_right = 905.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
-custom_constants/separation = 20
+custom_constants/separation = 10
 custom_styles/separator = SubResource( 1 )
 
 [node name="VSeparator2" type="VSeparator" parent="HBoxContainer"]
