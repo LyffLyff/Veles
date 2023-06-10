@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/Scenes/UserProfiles/UserProfileBox.gd" type="Script" id=1]
-[ext_resource path="res://src/Assets/Icons/White/Users/empty_profile_img_96px.png" type="Texture" id=2]
+[ext_resource path="res://src/assets/Icons/White/Users/empty_profile_img_96px.png" type="Texture" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )

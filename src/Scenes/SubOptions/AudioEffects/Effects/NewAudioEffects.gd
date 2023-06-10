@@ -1,7 +1,7 @@
 extends Control
 
-const PLUS_TEXTURE : StreamTexture = preload("res://src/Assets/Icons/White/General/Plus128px.png")
-const MINUS_TEXTURE : StreamTexture = preload("res://src/Assets/Icons/White/General/Minus128px.png")
+const PLUS_TEXTURE : StreamTexture = preload("res://src/assets/Icons/White/General/Plus128px.png")
+const MINUS_TEXTURE : StreamTexture = preload("res://src/assets/Icons/White/General/Minus128px.png")
 const shrinked_y : float = 30.0
 const tw_speed : float = 550.0
 

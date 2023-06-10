@@ -3,7 +3,7 @@ extends HBoxContainer
 signal add_pressed
 signal remove_pressed
 
-const remove : StreamTexture = preload("res://src/Assets/Icons/White/General/Minus128px.png")
+const remove : StreamTexture = preload("res://src/assets/Icons/White/General/Minus128px.png")
 
 onready var line_edit : LineEdit = $LineEdit
 onready var icon : TextureButton = $AddRemove

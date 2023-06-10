@@ -1,11 +1,11 @@
 [gd_resource type="Theme" load_steps=22 format=2]
 
 [ext_resource path="res://src/Ressources/Fonts/Jetbrains_Italic.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/Assets/Icons/White/Folder/folder_18px.png" type="Texture" id=2]
-[ext_resource path="res://src/Assets/Icons/White/File/file_16px.png" type="Texture" id=3]
-[ext_resource path="res://src/Assets/Icons/White/General/repeat_16px.png" type="Texture" id=4]
-[ext_resource path="res://src/Assets/Icons/White/General/view two_16px.png" type="Texture" id=5]
-[ext_resource path="res://src/Assets/Icons/White/General/Pointers/up.png" type="Texture" id=6]
+[ext_resource path="res://src/assets/Icons/White/Folder/folder_18px.png" type="Texture" id=2]
+[ext_resource path="res://src/assets/Icons/White/File/file_16px.png" type="Texture" id=3]
+[ext_resource path="res://src/assets/Icons/White/General/repeat_16px.png" type="Texture" id=4]
+[ext_resource path="res://src/assets/Icons/White/General/view two_16px.png" type="Texture" id=5]
+[ext_resource path="res://src/assets/Icons/White/General/Pointers/up.png" type="Texture" id=6]
 
 [sub_resource type="StyleBoxFlat" id=20]
 content_margin_left = 3.0

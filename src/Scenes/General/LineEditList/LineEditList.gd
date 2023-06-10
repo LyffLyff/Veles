@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-const item : PackedScene = preload("res://src/scenes/Templates/SingleExpandableLineEdit.tscn")
+const item : PackedScene = preload("res://src/Scenes/Templates/SingleExpandableLineEdit.tscn")
 
 export var header_text : String = "Header"
 

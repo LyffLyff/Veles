@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/music_note_500px.png" type="Texture" id=1]
-[ext_resource path="res://src/Assets/Fonts/JetBrains/JetBrainsMono-SemiBoldItalic.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://src/assets/Icons/White/Audio/MusicNotes/music_note_500px.png" type="Texture" id=1]
+[ext_resource path="res://src/assets/Fonts/JetBrains/JetBrainsMono-SemiBoldItalic.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://src/Scenes/SubOptions/Artists/ArtistSpace.gd" type="Script" id=3]
 
 [sub_resource type="StyleBoxFlat" id=6]

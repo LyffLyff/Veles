@@ -1,9 +1,10 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Scenes/General/CustomFileDialogue/CustomFileDialogue.gd" type="Script" id=1]
-[ext_resource path="res://src/Assets/Icons/White/General/Pointers/up.png" type="Texture" id=2]
+[ext_resource path="res://src/assets/Icons/White/General/Pointers/up.png" type="Texture" id=2]
 [ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsLight12pxTight.tres" type="DynamicFont" id=3]
-[ext_resource path="res://src/Assets/Icons/White/General/repeat_16px.png" type="Texture" id=4]
+[ext_resource path="res://src/assets/Icons/White/General/repeat_16px.png" type="Texture" id=4]
+
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.0705882, 0.0705882, 0.0705882, 1 )

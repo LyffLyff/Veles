@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/Scenes/SubOptions/Lyrics/ProjectsHeader.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/Assets/Icons/White/General/add_72px.png" type="Texture" id=2]
+[ext_resource path="res://src/assets/Icons/White/General/add_72px.png" type="Texture" id=2]
 [ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsProjects.gd" type="Script" id=3]
-[ext_resource path="res://src/Assets/Icons/White/Folder/folder_72px.png" type="Texture" id=4]
+[ext_resource path="res://src/assets/Icons/White/Folder/folder_72px.png" type="Texture" id=4]
 [ext_resource path="res://src/Ressources/Themes/LyricsEditor.tres" type="StyleBox" id=5]
 [ext_resource path="res://src/Scenes/SubOptions/Lyrics/ProjectSeparator.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=7]
@@ -34,20 +34,20 @@ size_flags_horizontal = 3
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 margin_top = 18.0
 margin_right = 1104.0
-margin_bottom = 58.0
+margin_bottom = 48.0
 size_flags_horizontal = 3
 custom_styles/panel = ExtResource( 5 )
 
 [node name="Tools" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
 margin_right = 1104.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 0, 40 )
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 
 [node name="NewLyricsProject" type="TextureButton" parent="VBoxContainer/PanelContainer/Tools" groups=["Context"]]
-margin_top = 5.0
+margin_top = 3.0
 margin_right = 60.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 60, 30 )
+margin_bottom = 27.0
+rect_min_size = Vector2( 60, 24 )
 mouse_default_cursor_shape = 2
 size_flags_vertical = 4
 texture_normal = ExtResource( 2 )
@@ -56,10 +56,10 @@ stretch_mode = 5
 
 [node name="OpenFromFile" type="TextureButton" parent="VBoxContainer/PanelContainer/Tools" groups=["Context"]]
 margin_left = 68.0
-margin_top = 5.0
+margin_top = 3.0
 margin_right = 128.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 60, 30 )
+margin_bottom = 27.0
+rect_min_size = Vector2( 60, 24 )
 mouse_default_cursor_shape = 2
 size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
@@ -70,14 +70,14 @@ __meta__ = {
 }
 
 [node name="Buffer2" type="Control" parent="VBoxContainer"]
-margin_top = 66.0
+margin_top = 56.0
 margin_right = 1104.0
-margin_bottom = 71.0
+margin_bottom = 61.0
 rect_min_size = Vector2( 0, 5 )
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 79.0
+margin_top = 69.0
 margin_right = 1104.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -97,14 +97,14 @@ margin_bottom = 22.0
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/VBoxContainer"]
 margin_top = 22.0
 margin_right = 1104.0
-margin_bottom = 521.0
+margin_bottom = 531.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 7 )
 
 [node name="Projects" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/ScrollContainer"]
 margin_right = 1104.0
-margin_bottom = 499.0
+margin_bottom = 509.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 2

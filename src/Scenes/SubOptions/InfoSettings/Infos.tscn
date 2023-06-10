@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic24px.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsBold28px.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/Scenes/SubOptions/InfoSettings/InfoTextSpace.gd" type="Script" id=2]
 [ext_resource path="res://src/Scenes/SubOptions/InfoSettings/SubInfo.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Scenes/SubOptions/InfoSettings/Infos.gd" type="Script" id=4]

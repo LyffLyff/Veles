@@ -22,16 +22,16 @@ var option_titles : PoolStringArray = [
 ]
 
 var option_icons : PoolStringArray = [
-	"res://src/Assets/Icons/White/Audio/MusicNotes/music_72px.png",
-	"res://src/Assets/Icons/White/General/list_72px.png",
-	"res://src/Assets/Icons/White/Folder/add folder_72px.png",
-	"res://src/Assets/Icons/White/Users/group_72px.png",
-	"res://src/Assets/Icons/White/Tagging/cd_72px.png",
-	"res://src/Assets/Icons/White/Download/download_72px.png",
-	"res://src/Assets/Icons/White/General/middle alignment_72px.png",
-	"res://src/Assets/Icons/White/Stats/bar chart_72px.png",
-	"res://src/Assets/Icons/White/Settings/settings_72px.png",
-	"res://src/Assets/Icons/White/General/information_72px.png"
+	"res://src/assets/Icons/White/Audio/MusicNotes/music_72px.png",
+	"res://src/assets/Icons/White/General/list_72px.png",
+	"res://src/assets/Icons/White/Folder/add folder_72px.png",
+	"res://src/assets/Icons/White/Users/group_72px.png",
+	"res://src/assets/Icons/White/Tagging/cd_72px.png",
+	"res://src/assets/Icons/White/Download/download_72px.png",
+	"res://src/assets/Icons/White/General/middle alignment_72px.png",
+	"res://src/assets/Icons/White/Stats/bar chart_72px.png",
+	"res://src/assets/Icons/White/Settings/settings_72px.png",
+	"res://src/assets/Icons/White/General/information_72px.png"
 ]
 
 

@@ -1,7 +1,8 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=2]
 
 [ext_resource path="res://src/Ressources/Shaders/TileShader.gdshader" type="Shader" id=1]
-[ext_resource path="res://src/Assets/Icons/White/Audio/OuputDevice/cassette tape_72px.png" type="Texture" id=2]
+[ext_resource path="res://src/assets/Icons/White/Audio/OuputDevice/cassette tape_72px.png" type="Texture" id=2]
+
 
 [resource]
 shader = ExtResource( 1 )

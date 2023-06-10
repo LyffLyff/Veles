@@ -12,8 +12,8 @@ const supported_tag_extensions : Array = ["*.mp3", "*.ogg", "*.wav", "*.aac", "*
 const audio_formats : Array = ["AAC","FLAC","MP3","M4A","OGG-OPUS","OGG-VORBIS","WAV"]
 const audio_extensions : Array = ["AAC", "MP3", "WAV", "OGG", "M4A", "OPUS", "FLAC"]
 const video_formats : Array = ["MP4","WEBM"]
-const pause_img : StreamTexture = preload("res://src/Assets/Icons/White/Audio/Replay/pause_72px.png")
-const play_img : StreamTexture =  preload("res://src/Assets/Icons/White/Audio/Replay/play_72px.png")
+const pause_img : StreamTexture = preload("res://src/assets/Icons/White/Audio/Replay/pause_72px.png")
+const play_img : StreamTexture =  preload("res://src/assets/Icons/White/Audio/Replay/play_72px.png")
 const MESSAGE_CONTAINER : PackedScene = preload("res://src/Scenes/ErrorHandling/MessageContainer.tscn")
 
 var user_profiles : PoolStringArray = []

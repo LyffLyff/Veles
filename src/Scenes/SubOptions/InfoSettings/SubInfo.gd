@@ -2,8 +2,8 @@ extends VBoxContainer
 
 signal subinfo_pressed
 
-const PLUS_TEXTURE : StreamTexture = preload("res://src/Assets/Icons/White/General/add_1_72px.png")
-const MINUS_TEXTURE : StreamTexture = preload("res://src/Assets/Icons/White/General/remove_1_72px.png")
+const PLUS_TEXTURE : StreamTexture = preload("res://src/assets/Icons/White/General/add_1_72px.png")
+const MINUS_TEXTURE : StreamTexture = preload("res://src/assets/Icons/White/General/remove_1_72px.png")
 
 export var subinfo_title : String = ""
 
@@ -27,7 +27,8 @@ func load_subinfos() -> void:
 		if x.connect("pressed",self,"emit_signal",["subinfo_pressed",i]):
 			Global.message("CANNOT CONNECT pressed signal to emit_signal subinfo_pressed",  Enumerations.MESSAGE_ERROR)
 		x.theme = load("res://src/Themes/Buttons/ClearButtons.tres")
-		x.rect_min_size.y = 30
+		x.align = Button.ALIGN_CENTER
+		x.rect_min_size.y = 25
 		x.set_text(
 			subinfo_titles[i]
 		)

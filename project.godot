@@ -230,10 +230,10 @@ config/project_settings_override="user://override.cfg"
 run/low_processor_mode=true
 run/low_processor_mode_sleep_usec=20000
 run/delta_sync_after_draw=true
-boot_splash/image="res://src/Assets/App/Bootsplash.png"
+boot_splash/image="res://src/assets/App/Bootsplash.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.290196, 0.290196, 0.290196, 1 )
-config/icon="res://src/Assets/App/256.png"
+config/icon="res://src/assets/App/64.png"
 config/windows_native_icon="res://src/Assets/App/Veles.ico"
 
 [audio]

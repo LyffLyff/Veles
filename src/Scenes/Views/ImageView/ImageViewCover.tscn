@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/Assets/Icons/White/General/Pointers/left pointer_72px.png" type="Texture" id=1]
+[ext_resource path="res://src/assets/Icons/White/General/Pointers/left pointer_72px.png" type="Texture" id=1]
 [ext_resource path="res://src/Scenes/Views/ImageView/ImageViewCover.gd" type="Script" id=2]
-[ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/music_note_500px.png" type="Texture" id=3]
+[ext_resource path="res://src/assets/Icons/White/Audio/MusicNotes/music_note_500px.png" type="Texture" id=3]
 
 
 [node name="ImageViewCover" type="VBoxContainer"]

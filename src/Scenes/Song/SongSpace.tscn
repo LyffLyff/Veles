@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/Scenes/Song/song_script.gd" type="Script" id=2]
-[ext_resource path="res://src/Assets/Icons/White/Audio/MusicNotes/music_note_128px.png" type="Texture" id=3]
+[ext_resource path="res://src/assets/Icons/White/Audio/MusicNotes/music_note_128px.png" type="Texture" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 

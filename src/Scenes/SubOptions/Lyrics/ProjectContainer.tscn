@@ -1,10 +1,11 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://src/Assets/Fonts/Montserrat/static/Montserrat-Italic.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://src/Assets/Fonts/Lyrics/ProjectContainer.tres" type="DynamicFont" id=2]
-[ext_resource path="res://src/Assets/Icons/White/File/file_24px.png" type="Texture" id=3]
+[ext_resource path="res://src/assets/Fonts/Montserrat/static/Montserrat-Italic.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/assets/Fonts/Lyrics/ProjectContainer.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/assets/Icons/White/File/file_24px.png" type="Texture" id=3]
 [ext_resource path="res://src/Scenes/SubOptions/Lyrics/ProjectContainer.gd" type="Script" id=4]
 [ext_resource path="res://src/Classes/Normal/TextLimiter.gd" type="Script" id=5]
+
 
 
 [sub_resource type="StyleBoxFlat" id=3]

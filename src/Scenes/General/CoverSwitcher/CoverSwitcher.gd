@@ -67,6 +67,6 @@ func update_cover() -> void:
 	if current_covers.size() > 0:
 		cover.texture = ImageLoader.resize_texture(current_covers[cover_idx], Vector2(cover.rect_size.y, cover.rect_size.y))
 	else:
-		cover.texture = load("res://src/Assets/Icons/White/Tagging/cd_128px.png")
+		cover.texture = load("res://src/assets/Icons/White/Tagging/cd_128px.png")
 	update_cover_number()
 	emit_signal("cover_updated", cover_idx)

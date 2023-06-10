@@ -1,7 +1,6 @@
-[gd_resource type="Theme" load_steps=7 format=2]
+[gd_resource type="Theme" load_steps=6 format=2]
 
 [ext_resource path="res://src/Themes/Buttons/ClearButtonPressed.tres" type="StyleBox" id=1]
-[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsLight12pxTight.tres" type="DynamicFont" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -17,7 +16,6 @@ corner_radius_bottom_left = 2
 [sub_resource type="StyleBoxEmpty" id=4]
 
 [resource]
-default_font = ExtResource( 2 )
 Button/styles/disabled = SubResource( 1 )
 Button/styles/focus = SubResource( 6 )
 Button/styles/hover = SubResource( 5 )

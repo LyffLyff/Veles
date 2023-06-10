@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricScroller.gd" type="Script" id=1]
 [ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=2]
-[ext_resource path="res://src/Assets/Icons/White/Folder/rotate three_72px.png" type="Texture" id=3]
+[ext_resource path="res://src/assets/Icons/White/Folder/rotate three_72px.png" type="Texture" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=6]
 

@@ -333,9 +333,9 @@ func set_image_view_cover(var cover : Texture, var cover_idx : int = -1) -> void
 
 func set_volume_texture(var is_mute : bool) -> void:
 	if is_mute:
-		volume_button.set_deferred("texture_normal", load("res://src/Assets/Icons/White/Audio/Volume/mute_72px.png"))
+		volume_button.set_deferred("texture_normal", load("res://src/assets/Icons/White/Audio/Volume/mute_72px.png"))
 	else:
-		volume_button.set_deferred("texture_normal", load("res://src/Assets/Icons/White/Audio/Volume/high volume_72px.png"))
+		volume_button.set_deferred("texture_normal", load("res://src/assets/Icons/White/Audio/Volume/high volume_72px.png"))
 
 
 func set_repeat(var toggle : bool) ->void:

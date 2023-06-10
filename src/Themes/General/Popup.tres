@@ -1,8 +1,8 @@
 [gd_resource type="Theme" load_steps=10 format=2]
 
 [ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsLight10px.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/Assets/Checkbox/checked_box_16px.png" type="Texture" id=3]
-[ext_resource path="res://src/Assets/Checkbox/unchecked_box_16px.png" type="Texture" id=4]
+[ext_resource path="res://src/assets/Checkbox/checked_box_16px.png" type="Texture" id=3]
+[ext_resource path="res://src/assets/Checkbox/unchecked_box_16px.png" type="Texture" id=4]
 
 [sub_resource type="StyleBoxEmpty" id=4]
 

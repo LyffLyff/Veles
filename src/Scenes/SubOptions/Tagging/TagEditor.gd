@@ -305,6 +305,11 @@ func rename_song(var old_path : String, var new_path : String, var new_title : S
 	var dir : Directory = Directory.new()
 	if dir.rename(old_path, new_path) == OK:
 		
+		# replace in variables
+		var idx : int = item_tags_sidebar.current_filepaths.find(old_path)
+		if idx != -1:
+			item_tags_sidebar.current_filepaths[idx] = new_path
+		
 		# replace if current song
 		if old_path == SongLists.current_song:
 			SongLists.current_song = new_path

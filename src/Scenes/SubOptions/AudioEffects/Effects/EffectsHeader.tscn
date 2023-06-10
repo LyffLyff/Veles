@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://src/Assets/Icons/White/General/Plus128px.png" type="Texture" id=1]
+[ext_resource path="res://src/assets/Icons/White/General/Plus128px.png" type="Texture" id=1]
 [ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/SingleEffects/EffectSwitch.gd" type="Script" id=2]
 [ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic16px.tres" type="DynamicFont" id=3]
 [ext_resource path="res://src/Ressources/Themes/Checkbuttons.tres" type="Theme" id=4]

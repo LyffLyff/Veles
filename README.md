@@ -11,3 +11,15 @@ This is and will be free , forever!
 
 Download for free here:
 https://lyfflyff.itch.io/veles
+
+
+# Installation Guide:
+
+- Clone this repository: https://github.com/samsface/godot-native-example to your local machine
+- Download the Veles Native Project
+- Replace the CMakeLists.txt and src/Godot.cpp from the godot_native_example with the same files from the Veles Native Project
+- Run the debug.bat file -> should create a work folder with a "Veles.sln" file
+- Now clone the "Veles" project into the "app" directory of the Project so the structure looks like this /app/src/....
+- Now the Godot Project should be able to run
+- To see build and install the changes made to the GDNative part of this application, right click "Build" or "Install" and press "Build"
+- The "Install" should now produce a new library in the app/addons/GDNative/ directory, which is used by the Godo Project

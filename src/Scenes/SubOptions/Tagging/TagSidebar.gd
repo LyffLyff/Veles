@@ -227,7 +227,7 @@ func set_to_retain() -> void:
 	set_menu_line_edits(retain_values)
 	
 	# set the cover to standard
-	cover_switcher.cover.texture = load("res://src/Assets/Icons/White/Tagging/cd_72px.png")
+	cover_switcher.cover.texture = load("res://src/assets/Icons/White/Tagging/cd_72px.png")
 	image_properties.multiple_selected()
 
 

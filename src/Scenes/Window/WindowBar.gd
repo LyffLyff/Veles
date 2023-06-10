@@ -123,17 +123,17 @@ func _on_Maximise_pressed(var type : int = 0):
 						screen_addition = 0
 						OS.set_window_position(Vector2(screen_addition, 0))
 						#OS.set_window_size(Vector2(OS.get_screen_size().x * 1.001,OS.get_screen_size().y * 0.97))
-						OS.set_window_size(Vector2(OS.get_screen_size().x + 0,OS.get_screen_size().y - 40))
+						OS.set_window_size(Vector2(OS.get_screen_size().x + 0,OS.get_screen_size().y) + get_os_offset())
 					1:																						#TWO MONITORS
 						screen_addition = OS.get_screen_size(0).x
 						OS.set_window_position(Vector2(screen_addition, 0))
 						#OS.set_window_size(Vector2(OS.get_screen_size().x * 1.001,OS.get_screen_size().y * 0.97))
-						OS.set_window_size(Vector2(OS.get_screen_size().x + 0,OS.get_screen_size().y - 40))
+						OS.set_window_size(Vector2(OS.get_screen_size().x + 0,OS.get_screen_size().y) + get_os_offset())
 					2:																						#THREE MONITORS
 						screen_addition = OS.get_screen_size(1).x + OS.get_screen_size(0).y
 						OS.set_window_position(Vector2(screen_addition, 0))
 						#OS.set_window_size(Vector2(OS.get_screen_size().x * 1.001,OS.get_screen_size().y * 0.97))
-						OS.set_window_size(Vector2(OS.get_screen_size().x + 0,OS.get_screen_size().y - 40))
+						OS.set_window_size(Vector2(OS.get_screen_size().x + 0,OS.get_screen_size().y) + get_os_offset())
 			1:
 				half_maxed = true
 				if screen_side_idx % 2 != 0:
@@ -143,7 +143,7 @@ func _on_Maximise_pressed(var type : int = 0):
 				else:
 					#if on the left side of a monitor
 					OS.window_position = Vector2(screen_sides[screen_side_idx],0)
-				OS.window_size = Vector2(OS.get_screen_size().x/2,OS.get_screen_size().y - 40)
+				OS.window_size = Vector2(OS.get_screen_size().x/2,OS.get_screen_size().y) + get_os_offset()
 		self.emit_signal("window_changed")
 		Global.window_changed(true)
 	else:
@@ -152,6 +152,18 @@ func _on_Maximise_pressed(var type : int = 0):
 
 func _on_Quit_pressed():
 	get_tree().quit()
+
+
+func get_os_offset() -> Vector2:
+	var offset : Vector2 = Vector2.ZERO
+	match OS.get_name():
+		"Windows":
+			offset = Vector2(0,40)
+		"OSX":
+			pass
+		"X11":
+			pass
+	return -offset
 
 
 func unmaximize()-> void:

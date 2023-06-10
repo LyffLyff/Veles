@@ -1,25 +1,26 @@
 [gd_resource type="Theme" load_steps=78 format=2]
 
-[ext_resource path="res://src/Assets/Fonts/Montserrat/static/Montserrat-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/assets/Fonts/Montserrat/static/Montserrat-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/Ressources/Fonts/main_font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://src/Assets/Checkbuttons/on_72px.png" type="Texture" id=3]
-[ext_resource path="res://src/Assets/Sliders/RoundedRect6x12Horizontal.png" type="Texture" id=4]
-[ext_resource path="res://src/Assets/Checkbuttons/off_72px.png" type="Texture" id=5]
-[ext_resource path="res://src/Assets/Checkbox/CheckBox_12px.png" type="Texture" id=6]
+[ext_resource path="res://src/assets/Checkbuttons/on_72px.png" type="Texture" id=3]
+[ext_resource path="res://src/assets/Sliders/RoundedRect6x12Horizontal.png" type="Texture" id=4]
+[ext_resource path="res://src/assets/Checkbuttons/off_72px.png" type="Texture" id=5]
+[ext_resource path="res://src/assets/Checkbox/CheckBox_12px.png" type="Texture" id=6]
 [ext_resource path="res://src/Themes/HSeparators/StdHSeparator.tres" type="StyleBox" id=7]
 [ext_resource path="res://src/Themes/VSeparators/StdVSeparator.tres" type="StyleBox" id=8]
-[ext_resource path="res://src/Assets/Icons/White/File/file_16px.png" type="Texture" id=9]
-[ext_resource path="res://src/Assets/Icons/White/General/repeat_16px.png" type="Texture" id=10]
-[ext_resource path="res://src/Assets/Icons/White/General/view two_16px.png" type="Texture" id=11]
-[ext_resource path="res://src/Assets/Icons/White/General/Pointers/up.png" type="Texture" id=12]
-[ext_resource path="res://src/Assets/Icons/White/WindowBar/cross_16px.png" type="Texture" id=13]
-[ext_resource path="res://src/Assets/Checkbox/CheckBox_unchecked_12px.png" type="Texture" id=14]
-[ext_resource path="res://src/Assets/Checkbox/CheckBox_checked_12px.png" type="Texture" id=15]
-[ext_resource path="res://src/Assets/Spinbox/updown.png" type="Texture" id=16]
-[ext_resource path="res://src/Assets/Icons/White/Folder/folder_18px.png" type="Texture" id=17]
-[ext_resource path="res://src/Assets/OptionButton/updown.png" type="Texture" id=18]
+[ext_resource path="res://src/assets/Icons/White/File/file_16px.png" type="Texture" id=9]
+[ext_resource path="res://src/assets/Icons/White/General/repeat_16px.png" type="Texture" id=10]
+[ext_resource path="res://src/assets/Icons/White/General/view two_16px.png" type="Texture" id=11]
+[ext_resource path="res://src/assets/Icons/White/General/Pointers/up.png" type="Texture" id=12]
+[ext_resource path="res://src/assets/Icons/White/WindowBar/cross_16px.png" type="Texture" id=13]
+[ext_resource path="res://src/assets/Checkbox/CheckBox_unchecked_12px.png" type="Texture" id=14]
+[ext_resource path="res://src/assets/Checkbox/CheckBox_checked_12px.png" type="Texture" id=15]
+[ext_resource path="res://src/assets/Spinbox/updown.png" type="Texture" id=16]
+[ext_resource path="res://src/assets/Icons/White/Folder/folder_18px.png" type="Texture" id=17]
+[ext_resource path="res://src/assets/OptionButton/updown.png" type="Texture" id=18]
 [ext_resource path="res://src/Ressources/Fonts/MontserratMedium.tres" type="DynamicFont" id=19]
 [ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic12px.tres" type="DynamicFont" id=20]
+[ext_resource path="res://new_styleboxflat.tres" type="StyleBox" id=21]
 
 [sub_resource type="StyleBoxEmpty" id=65]
 content_margin_left = 5.0
@@ -288,14 +289,10 @@ load_path = "res://.import/RoundedRect12x6Vertical.png-a9e63adbdd1375ee8a60cf8ba
 [sub_resource type="StreamTexture" id=59]
 load_path = "res://.import/RoundedRect12x6Vertical.png-a9e63adbdd1375ee8a60cf8ba9a70af5.stex"
 
-[sub_resource type="StyleBoxFlat" id=22]
+[sub_resource type="StyleBoxFlat" id=79]
 bg_color = Color( 0.247059, 0.247059, 0.247059, 1 )
 
-[sub_resource type="StyleBoxFlat" id=27]
-expand_margin_left = 1.0
-expand_margin_right = 1.0
-
-[sub_resource type="StyleBoxFlat" id=26]
+[sub_resource type="StyleBoxFlat" id=80]
 bg_color = Color( 0.670588, 0.670588, 0.670588, 1 )
 expand_margin_left = 2.0
 expand_margin_right = 2.0
@@ -437,9 +434,9 @@ VSlider/icons/grabber = SubResource( 57 )
 VSlider/icons/grabber_disabled = SubResource( 58 )
 VSlider/icons/grabber_highlight = SubResource( 59 )
 VSlider/icons/tick = null
-VSlider/styles/grabber_area = SubResource( 22 )
-VSlider/styles/grabber_area_highlight = SubResource( 27 )
-VSlider/styles/slider = SubResource( 26 )
+VSlider/styles/grabber_area = SubResource( 79 )
+VSlider/styles/grabber_area_highlight = ExtResource( 21 )
+VSlider/styles/slider = SubResource( 80 )
 WindowDialog/colors/title_color = Color( 1, 1, 1, 1 )
 WindowDialog/constants/close_h_ofs = 18
 WindowDialog/constants/close_v_ofs = 18

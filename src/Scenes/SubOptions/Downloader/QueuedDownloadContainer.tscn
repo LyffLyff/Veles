@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/Ressources/Themes/LyricsEditor.tres" type="StyleBox" id=1]
 [ext_resource path="res://src/Scenes/SubOptions/Downloader/QueuedDownloadContainer.gd" type="Script" id=2]
-[ext_resource path="res://src/Assets/Icons/White/Audio/Replay/stop_72px.png" type="Texture" id=3]
+[ext_resource path="res://src/assets/Icons/White/Audio/Replay/stop_72px.png" type="Texture" id=3]
 
 [node name="QueuedDownloadContainer" type="PanelContainer"]
 anchor_right = 1.0

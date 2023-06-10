@@ -27,10 +27,10 @@ func _on_Expand_pressed():
 		scroller.modulate.a = 0.0
 		var _ptw : PropertyTweener = tw.tween_property(scroller, "rect_min_size:y", 150.0, 0.3)
 		_ptw = tw.parallel().tween_property(scroller, "modulate:a", 1.0, 0.3)
-		expand_button.icon = load("res://src/Assets/Icons/White/General/remove_1_72px.png")
+		expand_button.icon = load("res://src/assets/Icons/White/General/remove_1_72px.png")
 	else:
 		var _err : int = tw.connect("finished", scroller, "set_visible", [false])
 		var _ptw : PropertyTweener = tw.tween_property(scroller, "rect_min_size:y", 0.0, 0.3)
 		_ptw = tw.parallel().tween_property(scroller, "modulate:a", 0.0, 0.3)
-		expand_button.icon = load("res://src/Assets/Icons/White/General/add_1_72px.png")
+		expand_button.icon = load("res://src/assets/Icons/White/General/add_1_72px.png")
 	is_expanded = !is_expanded

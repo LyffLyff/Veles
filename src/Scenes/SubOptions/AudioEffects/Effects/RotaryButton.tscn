@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://src/Assets/RotaryButtons/RotaryButton256x256.png" type="Texture" id=1]
+[ext_resource path="res://src/assets/RotaryButtons/RotaryButton256x256.png" type="Texture" id=1]
 [ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/RotaryButtonTexture.gd" type="Script" id=2]
 [ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/RotaryButton.gd" type="Script" id=3]
 [ext_resource path="res://src/Scenes/SubOptions/AudioEffects/Effects/RotaryEdit.gd" type="Script" id=4]

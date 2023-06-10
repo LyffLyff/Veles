@@ -16,7 +16,7 @@ func _ready():
 func add_selection() -> void:
 	var x : HBoxContainer = expandable_line_edit.instance()
 	if path_edit_vbox.get_child_count() > 0:
-		x.get_node("AddRemove").set_normal_texture( load("res://src/Assets/Icons/White/General/remove_1_72px.png") )
+		x.get_node("AddRemove").set_normal_texture( load("res://src/assets/Icons/White/General/remove_1_72px.png") )
 	path_edit_vbox.add_child(x)
 	if x.get_node("AddRemove").connect("pressed", self, "_on_add_remove_pressed", [x] ):
 		Global.message("CANNOT CONNECT pressed Signal to _on_add_remove_pressed function", Enumerations.MESSAGE_ERROR)

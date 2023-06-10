@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Ressources/Themes/LyricsEditor.tres" type="StyleBox" id=1]
-[ext_resource path="res://src/Assets/Icons/White/Folder/add folder_72px.png" type="Texture" id=2]
+[ext_resource path="res://src/assets/Icons/White/Folder/add folder_72px.png" type="Texture" id=2]
 [ext_resource path="res://src/Scenes/SubOptions/Folders/SelectFolder.gd" type="Script" id=3]
-[ext_resource path="res://src/Assets/Icons/White/Folder/remove folder_72px.png" type="Texture" id=4]
+[ext_resource path="res://src/assets/Icons/White/Folder/remove folder_72px.png" type="Texture" id=4]
 [ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=5]
 
 [node name="SelectFolder" type="Control"]

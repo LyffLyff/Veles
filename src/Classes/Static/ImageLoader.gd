@@ -20,8 +20,8 @@ enum ImageTypes {
 }
 
 
-const std_cover : StreamTexture = preload("res://src/Assets/Icons/White/Audio/MusicNotes/music_note_500px.png")
-const std_cover_low_res : StreamTexture = preload("res://src/Assets/Icons/White/Audio/MusicNotes/music_note_128px.png")
+const std_cover : StreamTexture = preload("res://src/assets/Icons/White/Audio/MusicNotes/music_note_500px.png")
+const std_cover_low_res : StreamTexture = preload("res://src/assets/Icons/White/Audio/MusicNotes/music_note_128px.png")
 
 static func webp_to_png(var webp_data : PoolByteArray) -> PoolByteArray:
 	var img : Image = Image.new()
@@ -69,9 +69,9 @@ static func get_cover(var path : String,  var image_type : int = ImageTypes.NONE
 			ImageTypes.NONE: 
 				texture = std_cover
 			ImageTypes.USER_PROFILE:
-				texture = load("res://src/Assets/Icons/White/Users/empty_profile_img_96px.png")
+				texture = load("res://src/assets/Icons/White/Users/empty_profile_img_96px.png")
 			ImageTypes.ARTIST:
-				texture = load("res://src/Assets/Icons/White/Users/Personal_Image_120px.png")
+				texture = load("res://src/assets/Icons/White/Users/Personal_Image_120px.png")
 			ImageTypes.COVER:
 				if playlist_name == "AllSongs" or playlist_name == "":
 					# if no playlist was specifed on function call
@@ -90,7 +90,7 @@ static func get_cover(var path : String,  var image_type : int = ImageTypes.NONE
 					texture = get_cover(playlist_cover_path, ImageTypes.PLAYLIST_HEADER)
 			ImageTypes.PLAYLIST_HEADER:
 				if playlist_name == "AllSongs" or playlist_name == "":
-					texture = load("res://src/Assets/Icons/White/Users/image_120px.png")
+					texture = load("res://src/assets/Icons/White/Users/image_120px.png")
 				else:
 					var playlist_cover_path : String = Global.get_current_user_data_folder() + "/Songs/Playlists/Covers/" + playlist_name + ".png"
 					texture = get_cover(playlist_cover_path, ImageTypes.PLAYLIST_HEADER)
