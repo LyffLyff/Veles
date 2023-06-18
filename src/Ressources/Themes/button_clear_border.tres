@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=6 format=2]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.690196, 0.690196, 0.690196, 0.72549 )
+border_blend = true
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[resource]
+Button/styles/disabled = SubResource( 8 )
+Button/styles/focus = SubResource( 9 )
+Button/styles/hover = SubResource( 7 )
+Button/styles/normal = SubResource( 10 )
+Button/styles/pressed = SubResource( 11 )

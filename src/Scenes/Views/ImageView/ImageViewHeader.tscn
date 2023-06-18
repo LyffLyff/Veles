@@ -1,13 +1,14 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/Scenes/Views/ImageView/ImageViewHeader.gd" type="Script" id=1]
-[ext_resource path="res://src/Themes/General/TransparentButtons.tres" type="Theme" id=2]
+[ext_resource path="res://src/Ressources/Themes/button_clear_border.tres" type="Theme" id=2]
 
 [node name="ImageViewHeader" type="HBoxContainer"]
 anchor_right = 1.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
+theme = ExtResource( 2 )
 custom_constants/separation = 2
 alignment = 1
 script = ExtResource( 1 )
@@ -27,7 +28,6 @@ mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.5
-theme = ExtResource( 2 )
 text = "Cover"
 
 [node name="Option2" type="Button" parent="."]
@@ -40,7 +40,6 @@ mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.5
-theme = ExtResource( 2 )
 text = "Lyrics"
 
 [node name="Option3" type="Button" parent="."]
@@ -53,7 +52,6 @@ mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 0.5
-theme = ExtResource( 2 )
 text = "Infos"
 
 [node name="RightBuffer" type="Control" parent="."]

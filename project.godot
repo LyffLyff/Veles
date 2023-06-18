@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Classes/Normal/AudioEffects.gd"
 }, {
-"base": "",
+"base": "Reference",
 "class": "AudioProperties",
 "language": "NativeScript",
 "path": "res://addons/GDNative/AudioProperties.gdns"
@@ -64,7 +64,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Classes/Static/ExtendedDirectory.gd"
 }, {
-"base": "",
+"base": "Reference",
 "class": "FLAC",
 "language": "NativeScript",
 "path": "res://addons/GDNative/FLAC.gdns"
@@ -99,17 +99,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Classes/Normal/LRC.gd"
 }, {
-"base": "",
+"base": "Reference",
 "class": "MP4",
 "language": "NativeScript",
 "path": "res://addons/GDNative/MP4.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "MPEG",
 "language": "NativeScript",
 "path": "res://addons/GDNative/MPEG.gdns"
 }, {
-"base": "",
+"base": "Reference",
 "class": "OGG_VORBIS",
 "language": "NativeScript",
 "path": "res://addons/GDNative/OGG_VORBIS.gdns"
@@ -144,7 +144,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Classes/Static/Streams.gd"
 }, {
-"base": "",
+"base": "Reference",
 "class": "Tagging",
 "language": "NativeScript",
 "path": "res://addons/GDNative/tagging.gdns"

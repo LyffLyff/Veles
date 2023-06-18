@@ -1,10 +1,10 @@
-[gd_resource type="Theme" load_steps=78 format=2]
+[gd_resource type="Theme" load_steps=84 format=2]
 
 [ext_resource path="res://src/assets/Fonts/Montserrat/static/Montserrat-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/Ressources/Fonts/main_font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://src/assets/Checkbuttons/on_72px.png" type="Texture" id=3]
+[ext_resource path="res://src/assets/Checkbuttons/off_36px_disabled.png" type="Texture" id=3]
 [ext_resource path="res://src/assets/Sliders/RoundedRect6x12Horizontal.png" type="Texture" id=4]
-[ext_resource path="res://src/assets/Checkbuttons/off_72px.png" type="Texture" id=5]
+[ext_resource path="res://src/assets/Checkbuttons/on_36px_disabled.png" type="Texture" id=5]
 [ext_resource path="res://src/assets/Checkbox/CheckBox_12px.png" type="Texture" id=6]
 [ext_resource path="res://src/Themes/HSeparators/StdHSeparator.tres" type="StyleBox" id=7]
 [ext_resource path="res://src/Themes/VSeparators/StdVSeparator.tres" type="StyleBox" id=8]
@@ -21,6 +21,11 @@
 [ext_resource path="res://src/Ressources/Fonts/MontserratMedium.tres" type="DynamicFont" id=19]
 [ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic12px.tres" type="DynamicFont" id=20]
 [ext_resource path="res://new_styleboxflat.tres" type="StyleBox" id=21]
+[ext_resource path="res://src/assets/Icons/White/General/add_1_40px.png" type="Texture" id=22]
+[ext_resource path="res://src/assets/Icons/White/Settings/color-picker-white.png" type="Texture" id=23]
+[ext_resource path="res://src/assets/Checkbuttons/off_36px.png" type="Texture" id=24]
+[ext_resource path="res://src/assets/Checkbuttons/on_36px.png" type="Texture" id=25]
+[ext_resource path="res://src/Ressources/Fonts/Noto_12px.tres" type="DynamicFont" id=26]
 
 [sub_resource type="StyleBoxEmpty" id=65]
 content_margin_left = 5.0
@@ -59,37 +64,40 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxEmpty" id=62]
 
+[sub_resource type="ProxyTexture" id=81]
+
 [sub_resource type="StyleBoxEmpty" id=54]
 
 [sub_resource type="StyleBoxFlat" id=55]
+border_color = Color( 0.909804, 0.909804, 0.909804, 0.705882 )
 
 [sub_resource type="StyleBoxFlat" id=51]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
+bg_color = Color( 0.737255, 0.737255, 0.737255, 1 )
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color( 0, 0, 0, 1 )
+border_color = Color( 0.737255, 0.737255, 0.737255, 0.705882 )
 
 [sub_resource type="StyleBoxFlat" id=56]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
+bg_color = Color( 0.737255, 0.737255, 0.737255, 1 )
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color( 0, 0, 0, 1 )
+border_color = Color( 0.737255, 0.737255, 0.737255, 0.705882 )
 
 [sub_resource type="StyleBoxFlat" id=52]
 
 [sub_resource type="StyleBoxFlat" id=30]
 content_margin_left = 1.0
 content_margin_right = 1.0
-bg_color = Color( 0.211765, 0.211765, 0.211765, 1 )
+bg_color = Color( 0.572549, 0.572549, 0.572549, 1 )
 
 [sub_resource type="StyleBoxFlat" id=31]
 content_margin_left = 1.0
 content_margin_right = 1.0
-bg_color = Color( 0.196078, 0.196078, 0.196078, 1 )
+bg_color = Color( 0.419608, 0.419608, 0.419608, 1 )
 
 [sub_resource type="StyleBoxFlat" id=32]
 content_margin_left = 1.0
@@ -193,6 +201,10 @@ content_margin_right = 2.0
 bg_color = Color( 0.145098, 0.145098, 0.145098, 1 )
 
 [sub_resource type="StyleBoxFlat" id=78]
+content_margin_left = 5.0
+content_margin_right = 5.0
+content_margin_top = 5.0
+content_margin_bottom = 5.0
 bg_color = Color( 0.223529, 0.223529, 0.223529, 1 )
 border_width_left = 1
 border_width_top = 1
@@ -313,7 +325,7 @@ shadow_size = 1
 shadow_offset = Vector2( 2, 1 )
 
 [resource]
-default_font = ExtResource( 2 )
+default_font = ExtResource( 26 )
 Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 1 )
 Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 Button/colors/font_color_focus = Color( 0.941176, 0.941176, 0.941176, 1 )
@@ -329,12 +341,18 @@ CheckBox/icons/radio_checked = ExtResource( 6 )
 CheckBox/icons/radio_checked_disabled = ExtResource( 6 )
 CheckBox/icons/radio_unchecked = ExtResource( 14 )
 CheckBox/icons/radio_unchecked_disabled = ExtResource( 14 )
-CheckButton/icons/off = ExtResource( 5 )
-CheckButton/icons/on = ExtResource( 3 )
+CheckButton/icons/off = ExtResource( 24 )
+CheckButton/icons/off_disabled = ExtResource( 3 )
+CheckButton/icons/on = ExtResource( 25 )
+CheckButton/icons/on_disabled = ExtResource( 5 )
 CheckButton/styles/focus = SubResource( 62 )
-ColorPicker/constants/margin = -200
-ColorPicker/constants/sv_height = 256
-ColorPicker/constants/sv_width = 256
+ColorPicker/constants/margin = 0
+ColorPicker/constants/sv_height = 150
+ColorPicker/constants/sv_width = 200
+ColorPicker/icons/add_preset = ExtResource( 22 )
+ColorPicker/icons/preset_bg = null
+ColorPicker/icons/screen_picker = ExtResource( 23 )
+ColorPickerButton/icons/bg = SubResource( 81 )
 ColorPickerButton/styles/disabled = SubResource( 54 )
 ColorPickerButton/styles/focus = SubResource( 55 )
 ColorPickerButton/styles/hover = SubResource( 51 )

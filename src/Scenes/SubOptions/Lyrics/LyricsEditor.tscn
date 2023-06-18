@@ -201,36 +201,36 @@ margin_bottom = 148.0
 [node name="ToolPanel" type="PanelContainer" parent="LyricEditor/VBoxContainer"]
 margin_top = 156.0
 margin_right = 1064.0
-margin_bottom = 210.0
+margin_bottom = 212.0
 custom_styles/panel = ExtResource( 12 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LyricEditor/VBoxContainer/ToolPanel"]
 margin_right = 1064.0
-margin_bottom = 54.0
+margin_bottom = 56.0
 size_flags_horizontal = 3
 
 [node name="VerseTools" parent="LyricEditor/VBoxContainer/ToolPanel/HBoxContainer" instance=ExtResource( 5 )]
 margin_right = 520.0
-margin_bottom = 54.0
+margin_bottom = 56.0
 
 [node name="VSeparator" type="VSeparator" parent="LyricEditor/VBoxContainer/ToolPanel/HBoxContainer"]
 margin_left = 528.0
 margin_right = 536.0
-margin_bottom = 54.0
+margin_bottom = 56.0
 
 [node name="TimeStampTools" parent="LyricEditor/VBoxContainer/ToolPanel/HBoxContainer" instance=ExtResource( 4 )]
 margin_left = 544.0
 margin_right = 1064.0
-margin_bottom = 54.0
+margin_bottom = 56.0
 
 [node name="HSeparator" type="HSeparator" parent="LyricEditor/VBoxContainer"]
-margin_top = 218.0
+margin_top = 220.0
 margin_right = 1064.0
-margin_bottom = 233.0
+margin_bottom = 235.0
 custom_constants/separation = 15
 
 [node name="ScrollContainer" type="ScrollContainer" parent="LyricEditor/VBoxContainer"]
-margin_top = 241.0
+margin_top = 243.0
 margin_right = 1064.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -239,13 +239,13 @@ script = ExtResource( 16 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer"]
 margin_right = 1064.0
-margin_bottom = 359.0
+margin_bottom = 357.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VerseVBox" type="VBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
 margin_right = 920.0
-margin_bottom = 359.0
+margin_bottom = 357.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 3
 custom_constants/separation = 8
@@ -253,20 +253,20 @@ custom_constants/separation = 8
 [node name="VSeparator" type="VSeparator" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
 margin_left = 928.0
 margin_right = 938.0
-margin_bottom = 359.0
+margin_bottom = 357.0
 custom_constants/separation = 10
 
 [node name="TimeStampVBox" type="VBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
 margin_left = 946.0
 margin_right = 1046.0
-margin_bottom = 359.0
+margin_bottom = 357.0
 rect_min_size = Vector2( 100, 0 )
 custom_constants/separation = 8
 
 [node name="RightEmpty" type="Control" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
 margin_left = 1054.0
 margin_right = 1064.0
-margin_bottom = 359.0
+margin_bottom = 357.0
 rect_min_size = Vector2( 10, 0 )
 size_flags_vertical = 3
 

@@ -31,6 +31,7 @@ func get_current_mouse_ratio() -> float:
 
 func _on_PlaybackSlider_mouse_entered():
 	timestamp_label = Label.new()
+	timestamp_label.set("custom_fonts/font", load("res://src/Ressources/Fonts/NotoSans_Bold_10px.tres"))
 	timestamp_label.rect_min_size.x = 30
 	Global.root.top_ui.add_child(timestamp_label)
 	timestamp_label.rect_global_position.y = self.rect_global_position.y - TIMESTAMP_OFFSET

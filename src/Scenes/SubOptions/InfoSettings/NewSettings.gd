@@ -1,6 +1,6 @@
 extends Control
 
-onready var option_select : HBoxContainer = $VBoxContainer/HBoxContainer/OptionSelect
+onready var option_select : MarginContainer = $VBoxContainer/Header
 onready var settings_scroll : ScrollContainer = $VBoxContainer/Settings/Select
 onready var settings : HBoxContainer = $VBoxContainer/Settings
 

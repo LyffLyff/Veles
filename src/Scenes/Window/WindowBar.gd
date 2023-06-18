@@ -158,7 +158,7 @@ func get_os_offset() -> Vector2:
 	var offset : Vector2 = Vector2.ZERO
 	match OS.get_name():
 		"Windows":
-			offset = Vector2(0,40)
+			offset = Vector2(0,32)
 		"OSX":
 			pass
 		"X11":

@@ -30,7 +30,7 @@ var general_settings : Dictionary = {
 	#0 = Wrap around forward, 1 = Wrap around Backwards, 2 = Wrap around Both Ways, 3 = Keep
 	"PriorNextFunctionality" : 0,
 	#0 = Veles Custom, 1 =  Operating System Standard
-	"WindowMode" : 0,
+	"WindowMode" : 1,
 	#Path Used prior ot get Images
 	"ImagePath" : "",
 	#Path Used Prior to get Folder/Music
@@ -93,7 +93,7 @@ var design_settings : Dictionary = {
 	"PlayerBackground" : Color("121212"),
 	"ImageViewStandardBackgroundColor" : Color("181818"),
 	"MainOptionsBackground" : Color("181818"),
-	"SongHighlighter" : Color("242424"),
+	"SongHighlighter" : Color("78272727"),
 	"MainSongOptionsBackground" : Color("121212"),
 	"PortableSongOptionsBackground" : Color("121212"),
 	"ImageViewOption" : Color("28282828"),

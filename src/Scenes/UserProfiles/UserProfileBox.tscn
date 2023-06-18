@@ -1,27 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Scenes/UserProfiles/UserProfileBox.gd" type="Script" id=1]
 [ext_resource path="res://src/assets/Icons/White/Users/empty_profile_img_96px.png" type="Texture" id=2]
+[ext_resource path="res://src/Ressources/Themes/button_clear_border.tres" type="Theme" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
-
-[sub_resource type="StyleBoxFlat" id=7]
-bg_color = Color( 0.6, 0.6, 0.6, 0 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0.690196, 0.690196, 0.690196, 0.72549 )
-border_blend = true
-
-[sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="StyleBoxEmpty" id=4]
-
-[sub_resource type="StyleBoxEmpty" id=5]
-
-[sub_resource type="StyleBoxEmpty" id=6]
 
 [node name="UserProfileBox" type="PanelContainer"]
 anchor_right = 0.157
@@ -40,11 +24,7 @@ margin_bottom = 40.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 3 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/disabled = SubResource( 5 )
-custom_styles/normal = SubResource( 6 )
+theme = ExtResource( 3 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 176.0

@@ -191,6 +191,7 @@ var credits : Dictionary = {
 	Icons by:
 	[url]https://roundicons.com/[/url], License: [url]https://roundicons.com/usage-license/[/url]
 	'Kenney Game Icons' Pack, CC0 1.0, [url]https://www.kenney.nl/assets/game-icons[/url]
+	Color picker icons created by AriqStock:[url] https://www.flaticon.com/free-icons/color-picker[/url]
 		""",
 	"Software" :
 		"""

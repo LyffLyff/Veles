@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Scenes/Song/SongFilter/SongFilters.gd" type="Script" id=1]
-[ext_resource path="res://src/Ressources/Fonts/Jetbrains_Italic.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/Ressources/Fonts/NotoSans_SemiBoldItalics_12px.tres" type="DynamicFont" id=2]
 
 [sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.215686, 0.215686, 0.215686, 1 )

@@ -14,10 +14,10 @@
 [ext_resource path="res://src/assets/Icons/White/Audio/Volume/high volume_72px.png" type="Texture" id=12]
 [ext_resource path="res://src/assets/Icons/White/Settings/audio settings_72px.png" type="Texture" id=13]
 [ext_resource path="res://src/Classes/Normal/TextLimiter.gd" type="Script" id=14]
-[ext_resource path="res://src/Ressources/Fonts/12pxMonserrat.tres" type="DynamicFont" id=15]
 [ext_resource path="res://src/Themes/General/Veles.tres" type="Theme" id=16]
 [ext_resource path="res://src/Scenes/Main/Player/Cover.gd" type="Script" id=17]
 [ext_resource path="res://src/Scenes/Main/Player/PlaybackSlider.gd" type="Script" id=18]
+[ext_resource path="res://src/Ressources/Fonts/NotoSans_Bold_10px.tres" type="DynamicFont" id=19]
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
@@ -155,15 +155,16 @@ margin_bottom = 110.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 10
+custom_constants/separation = 7
 alignment = 1
 
 [node name="Title" type="Label" parent="Main/SongInfo/Info/Infos"]
-margin_top = 21.0
+margin_top = 25.0
 margin_right = 259.0
-margin_bottom = 36.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 0, 15 )
 size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 19 )
 text = "SongTitle"
 valign = 1
 autowrap = true
@@ -171,22 +172,24 @@ clip_text = true
 script = ExtResource( 14 )
 
 [node name="Artist" type="LinkButton" parent="Main/SongInfo/Info/Infos"]
-margin_top = 46.0
-margin_right = 34.0
+margin_top = 47.0
+margin_right = 26.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 0, 15 )
 size_flags_horizontal = 0
 custom_constants/underline_spacing = 1
+custom_fonts/font = ExtResource( 19 )
 text = "Artist"
 underline = 1
 script = ExtResource( 14 )
 
 [node name="Playlist" type="LinkButton" parent="Main/SongInfo/Info/Infos"]
-margin_top = 72.0
-margin_right = 46.0
-margin_bottom = 88.0
+margin_top = 69.0
+margin_right = 37.0
+margin_bottom = 84.0
 size_flags_horizontal = 0
 custom_constants/underline_spacing = 1
+custom_fonts/font = ExtResource( 19 )
 text = "Playlist"
 underline = 1
 script = ExtResource( 14 )
@@ -305,16 +308,16 @@ size_flags_vertical = 3
 [node name="Bottom" type="HBoxContainer" parent="Main/MainPlayer"]
 margin_top = 76.0
 margin_right = 368.0
-margin_bottom = 92.0
+margin_bottom = 91.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="PlaybackPosition" type="Label" parent="Main/MainPlayer/Bottom"]
 margin_right = 30.0
-margin_bottom = 16.0
+margin_bottom = 15.0
 rect_min_size = Vector2( 30, 0 )
 size_flags_vertical = 6
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = ExtResource( 19 )
 text = "0:00"
 align = 2
 valign = 1
@@ -322,7 +325,7 @@ valign = 1
 [node name="PlaybackSlider" type="HSlider" parent="Main/MainPlayer/Bottom"]
 margin_left = 38.0
 margin_right = 330.0
-margin_bottom = 16.0
+margin_bottom = 15.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -333,15 +336,15 @@ script = ExtResource( 18 )
 [node name="SongLength" type="Label" parent="Main/MainPlayer/Bottom"]
 margin_left = 338.0
 margin_right = 368.0
-margin_bottom = 16.0
+margin_bottom = 15.0
 rect_min_size = Vector2( 30, 0 )
 size_flags_vertical = 6
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = ExtResource( 19 )
 text = "0:00"
 valign = 1
 
 [node name="BottomEmpty" type="Control" parent="Main/MainPlayer"]
-margin_top = 100.0
+margin_top = 99.0
 margin_right = 368.0
 margin_bottom = 110.0
 size_flags_horizontal = 3
