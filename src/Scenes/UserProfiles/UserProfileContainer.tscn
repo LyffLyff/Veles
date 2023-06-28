@@ -15,7 +15,7 @@
 
 [sub_resource type="StyleBoxFlat" id=6]
 resource_local_to_scene = true
-bg_color = Color( 0.0705882, 0.0705882, 0.0705882, 1 )
+bg_color = Color( 0.14902, 0.14902, 0.14902, 0.501961 )
 
 [node name="UserProfileContainer" type="Button"]
 anchor_right = 0.134
@@ -51,9 +51,9 @@ expand = true
 stretch_mode = 7
 
 [node name="Username" type="Label" parent="VBoxContainer"]
-margin_top = 178.0
+margin_top = 177.0
 margin_right = 150.0
-margin_bottom = 194.0
+margin_bottom = 195.0
 rect_pivot_offset = Vector2( 75, 8 )
 size_flags_vertical = 6
 text = "Username"

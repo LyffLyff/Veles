@@ -5,10 +5,9 @@
 [ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic12px.tres" type="DynamicFont" id=3]
 
 [sub_resource type="StyleBoxLine" id=1]
-color = Color( 0.0784314, 0.0784314, 0.0784314, 1 )
+color = Color( 0.0784314, 0.0784314, 0.0784314, 0.564706 )
 grow_begin = 0.0
 grow_end = 0.0
-thickness = 2
 vertical = true
 
 [node name="SubInfo" type="VBoxContainer"]

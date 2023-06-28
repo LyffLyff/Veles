@@ -7,13 +7,19 @@ onready var queued_fileformat : Label = $HBoxContainer/VBoxContainer/HBoxContain
 onready var dst_folder : LinkButton = $HBoxContainer/VBoxContainer/HBoxContainer2/DstFolder
 onready var stop : TextureButton = $HBoxContainer/Stop
 
+var download_queue_idx : int = -1
 
-func init_download_container(var current_downloads : Dictionary) -> void:
+func _ready():
+	stop.connect("pressed", Global, "stop_queued_download", [download_queue_idx])
+
+
+func init_download_container(var current_downloads : Dictionary, var queue_idx : int) -> void:
 	queued_title.set_text("Title: " + current_downloads["TITLE"])
 	queued_url.set_text("URL: " + current_downloads["URL"])
 	queued_audio_video.set_text( "Audio" ) if current_downloads["AUDIO"] else queued_audio_video.set_text( "Video" )
 	queued_fileformat.set_text("Format: " + Global.audio_formats[current_downloads["AUDIO_FORMAT"]] ) if current_downloads["AUDIO"] else queued_audio_video.set_text("Format: " + Global.video_formats[current_downloads["VIDEO_FORMAT"]] )
 	dst_folder.set_text(current_downloads["DST_FOLDER"])
+	download_queue_idx = queue_idx
 
 
 func OnDstFolderPressed():

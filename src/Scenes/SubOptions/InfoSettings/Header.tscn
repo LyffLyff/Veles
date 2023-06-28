@@ -11,7 +11,7 @@ theme = ExtResource( 1 )
 custom_constants/margin_right = 5
 custom_constants/margin_top = 10
 custom_constants/margin_left = 5
-custom_constants/margin_bottom = 4
+custom_constants/margin_bottom = 5
 script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

@@ -87,15 +87,15 @@ custom_constants/separation = 0
 [node name="ProjectsHeader" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_right = 1104.0
-margin_bottom = 14.0
+margin_bottom = 15.0
 
 [node name="ProjectSeparator" parent="VBoxContainer/VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 14.0
+margin_top = 15.0
 margin_right = 1104.0
-margin_bottom = 22.0
+margin_bottom = 23.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/VBoxContainer"]
-margin_top = 22.0
+margin_top = 23.0
 margin_right = 1104.0
 margin_bottom = 531.0
 size_flags_horizontal = 3
@@ -104,7 +104,7 @@ script = ExtResource( 7 )
 
 [node name="Projects" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/ScrollContainer"]
 margin_right = 1104.0
-margin_bottom = 509.0
+margin_bottom = 508.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 2

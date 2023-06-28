@@ -4,17 +4,16 @@
 [ext_resource path="res://src/Scenes/SubOptions/InfoSettings/SingleFileSetting.gd" type="Script" id=2]
 [ext_resource path="res://src/Scenes/SubOptions/InfoSettings/FileSettingEdit.gd" type="Script" id=3]
 
-
 [node name="SingleFileSetting" type="HBoxContainer"]
 anchor_right = 1.0
-rect_min_size = Vector2( 250, 25 )
+margin_bottom = 20.0
+rect_min_size = Vector2( 250, 20 )
 size_flags_horizontal = 3
 script = ExtResource( 2 )
 
 [node name="LineEdit" type="LineEdit" parent="."]
-margin_top = 4.0
 margin_right = 1072.0
-margin_bottom = 20.0
+margin_bottom = 22.0
 mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -23,9 +22,11 @@ script = ExtResource( 3 )
 [node name="FileDialog" type="TextureButton" parent="."]
 margin_left = 1080.0
 margin_right = 1120.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 40, 25 )
+margin_bottom = 22.0
+rect_min_size = Vector2( 40, 20 )
 mouse_filter = 1
+mouse_default_cursor_shape = 2
+size_flags_vertical = 3
 texture_normal = ExtResource( 1 )
 expand = true
 stretch_mode = 5

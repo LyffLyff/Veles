@@ -3,21 +3,22 @@
 [ext_resource path="res://src/Scenes/SubOptions/Lyrics/LanguageSelectionISO6391.gd" type="Script" id=1]
 
 [node name="ISO6391LanguageSelection" type="HBoxContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 129.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 0, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="."]
-margin_top = 11.0
-margin_right = 136.0
-margin_bottom = 28.0
+margin_top = 1.0
+margin_right = 121.0
+margin_bottom = 19.0
 text = "Language ISO-639-1:"
 
-[node name="ISO6391LanguageSelection" type="MenuButton" parent="."]
-margin_left = 140.0
-margin_right = 140.0
-margin_bottom = 40.0
+[node name="ISO6391LanguageSelection" type="OptionButton" parent="."]
+margin_left = 129.0
+margin_right = 157.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
-size_flags_vertical = 3
+align = 1
 script = ExtResource( 1 )

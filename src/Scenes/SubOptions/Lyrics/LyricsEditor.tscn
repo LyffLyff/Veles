@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsEditor.gd" type="Script" id=1]
 [ext_resource path="res://src/assets/Icons/White/Folder/open folder_72px.png" type="Texture" id=2]
@@ -10,21 +10,14 @@
 [ext_resource path="res://src/assets/Icons/White/File/delete file_72px.png" type="Texture" id=8]
 [ext_resource path="res://src/assets/Icons/White/File/floppy disk_72px.png" type="Texture" id=9]
 [ext_resource path="res://src/assets/Icons/White/General/Pointers/left pointer_72px.png" type="Texture" id=10]
-[ext_resource path="res://src/Ressources/Fonts/MidSizedHeader.tres" type="DynamicFont" id=11]
+[ext_resource path="res://src/Ressources/Fonts/Noto/NotoSans_Bold_20px.tres" type="DynamicFont" id=11]
 [ext_resource path="res://src/Ressources/Themes/LyricsEditor.tres" type="StyleBox" id=12]
 [ext_resource path="res://src/assets/Icons/White/Download/download_72px.png" type="Texture" id=13]
 [ext_resource path="res://src/assets/Icons/White/Export/export_72px.png" type="Texture" id=14]
 [ext_resource path="res://src/assets/Icons/White/General/clipboard_72px.png" type="Texture" id=15]
 [ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=16]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.129412, 0.129412, 0.129412, 1 )
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxEmpty" id=3]
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="PanelContainer" type="PanelContainer"]
 anchor_right = 1.0
@@ -58,23 +51,22 @@ rect_min_size = Vector2( 0, 20 )
 [node name="Title" type="LineEdit" parent="LyricEditor/VBoxContainer"]
 margin_top = 28.0
 margin_right = 1064.0
-margin_bottom = 59.0
+margin_bottom = 62.0
 rect_min_size = Vector2( 0, 30 )
 custom_fonts/font = ExtResource( 11 )
-custom_styles/normal = SubResource( 3 )
 text = "New Lyrics"
 max_length = 150
 
 [node name="HSeparator2" type="HSeparator" parent="LyricEditor/VBoxContainer"]
-margin_top = 67.0
+margin_top = 70.0
 margin_right = 1064.0
-margin_bottom = 82.0
+margin_bottom = 85.0
 custom_constants/separation = 15
 
 [node name="PanelContainer" type="PanelContainer" parent="LyricEditor/VBoxContainer"]
-margin_top = 90.0
+margin_top = 93.0
 margin_right = 1064.0
-margin_bottom = 115.0
+margin_bottom = 118.0
 custom_styles/panel = ExtResource( 12 )
 
 [node name="DocOptions" type="HBoxContainer" parent="LyricEditor/VBoxContainer/PanelContainer"]
@@ -193,15 +185,14 @@ stretch_mode = 5
 
 [node name="LRCTags" parent="LyricEditor/VBoxContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 123.0
+margin_top = 126.0
 margin_right = 1064.0
-margin_bottom = 148.0
+margin_bottom = 151.0
 
 [node name="ToolPanel" type="PanelContainer" parent="LyricEditor/VBoxContainer"]
-margin_top = 156.0
+margin_top = 159.0
 margin_right = 1064.0
-margin_bottom = 212.0
+margin_bottom = 215.0
 custom_styles/panel = ExtResource( 12 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LyricEditor/VBoxContainer/ToolPanel"]
@@ -224,13 +215,13 @@ margin_right = 1064.0
 margin_bottom = 56.0
 
 [node name="HSeparator" type="HSeparator" parent="LyricEditor/VBoxContainer"]
-margin_top = 220.0
+margin_top = 223.0
 margin_right = 1064.0
-margin_bottom = 235.0
+margin_bottom = 238.0
 custom_constants/separation = 15
 
 [node name="ScrollContainer" type="ScrollContainer" parent="LyricEditor/VBoxContainer"]
-margin_top = 243.0
+margin_top = 246.0
 margin_right = 1064.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -239,34 +230,32 @@ script = ExtResource( 16 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer"]
 margin_right = 1064.0
-margin_bottom = 357.0
+margin_bottom = 354.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="VerseVBox" type="VBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
 margin_right = 920.0
-margin_bottom = 357.0
+margin_bottom = 354.0
 rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 3
-custom_constants/separation = 8
 
 [node name="VSeparator" type="VSeparator" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
 margin_left = 928.0
 margin_right = 938.0
-margin_bottom = 357.0
+margin_bottom = 354.0
 custom_constants/separation = 10
 
 [node name="TimeStampVBox" type="VBoxContainer" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
 margin_left = 946.0
 margin_right = 1046.0
-margin_bottom = 357.0
+margin_bottom = 354.0
 rect_min_size = Vector2( 100, 0 )
-custom_constants/separation = 8
 
 [node name="RightEmpty" type="Control" parent="LyricEditor/VBoxContainer/ScrollContainer/HBoxContainer"]
 margin_left = 1054.0
 margin_right = 1064.0
-margin_bottom = 357.0
+margin_bottom = 354.0
 rect_min_size = Vector2( 10, 0 )
 size_flags_vertical = 3
 

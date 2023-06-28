@@ -5,7 +5,7 @@
 [ext_resource path="res://src/Ressources/Themes/button_clear_border.tres" type="Theme" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
+bg_color = Color( 0.156863, 0.156863, 0.156863, 0.501961 )
 
 [node name="UserProfileBox" type="PanelContainer"]
 anchor_right = 0.157

@@ -88,19 +88,19 @@ var playlist_settings : Dictionary = {
 	"PlaylistSpaceText" : 0,
 }
 var design_settings : Dictionary = {
-	"MainBackgroundColor" : Color("181818"),
-	"WindowBarColor" : Color("121212"),
-	"PlayerBackground" : Color("121212"),
+	"MainBackgroundColor" : Color("242424"),
+	"WindowBarColor" : Color("1a1a1a"),
+	"PlayerBackground" : Color("1a1a1a"),
 	"ImageViewStandardBackgroundColor" : Color("181818"),
 	"MainOptionsBackground" : Color("181818"),
-	"SongHighlighter" : Color("78272727"),
+	"SongHighlighter" : Color("80242424"),
 	"MainSongOptionsBackground" : Color("121212"),
 	"PortableSongOptionsBackground" : Color("121212"),
 	"ImageViewOption" : Color("28282828"),
 	"SidebarMode" : 2,
-	"SidebarBackground" : Color("141414"),
-	"AudioEffectsBackground" : Color("121212"),
-	"PlaylistHeader" : Color("121212")
+	"SidebarBackground" : Color("202020"),
+	"AudioEffectsBackground" : Color("1a1a1a"),
+	"PlaylistHeader" : Color("1a1a1a")
 }
 var statistic_settings : Dictionary = {
 	

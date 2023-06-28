@@ -116,7 +116,7 @@ margin_right = 506.0
 margin_bottom = 86.0
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_top = 3.0
+margin_top = 2.0
 margin_right = 60.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 60, 0 )
@@ -147,7 +147,7 @@ rect_min_size = Vector2( 65, 0 )
 
 [node name="ExportAll" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 65.0
-margin_right = 246.0
+margin_right = 228.0
 margin_bottom = 20.0
 text = "Export All Embedded Images"
 flat = true

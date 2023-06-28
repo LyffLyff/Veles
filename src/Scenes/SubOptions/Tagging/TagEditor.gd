@@ -116,12 +116,12 @@ func on_item_selected(var item_idx : int) -> void:
 	item_tags_sidebar.set_sidebar_tags([loaded_files[item_idx]], true)
 
 
-func on_item_edited(var item_idx, var section_idx, var new_filename : String) -> void:
+func on_item_edited(var item_idx, var section_idx, var new_value : String) -> void:
 	if section_idx == 0:
 		var new_folder_path : String = loaded_files[item_idx].get_base_dir()
-		var new_path : String = new_folder_path +  "/" + new_filename
+		var new_path : String = new_folder_path +  "/" + new_value
 		# needs to reload the Songs since the indexes in the AllSongs Dictionaray would be wrong
-		if rename_song(loaded_files[item_idx], new_path, new_filename, item_idx):
+		if rename_song(loaded_files[item_idx], new_path, new_value, item_idx):
 			# sets the path string to the new path if renaming was successful
 			# to prevent error when trying to set Tags with old nonexistent path
 			loaded_files[item_idx] = new_path

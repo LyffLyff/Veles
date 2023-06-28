@@ -4,7 +4,6 @@
 [ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsEditor/VerseTools.gd" type="Script" id=2]
 [ext_resource path="res://src/assets/Icons/White/General/add_1_72px.png" type="Texture" id=4]
 
-
 [node name="VerseTools" type="VBoxContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -13,13 +12,13 @@ script = ExtResource( 2 )
 
 [node name="Title" type="Label" parent="."]
 margin_right = 58.0
-margin_bottom = 16.0
+margin_bottom = 18.0
 text = " Verses:"
 
 [node name="ToolButtons" type="HBoxContainer" parent="."]
-margin_top = 24.0
+margin_top = 26.0
 margin_right = 58.0
-margin_bottom = 54.0
+margin_bottom = 56.0
 rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
 

@@ -13,7 +13,7 @@ var option_titles : PoolStringArray = [
 	"Playlists",
 	"Folders", 
 	"Artists", 
-	"Change Tags", 
+	"Tag Editor", 
 	"Download", 
 	"Lyrics", 
 	"Stats", 

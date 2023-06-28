@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsLight10px.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Ressources/Fonts/NotoSans_Bold_10px.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/Scenes/General/DividedContainer/EditableItemLineEdit.gd" type="Script" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]

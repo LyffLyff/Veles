@@ -2,5 +2,5 @@
 
 [resource]
 content_margin_left = 3.0
-bg_color = Color( 0.133333, 0.133333, 0.133333, 1 )
-expand_margin_right = 25.0
+bg_color = Color( 0.133333, 0.133333, 0.133333, 0.501961 )
+expand_margin_right = 24.0

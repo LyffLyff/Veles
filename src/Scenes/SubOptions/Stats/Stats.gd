@@ -1,7 +1,6 @@
 extends Control
 
 const MAX_STATS : int = 40 
-const OPTION_HIGHLIGHT_CLR : String = "c1c1c1"
 
 var option_texts : PoolStringArray = []
 var current_tab : int = 1
@@ -10,7 +9,7 @@ var special_places : int = 3
 onready var bg_panel : PanelContainer = $VBoxContainer/Panel
 onready var title_bg_panel : PanelContainer = $VBoxContainer/Panel/VBoxContainer/Title
 onready var top_titles_bg : PanelContainer = $VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/TopTitles
-onready var options : HBoxContainer = $VBoxContainer/HBoxContainer
+onready var options : HBoxContainer = $VBoxContainer/StatsHeader/HBoxContainer
 onready var contents : VBoxContainer = $VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/Contents
 onready var indexes : VBoxContainer = $VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/Indexes
 onready var values : VBoxContainer = $VBoxContainer/Panel/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/Values
@@ -31,20 +30,20 @@ func _ready():
 	
 	for n in options.get_child_count():
 		var option : Button = options.get_child(n)
-		option_texts.push_back(option.get_child(0).get_text())
+		option_texts.push_back(option.get_text())
 		if option.connect("pressed",self,"switch_tab",[n]) != OK:
 			Global.message("CONNECTING STATS OPTIONS BUTTONS",  Enumerations.MESSAGE_ERROR )
 	create_spaces(MAX_STATS)
 	switch_tab(current_tab)
-	options.get_child(current_tab).self_modulate = OPTION_HIGHLIGHT_CLR
+	options.get_child(current_tab).set("custom_styles/normal", load("res://src/Ressources/Themes/flat_1px__white_outline.tres"))
 
 
 func switch_tab(var idx : int) -> void:
 	#Scrolling back to the top since else it might seem there aren't any options loaded
 	scroller.set_v_scroll(0)
-	options.get_child(current_tab).self_modulate = "ffffff"
+	options.get_child(current_tab).set("custom_styles/normal", null)
 	current_tab = idx
-	options.get_child(current_tab).self_modulate = OPTION_HIGHLIGHT_CLR
+	options.get_child(current_tab).set("custom_styles/normal", load("res://src/Ressources/Themes/flat_1px__white_outline.tres"))
 	title.set_text(option_texts[idx])
 	load_stats(idx)
 

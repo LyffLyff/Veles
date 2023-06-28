@@ -1,7 +1,5 @@
 extends "res://src/Scenes/Templates/MovingContainer.gd"
 
-const HIGHLIGHT_CLR : Color = Color("242424")
-const NORMAL_CLR : Color = Color("181818")
 const TW_DURATION : float = 0.15
 
 var artist : String = ""
@@ -22,7 +20,6 @@ func _input(event):
 
 
 func init_artist_space(var artist_name : String, var profession : String = "") -> void:
-	self.get_stylebox("panel").set_bg_color(NORMAL_CLR)
 	artist = artist_name
 	artist_label.text = artist_name
 	yield(get_tree(), "idle_frame")
@@ -49,8 +46,8 @@ func _on_ArtistButton_button_down():
 
 
 func _on_ArtistSpace_mouse_entered():
-	var _tw : PropertyTweener = create_tween().tween_property(self.get_stylebox("panel"), "bg_color", HIGHLIGHT_CLR, TW_DURATION)
+	self.set("custom_styles/panel", load("res://src/Ressources/Themes/Text/Focused.tres"))
 
 
 func _on_ArtistSpace_mouse_exited():
-	var _tw : PropertyTweener = create_tween().tween_property(self.get_stylebox("panel"), "bg_color", NORMAL_CLR, TW_DURATION)
+	self.set("custom_styles/panel", load("res://src/Ressources/Themes/Text/Normal.tres"))

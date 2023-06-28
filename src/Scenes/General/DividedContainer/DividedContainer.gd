@@ -14,7 +14,7 @@ const ITEM_HEIGHT : int = 15
 
 export (int, 0, 30) var sections : int = 0
 export var h_separation : int = 0
-export var v_separation : int = 0
+export var v_separation : int = 3
 
 var item_counter : int = 0
 var focused_item_idx : int = 0 setget set_focused_item, get_focused_item
@@ -224,7 +224,7 @@ func get_new_item() -> PanelContainer:
 func get_new_header() -> PanelContainer:
 	# returns the formatted label used for headers
 	var new_item : PanelContainer = load("res://src/Scenes/General/DividedContainer/DivContainerItem.tscn").instance()
-	new_item.get_child(0).set("custom_fonts/font", load("res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic10px.tres"))
+	new_item.get_child(0).set("custom_fonts/font", load("res://src/Ressources/Fonts/NotoSans_SemiBoldItalics_10px.tres"))
 	new_item.rect_min_size.y = ITEM_HEIGHT
 	new_item.get_child(0).clip_text = false
 	return new_item

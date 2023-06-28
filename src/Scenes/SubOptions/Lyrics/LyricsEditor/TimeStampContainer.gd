@@ -10,6 +10,7 @@ func _on_TimeInSeconds_text_changed(var _new_text : String):
 
 func _on_TimeInSeconds_text_entered(var new_text : String):
 	timestamp_edit.release_focus()
+	timestamp_edit.text = timestamp_edit.text.pad_decimals(2)
 
 
 func _on_TimeInSeconds_focus_exited():

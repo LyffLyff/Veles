@@ -1,0 +1,12 @@
+[gd_resource type="DynamicFont" load_steps=2 format=2]
+
+[ext_resource path="res://src/assets/Fonts/NotoSans/NotoSansTC-Bold.otf" type="DynamicFontData" id=1]
+
+[resource]
+size = 28
+use_mipmaps = true
+use_filter = true
+extra_spacing_bottom = -10
+extra_spacing_char = -1
+extra_spacing_space = 2
+font_data = ExtResource( 1 )

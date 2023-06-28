@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=22 format=2]
 
-[ext_resource path="res://src/Ressources/Fonts/Jetbrains_Italic.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Ressources/Fonts/Noto_12px.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/assets/Icons/White/Folder/folder_18px.png" type="Texture" id=2]
 [ext_resource path="res://src/assets/Icons/White/File/file_16px.png" type="Texture" id=3]
 [ext_resource path="res://src/assets/Icons/White/General/repeat_16px.png" type="Texture" id=4]

@@ -1,31 +1,25 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/Ressources/Themes/LyricsEditor/Container_Normal.tres" type="StyleBox" id=1]
 [ext_resource path="res://src/Scenes/SubOptions/Lyrics/LyricsEditor/VerseContainer.gd" type="Script" id=3]
 
-[sub_resource type="StyleBoxEmpty" id=1]
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.403922, 0.403922, 0.403922, 1 )
-
 [node name="VerseContainer" type="MarginContainer"]
-margin_right = 1120.0
-margin_bottom = 34.0
+anchor_right = 1.0
+margin_bottom = 30.0
 script = ExtResource( 3 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 margin_right = 1120.0
-margin_bottom = 34.0
+margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="VerseText" type="TextEdit" parent="HBoxContainer"]
 margin_right = 1120.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 0, 25 )
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 3
-custom_styles/read_only = SubResource( 1 )
-custom_styles/focus = SubResource( 2 )
-custom_styles/normal = ExtResource( 1 )
+size_flags_vertical = 3
 virtual_keyboard_enabled = false
 wrap_enabled = true
 

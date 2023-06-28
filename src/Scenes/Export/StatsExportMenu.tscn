@@ -48,16 +48,16 @@ rect_min_size = Vector2( 0, 10 )
 [node name="Label" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 margin_top = 12.0
 margin_right = 362.0
-margin_bottom = 26.0
+margin_bottom = 27.0
 text = "Export Stats:"
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_top = 28.0
+margin_top = 29.0
 margin_right = 362.0
-margin_bottom = 36.0
+margin_bottom = 37.0
 
 [node name="ExportTypes" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_top = 38.0
+margin_top = 39.0
 margin_right = 362.0
 margin_bottom = 236.0
 size_flags_horizontal = 3
@@ -80,10 +80,10 @@ text = "To CSV"
 
 [node name="Close" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/ExportTypes"]
 margin_left = 292.0
-margin_top = 178.0
+margin_top = 167.0
 margin_right = 362.0
-margin_bottom = 198.0
-rect_min_size = Vector2( 70, 20 )
+margin_bottom = 197.0
+rect_min_size = Vector2( 70, 30 )
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 10
 size_flags_vertical = 10

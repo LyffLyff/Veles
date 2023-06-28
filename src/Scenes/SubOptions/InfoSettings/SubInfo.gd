@@ -24,14 +24,12 @@ func load_subinfos() -> void:
 		var x : Button = Button.new()
 		x.align = Button.ALIGN_LEFT
 		x.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		if x.connect("pressed",self,"emit_signal",["subinfo_pressed",i]):
+		if x.connect("pressed" ,self, "emit_signal", ["subinfo_pressed",i]):
 			Global.message("CANNOT CONNECT pressed signal to emit_signal subinfo_pressed",  Enumerations.MESSAGE_ERROR)
 		x.theme = load("res://src/Themes/Buttons/ClearButtons.tres")
 		x.align = Button.ALIGN_CENTER
 		x.rect_min_size.y = 25
-		x.set_text(
-			subinfo_titles[i]
-		)
+		x.set_text(subinfo_titles[i])
 		subinfo_vbox.add_child(x)
 
 

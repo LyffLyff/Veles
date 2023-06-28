@@ -1,7 +1,7 @@
-extends "res://src/Scenes/General/StdMenuButton.gd"
+extends OptionButton
 
 const languages_ISO6391 : Array =[
-	"aa","ab","af","ak","am","an","ar","as","av","ay","az","ba","be","bg","bh","bi","bm","bn",
+	"", "aa","ab","af","ak","am","an","ar","as","av","ay","az","ba","be","bg","bh","bi","bm","bn",
 	"bo","br","bs","ca","ce","ch","co","cr","cs","cv","cy","da","de","dv","dz","ee","el","en",
 	"es","et","eu","fa","ff","fi","fj","fo","fr","fy","ga","gd","gl","gn","gu","gv","ha","he",
 	"hi","ho","hr","ht","hu","hy","hz","id","ig","ii","ik","io","is","it","iu","ja","jv","ka",
@@ -13,5 +13,11 @@ const languages_ISO6391 : Array =[
 	"uk","ur","uz","ve","vi","wa","wo","xh","yi","yo","za","zh","zu"
 ]
 
-func _enter_tree():
-	menu_button_selections = languages_ISO6391;
+
+func _ready():
+	self.get_popup().allow_search = true
+	
+	for language in languages_ISO6391:
+		self.add_item(language)
+	
+	select(0)

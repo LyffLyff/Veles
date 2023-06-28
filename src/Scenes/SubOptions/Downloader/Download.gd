@@ -4,9 +4,9 @@ const DownloadContainer : PackedScene = preload("res://src/Scenes/SubOptions/Dow
 
 var  std_download_folder : String = Global.get_current_user_data_folder() + "/Downloads/"
 
-onready var url_edit : LineEdit = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/URL/LineEdit
-onready var title : LineEdit = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Title/LineEdit
-onready var dst_folder : LineEdit = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/DstFolder/LineEdit
+onready var url_edit : LineEdit = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/URL/TextInput
+onready var title : LineEdit = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Title/TextInput
+onready var dst_folder : LineEdit = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/DstFolder/TextInput
 onready var audio_video : OptionButton = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/AudioVideo/OptionButton
 onready var audio_format : OptionButton = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Audioformat/OptionButton
 onready var video_format : OptionButton = $ScrollContainer/VBoxContainer/HboxContainer/VBoxContainer/HBoxContainer/DownloadInfos/Videoformat/OptionButton
@@ -57,7 +57,7 @@ func update_downloads() -> void:
 			queued_downloads.add_child(new_download_container)
 			_err = new_download_container.stop.connect("pressed",Global,"stop_queued_download",[i])
 		_err = new_download_container.stop.connect("pressed",self,"update_downloads")
-		new_download_container.init_download_container(Global.current_downloads[i])
+		new_download_container.init_download_container(Global.current_downloads[i], i)
 
 
 func check_setup() -> bool:

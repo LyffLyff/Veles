@@ -1,12 +1,10 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/Scenes/Export/PlaylistExportMenu.gd" type="Script" id=1]
+[ext_resource path="res://src/Ressources/Themes/PopupBackground.tres" type="StyleBox" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.137255, 0.137255, 0.137255, 0.682353 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 1 )
 
 [node name="PlaylistExportMenu" type="PanelContainer"]
 anchor_right = 1.0
@@ -22,7 +20,7 @@ margin_bottom = 425.0
 rect_min_size = Vector2( 400, 250 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 margin_right = 400.0
@@ -48,16 +46,16 @@ rect_min_size = Vector2( 0, 10 )
 [node name="Label" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 margin_top = 18.0
 margin_right = 364.0
-margin_bottom = 34.0
+margin_bottom = 36.0
 text = "Export Playlist:"
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_top = 42.0
+margin_top = 44.0
 margin_right = 364.0
-margin_bottom = 50.0
+margin_bottom = 52.0
 
 [node name="ExportTypes" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-margin_top = 58.0
+margin_top = 60.0
 margin_right = 364.0
 margin_bottom = 232.0
 size_flags_horizontal = 3
@@ -85,10 +83,10 @@ text = "To CSV"
 
 [node name="Close" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/ExportTypes"]
 margin_left = 294.0
-margin_top = 154.0
+margin_top = 142.0
 margin_right = 364.0
-margin_bottom = 174.0
-rect_min_size = Vector2( 70, 20 )
+margin_bottom = 172.0
+rect_min_size = Vector2( 70, 30 )
 size_flags_horizontal = 10
 size_flags_vertical = 10
 text = "Close"

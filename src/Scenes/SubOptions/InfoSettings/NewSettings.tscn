@@ -38,10 +38,10 @@ custom_constants/separation = 15
 [node name="Header" parent="VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
 margin_right = 1120.0
-margin_bottom = 36.0
+margin_bottom = 37.0
 
 [node name="Settings" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 51.0
+margin_top = 52.0
 margin_right = 1120.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -51,7 +51,7 @@ script = ExtResource( 4 )
 
 [node name="Select" type="ScrollContainer" parent="VBoxContainer/Settings"]
 margin_right = 548.0
-margin_bottom = 549.0
+margin_bottom = 548.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_horizontal_enabled = false
@@ -59,14 +59,14 @@ scroll_horizontal_enabled = false
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/Settings"]
 margin_left = 556.0
 margin_right = 564.0
-margin_bottom = 549.0
+margin_bottom = 548.0
 custom_styles/separator = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Settings"]
 modulate = Color( 1, 1, 1, 0 )
 margin_left = 572.0
 margin_right = 1120.0
-margin_bottom = 549.0
+margin_bottom = 548.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
@@ -82,7 +82,7 @@ autowrap = true
 [node name="Info" type="RichTextLabel" parent="VBoxContainer/Settings/VBoxContainer"]
 margin_top = 33.0
 margin_right = 548.0
-margin_bottom = 549.0
+margin_bottom = 548.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Scenes/General/StdScrollContainer.gd" type="Script" id=1]
 [ext_resource path="res://src/Scenes/SubOptions/Tagging/TagSidebar.gd" type="Script" id=2]
@@ -12,21 +12,6 @@
 [ext_resource path="res://src/Scenes/SubOptions/Tagging/TagStatusLabel.gd" type="Script" id=10]
 [ext_resource path="res://src/Ressources/Fonts/JetBrains/JetbrainsSemiBoldItalic12px.tres" type="DynamicFont" id=11]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.12549, 0.12549, 0.12549, 1 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0.6, 0.6, 0.6, 1 )
-border_blend = true
-
-[sub_resource type="StyleBoxEmpty" id=2]
-
-[sub_resource type="Theme" id=3]
-LineEdit/styles/focus = SubResource( 1 )
-LineEdit/styles/read_only = SubResource( 2 )
-
 [node name="TagsSidebar" type="VBoxContainer"]
 anchor_right = 0.16875
 anchor_bottom = 1.0
@@ -38,7 +23,7 @@ __meta__ = {
 }
 
 [node name="Tags" type="ScrollContainer" parent="."]
-margin_right = 199.0
+margin_right = 201.0
 margin_bottom = 509.0
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 3
@@ -47,8 +32,8 @@ scroll_horizontal_enabled = false
 script = ExtResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="Tags"]
-margin_right = 199.0
-margin_bottom = 481.0
+margin_right = 201.0
+margin_bottom = 498.0
 custom_constants/margin_right = 7
 custom_constants/margin_top = 3
 custom_constants/margin_left = 4
@@ -57,13 +42,13 @@ custom_constants/margin_bottom = 3
 [node name="VboxContainer" type="VBoxContainer" parent="Tags/MarginContainer"]
 margin_left = 4.0
 margin_top = 3.0
-margin_right = 192.0
-margin_bottom = 478.0
+margin_right = 194.0
+margin_bottom = 495.0
 size_flags_horizontal = 3
 custom_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Tags/MarginContainer/VboxContainer"]
-margin_right = 188.0
+margin_right = 190.0
 margin_bottom = 123.0
 custom_constants/separation = 0
 
@@ -77,75 +62,74 @@ margin_bottom = 123.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 116.0
-margin_top = 19.0
-margin_right = 188.0
-margin_bottom = 103.0
+margin_top = 17.0
+margin_right = 190.0
+margin_bottom = 105.0
 size_flags_horizontal = 3
 
 [node name="TextTags" type="VBoxContainer" parent="Tags/MarginContainer/VboxContainer"]
 margin_top = 133.0
-margin_right = 188.0
-margin_bottom = 445.0
+margin_right = 190.0
+margin_bottom = 462.0
+rect_min_size = Vector2( 190, 0 )
 rect_pivot_offset = Vector2( -350, 170 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = SubResource( 3 )
 custom_constants/separation = 2
 
 [node name="Title" type="Label" parent="Tags/MarginContainer/VboxContainer/TextTags"]
-margin_right = 188.0
-margin_bottom = 14.0
+margin_right = 190.0
+margin_bottom = 15.0
 text = "Title:"
 
 [node name="TitleMenu" parent="Tags/MarginContainer/VboxContainer/TextTags" instance=ExtResource( 4 )]
 anchor_right = 0.0
-margin_top = 16.0
-margin_right = 188.0
-margin_bottom = 34.0
-rect_min_size = Vector2( 0, 18 )
+margin_top = 17.0
+margin_right = 190.0
+margin_bottom = 36.0
 
 [node name="ArtistMenu" parent="Tags/MarginContainer/VboxContainer/TextTags" instance=ExtResource( 5 )]
 anchor_right = 0.0
-margin_top = 36.0
-margin_right = 188.0
-margin_bottom = 68.0
+margin_top = 38.0
+margin_right = 190.0
+margin_bottom = 74.0
 theme = ExtResource( 6 )
 header_title = "Artist/s:"
 
 [node name="Album" type="Label" parent="Tags/MarginContainer/VboxContainer/TextTags"]
-margin_top = 70.0
-margin_right = 188.0
-margin_bottom = 84.0
+margin_top = 76.0
+margin_right = 190.0
+margin_bottom = 91.0
 text = "Album:"
 
 [node name="AlbumMenu" parent="Tags/MarginContainer/VboxContainer/TextTags" instance=ExtResource( 4 )]
 anchor_right = 0.0
-margin_top = 86.0
-margin_right = 188.0
-margin_bottom = 104.0
+margin_top = 93.0
+margin_right = 190.0
+margin_bottom = 112.0
 rect_min_size = Vector2( 0, 18 )
 
 [node name="Genre" type="Label" parent="Tags/MarginContainer/VboxContainer/TextTags"]
-margin_top = 106.0
-margin_right = 188.0
-margin_bottom = 120.0
+margin_top = 114.0
+margin_right = 190.0
+margin_bottom = 129.0
 text = "Genre:"
 
 [node name="GenreMenu" parent="Tags/MarginContainer/VboxContainer/TextTags" instance=ExtResource( 4 )]
 anchor_right = 0.0
-margin_top = 122.0
-margin_right = 188.0
-margin_bottom = 140.0
+margin_top = 131.0
+margin_right = 190.0
+margin_bottom = 150.0
 rect_min_size = Vector2( 0, 18 )
 
 [node name="Numbers" type="VBoxContainer" parent="Tags/MarginContainer/VboxContainer/TextTags"]
-margin_top = 142.0
-margin_right = 188.0
-margin_bottom = 210.0
+margin_top = 152.0
+margin_right = 190.0
+margin_bottom = 222.0
 custom_constants/separation = 0
 
 [node name="Track" type="Label" parent="Tags/MarginContainer/VboxContainer/TextTags/Numbers"]
-margin_right = 188.0
+margin_right = 190.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 0, 16 )
 size_flags_horizontal = 3
@@ -155,14 +139,14 @@ valign = 2
 [node name="TrackMenu" parent="Tags/MarginContainer/VboxContainer/TextTags/Numbers" instance=ExtResource( 4 )]
 anchor_right = 0.0
 margin_top = 16.0
-margin_right = 188.0
-margin_bottom = 34.0
+margin_right = 190.0
+margin_bottom = 35.0
 rect_min_size = Vector2( 0, 18 )
 
 [node name="Year" type="Label" parent="Tags/MarginContainer/VboxContainer/TextTags/Numbers"]
-margin_top = 34.0
-margin_right = 188.0
-margin_bottom = 50.0
+margin_top = 35.0
+margin_right = 190.0
+margin_bottom = 51.0
 rect_min_size = Vector2( 0, 16 )
 size_flags_horizontal = 3
 text = "Year:"
@@ -170,21 +154,21 @@ valign = 2
 
 [node name="YearMenu" parent="Tags/MarginContainer/VboxContainer/TextTags/Numbers" instance=ExtResource( 4 )]
 anchor_right = 0.0
-margin_top = 50.0
-margin_right = 188.0
-margin_bottom = 68.0
+margin_top = 51.0
+margin_right = 190.0
+margin_bottom = 70.0
 rect_min_size = Vector2( 0, 18 )
 
 [node name="Rating" type="Label" parent="Tags/MarginContainer/VboxContainer/TextTags"]
-margin_top = 212.0
-margin_right = 188.0
-margin_bottom = 226.0
+margin_top = 224.0
+margin_right = 190.0
+margin_bottom = 239.0
 text = "Rating:"
 
 [node name="RatingEdit" type="SpinBox" parent="Tags/MarginContainer/VboxContainer/TextTags"]
-margin_top = 228.0
-margin_right = 188.0
-margin_bottom = 244.0
+margin_top = 241.0
+margin_right = 190.0
+margin_bottom = 260.0
 size_flags_horizontal = 3
 max_value = 10.0
 value = 1.0
@@ -192,45 +176,45 @@ align = 1
 script = ExtResource( 8 )
 
 [node name="Comment" type="Label" parent="Tags/MarginContainer/VboxContainer/TextTags"]
-margin_top = 246.0
-margin_right = 188.0
-margin_bottom = 260.0
+margin_top = 262.0
+margin_right = 190.0
+margin_bottom = 277.0
 text = "Comment:"
 
 [node name="CommentEdit" type="TextEdit" parent="Tags/MarginContainer/VboxContainer/TextTags"]
-margin_top = 262.0
-margin_right = 188.0
-margin_bottom = 312.0
+margin_top = 279.0
+margin_right = 190.0
+margin_bottom = 329.0
 rect_min_size = Vector2( 0, 50 )
 custom_fonts/font = ExtResource( 7 )
 
 [node name="BottomEmpty" type="Control" parent="Tags/MarginContainer/VboxContainer"]
-margin_top = 455.0
-margin_right = 188.0
-margin_bottom = 475.0
+margin_top = 472.0
+margin_right = 190.0
+margin_bottom = 492.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="HSeparator" type="HSeparator" parent="."]
 margin_top = 517.0
-margin_right = 199.0
+margin_right = 201.0
 margin_bottom = 519.0
 custom_constants/separation = 2
 
 [node name="Buttons" type="HBoxContainer" parent="."]
 margin_top = 527.0
-margin_right = 199.0
+margin_right = 201.0
 margin_bottom = 557.0
 rect_min_size = Vector2( 0, 30 )
 
 [node name="Save" type="Button" parent="Buttons"]
-margin_right = 199.0
+margin_right = 201.0
 margin_bottom = 30.0
 size_flags_horizontal = 3
 text = "Save"
 
 [node name="Status" type="Label" parent="."]
 margin_top = 565.0
-margin_right = 199.0
+margin_right = 201.0
 margin_bottom = 582.0
 custom_fonts/font = ExtResource( 11 )
 text = "STATUS INDICATOR"
@@ -238,7 +222,7 @@ script = ExtResource( 10 )
 
 [node name="BottomBuffer" type="Control" parent="."]
 margin_top = 590.0
-margin_right = 199.0
+margin_right = 201.0
 margin_bottom = 600.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 3

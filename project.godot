@@ -260,7 +260,6 @@ gdscript/warnings/standalone_ternary=false
 [display]
 
 window/size/width=1120
-window/size/borderless=true
 window/dpi/allow_hidpi=true
 
 [editor]

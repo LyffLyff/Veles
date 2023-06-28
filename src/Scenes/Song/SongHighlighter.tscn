@@ -4,7 +4,7 @@
 [ext_resource path="res://src/Ressources/Shaders/HideNodePartly.tres" type="Material" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.152941, 0.152941, 0.152941, 0.470588 )
+bg_color = Color( 0.901961, 0, 0, 0.470588 )
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2

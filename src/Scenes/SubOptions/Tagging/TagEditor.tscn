@@ -37,19 +37,19 @@ custom_constants/separation = 10
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 10.0
-margin_right = 209.0
+margin_right = 211.0
 margin_bottom = 597.0
 
 [node name="VSeparatorB" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
-margin_left = 209.0
-margin_right = 219.0
+margin_left = 211.0
+margin_right = 221.0
 margin_bottom = 597.0
 custom_constants/separation = 10
 
 [node name="DividedContainer" parent="VBoxContainer/HBoxContainer" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 219.0
+margin_left = 221.0
 margin_right = 1082.0
 margin_bottom = 597.0
 

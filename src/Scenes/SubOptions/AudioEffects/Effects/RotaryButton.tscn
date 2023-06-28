@@ -67,7 +67,7 @@ script = ExtResource( 5 )
 [node name="RotaryEdit" type="LineEdit" parent="."]
 margin_top = 65.0
 margin_right = 72.0
-margin_bottom = 81.0
+margin_bottom = 83.0
 size_flags_horizontal = 4
 size_flags_vertical = 5
 custom_styles/read_only = SubResource( 1 )
